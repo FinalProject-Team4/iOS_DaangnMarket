@@ -3,19 +3,24 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		58D3EF8D049708F21D9CA70D /* Pods_DaangnMarket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 032F584B1595BE08B167E3AB /* Pods_DaangnMarket.framework */; };
 		A62D96AA2424A440006F1722 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62D96A92424A440006F1722 /* AppDelegate.swift */; };
 		A62D96AC2424A440006F1722 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62D96AB2424A440006F1722 /* SceneDelegate.swift */; };
 		A62D96AE2424A440006F1722 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62D96AD2424A440006F1722 /* ViewController.swift */; };
 		A62D96B12424A440006F1722 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A62D96AF2424A440006F1722 /* Main.storyboard */; };
 		A62D96B32424A442006F1722 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A62D96B22424A442006F1722 /* Assets.xcassets */; };
 		A62D96B62424A442006F1722 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A62D96B42424A442006F1722 /* LaunchScreen.storyboard */; };
+		ACCD94CE2429E59500153545 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = ACCD94CD2429E59500153545 /* .swiftlint.yml */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		032F584B1595BE08B167E3AB /* Pods_DaangnMarket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DaangnMarket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2665E56FE654B747160B0851 /* Pods-DaangnMarket.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DaangnMarket.release.xcconfig"; path = "Target Support Files/Pods-DaangnMarket/Pods-DaangnMarket.release.xcconfig"; sourceTree = "<group>"; };
+		71D3A55677882F444474FFDE /* Pods-DaangnMarket.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DaangnMarket.debug.xcconfig"; path = "Target Support Files/Pods-DaangnMarket/Pods-DaangnMarket.debug.xcconfig"; sourceTree = "<group>"; };
 		A62D96A62424A440006F1722 /* DaangnMarket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DaangnMarket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A62D96A92424A440006F1722 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A62D96AB2424A440006F1722 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -24,6 +29,7 @@
 		A62D96B22424A442006F1722 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A62D96B52424A442006F1722 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A62D96B72424A442006F1722 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ACCD94CD2429E59500153545 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +37,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				58D3EF8D049708F21D9CA70D /* Pods_DaangnMarket.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		44E0A05C296C497DC06511FE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				032F584B1595BE08B167E3AB /* Pods_DaangnMarket.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		70BF63448D0504DE017AF835 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				71D3A55677882F444474FFDE /* Pods-DaangnMarket.debug.xcconfig */,
+				2665E56FE654B747160B0851 /* Pods-DaangnMarket.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		A62D969D2424A440006F1722 = {
 			isa = PBXGroup;
 			children = (
+				ACCD94CD2429E59500153545 /* .swiftlint.yml */,
 				A62D96A82424A440006F1722 /* DaangnMarket */,
 				A62D96A72424A440006F1722 /* Products */,
+				70BF63448D0504DE017AF835 /* Pods */,
+				44E0A05C296C497DC06511FE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,9 +101,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A62D96BA2424A442006F1722 /* Build configuration list for PBXNativeTarget "DaangnMarket" */;
 			buildPhases = (
+				BB3A80CD2251090703D632CF /* [CP] Check Pods Manifest.lock */,
 				A62D96A22424A440006F1722 /* Sources */,
 				A62D96A32424A440006F1722 /* Frameworks */,
 				A62D96A42424A440006F1722 /* Resources */,
+				F8096A3AB6AFA53B5645AA42 /* [CP] Embed Pods Frameworks */,
+				ACCD94CC2429E4EE00153545 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -125,6 +155,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACCD94CE2429E59500153545 /* .swiftlint.yml in Resources */,
 				A62D96B62424A442006F1722 /* LaunchScreen.storyboard in Resources */,
 				A62D96B32424A442006F1722 /* Assets.xcassets in Resources */,
 				A62D96B12424A440006F1722 /* Main.storyboard in Resources */,
@@ -132,6 +163,65 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		ACCD94CC2429E4EE00153545 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${PODS_ROOT}/SwiftLint/swiftlint\n";
+		};
+		BB3A80CD2251090703D632CF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DaangnMarket-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F8096A3AB6AFA53B5645AA42 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DaangnMarket/Pods-DaangnMarket-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DaangnMarket/Pods-DaangnMarket-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DaangnMarket/Pods-DaangnMarket-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A62D96A22424A440006F1722 /* Sources */ = {
@@ -282,6 +372,7 @@
 		};
 		A62D96BB2424A442006F1722 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 71D3A55677882F444474FFDE /* Pods-DaangnMarket.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -300,6 +391,7 @@
 		};
 		A62D96BC2424A442006F1722 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2665E56FE654B747160B0851 /* Pods-DaangnMarket.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
