@@ -14,12 +14,17 @@
 		A62D96B12424A440006F1722 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A62D96AF2424A440006F1722 /* Main.storyboard */; };
 		A62D96B32424A442006F1722 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A62D96B22424A442006F1722 /* Assets.xcassets */; };
 		A62D96B62424A442006F1722 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A62D96B42424A442006F1722 /* LaunchScreen.storyboard */; };
+		AC28CD24242A3FCA0031999B /* References.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC28CD23242A3FCA0031999B /* References.swift */; };
+		AC28CD27242A40B30031999B /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC28CD26242A40B30031999B /* UIImageView+Extension.swift */; };
 		ACCD94CE2429E59500153545 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = ACCD94CD2429E59500153545 /* .swiftlint.yml */; };
 		ACCD94D72429F81D00153545 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD94D62429F81D00153545 /* CategoryViewController.swift */; };
 		ACCD94D92429F84200153545 /* ProductPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD94D82429F84200153545 /* ProductPostViewController.swift */; };
 		ACCD94DB2429F86B00153545 /* WriteUsedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD94DA2429F86B00153545 /* WriteUsedViewController.swift */; };
 		ACCD94DD2429F87900153545 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD94DC2429F87900153545 /* ChatViewController.swift */; };
 		ACCD94DF2429F89200153545 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD94DE2429F89200153545 /* MyPageViewController.swift */; };
+		ACCD94E4242A19DD00153545 /* InitialStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD94E3242A19DD00153545 /* InitialStartViewController.swift */; };
+		ACCD94EE242A23B800153545 /* DaangnAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD94ED242A23B800153545 /* DaangnAnimationView.swift */; };
+		ACCD94F2242A250500153545 /* DGButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD94F1242A250500153545 /* DGButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,12 +39,17 @@
 		A62D96B22424A442006F1722 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A62D96B52424A442006F1722 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A62D96B72424A442006F1722 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AC28CD23242A3FCA0031999B /* References.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = References.swift; sourceTree = "<group>"; };
+		AC28CD26242A40B30031999B /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		ACCD94CD2429E59500153545 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		ACCD94D62429F81D00153545 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		ACCD94D82429F84200153545 /* ProductPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductPostViewController.swift; sourceTree = "<group>"; };
 		ACCD94DA2429F86B00153545 /* WriteUsedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteUsedViewController.swift; sourceTree = "<group>"; };
 		ACCD94DC2429F87900153545 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		ACCD94DE2429F89200153545 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
+		ACCD94E3242A19DD00153545 /* InitialStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialStartViewController.swift; sourceTree = "<group>"; };
+		ACCD94ED242A23B800153545 /* DaangnAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaangnAnimationView.swift; sourceTree = "<group>"; };
+		ACCD94F1242A250500153545 /* DGButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DGButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,7 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				A62D96A92424A440006F1722 /* AppDelegate.swift */,
-				A62D96AB2424A440006F1722 /* SceneDelegate.swift */,
+				ACCD94E2242A19B900153545 /* InitialStart */,
 				ACCD94D02429F5B900153545 /* Home */,
 				ACCD94D52429F60900153545 /* Category */,
 				ACCD94D12429F5C000153545 /* Product */,
@@ -102,11 +112,28 @@
 				ACCD94D32429F5E400153545 /* Chat */,
 				ACCD94D42429F5E600153545 /* MyDaangn */,
 				A62D96AF2424A440006F1722 /* Main.storyboard */,
+				ACCD94EF242A24A300153545 /* Common */,
 				A62D96B22424A442006F1722 /* Assets.xcassets */,
 				A62D96B42424A442006F1722 /* LaunchScreen.storyboard */,
 				A62D96B72424A442006F1722 /* Info.plist */,
 			);
 			path = DaangnMarket;
+			sourceTree = "<group>";
+		};
+		AC28CD22242A3FBF0031999B /* Reference */ = {
+			isa = PBXGroup;
+			children = (
+				AC28CD23242A3FCA0031999B /* References.swift */,
+			);
+			path = Reference;
+			sourceTree = "<group>";
+		};
+		AC28CD25242A40A10031999B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				AC28CD26242A40B30031999B /* UIImageView+Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		ACCD94D02429F5B900153545 /* Home */ = {
@@ -155,6 +182,49 @@
 				ACCD94D62429F81D00153545 /* CategoryViewController.swift */,
 			);
 			path = Category;
+			sourceTree = "<group>";
+		};
+		ACCD94E2242A19B900153545 /* InitialStart */ = {
+			isa = PBXGroup;
+			children = (
+				ACCD94EC242A239F00153545 /* View */,
+				ACCD94EB242A239900153545 /* Controller */,
+			);
+			path = InitialStart;
+			sourceTree = "<group>";
+		};
+		ACCD94EB242A239900153545 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				ACCD94E3242A19DD00153545 /* InitialStartViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		ACCD94EC242A239F00153545 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				ACCD94ED242A23B800153545 /* DaangnAnimationView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		ACCD94EF242A24A300153545 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				AC28CD25242A40A10031999B /* Extensions */,
+				AC28CD22242A3FBF0031999B /* Reference */,
+				ACCD94F0242A24F300153545 /* View */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		ACCD94F0242A24F300153545 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				ACCD94F1242A250500153545 /* DGButton.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -292,11 +362,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				ACCD94D72429F81D00153545 /* CategoryViewController.swift in Sources */,
+				AC28CD24242A3FCA0031999B /* References.swift in Sources */,
+				AC28CD27242A40B30031999B /* UIImageView+Extension.swift in Sources */,
 				A62D96AE2424A440006F1722 /* HomeFeedViewController.swift in Sources */,
 				ACCD94D92429F84200153545 /* ProductPostViewController.swift in Sources */,
 				ACCD94DD2429F87900153545 /* ChatViewController.swift in Sources */,
 				A62D96AA2424A440006F1722 /* AppDelegate.swift in Sources */,
-				A62D96AC2424A440006F1722 /* SceneDelegate.swift in Sources */,
+				ACCD94E4242A19DD00153545 /* InitialStartViewController.swift in Sources */,
+				ACCD94F2242A250500153545 /* DGButton.swift in Sources */,
+				ACCD94EE242A23B800153545 /* DaangnAnimationView.swift in Sources */,
 				ACCD94DB2429F86B00153545 /* WriteUsedViewController.swift in Sources */,
 				ACCD94DF2429F89200153545 /* MyPageViewController.swift in Sources */,
 			);
