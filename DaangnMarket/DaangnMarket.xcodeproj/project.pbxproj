@@ -23,6 +23,8 @@
 		ACCD94DD2429F87900153545 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD94DC2429F87900153545 /* ChatViewController.swift */; };
 		ACCD94DF2429F89200153545 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD94DE2429F89200153545 /* MyPageViewController.swift */; };
 		ACCD94E4242A19DD00153545 /* InitialStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD94E3242A19DD00153545 /* InitialStartViewController.swift */; };
+		ACCD94E7242A20B400153545 /* RequestURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD94E6242A20B400153545 /* RequestURL.swift */; };
+		ACCD94EA242A238300153545 /* FindMyTownViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD94E9242A238300153545 /* FindMyTownViewController.swift */; };
 		ACCD94EE242A23B800153545 /* DaangnAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD94ED242A23B800153545 /* DaangnAnimationView.swift */; };
 		ACCD94F2242A250500153545 /* DGButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD94F1242A250500153545 /* DGButton.swift */; };
 /* End PBXBuildFile section */
@@ -48,6 +50,8 @@
 		ACCD94DC2429F87900153545 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		ACCD94DE2429F89200153545 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		ACCD94E3242A19DD00153545 /* InitialStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialStartViewController.swift; sourceTree = "<group>"; };
+		ACCD94E6242A20B400153545 /* RequestURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestURL.swift; sourceTree = "<group>"; };
+		ACCD94E9242A238300153545 /* FindMyTownViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindMyTownViewController.swift; sourceTree = "<group>"; };
 		ACCD94ED242A23B800153545 /* DaangnAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaangnAnimationView.swift; sourceTree = "<group>"; };
 		ACCD94F1242A250500153545 /* DGButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DGButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -111,7 +115,7 @@
 				ACCD94D22429F5C400153545 /* Writing */,
 				ACCD94D32429F5E400153545 /* Chat */,
 				ACCD94D42429F5E600153545 /* MyDaangn */,
-				A62D96AF2424A440006F1722 /* Main.storyboard */,
+				ACCD94E5242A206400153545 /* Service */,
 				ACCD94EF242A24A300153545 /* Common */,
 				A62D96B22424A442006F1722 /* Assets.xcassets */,
 				A62D96B42424A442006F1722 /* LaunchScreen.storyboard */,
@@ -193,10 +197,19 @@
 			path = InitialStart;
 			sourceTree = "<group>";
 		};
+		ACCD94E5242A206400153545 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				ACCD94E6242A20B400153545 /* RequestURL.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		ACCD94EB242A239900153545 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
 				ACCD94E3242A19DD00153545 /* InitialStartViewController.swift */,
+				ACCD94E9242A238300153545 /* FindMyTownViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -364,9 +377,11 @@
 				ACCD94D72429F81D00153545 /* CategoryViewController.swift in Sources */,
 				AC28CD24242A3FCA0031999B /* References.swift in Sources */,
 				AC28CD27242A40B30031999B /* UIImageView+Extension.swift in Sources */,
+				ACCD94E7242A20B400153545 /* RequestURL.swift in Sources */,
 				A62D96AE2424A440006F1722 /* HomeFeedViewController.swift in Sources */,
 				ACCD94D92429F84200153545 /* ProductPostViewController.swift in Sources */,
 				ACCD94DD2429F87900153545 /* ChatViewController.swift in Sources */,
+				ACCD94EA242A238300153545 /* FindMyTownViewController.swift in Sources */,
 				A62D96AA2424A440006F1722 /* AppDelegate.swift in Sources */,
 				ACCD94E4242A19DD00153545 /* InitialStartViewController.swift in Sources */,
 				ACCD94F2242A250500153545 /* DGButton.swift in Sources */,
