@@ -83,6 +83,12 @@
 		A62D96A82424A440006F1722 /* DaangnMarket */ = {
 			isa = PBXGroup;
 			children = (
+				ACCD94D02429F5B900153545 /* Home */,
+				ACCD94D52429F60900153545 /* Category */,
+				ACCD94D12429F5C000153545 /* Product */,
+				ACCD94D22429F5C400153545 /* Writing */,
+				ACCD94D32429F5E400153545 /* Chat */,
+				ACCD94D42429F5E600153545 /* MyDaangn */,
 				A62D96A92424A440006F1722 /* AppDelegate.swift */,
 				A62D96AB2424A440006F1722 /* SceneDelegate.swift */,
 				A62D96AD2424A440006F1722 /* ViewController.swift */,
@@ -92,6 +98,48 @@
 				A62D96B72424A442006F1722 /* Info.plist */,
 			);
 			path = DaangnMarket;
+			sourceTree = "<group>";
+		};
+		ACCD94D02429F5B900153545 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		ACCD94D12429F5C000153545 /* Product */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Product;
+			sourceTree = "<group>";
+		};
+		ACCD94D22429F5C400153545 /* Writing */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Writing;
+			sourceTree = "<group>";
+		};
+		ACCD94D32429F5E400153545 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		ACCD94D42429F5E600153545 /* MyDaangn */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = MyDaangn;
+			sourceTree = "<group>";
+		};
+		ACCD94D52429F60900153545 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Category;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
