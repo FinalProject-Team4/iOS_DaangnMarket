@@ -24,6 +24,7 @@ disabled_rules:
   - valid_ibinspectable
   - vertical_whitespace
   - xctfail_message
+  - trailing_whitespace
 
 opt_in_rules:
   - closure_body_length
