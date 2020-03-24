@@ -7,11 +7,16 @@
 //
 
 import UIKit
+import Then
+import SnapKit
 
 class HomeFeedViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
-    // Do any additional setup after loading the view.
+    self.view.backgroundColor = .systemBackground
+  }
+  private func doFirstViewAlert() {
+    let firstVC = FirstAlertViewController()
+    present(firstVC, animated: false)
   }
 }
-

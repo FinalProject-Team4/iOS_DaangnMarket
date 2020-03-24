@@ -20,6 +20,7 @@
 		ACCD94DB2429F86B00153545 /* WriteUsedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD94DA2429F86B00153545 /* WriteUsedViewController.swift */; };
 		ACCD94DD2429F87900153545 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD94DC2429F87900153545 /* ChatViewController.swift */; };
 		ACCD94DF2429F89200153545 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD94DE2429F89200153545 /* MyPageViewController.swift */; };
+		AD677861242A21ED00CFEB86 /* FirstAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD677860242A21ED00CFEB86 /* FirstAlertViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		ACCD94DA2429F86B00153545 /* WriteUsedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteUsedViewController.swift; sourceTree = "<group>"; };
 		ACCD94DC2429F87900153545 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		ACCD94DE2429F89200153545 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
+		AD677860242A21ED00CFEB86 /* FirstAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstAlertViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 		ACCD94D02429F5B900153545 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				AD677860242A21ED00CFEB86 /* FirstAlertViewController.swift */,
 				A62D96AD2424A440006F1722 /* HomeFeedViewController.swift */,
 			);
 			path = Home;
@@ -295,6 +298,7 @@
 				A62D96AE2424A440006F1722 /* HomeFeedViewController.swift in Sources */,
 				ACCD94D92429F84200153545 /* ProductPostViewController.swift in Sources */,
 				ACCD94DD2429F87900153545 /* ChatViewController.swift in Sources */,
+				AD677861242A21ED00CFEB86 /* FirstAlertViewController.swift in Sources */,
 				A62D96AA2424A440006F1722 /* AppDelegate.swift in Sources */,
 				A62D96AC2424A440006F1722 /* SceneDelegate.swift in Sources */,
 				ACCD94DB2429F86B00153545 /* WriteUsedViewController.swift in Sources */,

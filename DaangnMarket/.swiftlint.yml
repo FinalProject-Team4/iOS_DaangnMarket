@@ -19,6 +19,7 @@ disabled_rules:
   - redundant_set_access_control
   - superfluous_disable_command
   - todo
+  - trailing_whitespace
   - trailing_newline
   - unused_control_flow_label
   - valid_ibinspectable
