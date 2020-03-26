@@ -11,6 +11,14 @@ import UIKit
 class FindMyTownViewController: UIViewController {
   // MARK: Views
   
+  private lazy var navigationBar = DGNavigationBar().then {
+    $0.leftButton = UIButton().then { button in
+      button.setBackgroundImage(UIImage(systemName: ImageReference.arrowLeft.rawValue), for: .normal)
+      button.tintColor = .black
+      button.addTarget(self, action: #selector(didTapBackButton(_:)), for: .touchUpInside)
+    }
+    $0.title = "내 동네 찾기"
+  }
   private lazy var townSearchBar = TownSearchBar().then {
     $0.delegate = self
   }
@@ -70,23 +78,22 @@ class FindMyTownViewController: UIViewController {
   private func setupAttributes() {
     self.view.backgroundColor = .systemBackground
     self.locationManager.delegate = self
-    UIBarButtonItem(
-      image: UIImage(systemName: ImageReference.arrowLeft.rawValue),
-      style: .plain,
-      target: self,
-      action: #selector(didTapBackButton(_:))
-    ).do { self.navigationItem.leftBarButtonItem = $0 }
-    self.navigationItem.title = "내 동네 찾기"
-    self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-    self.navigationController?.navigationBar.tintColor = .black
   }
   
   private func setupConstraints() {
+    self.navigationBar
+      .then { self.view.addSubview($0) }
+      .snp.makeConstraints {
+        $0.top.equalToSuperview().offset(UINavigationBar.statusBarSize.height)
+        $0.centerX.equalToSuperview()
+    }
+    
     self.townSearchBar
       .then { self.view.addSubview($0) }
       .snp
       .makeConstraints {
-        $0.top.leading.trailing.equalTo(self.view.safeAreaLayoutGuide)
+        $0.top.equalTo(self.navigationBar.snp.bottom)
+        $0.leading.trailing.equalTo(self.view.safeAreaLayoutGuide)
       }
     
     let buttonSize: CGFloat = 36
@@ -122,8 +129,7 @@ class FindMyTownViewController: UIViewController {
   
   // MARK: Actions
   
-  @objc private func didTapBackButton(_ sender: UIBarButtonItem) {
-    self.navigationController?.isNavigationBarHidden = true
+  @objc private func didTapBackButton(_ sender: UIButton) {
     self.navigationController?.popViewController(animated: true)
   }
   

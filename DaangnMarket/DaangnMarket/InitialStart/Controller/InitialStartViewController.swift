@@ -24,7 +24,6 @@ class InitialStartViewController: UIViewController {
   
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    self.navigationController?.isNavigationBarHidden = true
     self.initialView.animate()
   }
   
@@ -32,6 +31,7 @@ class InitialStartViewController: UIViewController {
   
   private func setupUI() {
     self.view.backgroundColor = .systemBackground
+    self.navigationController?.navigationBar.isHidden = true
     self.setupConstraints()
   }
   
@@ -48,7 +48,6 @@ class InitialStartViewController: UIViewController {
   // MARK: Actions
   
   @objc private func didTapStartButton(_ sender: UIButton) {
-    self.navigationController?.isNavigationBarHidden = false
     self.navigationController?.pushViewController(FindMyTownViewController(), animated: true)
   }
 }

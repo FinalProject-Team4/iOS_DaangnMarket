@@ -34,6 +34,9 @@
 		ACFB7D34242C876800E47F97 /* DGToastAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFB7D33242C876800E47F97 /* DGToastAlert.swift */; };
 		ACFB7D36242C9A0C00E47F97 /* InitialStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFB7D35242C9A0C00E47F97 /* InitialStartView.swift */; };
 		ACFB7D38242CA45600E47F97 /* TownNoResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFB7D37242CA45600E47F97 /* TownNoResultView.swift */; };
+		ACFB7D3A242CCE9200E47F97 /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFB7D39242CCE9200E47F97 /* UIDevice+Extension.swift */; };
+		ACFB7D3C242CCFF000E47F97 /* DGNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFB7D3B242CCFF000E47F97 /* DGNavigationBar.swift */; };
+		ACFB7D3E242CD94E00E47F97 /* UINavigationBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFB7D3D242CD94E00E47F97 /* UINavigationBar+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +72,9 @@
 		ACFB7D33242C876800E47F97 /* DGToastAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DGToastAlert.swift; sourceTree = "<group>"; };
 		ACFB7D35242C9A0C00E47F97 /* InitialStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialStartView.swift; sourceTree = "<group>"; };
 		ACFB7D37242CA45600E47F97 /* TownNoResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownNoResultView.swift; sourceTree = "<group>"; };
+		ACFB7D39242CCE9200E47F97 /* UIDevice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
+		ACFB7D3B242CCFF000E47F97 /* DGNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DGNavigationBar.swift; sourceTree = "<group>"; };
+		ACFB7D3D242CD94E00E47F97 /* UINavigationBar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,8 +157,10 @@
 		AC28CD25242A40A10031999B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				AC28CD26242A40B30031999B /* UIImageView+Extension.swift */,
 				ACCC9754242B490E008F95DE /* Identifiable.swift */,
+				AC28CD26242A40B30031999B /* UIImageView+Extension.swift */,
+				ACFB7D39242CCE9200E47F97 /* UIDevice+Extension.swift */,
+				ACFB7D3D242CD94E00E47F97 /* UINavigationBar+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -277,6 +285,7 @@
 			children = (
 				ACCD94F1242A250500153545 /* DGButton.swift */,
 				ACFB7D33242C876800E47F97 /* DGToastAlert.swift */,
+				ACFB7D3B242CCFF000E47F97 /* DGNavigationBar.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -423,6 +432,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ACCC9755242B490E008F95DE /* Identifiable.swift in Sources */,
+				ACFB7D3A242CCE9200E47F97 /* UIDevice+Extension.swift in Sources */,
 				ACCD94D72429F81D00153545 /* CategoryViewController.swift in Sources */,
 				AC28CD24242A3FCA0031999B /* References.swift in Sources */,
 				AC28CD27242A40B30031999B /* UIImageView+Extension.swift in Sources */,
@@ -434,6 +444,7 @@
 				ACCD94EA242A238300153545 /* FindMyTownViewController.swift in Sources */,
 				A62D96AA2424A440006F1722 /* AppDelegate.swift in Sources */,
 				ACCC9750242B31CB008F95DE /* TownSearchBar.swift in Sources */,
+				ACFB7D3E242CD94E00E47F97 /* UINavigationBar+Extension.swift in Sources */,
 				ACFB7D32242C5C3200E47F97 /* TownHeaderView.swift in Sources */,
 				ACCD94E4242A19DD00153545 /* InitialStartViewController.swift in Sources */,
 				ACCD94F2242A250500153545 /* DGButton.swift in Sources */,
@@ -442,6 +453,7 @@
 				ACCC975B242B6DB0008F95DE /* DataProvider.swift in Sources */,
 				ACCC9753242B48D6008F95DE /* TownAddressCell.swift in Sources */,
 				ACFB7D34242C876800E47F97 /* DGToastAlert.swift in Sources */,
+				ACFB7D3C242CCFF000E47F97 /* DGNavigationBar.swift in Sources */,
 				ACFB7D38242CA45600E47F97 /* TownNoResultView.swift in Sources */,
 				ACFB7D36242C9A0C00E47F97 /* InitialStartView.swift in Sources */,
 				ACCD94DF2429F89200153545 /* MyPageViewController.swift in Sources */,

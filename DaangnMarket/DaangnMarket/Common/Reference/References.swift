@@ -22,4 +22,5 @@ enum ColorReference: String {
   case underline = "Underline"
   case toastAlert = "ToastAlert"
   case noResultImage = "NoResultImage"
+  case navigationShadow = "NavigationShadow"
 }
