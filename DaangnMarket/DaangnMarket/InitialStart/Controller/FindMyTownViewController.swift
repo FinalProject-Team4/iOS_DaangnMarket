@@ -16,7 +16,7 @@ class FindMyTownViewController: UIViewController {
   }
   private lazy var searchWithLocationButton = DGButton(title: "현재 위치로 찾기").then {
     $0.addTarget(self, action: #selector(didTapSearchWithLocationButton), for: .touchUpInside)
-    $0.titleLabel?.font = .systemFont(ofSize: 13, weight: .bold)
+    $0.titleLabel?.font = .systemFont(ofSize: 13, weight: .semibold)
     $0.layer.cornerRadius = 18
   }
   private lazy var tableView = UITableView().then {
@@ -35,6 +35,15 @@ class FindMyTownViewController: UIViewController {
   
   private var addresses = [String]() {
     didSet {
+      let backgroundView = UIView().then { backgroundView in
+        TownNoResultView()
+          .then { backgroundView.addSubview($0) }
+          .snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview().offset(-52)
+        }
+      }
+      self.tableView.backgroundView = addresses.isEmpty ? backgroundView : nil
       self.tableView.reloadData()
     }
   }
@@ -127,6 +136,10 @@ class FindMyTownViewController: UIViewController {
 // MARK: - UITableViewDataSource
 
 extension FindMyTownViewController: UITableViewDataSource {
+  func numberOfSections(in tableView: UITableView) -> Int {
+    return self.addresses.isEmpty ? 0 : 1
+  }
+  
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return self.addresses.count
   }
@@ -175,7 +188,6 @@ extension FindMyTownViewController: LocationManagerDelegate {
       switch result {
       case .success(let addresses):
         self.addresses = addresses.map { $0.address }
-        print("Success :", addresses)
       case .failure(let error):
         print(error.localizedDescription)
       }
@@ -198,7 +210,6 @@ extension FindMyTownViewController: TownSearchBarDelegate {
         switch result {
         case .success(let addresses):
           self.addresses = addresses.map { $0.address }
-          print("Success :", addresses)
         case .failure(let error):
           print(error.localizedDescription)
         }
