@@ -9,8 +9,13 @@
 import UIKit
 
 extension UIImageView {
-  convenience init(named: String) {
-    let image = UIImage(named: named)
+  convenience init(named name: String) {
+    let image = UIImage(named: name)
+    self.init(image: image)
+  }
+  
+  convenience init(systemName name: String) {
+    let image = UIImage(systemName: name)
     self.init(image: image)
   }
 }
