@@ -39,7 +39,6 @@ enum DataProvider {
     AF.request(RequestURL.Address.gps.url, parameters: parameters)
       .validate()
       .responseDecodable { (response: DataResponse<[AddressWithDistance], AFError>) in
-        print(response)
         completion(response.result)
     }
   }
