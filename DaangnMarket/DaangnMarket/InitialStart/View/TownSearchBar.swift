@@ -90,6 +90,12 @@ class TownSearchBar: UIView {
     self.endEditing(false)
   }
   
+  // MARK: Interface
+  
+  func clear() {
+    self.inputField.text = ""
+  }
+  
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }

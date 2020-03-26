@@ -38,6 +38,7 @@ class FindMyTownViewController: UIViewController {
       self.tableView.reloadData()
     }
   }
+  private var sectionTitle = "근처 동네"
   
   // MARK: Services
   
@@ -148,7 +149,7 @@ extension FindMyTownViewController: UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     guard let sectionView = tableView.dequeueReusableHeaderFooterView(withIdentifier: TownHeaderView.identifier) as? TownHeaderView else { return nil }
-    sectionView.update(title: "근처 동네")
+    sectionView.update(title: self.sectionTitle)
     return sectionView
   }
   
@@ -165,6 +166,8 @@ extension FindMyTownViewController: UITableViewDelegate {
 
 extension FindMyTownViewController: LocationManagerDelegate {
   func locationManager(_ manager: LocationManager, didReceiveLocation location: Location) {
+    self.sectionTitle = "근처 동네"
+    self.townSearchBar.clear()
     self.activityIndicator.startAnimating()
     DataProvider.requestAddress(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude) { (result) in
       defer { self.activityIndicator.stopAnimating() }
@@ -187,9 +190,11 @@ extension FindMyTownViewController: TownSearchBarDelegate {
     if text.isEmpty {
       DGToastAlert(message: "검색어를 입력하세요").show(at: .center, from: self.view)
     } else {
+      self.sectionTitle = "'\(text)' 검색 결과"
       self.activityIndicator.startAnimating()
       DataProvider.requestAddress(address: text) { (result) in
         defer { self.activityIndicator.stopAnimating() }
+        
         switch result {
         case .success(let addresses):
           self.addresses = addresses.map { $0.address }
