@@ -184,15 +184,19 @@ extension FindMyTownViewController: LocationManagerDelegate {
 
 extension FindMyTownViewController: TownSearchBarDelegate {
   func townSearchBar(_ townSearchBar: TownSearchBar, willSearchWith text: String) {
-    self.activityIndicator.startAnimating()
-    DataProvider.requestAddress(address: text) { (result) in
-      defer { self.activityIndicator.stopAnimating() }
-      switch result {
-      case .success(let addresses):
-        self.addresses = addresses.map { $0.address }
-        print("Success :", addresses)
-      case .failure(let error):
-        print(error.localizedDescription)
+    if text.isEmpty {
+      DGToastAlert(message: "검색어를 입력하세요").show(at: .center, from: self.view)
+    } else {
+      self.activityIndicator.startAnimating()
+      DataProvider.requestAddress(address: text) { (result) in
+        defer { self.activityIndicator.stopAnimating() }
+        switch result {
+        case .success(let addresses):
+          self.addresses = addresses.map { $0.address }
+          print("Success :", addresses)
+        case .failure(let error):
+          print(error.localizedDescription)
+        }
       }
     }
   }
