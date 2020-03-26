@@ -17,6 +17,7 @@ enum ImageReference: String {
 
 enum ColorReference: String {
   case daangnMain = "DaangnColor_Main"
-  case item
-  case underline
+  case item = "Item"
+  case underline = "Underline"
+  case toastAlert = "ToastAlert"
 }
