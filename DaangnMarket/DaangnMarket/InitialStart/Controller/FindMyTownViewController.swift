@@ -26,6 +26,10 @@ class FindMyTownViewController: UIViewController {
     $0.register(TownHeaderView.self, forHeaderFooterViewReuseIdentifier: TownHeaderView.identifier)
     $0.tableFooterView = UIView()
   }
+  private let activityIndicator = UIActivityIndicatorView().then {
+    $0.color = UIColor(named: ColorReference.daangnMain.rawValue)
+    $0.hidesWhenStopped = true
+  }
   
   // MARK: Model
   
@@ -97,6 +101,13 @@ class FindMyTownViewController: UIViewController {
         $0.top.equalTo(self.searchWithLocationButton.snp.bottom).offset(16)
         $0.leading.trailing.bottom.equalTo(self.view.safeAreaLayoutGuide)
     }
+    
+    self.activityIndicator
+      .then { self.view.addSubview($0) }
+      .snp
+      .makeConstraints {
+        $0.center.equalToSuperview()
+    }
   }
   
   // MARK: Actions
@@ -107,6 +118,7 @@ class FindMyTownViewController: UIViewController {
   }
   
   @objc private func didTapSearchWithLocationButton(_ sender: UIButton) {
+    self.activityIndicator.startAnimating()
     self.locationManager.startUpdatingLocation()
   }
 }
@@ -153,7 +165,10 @@ extension FindMyTownViewController: UITableViewDelegate {
 
 extension FindMyTownViewController: LocationManagerDelegate {
   func locationManager(_ manager: LocationManager, didReceiveLocation location: Location) {
+    self.activityIndicator.startAnimating()
     DataProvider.requestAddress(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude) { (result) in
+      defer { self.activityIndicator.stopAnimating() }
+      
       switch result {
       case .success(let addresses):
         self.addresses = addresses.map { $0.address }
@@ -168,8 +183,10 @@ extension FindMyTownViewController: LocationManagerDelegate {
 // MARK: - TownSearchBarDelegate
 
 extension FindMyTownViewController: TownSearchBarDelegate {
-  func townSearchBar(_ townSearchBar: TownSearchBar, typedText text: String) {
+  func townSearchBar(_ townSearchBar: TownSearchBar, willSearchWith text: String) {
+    self.activityIndicator.startAnimating()
     DataProvider.requestAddress(address: text) { (result) in
+      defer { self.activityIndicator.stopAnimating() }
       switch result {
       case .success(let addresses):
         self.addresses = addresses.map { $0.address }

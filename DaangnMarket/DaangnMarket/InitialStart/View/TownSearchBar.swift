@@ -9,7 +9,7 @@
 import UIKit
 
 protocol TownSearchBarDelegate: class {
-  func townSearchBar(_ townSearchBar: TownSearchBar, typedText text: String)
+  func townSearchBar(_ townSearchBar: TownSearchBar, willSearchWith text: String)
 }
 
 class TownSearchBar: UIView {
@@ -86,7 +86,7 @@ class TownSearchBar: UIView {
   // MARK: Actions
   
   @objc private func didTapSearchButton(_ sender: UIButton) {
-    self.delegate?.townSearchBar(self, typedText: self.inputField.text ?? "")
+    self.delegate?.townSearchBar(self, willSearchWith: self.inputField.text ?? "")
     self.endEditing(false)
   }
   
@@ -99,7 +99,7 @@ class TownSearchBar: UIView {
 
 extension TownSearchBar: UITextFieldDelegate {
   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-    self.delegate?.townSearchBar(self, typedText: textField.text ?? "")
+    self.delegate?.townSearchBar(self, willSearchWith: textField.text ?? "")
     textField.resignFirstResponder()
     return true
   }
