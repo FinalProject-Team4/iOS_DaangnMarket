@@ -20,6 +20,8 @@
 		ACCD94DF2429F89200153545 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD94DE2429F89200153545 /* MyPageViewController.swift */; };
 		AD677861242A21ED00CFEB86 /* FirstAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD677860242A21ED00CFEB86 /* FirstAlertViewController.swift */; };
 		ADD05132242B595200312DF1 /* HomeFeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD05131242B595200312DF1 /* HomeFeedTableViewCell.swift */; };
+		ADD05135242C4FC000312DF1 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD05134242C4FC000312DF1 /* Service.swift */; };
+		ADD05137242C62CF00312DF1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD05136242C62CF00312DF1 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +42,8 @@
 		ACCD94DE2429F89200153545 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		AD677860242A21ED00CFEB86 /* FirstAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstAlertViewController.swift; sourceTree = "<group>"; };
 		ADD05131242B595200312DF1 /* HomeFeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeedTableViewCell.swift; sourceTree = "<group>"; };
+		ADD05134242C4FC000312DF1 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		ADD05136242C62CF00312DF1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +117,7 @@
 				AD677860242A21ED00CFEB86 /* FirstAlertViewController.swift */,
 				A62D96AD2424A440006F1722 /* HomeFeedViewController.swift */,
 				ADD05130242B591700312DF1 /* Cell */,
+				ADD05133242C4F8200312DF1 /* Service */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -163,6 +168,15 @@
 				ADD05131242B595200312DF1 /* HomeFeedTableViewCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		ADD05133242C4F8200312DF1 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				ADD05134242C4FC000312DF1 /* Service.swift */,
+				ADD05136242C62CF00312DF1 /* User.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -305,8 +319,10 @@
 				AD677861242A21ED00CFEB86 /* FirstAlertViewController.swift in Sources */,
 				ADD05132242B595200312DF1 /* HomeFeedTableViewCell.swift in Sources */,
 				A62D96AA2424A440006F1722 /* AppDelegate.swift in Sources */,
+				ADD05135242C4FC000312DF1 /* Service.swift in Sources */,
 				ACCD94DB2429F86B00153545 /* WriteUsedViewController.swift in Sources */,
 				ACCD94DF2429F89200153545 /* MyPageViewController.swift in Sources */,
+				ADD05137242C62CF00312DF1 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -56,8 +56,8 @@ class FirstAlertViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.view.backgroundColor = UIColor.systemGray.withAlphaComponent(0.6)
-//    self.view.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+//    dumyData()
+    self.view.backgroundColor = UIColor.black.withAlphaComponent(0.3)
     setupUI()
   }
   

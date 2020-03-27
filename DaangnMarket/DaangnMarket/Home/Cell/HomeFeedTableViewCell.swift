@@ -12,17 +12,16 @@ class HomeFeedTableViewCell: UITableViewCell {
   let goodsImage = UIImageView().then {
     $0.clipsToBounds = true
     $0.layer.cornerRadius = 5
-//    $0.image = UIImage(named: "DaanggnMascot")
     $0.kf.setImage(with: URL(string: "http://13.125.217.34/media/images/fabinho2.jpg"))
     $0.contentMode = .scaleToFill
   }
   let goodsName = UILabel().then {
-    $0.text = "소나무 원목"
+//    $0.text = "소나무 원목"
     $0.font = .systemFont(ofSize: 16)
     $0.textAlignment = .center
   }
   let sellerLoctionAndTime = UILabel().then {
-    $0.text = "화양동" + "•" + "4분전"
+//    $0.text = "화양동" + " • " + "4분전"
     $0.font = .systemFont(ofSize: 12)
     $0.textAlignment = .center
     $0.textColor = .lightGray
@@ -33,9 +32,9 @@ class HomeFeedTableViewCell: UITableViewCell {
     $0.textAlignment = .center
   }
   let favoriteMark = UIImageView().then {
+    $0.frame = CGRect(x: 0, y: 0, width: 16, height: 16)
     $0.image = UIImage(systemName: "heart")
     $0.tintColor = .lightGray
-    $0.frame = CGRect(x: 0, y: 0, width: 16, height: 16)
   }
   let favoriteCount = UILabel().then {
     $0.frame = CGRect(x: 0, y: 0, width: 0, height: 16)

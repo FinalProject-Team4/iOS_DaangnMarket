@@ -9,6 +9,10 @@
 import UIKit
 
 class HomeFeedViewController: UIViewController {
+  let service = ServiceManager.shared
+  var localData = ([User])()
+  var userUpdateTimes = [DateComponents]()
+  
   private lazy var customNaviBar = UIView().then {
     $0.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 98)
     $0.backgroundColor = .white
@@ -56,8 +60,9 @@ class HomeFeedViewController: UIViewController {
     self.view.backgroundColor = .white
     tabBarController?.tabBar.shadowImage = UIImage()
     tabBarController?.tabBar.backgroundImage = UIImage()
-    makeCustomNavigationUseHomeFeedView()
-    setupTableView()
+    setupUI()
+    makeCustomNavigation()
+    saveOutputDate()
   }
   
   override func viewDidAppear(_ animated: Bool) {
@@ -65,9 +70,30 @@ class HomeFeedViewController: UIViewController {
     doFirstViewAlert()
   }
   
-  private func makeCustomNavigationUseHomeFeedView() {
+  private func doFirstViewAlert() {
+    let firstVC = FirstAlertViewController()
+    firstVC.modalPresentationStyle = .overFullScreen
+    present(firstVC, animated: false)
+  }
+  
+  private func makeCustomNavigation() {
     navigationController?.navigationBar.isHidden = true
     self.view.addSubview(customNaviBar)
+  }
+  
+  private func setupUI() {
+    setupTableView()
+    setupConstraints()
+  }
+  
+  private func setupTableView() {
+    self.view.addSubview(tableView)
+    tableView.frame = view.frame
+    tableView.dataSource = self
+    tableView.delegate = self
+  }
+  
+  private func setupConstraints() {
     let naviBarItems = [leftBarItemArrow, leftBarItemButton, rightBarItemBell, rightBarItemSlider, rightBarItemMagnifyingglass]
     naviBarItems.forEach { customNaviBar.addSubview($0) }
     leftBarItemButton.snp.makeConstraints {
@@ -90,26 +116,40 @@ class HomeFeedViewController: UIViewController {
       $0.centerY.equalTo(leftBarItemButton)
       $0.trailing.equalTo(rightBarItemSlider.snp.leading).offset(-15)
     }
-  }
-  
-  private func doFirstViewAlert() {
-    let firstVC = FirstAlertViewController()
-    firstVC.modalPresentationStyle = .overFullScreen
-    present(firstVC, animated: false)
-  }
-  
-  private func setupTableView() {
-    self.view.addSubview(tableView)
-    tableView.frame = view.frame
-    tableView.dataSource = self
-    tableView.delegate = self
     tableView.snp.makeConstraints {
       $0.top.equalToSuperview().offset(98)
       $0.leading.trailing.equalToSuperview()
-      $0.bottom.equalToSuperview().offset(-80)
+      $0.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)//.offset(-80)
     }
   }
   
+  private func saveOutputDate() {
+    service.requestUser { [weak self] result in
+      switch result {
+      case .success(let data):
+        self!.localData = data
+        self!.calculateDifferentTime()
+        self!.tableView.reloadData()
+//        dump(self!.localData)
+      case .failure(let error):
+        print(error.localizedDescription)
+      }
+    }
+  }
+  
+  private func calculateDifferentTime() {
+    let currentTime = Date()
+    for idx in 0..<localData.count {
+      let tempTime = localData[idx].updated.replacingOccurrences(of: "T", with: " ").components(separatedBy: ".")[0]
+      let dateFormatter = DateFormatter()
+      dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+      let updatedTime: Date = dateFormatter.date(from: tempTime) ?? currentTime
+      let calculrate = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)
+      guard let compareTime = calculrate?.components([.day, .hour, .minute], from: updatedTime, to: currentTime, options: []) else { fatalError("castin error") }
+      userUpdateTimes.append(compareTime)
+    }
+  }
+
   @objc private func didTapButtonsInNaviBar(_ sender: UIButton) {
     switch sender {
     case leftBarItemButton:
@@ -138,12 +178,45 @@ extension HomeFeedViewController: UITableViewDataSource {
     return sectionView
   }
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 10
+    return localData.count
   }
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: "GoodsCell", for: indexPath) as? HomeFeedTableViewCell else { fatalError("faile type casting") }
-//    cell.
+    cell.goodsName.text = localData[indexPath.row].title
+    cell.sellerLoctionAndTime.text = removeNotNeededTimeUnit(userUpdateTimes[indexPath.row])
+//    print("\(indexPath.row):", checkGoodsImage(indexPath))
+//    cell.goodsImage.kf.setImage(with: URL(string: checkGoodsImage(indexPath)))
     return cell
+  }
+
+  func checkGoodsImage(_ indexPath: IndexPath) -> String {
+//    goodsImage.kf.setImage(with: URL(string: "http://13.125.217.34/media/images/fabinho2.jpg"))
+    var URL = String()
+    let imageURL = localData[indexPath.row].postImageSet
+    if !imageURL.isEmpty {
+      URL = imageURL[0].photo
+      return URL
+    } else {
+      URL = String()
+    }
+    return URL
+  }
+  
+  func removeNotNeededTimeUnit(_ userUpdateTimes: DateComponents) -> String {
+    var updateTime = String()
+    let defaultText = "화양동 • "
+    if userUpdateTimes.day != 0 {
+      if userUpdateTimes.day == 1 {
+        updateTime += defaultText + "어제"
+      } else {
+        updateTime += defaultText + "\(userUpdateTimes.day!)일 전"
+      }
+    } else if userUpdateTimes.hour != 0 {
+      updateTime += defaultText + "\(userUpdateTimes.hour!)시간 전"
+    } else if userUpdateTimes.minute != 0 {
+      updateTime += defaultText + "\(userUpdateTimes.minute!)분 전"
+    }
+    return updateTime
   }
 }
 
