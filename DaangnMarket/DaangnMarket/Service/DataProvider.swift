@@ -8,8 +8,12 @@
 
 import Alamofire
 
+protocol URLConfig {
+  var url: String { get }
+}
+
 enum RequestURL {
-  enum Address {
+  enum Address: URLConfig {
     case search
     case gps
     case distance
