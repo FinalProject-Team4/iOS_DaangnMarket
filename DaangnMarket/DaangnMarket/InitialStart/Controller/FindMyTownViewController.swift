@@ -129,6 +129,7 @@ class FindMyTownViewController: UIViewController {
   }
   
   @objc private func didTapSearchWithLocationButton(_ sender: UIButton) {
+    self.townSearchBar.endEditing(false)
     self.activityIndicator.startAnimating()
     self.locationManager.startUpdatingLocation()
   }
