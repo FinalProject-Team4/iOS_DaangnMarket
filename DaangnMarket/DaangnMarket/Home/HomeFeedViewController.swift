@@ -10,7 +10,7 @@ import UIKit
 
 class HomeFeedViewController: UIViewController {
   let service = ServiceManager.shared
-  var localData = ([User])()
+  var localData = [PostsInfo]()
   var userUpdateTimes = [DateComponents]()
   
   private lazy var customNaviBar = UIView().then {
@@ -58,8 +58,7 @@ class HomeFeedViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.view.backgroundColor = .white
-    tabBarController?.tabBar.shadowImage = UIImage()
-    tabBarController?.tabBar.backgroundImage = UIImage()
+//    tabBarController?.tabBar.backgroundImage = UIImage()
     setupUI()
     makeCustomNavigation()
     saveOutputDate()
@@ -130,7 +129,6 @@ class HomeFeedViewController: UIViewController {
         self!.localData = data
         self!.calculateDifferentTime()
         self!.tableView.reloadData()
-//        dump(self!.localData)
       case .failure(let error):
         print(error.localizedDescription)
       }

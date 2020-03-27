@@ -9,39 +9,54 @@
 import Foundation
 
 let jsonData = """
-
-  {
-    "id": 6,
-    "username": "admin",
-    "title": "Hello",
-    "content": "World",
-    "category": "digital",
-    "view_count": 0,
-    "updated": "2020-03-26T12:03:35.543563+09:00",
-    "postimage_set": [
+{
+    "count": 12,
+    "next": null,
+    "previous": "http://13.125.217.34/post/list/",
+    "results": [
         {
-          "id": 3,
-          "photo": "http://13.125.217.34/media/images/fabinho1.png",
-          "post": 2
-        },
-        {
-          "id": 4,
-          "photo": "http://13.125.217.34/media/images/fabinho2.jpg",
-          "post": 2
-        },
-        {
-          "id": 5,
-          "photo": "http://13.125.217.34/media/images/fabinho1.png",
-          "post": 2
-        },
-        {
-          "id": 6,
-          "photo": "http://13.125.217.34/media/images/fabinho2.jpg",
-          "post": 2
+            "id": 2,
+            "username": "admin",
+            "title": "Hello",
+            "content": "World",
+            "category": "digital",
+            "view_count": 9,
+            "updated": "2020-03-23T18:52:52.603273+09:00",
+            "postimage_set": [
+                {
+                    "id": 3,
+                    "photo": "http://13.125.217.34/media/images/fabinho1.png",
+                    "post": 2
+                },
+                {
+                    "id": 4,
+                    "photo": "http://13.125.217.34/media/images/fabinho2.jpg",
+                    "post": 2
+                },
+                {
+                    "id": 5,
+                    "photo": "http://13.125.217.34/media/images/fabinho1.png",
+                    "post": 2
+                },
+                {
+                    "id": 6,
+                    "photo": "http://13.125.217.34/media/images/fabinho2.jpg",
+                    "post": 2
+                },
+                {
+                    "id": 7,
+                    "photo": "http://13.125.217.34/media/images/fabinho1_qDfgyxE.png",
+                    "post": 2
+                },
+                {
+                    "id": 8,
+                    "photo": "http://13.125.217.34/media/images/fabinho2_ZCvk42i.jpg",
+                    "post": 2
+                }
+            ]
         }
     ]
-  }
-
+}
 """.data(using: .utf8)!
 
 struct PostImageSet: Decodable {
@@ -49,10 +64,15 @@ struct PostImageSet: Decodable {
   let photo: String
 }
 
-struct User: Decodable {
+//struct PostsInfo: Decodable {
+//  let results: [Results]
+//}
+
+struct PostsInfo: Decodable {
   let id: Int
   let username: String
   let title: String
+  let viewCount: Int
   let updated: String
   let postImageSet: [PostImageSet]
 
@@ -60,6 +80,7 @@ struct User: Decodable {
 private enum CodingKeys: String, CodingKey {
   case id, username, title, updated
   case postImageSet = "postimage_set"
+  case viewCount = "view_count"
 }
   
   init(from decoder: Decoder) throws {
@@ -68,15 +89,16 @@ private enum CodingKeys: String, CodingKey {
     self.username = try container.decode(String.self, forKey: .username)
     self.title = try container.decode(String.self, forKey: .title)
     self.postImageSet = try container.decode([PostImageSet].self, forKey: .postImageSet)
+    self.viewCount = try container.decode(Int.self, forKey: .viewCount)
     self.updated = try container.decode(String.self, forKey: .updated)
   }
 }
 
-//func dummyData() {
-//  do {
-//    let temp = try JSONDecoder().decode(User.self, from: jsonData)
-//    dump(temp)
-//  } catch {
-//    print(error.localizedDescription)
-//  }
-//}
+func dummyData() {
+  do {
+    let temp = try JSONDecoder().decode(PostsInfo.self, from: jsonData)
+    dump(temp)
+  } catch {
+    print(error.localizedDescription)
+  }
+}
