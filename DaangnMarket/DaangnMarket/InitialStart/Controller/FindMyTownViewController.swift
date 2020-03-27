@@ -38,20 +38,15 @@ class FindMyTownViewController: UIViewController {
     $0.color = UIColor(named: ColorReference.daangnMain.rawValue)
     $0.hidesWhenStopped = true
   }
+  private lazy var backgroundView = TownBackgroundView().then {
+    $0.addTarget(self, action: #selector(didTapReSearchButton(_:)))
+  }
   
   // MARK: Model
   
   private var addresses = [String]() {
     didSet {
-      let backgroundView = UIView().then { backgroundView in
-        TownNoResultView()
-          .then { backgroundView.addSubview($0) }
-          .snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.centerY.equalToSuperview().offset(-52)
-        }
-      }
-      self.tableView.backgroundView = addresses.isEmpty ? backgroundView : nil
+      self.tableView.backgroundView = addresses.isEmpty ? self.backgroundView : nil
       self.tableView.reloadData()
     }
   }
@@ -136,6 +131,12 @@ class FindMyTownViewController: UIViewController {
   @objc private func didTapSearchWithLocationButton(_ sender: UIButton) {
     self.activityIndicator.startAnimating()
     self.locationManager.startUpdatingLocation()
+  }
+  
+  @objc private func didTapReSearchButton(_ sender: UIButton) {
+    self.townSearchBar
+      .clear()
+      .startEditing()
   }
 }
 

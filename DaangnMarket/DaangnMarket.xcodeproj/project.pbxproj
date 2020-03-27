@@ -14,6 +14,7 @@
 		A62D96B62424A442006F1722 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A62D96B42424A442006F1722 /* LaunchScreen.storyboard */; };
 		AC28CD24242A3FCA0031999B /* References.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC28CD23242A3FCA0031999B /* References.swift */; };
 		AC28CD27242A40B30031999B /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC28CD26242A40B30031999B /* UIImageView+Extension.swift */; };
+		AC5052DB242DA1B40045B9BC /* TownBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5052DA242DA1B40045B9BC /* TownBackgroundView.swift */; };
 		ACCC9750242B31CB008F95DE /* TownSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCC974F242B31CB008F95DE /* TownSearchBar.swift */; };
 		ACCC9753242B48D6008F95DE /* TownAddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCC9752242B48D6008F95DE /* TownAddressCell.swift */; };
 		ACCC9755242B490E008F95DE /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCC9754242B490E008F95DE /* Identifiable.swift */; };
@@ -51,6 +52,7 @@
 		A62D96B72424A442006F1722 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AC28CD23242A3FCA0031999B /* References.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = References.swift; sourceTree = "<group>"; };
 		AC28CD26242A40B30031999B /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
+		AC5052DA242DA1B40045B9BC /* TownBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownBackgroundView.swift; sourceTree = "<group>"; };
 		ACCC974F242B31CB008F95DE /* TownSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownSearchBar.swift; sourceTree = "<group>"; };
 		ACCC9752242B48D6008F95DE /* TownAddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownAddressCell.swift; sourceTree = "<group>"; };
 		ACCC9754242B490E008F95DE /* Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 				ACFB7D31242C5C3200E47F97 /* TownHeaderView.swift */,
 				ACFB7D35242C9A0C00E47F97 /* InitialStartView.swift */,
 				ACFB7D37242CA45600E47F97 /* TownNoResultView.swift */,
+				AC5052DA242DA1B40045B9BC /* TownBackgroundView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -441,6 +444,7 @@
 				ACCC975D242B75B7008F95DE /* Address.swift in Sources */,
 				ACCD94DD2429F87900153545 /* ChatViewController.swift in Sources */,
 				ACCC9757242B509E008F95DE /* LocationManager.swift in Sources */,
+				AC5052DB242DA1B40045B9BC /* TownBackgroundView.swift in Sources */,
 				ACCD94EA242A238300153545 /* FindMyTownViewController.swift in Sources */,
 				A62D96AA2424A440006F1722 /* AppDelegate.swift in Sources */,
 				ACCC9750242B31CB008F95DE /* TownSearchBar.swift in Sources */,

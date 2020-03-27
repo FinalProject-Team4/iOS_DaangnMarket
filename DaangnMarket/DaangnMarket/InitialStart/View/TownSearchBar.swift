@@ -92,8 +92,14 @@ class TownSearchBar: UIView {
   
   // MARK: Interface
   
-  func clear() {
+  @discardableResult
+  func clear() -> Self {
     self.inputField.text = ""
+    return self
+  }
+  
+  func startEditing() {
+    self.inputField.becomeFirstResponder()
   }
   
   required init?(coder: NSCoder) {

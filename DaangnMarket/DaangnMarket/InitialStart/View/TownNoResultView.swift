@@ -46,7 +46,7 @@ class TownNoResultView: UIView {
       .then { self.addSubview($0) }
       .snp.makeConstraints {
         $0.top.equalTo(self.imageView.snp.bottom).offset(8)
-        $0.centerX.equalTo(self.imageView)
+        $0.leading.trailing.equalToSuperview()
     }
     self.searchButton
       .then { self.addSubview($0) }
@@ -55,6 +55,12 @@ class TownNoResultView: UIView {
         $0.centerX.equalTo(self.titleLabel)
         $0.bottom.equalToSuperview()
     }
+  }
+  
+  // MARK: Interface
+  
+  func addTarget(_ target: Any?, action: Selector) {
+    self.searchButton.addTarget(target, action: action, for: .touchUpInside)
   }
   
   required init?(coder: NSCoder) {
