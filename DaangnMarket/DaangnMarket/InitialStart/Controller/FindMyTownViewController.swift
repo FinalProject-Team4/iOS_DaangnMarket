@@ -44,7 +44,7 @@ class FindMyTownViewController: UIViewController {
   
   // MARK: Model
   
-  private var addresses = [String]() {
+  private var addresses = [Address]() {
     didSet {
       self.tableView.backgroundView = addresses.isEmpty ? self.backgroundView : nil
       self.tableView.reloadData()
@@ -156,7 +156,7 @@ extension FindMyTownViewController: UITableViewDataSource {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: TownAddressCell.identifier, for: indexPath) as? TownAddressCell else {
       return UITableViewCell()
     }
-    cell.update(address: self.addresses[indexPath.row])
+    cell.update(address: self.addresses[indexPath.row].address)
     return cell
   }
 }
@@ -217,7 +217,7 @@ extension FindMyTownViewController: TownSearchBarDelegate {
         
         switch result {
         case .success(let addresses):
-          self.addresses = addresses.map { $0.address }
+          self.addresses = addresses
         case .failure(let error):
           print(error.localizedDescription)
         }
