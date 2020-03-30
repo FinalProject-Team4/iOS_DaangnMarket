@@ -181,6 +181,19 @@ extension FindMyTownViewController: UITableViewDelegate {
   func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
     self.townSearchBar.endEditing(false)
   }
+  
+  func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    if indexPath.row == self.addresses.count - 2 {
+      API.default.requestNext { (result) in
+        switch result {
+        case .success(let addresses):
+          self.addresses.append(contentsOf: addresses)
+        case .failure(let error):
+          print(error.localizedDescription)
+        }
+      }
+    }
+  }
 }
 
 // MARK: - LocationManagerDelegate
@@ -190,15 +203,17 @@ extension FindMyTownViewController: LocationManagerDelegate {
     self.sectionTitle = "근처 동네"
     self.townSearchBar.clear()
     self.activityIndicator.startAnimating()
-    DataProvider.requestAddress(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude) { (result) in
-      defer { self.activityIndicator.stopAnimating() }
-      
-      switch result {
-      case .success(let addresses):
-        self.addresses = addresses.map { $0.address }
-      case .failure(let error):
-        print(error.localizedDescription)
-      }
+    let coordinate = location.coordinate
+    API.default
+      .request(.addressByGPS(lat: coordinate.latitude, lon: coordinate.longitude)) { (result) in
+        defer { self.activityIndicator.stopAnimating() }
+        
+        switch result {
+        case .success(let addresses):
+          self.addresses = addresses
+        case .failure(let error):
+          print(error.localizedDescription)
+        }
     }
   }
 }
@@ -212,15 +227,16 @@ extension FindMyTownViewController: TownSearchBarDelegate {
     } else {
       self.sectionTitle = "'\(text)' 검색 결과"
       self.activityIndicator.startAnimating()
-      DataProvider.requestAddress(address: text) { (result) in
-        defer { self.activityIndicator.stopAnimating() }
-        
-        switch result {
-        case .success(let addresses):
-          self.addresses = addresses
-        case .failure(let error):
-          print(error.localizedDescription)
-        }
+      API.default
+        .request(.addressBySearch(text: text)) { (result) in
+          defer { self.activityIndicator.stopAnimating() }
+          
+          switch result {
+          case .success(let addresses):
+            self.addresses = addresses
+          case .failure(let error):
+            print(error.localizedDescription)
+          }
       }
     }
   }

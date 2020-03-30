@@ -8,34 +8,30 @@
 
 import Foundation
 
-struct Address: Codable {
+// MARK: - AddressInfo
+
+struct AddressInfo: Decodable {
+  let count: Int
+  let next: String?
+  let previous: String?
+  let results: [Address]
+  
+  init() {
+    self.count = 0
+    self.next = nil
+    self.previous = nil
+    self.results = []
+  }
+}
+
+// MARK: - Address
+
+struct Address: Decodable {
   let id: Int
   let dong: String
   let gu: String
   let longitude: String
   let latitude: String
   let address: String
-}
-
-struct AddressWithDistance: Codable {
-  let address: Address
-  let distance: Double
-}
-
-extension AddressWithDistance {
-  enum AddressCodingKeys: String, CodingKey {
-    case id, dong, gu, longitude, latitude, address, distance
-  }
-  
-  init(from decoder: Decoder) throws {
-    let container = try decoder.container(keyedBy: AddressCodingKeys.self)
-    let id = try container.decode(Int.self, forKey: .id)
-    let dong = try container.decode(String.self, forKey: .dong)
-    let gu = try container.decode(String.self, forKey: .gu)
-    let longitude = try container.decode(String.self, forKey: .longitude)
-    let latitude = try container.decode(String.self, forKey: .latitude)
-    let address = try container.decode(String.self, forKey: .address)
-    self.address = Address(id: id, dong: dong, gu: gu, longitude: longitude, latitude: latitude, address: address)
-    self.distance = try container.decode(Double.self, forKey: .distance)
-  }
+  let distance: Double?
 }
