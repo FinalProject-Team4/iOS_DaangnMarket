@@ -19,7 +19,7 @@
 		ACCC9753242B48D6008F95DE /* TownAddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCC9752242B48D6008F95DE /* TownAddressCell.swift */; };
 		ACCC9755242B490E008F95DE /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCC9754242B490E008F95DE /* Identifiable.swift */; };
 		ACCC9757242B509E008F95DE /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCC9756242B509E008F95DE /* LocationManager.swift */; };
-		ACCC975B242B6DB0008F95DE /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCC975A242B6DB0008F95DE /* DataProvider.swift */; };
+		ACCC975B242B6DB0008F95DE /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCC975A242B6DB0008F95DE /* API.swift */; };
 		ACCC975D242B75B7008F95DE /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCC975C242B75B7008F95DE /* Address.swift */; };
 		ACCD94CE2429E59500153545 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = ACCD94CD2429E59500153545 /* .swiftlint.yml */; };
 		ACCD94D72429F81D00153545 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD94D62429F81D00153545 /* CategoryViewController.swift */; };
@@ -57,7 +57,7 @@
 		ACCC9752242B48D6008F95DE /* TownAddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownAddressCell.swift; sourceTree = "<group>"; };
 		ACCC9754242B490E008F95DE /* Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
 		ACCC9756242B509E008F95DE /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
-		ACCC975A242B6DB0008F95DE /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
+		ACCC975A242B6DB0008F95DE /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		ACCC975C242B75B7008F95DE /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		ACCD94CD2429E59500153545 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		ACCD94D62429F81D00153545 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
@@ -246,7 +246,7 @@
 			isa = PBXGroup;
 			children = (
 				ACCC9756242B509E008F95DE /* LocationManager.swift */,
-				ACCC975A242B6DB0008F95DE /* DataProvider.swift */,
+				ACCC975A242B6DB0008F95DE /* API.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -454,7 +454,7 @@
 				ACCD94F2242A250500153545 /* DGButton.swift in Sources */,
 				ACCD94EE242A23B800153545 /* DaangnAnimationView.swift in Sources */,
 				ACCD94DB2429F86B00153545 /* WriteUsedViewController.swift in Sources */,
-				ACCC975B242B6DB0008F95DE /* DataProvider.swift in Sources */,
+				ACCC975B242B6DB0008F95DE /* API.swift in Sources */,
 				ACCC9753242B48D6008F95DE /* TownAddressCell.swift in Sources */,
 				ACFB7D34242C876800E47F97 /* DGToastAlert.swift in Sources */,
 				ACFB7D3C242CCFF000E47F97 /* DGNavigationBar.swift in Sources */,
