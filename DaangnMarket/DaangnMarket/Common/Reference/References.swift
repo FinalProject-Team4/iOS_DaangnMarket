@@ -10,17 +10,22 @@ import Foundation
 
 enum ImageReference: String {
   case daangnMain = "DaangnImage_Main"
+  case daangnAuth = "DaangnImage_Auth"
   case arrowLeft = "arrow.left"
   case search = "magnifyingglass"
   case arrowChevronRight = "chevron.right"
   case searchNoResult = "doc.text.magnifyingglass"
+  case xmark
 }
 
 enum ColorReference: String {
   case daangnMain = "DaangnColor_Main"
   case item = "Item"
-  case underline = "Underline"
+  case borderLine = "BorderLine"
   case toastAlert = "ToastAlert"
   case noResultImage = "NoResultImage"
   case navigationShadow = "NavigationShadow"
+  case auth = "Auth"
+  case inputText = "InputText"
+  case subText = "SubText"
 }

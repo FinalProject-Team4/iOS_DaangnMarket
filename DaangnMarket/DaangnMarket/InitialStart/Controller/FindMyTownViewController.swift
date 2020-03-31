@@ -22,7 +22,8 @@ class FindMyTownViewController: UIViewController {
   private lazy var townSearchBar = TownSearchBar().then {
     $0.delegate = self
   }
-  private lazy var searchWithLocationButton = DGButton(title: "현재 위치로 찾기").then {
+  private lazy var searchWithLocationButton = DGButton().then {
+    $0.setTitle("현재 위치로 찾기", for: .normal)
     $0.addTarget(self, action: #selector(didTapSearchWithLocationButton), for: .touchUpInside)
     $0.titleLabel?.font = .systemFont(ofSize: 13, weight: .semibold)
     $0.layer.cornerRadius = 18
