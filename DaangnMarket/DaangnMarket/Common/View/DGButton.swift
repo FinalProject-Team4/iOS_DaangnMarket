@@ -11,10 +11,10 @@ import UIKit
 class DGButton: UIButton {
   // MARK: Properties
   
+  private var originBackgroundColor: UIColor?
   override var isEnabled: Bool {
     didSet {
-      let originColor = self.backgroundColor
-      self.backgroundColor = isEnabled ? originColor : UIColor(named: ColorReference.borderLine.rawValue)
+      self.backgroundColor = isEnabled ? self.originBackgroundColor : UIColor(named: ColorReference.borderLine.rawValue)
     }
   }
   
@@ -31,6 +31,7 @@ class DGButton: UIButton {
     case .auth:
       self.backgroundColor = UIColor(named: ColorReference.auth.rawValue)
     }
+    self.originBackgroundColor = self.backgroundColor
   }
   
   required init?(coder: NSCoder) {
