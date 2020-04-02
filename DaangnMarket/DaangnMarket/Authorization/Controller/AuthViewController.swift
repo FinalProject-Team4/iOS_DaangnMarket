@@ -23,6 +23,7 @@ class AuthViewController: UIViewController {
   }
   private lazy var requestCodeButton = DGButton(type: .auth).then {
     $0.setTitle("인증문자 받기", for: .normal)
+    $0.titleLabel?.font = .systemFont(ofSize: 17, weight: .bold)
     $0.layer.cornerRadius = 4
     $0.isEnabled = false
     $0.addTarget(self, action: #selector(didTapAuthButton(_:)), for: .touchUpInside)
@@ -42,6 +43,7 @@ class AuthViewController: UIViewController {
   private lazy var authButton = DGButton().then {
     $0.setTitle("동의하고 시작하기", for: .normal)
     $0.layer.cornerRadius = 4
+    $0.titleLabel?.font = .systemFont(ofSize: 17, weight: .bold)
     $0.isEnabled = false
     $0.addTarget(self, action: #selector(didTapAuthButton(_:)), for: .touchUpInside)
   }
