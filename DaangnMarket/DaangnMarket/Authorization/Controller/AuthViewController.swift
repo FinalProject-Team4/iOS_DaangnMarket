@@ -51,18 +51,25 @@ class AuthViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.setupUI()
-    self.scrollView.gestureRecognizers?.forEach { print($0) }
   }
   
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     self.phoneNumberField.becomeFirstResponder()
+  }
+  
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    
+    let bottomMargin = self.view.frame.maxY - self.scrollView.frame.maxY
     self.authButton.snp.updateConstraints {
       $0.bottom
         .equalToSuperview()
-        .offset(-self.scrollView.frame.height + self.authButton.frame.maxY)
+        .offset(-bottomMargin)
     }
   }
+  
+  // MARK: Initialize
   
   private func setupUI() {
     self.setupAttributes()
@@ -187,9 +194,11 @@ class AuthViewController: UIViewController {
     
     UIView.animate(withDuration: duration) {
       self.scrollView.snp.updateConstraints {
-        $0.bottom.equalToSuperview().offset(-self.view.frame.height + frame.minY)
+        $0.bottom
+          .equalToSuperview()
+          .offset(-frame.height)
       }
-      self.scrollView.layoutIfNeeded()
+      self.view.layoutIfNeeded()
     }
   }
   
@@ -214,14 +223,21 @@ class AuthViewController: UIViewController {
       let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval
       else { return }
     
-    UIView.animate(
-      withDuration: duration,
-      animations: {
-        self.scrollView.contentOffset = .zero
-    }) { (_) in
+//    UIView.animate(
+//      withDuration: duration,
+//      animations: {
+//        self.scrollView.contentOffset = .zero
+//    }) { (_) in
+//      self.scrollView.snp.updateConstraints {
+//        $0.bottom.equalToSuperview()
+//      }
+//    }
+//    print("ScrollView offset :", scrollView.contentOffset)
+    UIView.animate(withDuration: duration) {
       self.scrollView.snp.updateConstraints {
         $0.bottom.equalToSuperview()
       }
+      self.view.layoutIfNeeded()
     }
   }
 }
