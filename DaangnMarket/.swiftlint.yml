@@ -81,3 +81,5 @@ excluded:
   - Pods
   - DaangnMarket/AppDelegate.swift
   - DaangnMarket/SceneDelegate.swift
+  - DaangnMarket/InitialStart/Model/Address.swift
+  - DaangnMarket/Test

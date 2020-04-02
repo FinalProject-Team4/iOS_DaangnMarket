@@ -44,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     UITabBar.appearance().tintColor = .black
     
     self.window = UIWindow(frame: UIScreen.main.bounds)
-    self.window?.rootViewController = tabbarController
+    self.window?.rootViewController = UINavigationController(rootViewController: InitialStartViewController())
     self.window?.makeKeyAndVisible()
     
     return true
