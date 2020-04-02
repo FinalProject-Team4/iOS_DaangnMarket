@@ -7,12 +7,20 @@
 //
 
 import UIKit
+import Alamofire
 
 class HomeFeedViewController: UIViewController {
   let service = ServiceManager.shared
-  var localData = [PostsInfo]()
+  var localData = [Results]() {
+    didSet {
+      self.tableView.reloadData()
+    }
+  }
+  var testData = [Int]() // 숫자배열; 서버데이터 없어서 임시로 만든 배열
   var userUpdateTimes = [DateComponents]()
-  
+  var goodsLimits = 15
+  var page: Int = 1 // -> page 1; 서버호출, 그외; 임시
+
   private lazy var customNaviBar = UIView().then {
     $0.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 98)
     $0.backgroundColor = .white
@@ -26,7 +34,7 @@ class HomeFeedViewController: UIViewController {
     $0.addTarget(self, action: #selector(didTapButtonsInNaviBar(_:)), for: .touchUpInside)
   }
   private let leftBarItemArrow = UIImageView().then {
-    $0.frame.size = CGSize(width: 10, height: 10)
+    $0.frame.size = CGSize(width: 5, height: 5)
     $0.image = UIImage(systemName: "chevron.down")
     $0.tintColor = .black
   }
@@ -58,15 +66,16 @@ class HomeFeedViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.view.backgroundColor = .white
-//    tabBarController?.tabBar.backgroundImage = UIImage()
     setupUI()
     makeCustomNavigation()
-    saveOutputDate()
+    saveOutputDate(page)
   }
   
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    doFirstViewAlert()
+    if FirstAlertViewController.isFirstStart {
+      doFirstViewAlert()
+    }
   }
   
   private func doFirstViewAlert() {
@@ -90,6 +99,19 @@ class HomeFeedViewController: UIViewController {
     tableView.frame = view.frame
     tableView.dataSource = self
     tableView.delegate = self
+    var idx = 0
+    while idx < goodsLimits {
+      testData.append(idx)
+      idx += 1
+    }
+    let refreshControl = UIRefreshControl()
+    refreshControl.tintColor = UIColor(named: "symbolColor")
+    refreshControl.addTarget(self, action: #selector(updateGoods), for: .valueChanged)
+    tableView.refreshControl = refreshControl
+  }
+  
+  @objc func updateGoods() {
+    saveOutputDate(page)
   }
   
   private func setupConstraints() {
@@ -122,15 +144,18 @@ class HomeFeedViewController: UIViewController {
     }
   }
   
-  private func saveOutputDate() {
-    service.requestUser { [weak self] result in
+  private func saveOutputDate(_ page: Any) {
+    let parameters: Parameters = ["page": self.page]
+    service.requestUser(parameters) { [weak self] result in
       switch result {
       case .success(let data):
-        self!.localData = data
+        self!.localData = data.results
         self!.calculateDifferentTime()
-        self!.tableView.reloadData()
       case .failure(let error):
         print(error.localizedDescription)
+      }
+      DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+        self!.tableView.refreshControl?.endRefreshing()
       }
     }
   }
@@ -143,27 +168,67 @@ class HomeFeedViewController: UIViewController {
       dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
       let updatedTime: Date = dateFormatter.date(from: tempTime) ?? currentTime
       let calculrate = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)
-      guard let compareTime = calculrate?.components([.day, .hour, .minute], from: updatedTime, to: currentTime, options: []) else { fatalError("castin error") }
+      guard let compareTime = calculrate?.components([.day, .hour, .minute, .second], from: updatedTime, to: currentTime, options: [])
+      else { fatalError("castin error") }
       userUpdateTimes.append(compareTime)
     }
   }
 
-  @objc private func didTapButtonsInNaviBar(_ sender: UIButton) {
+  @objc private func didTapButtonsInNaviBar(_ sender: UIView) {
+    let homeVC = HomeFeedViewController()
+    let popoverVC = PopoverViewController()
     switch sender {
     case leftBarItemButton:
-      print("동네선택")
+      let popPresent = HomeFeedViewController.popoverPresent(homeVC, popoverVC, sender)
+      present(popPresent, animated: true)
     case rightBarItemMagnifyingglass:
-//      navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
       print("검색하기")
     case rightBarItemSlider:
-//      navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
       print("카테고리선택")
     case rightBarItemBell:
-//      navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
       print("알림")
     default:
       break
     }
+  }
+  
+  static func popoverPresent(_ delegateVC: UIViewController, _ controller: UIViewController, _ sender: UIView) -> UIViewController {
+    controller.preferredContentSize = CGSize(width: 300, height: 150)
+    controller.modalPresentationStyle = .popover
+    guard let presentationController = controller.popoverPresentationController else { fatalError("popOverPresent casting error") }
+    presentationController.delegate = delegateVC as? UIPopoverPresentationControllerDelegate
+    presentationController.sourceRect = sender.bounds
+    presentationController.sourceView = sender
+    presentationController.permittedArrowDirections = .up
+    return controller
+  }
+  
+  private func checkGoodsImage(_ cell: HomeFeedTableViewCell, _ indexPath: IndexPath) {
+    //    goodsImage.kf.setImage(with: URL(string: "http://13.125.217.34/media/images/fabinho2.jpg")) -> 참고용
+    let imageURL = localData[indexPath.row].postImageSet
+    if !imageURL.isEmpty {
+      cell.goodsImageView.kf.setImage(with: URL(string: imageURL[0].photo))
+    } else {
+      cell.goodsImageView.image = UIImage(named: "DaanggnMascot")
+    }
+  }
+  
+  private func removeNotNeededTimeUnit(_ address: String, _ userUpdateTimes: DateComponents) -> String {
+    var updateTime = String()
+    if userUpdateTimes.day != 0 {
+      if userUpdateTimes.day == 1 {
+        updateTime += "\(address) • 어제"
+      } else {
+        updateTime += "\(address) • \(userUpdateTimes.day!)일 전"
+      }
+    } else if userUpdateTimes.hour != 0 {
+      updateTime += "\(address) • \(userUpdateTimes.hour!)시간 전"
+    } else if userUpdateTimes.minute != 0 {
+      updateTime += "\(address) • \(userUpdateTimes.minute!)분 전"
+    } else if userUpdateTimes.second != 0 {
+      updateTime += "\(address) • \(userUpdateTimes.second!)초 전"
+    }
+    return updateTime
   }
 }
 
@@ -175,48 +240,64 @@ extension HomeFeedViewController: UITableViewDataSource {
     }
     return sectionView
   }
+  
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return localData.count
+    if page == 1 {
+      return  localData.count
+    } else {
+      return testData.count // 서버 호출 안될 시 확인용
+    }
   }
+  
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: "GoodsCell", for: indexPath) as? HomeFeedTableViewCell else { fatalError("faile type casting") }
     cell.goodsName.text = localData[indexPath.row].title
-    cell.sellerLoctionAndTime.text = removeNotNeededTimeUnit(userUpdateTimes[indexPath.row])
-//    print("\(indexPath.row):", checkGoodsImage(indexPath))
-//    cell.goodsImage.kf.setImage(with: URL(string: checkGoodsImage(indexPath)))
+    cell.sellerLoctionAndTime.text = removeNotNeededTimeUnit(localData[indexPath.row].address, userUpdateTimes[indexPath.row])
+    checkGoodsImage(cell, indexPath)
+//    var cell = tableView.dequeueReusableCell(withIdentifier: "GoodsCell")!
+//    if cell == nil {
+//      cell = UITableViewCell(style: .default, reuseIdentifier: "GoodsCell")
+//    }
+//    cell.textLabel?.text = "Row \(indexPath.row)"
     return cell
   }
-
-  func checkGoodsImage(_ indexPath: IndexPath) -> String {
-//    goodsImage.kf.setImage(with: URL(string: "http://13.125.217.34/media/images/fabinho2.jpg"))
-    var URL = String()
-    let imageURL = localData[indexPath.row].postImageSet
-    if !imageURL.isEmpty {
-      URL = imageURL[0].photo
-      return URL
-    } else {
-      URL = String()
+  
+  func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    print("testData.count:", testData.count)
+    print("indexPath.row:", indexPath.row)
+    if indexPath.row == testData.count - 19 {
+      var idx = testData.count
+      goodsLimits = idx + 10
+      while idx < goodsLimits {
+        testData.append(idx)
+        idx += 1
+      }
+      self.perform(#selector(loadTable), with: nil, afterDelay: 1.0)
     }
-    return URL
   }
   
-  func removeNotNeededTimeUnit(_ userUpdateTimes: DateComponents) -> String {
-    var updateTime = String()
-    let defaultText = "화양동 • "
-    if userUpdateTimes.day != 0 {
-      if userUpdateTimes.day == 1 {
-        updateTime += defaultText + "어제"
-      } else {
-        updateTime += defaultText + "\(userUpdateTimes.day!)일 전"
-      }
-    } else if userUpdateTimes.hour != 0 {
-      updateTime += defaultText + "\(userUpdateTimes.hour!)시간 전"
-    } else if userUpdateTimes.minute != 0 {
-      updateTime += defaultText + "\(userUpdateTimes.minute!)분 전"
-    }
-    return updateTime
+  @objc private func loadTable() {
+    self.tableView.reloadData()
   }
 }
 
 extension HomeFeedViewController: UITableViewDelegate {
 }
+
+extension HomeFeedViewController: UIPopoverPresentationControllerDelegate {
+  func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+    return .none
+  }
+}
+
+
+
+//let popoverVC = PopoverViewController()
+//popoverVC.preferredContentSize = CGSize(width: 300, height: 150)
+//popoverVC.modalPresentationStyle = .popover
+//guard let presentationController = popoverVC.popoverPresentationController else { return }
+//presentationController.delegate = self
+//presentationController.sourceRect = sender.bounds
+//presentationController.sourceView = sender
+//presentationController.permittedArrowDirections = .up
+//present(popoverVC, animated: true)

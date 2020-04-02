@@ -9,7 +9,7 @@
 import UIKit
 
 class HomeFeedTableViewCell: UITableViewCell {
-  let goodsImage = UIImageView().then {
+  var goodsImageView = UIImageView().then {
     $0.clipsToBounds = true
     $0.layer.cornerRadius = 5
     $0.kf.setImage(with: URL(string: "http://13.125.217.34/media/images/fabinho2.jpg"))
@@ -61,16 +61,16 @@ class HomeFeedTableViewCell: UITableViewCell {
     setupConstraints()
   }
   private func setupConstraints() {
-    let UIs = [goodsImage, goodsName, sellerLoctionAndTime, goodsPrice, favoriteMark, favoriteCount, separateBar]
+    let UIs = [goodsImageView, goodsName, sellerLoctionAndTime, goodsPrice, favoriteMark, favoriteCount, separateBar]
     UIs.forEach { self.contentView.addSubview($0) }
-    goodsImage.snp.makeConstraints {
+    goodsImageView.snp.makeConstraints {
       $0.centerY.equalTo(self.contentView.snp.centerY)
       $0.leading.equalTo(self.contentView.snp.leading).offset(16)
       $0.width.height.equalTo(104)
     }
     goodsName.snp.makeConstraints {
-      $0.top.equalTo(goodsImage)
-      $0.leading.equalTo(goodsImage.snp.trailing).offset(16)
+      $0.top.equalTo(goodsImageView)
+      $0.leading.equalTo(goodsImageView.snp.trailing).offset(16)
     }
     sellerLoctionAndTime.snp.makeConstraints {
       $0.top.equalTo(goodsName.snp.bottom).offset(5)
@@ -89,7 +89,7 @@ class HomeFeedTableViewCell: UITableViewCell {
       $0.leading.equalTo(favoriteMark.snp.trailing)
     }
     separateBar.snp.makeConstraints {
-      $0.leading.equalTo(self.contentView.snp.trailing).offset(16)
+      $0.leading.equalTo(self.contentView.snp.leading).offset(16)
       $0.trailing.equalTo(self.contentView.snp.trailing).offset(-16)
       $0.bottom.equalToSuperview()
       $0.height.equalTo(0.3)

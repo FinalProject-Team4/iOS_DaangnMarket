@@ -9,6 +9,7 @@
 import UIKit
 
 class FirstAlertViewController: UIViewController {
+  static var isFirstStart = true
   static let orangeish = UIColor(red: 254.0 / 255.0, green: 138.0 / 255.0, blue: 61.0 / 255.0, alpha: 1.0)
   static let lightBlueGrey = UIColor(red: 206.0 / 255.0, green: 212.0 / 255.0, blue: 217.0 / 255.0, alpha: 1.0)
   private let firsAlertView = UIView().then {
@@ -26,11 +27,11 @@ class FirstAlertViewController: UIViewController {
     $0.font = .systemFont(ofSize: 20, weight: .bold)
   }
   private let startViewBottomLabel = UILabel().then {
-      $0.numberOfLines = 0
-      $0.text = "중고 상품을 구경하세요!"
-      $0.contentMode = .center
-      $0.font = .systemFont(ofSize: 20, weight: .bold)
-    }
+    $0.numberOfLines = 0
+    $0.text = "중고 상품을 구경하세요!"
+    $0.contentMode = .center
+    $0.font = .systemFont(ofSize: 20, weight: .bold)
+  }
   private let signUpAndWatchButton = UIButton().then {
     $0.setTitle("가입하고 구경하기", for: .normal)
     $0.setTitleColor(.white, for: .normal)
@@ -56,8 +57,8 @@ class FirstAlertViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    dummyData()
-    self.view.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+//    dummyData()
+    self.view.backgroundColor = UIColor.black.withAlphaComponent(0.4)
     setupUI()
   }
   
@@ -109,6 +110,7 @@ class FirstAlertViewController: UIViewController {
   }
   
   @objc private func didTapButtonsAction(_ sender: UIButton) {
+    FirstAlertViewController.isFirstStart = false
     if (sender == signUpAndWatchButton) || (sender == signUpButton) {
       print("Go to SignUp Page")
     } else {

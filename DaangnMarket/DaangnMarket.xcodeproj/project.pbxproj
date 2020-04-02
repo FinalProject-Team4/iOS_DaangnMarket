@@ -19,6 +19,7 @@
 		ACCD94DD2429F87900153545 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD94DC2429F87900153545 /* ChatViewController.swift */; };
 		ACCD94DF2429F89200153545 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD94DE2429F89200153545 /* MyPageViewController.swift */; };
 		AD677861242A21ED00CFEB86 /* FirstAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD677860242A21ED00CFEB86 /* FirstAlertViewController.swift */; };
+		ADAA12BF2433214000A692A0 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAA12BE2433214000A692A0 /* PopoverViewController.swift */; };
 		ADD05132242B595200312DF1 /* HomeFeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD05131242B595200312DF1 /* HomeFeedTableViewCell.swift */; };
 		ADD05135242C4FC000312DF1 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD05134242C4FC000312DF1 /* Service.swift */; };
 		ADD05137242C62CF00312DF1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD05136242C62CF00312DF1 /* User.swift */; };
@@ -41,6 +42,7 @@
 		ACCD94DC2429F87900153545 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		ACCD94DE2429F89200153545 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		AD677860242A21ED00CFEB86 /* FirstAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstAlertViewController.swift; sourceTree = "<group>"; };
+		ADAA12BE2433214000A692A0 /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
 		ADD05131242B595200312DF1 /* HomeFeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeedTableViewCell.swift; sourceTree = "<group>"; };
 		ADD05134242C4FC000312DF1 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		ADD05136242C62CF00312DF1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 			children = (
 				AD677860242A21ED00CFEB86 /* FirstAlertViewController.swift */,
 				A62D96AD2424A440006F1722 /* HomeFeedViewController.swift */,
+				ADAA12BD243320DF00A692A0 /* PopoverView */,
 				ADD05130242B591700312DF1 /* Cell */,
 				ADD05133242C4F8200312DF1 /* Service */,
 			);
@@ -160,6 +163,14 @@
 				ACCD94D62429F81D00153545 /* CategoryViewController.swift */,
 			);
 			path = Category;
+			sourceTree = "<group>";
+		};
+		ADAA12BD243320DF00A692A0 /* PopoverView */ = {
+			isa = PBXGroup;
+			children = (
+				ADAA12BE2433214000A692A0 /* PopoverViewController.swift */,
+			);
+			path = PopoverView;
 			sourceTree = "<group>";
 		};
 		ADD05130242B591700312DF1 /* Cell */ = {
@@ -316,6 +327,7 @@
 				A62D96AE2424A440006F1722 /* HomeFeedViewController.swift in Sources */,
 				ACCD94D92429F84200153545 /* ProductPostViewController.swift in Sources */,
 				ACCD94DD2429F87900153545 /* ChatViewController.swift in Sources */,
+				ADAA12BF2433214000A692A0 /* PopoverViewController.swift in Sources */,
 				AD677861242A21ED00CFEB86 /* FirstAlertViewController.swift in Sources */,
 				ADD05132242B595200312DF1 /* HomeFeedTableViewCell.swift in Sources */,
 				A62D96AA2424A440006F1722 /* AppDelegate.swift in Sources */,
