@@ -42,6 +42,11 @@
 		ACFB7D3A242CCE9200E47F97 /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFB7D39242CCE9200E47F97 /* UIDevice+Extension.swift */; };
 		ACFB7D3C242CCFF000E47F97 /* DGNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFB7D3B242CCFF000E47F97 /* DGNavigationBar.swift */; };
 		ACFB7D3E242CD94E00E47F97 /* UINavigationBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFB7D3D242CD94E00E47F97 /* UINavigationBar+Extension.swift */; };
+		AD677861242A21ED00CFEB86 /* FirstAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD677860242A21ED00CFEB86 /* FirstAlertViewController.swift */; };
+		ADAA12BF2433214000A692A0 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAA12BE2433214000A692A0 /* PopoverViewController.swift */; };
+		ADD05132242B595200312DF1 /* HomeFeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD05131242B595200312DF1 /* HomeFeedTableViewCell.swift */; };
+		ADD05135242C4FC000312DF1 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD05134242C4FC000312DF1 /* Service.swift */; };
+		ADD05137242C62CF00312DF1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD05136242C62CF00312DF1 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,6 +90,11 @@
 		ACFB7D39242CCE9200E47F97 /* UIDevice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
 		ACFB7D3B242CCFF000E47F97 /* DGNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DGNavigationBar.swift; sourceTree = "<group>"; };
 		ACFB7D3D242CD94E00E47F97 /* UINavigationBar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+Extension.swift"; sourceTree = "<group>"; };
+		AD677860242A21ED00CFEB86 /* FirstAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstAlertViewController.swift; sourceTree = "<group>"; };
+		ADAA12BE2433214000A692A0 /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
+		ADD05131242B595200312DF1 /* HomeFeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeedTableViewCell.swift; sourceTree = "<group>"; };
+		ADD05134242C4FC000312DF1 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		ADD05136242C62CF00312DF1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,7 +232,11 @@
 		ACCD94D02429F5B900153545 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				AD677860242A21ED00CFEB86 /* FirstAlertViewController.swift */,
 				A62D96AD2424A440006F1722 /* HomeFeedViewController.swift */,
+				ADAA12BD243320DF00A692A0 /* PopoverView */,
+				ADD05130242B591700312DF1 /* Cell */,
+				ADD05133242C4F8200312DF1 /* Service */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -335,6 +349,31 @@
 				ACFB7D30242C417400E47F97 /* APITest.playground */,
 			);
 			path = Test;
+			sourceTree = "<group>";
+		};
+		ADAA12BD243320DF00A692A0 /* PopoverView */ = {
+			isa = PBXGroup;
+			children = (
+				ADAA12BE2433214000A692A0 /* PopoverViewController.swift */,
+			);
+			path = PopoverView;
+			sourceTree = "<group>";
+		};
+		ADD05130242B591700312DF1 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				ADD05131242B595200312DF1 /* HomeFeedTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		ADD05133242C4F8200312DF1 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				ADD05134242C4FC000312DF1 /* Service.swift */,
+				ADD05136242C62CF00312DF1 /* User.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -484,6 +523,9 @@
 				ACCC9757242B509E008F95DE /* LocationManager.swift in Sources */,
 				AC5052DB242DA1B40045B9BC /* TownBackgroundView.swift in Sources */,
 				ACCD94EA242A238300153545 /* FindMyTownViewController.swift in Sources */,
+				ADAA12BF2433214000A692A0 /* PopoverViewController.swift in Sources */,
+				AD677861242A21ED00CFEB86 /* FirstAlertViewController.swift in Sources */,
+				ADD05132242B595200312DF1 /* HomeFeedTableViewCell.swift in Sources */,
 				A62D96AA2424A440006F1722 /* AppDelegate.swift in Sources */,
 				ACCC9750242B31CB008F95DE /* TownSearchBar.swift in Sources */,
 				ACB2B6072433472B002FAF27 /* AuthDescriptionView.swift in Sources */,
@@ -492,6 +534,7 @@
 				ACCD94E4242A19DD00153545 /* InitialStartViewController.swift in Sources */,
 				ACCD94F2242A250500153545 /* DGButton.swift in Sources */,
 				ACCD94EE242A23B800153545 /* DaangnAnimationView.swift in Sources */,
+				ADD05135242C4FC000312DF1 /* Service.swift in Sources */,
 				ACCD94DB2429F86B00153545 /* WriteUsedViewController.swift in Sources */,
 				ACCC975B242B6DB0008F95DE /* API.swift in Sources */,
 				ACCC9753242B48D6008F95DE /* TownAddressCell.swift in Sources */,
@@ -501,6 +544,7 @@
 				ACFB7D38242CA45600E47F97 /* TownNoResultView.swift in Sources */,
 				ACFB7D36242C9A0C00E47F97 /* InitialStartView.swift in Sources */,
 				ACCD94DF2429F89200153545 /* MyPageViewController.swift in Sources */,
+				ADD05137242C62CF00312DF1 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -645,7 +689,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = kr.jisng.identifier.DaangnMarket;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.teamproject.identifier.DaangnMarket;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -665,7 +709,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = kr.jisng.identifier.DaangnMarket;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.teamproject.identifier.DaangnMarket;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
