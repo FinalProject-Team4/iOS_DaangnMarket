@@ -17,8 +17,8 @@
 		AC5052DB242DA1B40045B9BC /* TownBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5052DA242DA1B40045B9BC /* TownBackgroundView.swift */; };
 		AC52A4D624384C1F00DB4FB6 /* AuthInputForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4D524384C1F00DB4FB6 /* AuthInputForm.swift */; };
 		AC52A4DB24385EDB00DB4FB6 /* PhoneAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4DA24385EDB00DB4FB6 /* PhoneAuthorization.swift */; };
+		AC52A4DD243883EE00DB4FB6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AC52A4DC243883EE00DB4FB6 /* GoogleService-Info.plist */; };
 		AC829F4724347FDC00D0623A /* NumberField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC829F4624347FDC00D0623A /* NumberField.swift */; };
-		ACB2B600243302E7002FAF27 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACB2B5FF243302E7002FAF27 /* GoogleService-Info.plist */; };
 		ACB2B60324333763002FAF27 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B60224333763002FAF27 /* AuthViewController.swift */; };
 		ACB2B6072433472B002FAF27 /* AuthDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B6062433472B002FAF27 /* AuthDescriptionView.swift */; };
 		ACB2B60924334813002FAF27 /* NSMutableAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B60824334813002FAF27 /* NSMutableAttributedString+Extension.swift */; };
@@ -69,8 +69,8 @@
 		AC5052DA242DA1B40045B9BC /* TownBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownBackgroundView.swift; sourceTree = "<group>"; };
 		AC52A4D524384C1F00DB4FB6 /* AuthInputForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInputForm.swift; sourceTree = "<group>"; };
 		AC52A4DA24385EDB00DB4FB6 /* PhoneAuthorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneAuthorization.swift; sourceTree = "<group>"; };
+		AC52A4DC243883EE00DB4FB6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AC829F4624347FDC00D0623A /* NumberField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberField.swift; sourceTree = "<group>"; };
-		ACB2B5FF243302E7002FAF27 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ACB2B60224333763002FAF27 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		ACB2B6062433472B002FAF27 /* AuthDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDescriptionView.swift; sourceTree = "<group>"; };
 		ACB2B60824334813002FAF27 /* NSMutableAttributedString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Extension.swift"; sourceTree = "<group>"; };
@@ -173,7 +173,7 @@
 				A62D96B22424A442006F1722 /* Assets.xcassets */,
 				A62D96B42424A442006F1722 /* LaunchScreen.storyboard */,
 				A62D96B72424A442006F1722 /* Info.plist */,
-				ACB2B5FF243302E7002FAF27 /* GoogleService-Info.plist */,
+				AC52A4DC243883EE00DB4FB6 /* GoogleService-Info.plist */,
 			);
 			path = DaangnMarket;
 			sourceTree = "<group>";
@@ -461,7 +461,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ACCD94CE2429E59500153545 /* .swiftlint.yml in Resources */,
-				ACB2B600243302E7002FAF27 /* GoogleService-Info.plist in Resources */,
+				AC52A4DD243883EE00DB4FB6 /* GoogleService-Info.plist in Resources */,
 				A62D96B62424A442006F1722 /* LaunchScreen.storyboard in Resources */,
 				A62D96B32424A442006F1722 /* Assets.xcassets in Resources */,
 			);
