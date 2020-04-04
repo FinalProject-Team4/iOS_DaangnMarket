@@ -15,7 +15,10 @@
 		AC28CD24242A3FCA0031999B /* References.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC28CD23242A3FCA0031999B /* References.swift */; };
 		AC28CD27242A40B30031999B /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC28CD26242A40B30031999B /* UIImageView+Extension.swift */; };
 		AC5052DB242DA1B40045B9BC /* TownBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5052DA242DA1B40045B9BC /* TownBackgroundView.swift */; };
+		AC52A4D624384C1F00DB4FB6 /* AuthInputForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4D524384C1F00DB4FB6 /* AuthInputForm.swift */; };
+		AC52A4DB24385EDB00DB4FB6 /* PhoneAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4DA24385EDB00DB4FB6 /* PhoneAuthorization.swift */; };
 		AC829F4724347FDC00D0623A /* NumberField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC829F4624347FDC00D0623A /* NumberField.swift */; };
+		ACB2B600243302E7002FAF27 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACB2B5FF243302E7002FAF27 /* GoogleService-Info.plist */; };
 		ACB2B60324333763002FAF27 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B60224333763002FAF27 /* AuthViewController.swift */; };
 		ACB2B6072433472B002FAF27 /* AuthDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B6062433472B002FAF27 /* AuthDescriptionView.swift */; };
 		ACB2B60924334813002FAF27 /* NSMutableAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B60824334813002FAF27 /* NSMutableAttributedString+Extension.swift */; };
@@ -35,6 +38,7 @@
 		ACCD94EA242A238300153545 /* FindMyTownViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD94E9242A238300153545 /* FindMyTownViewController.swift */; };
 		ACCD94EE242A23B800153545 /* DaangnAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD94ED242A23B800153545 /* DaangnAnimationView.swift */; };
 		ACCD94F2242A250500153545 /* DGButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD94F1242A250500153545 /* DGButton.swift */; };
+		ACEE24CC2435CA1B0044D573 /* DGUpperAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEE24CB2435CA1B0044D573 /* DGUpperAlert.swift */; };
 		ACEE24CE243706380044D573 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEE24CD243706380044D573 /* UIViewController+Extension.swift */; };
 		ACFB7D32242C5C3200E47F97 /* TownHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFB7D31242C5C3200E47F97 /* TownHeaderView.swift */; };
 		ACFB7D34242C876800E47F97 /* DGToastAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFB7D33242C876800E47F97 /* DGToastAlert.swift */; };
@@ -63,7 +67,10 @@
 		AC28CD23242A3FCA0031999B /* References.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = References.swift; sourceTree = "<group>"; };
 		AC28CD26242A40B30031999B /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		AC5052DA242DA1B40045B9BC /* TownBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownBackgroundView.swift; sourceTree = "<group>"; };
+		AC52A4D524384C1F00DB4FB6 /* AuthInputForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInputForm.swift; sourceTree = "<group>"; };
+		AC52A4DA24385EDB00DB4FB6 /* PhoneAuthorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneAuthorization.swift; sourceTree = "<group>"; };
 		AC829F4624347FDC00D0623A /* NumberField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberField.swift; sourceTree = "<group>"; };
+		ACB2B5FF243302E7002FAF27 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ACB2B60224333763002FAF27 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		ACB2B6062433472B002FAF27 /* AuthDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDescriptionView.swift; sourceTree = "<group>"; };
 		ACB2B60824334813002FAF27 /* NSMutableAttributedString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Extension.swift"; sourceTree = "<group>"; };
@@ -83,6 +90,7 @@
 		ACCD94E9242A238300153545 /* FindMyTownViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindMyTownViewController.swift; sourceTree = "<group>"; };
 		ACCD94ED242A23B800153545 /* DaangnAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaangnAnimationView.swift; sourceTree = "<group>"; };
 		ACCD94F1242A250500153545 /* DGButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DGButton.swift; sourceTree = "<group>"; };
+		ACEE24CB2435CA1B0044D573 /* DGUpperAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DGUpperAlert.swift; sourceTree = "<group>"; };
 		ACEE24CD243706380044D573 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		ACFB7D30242C417400E47F97 /* APITest.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = APITest.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		ACFB7D31242C5C3200E47F97 /* TownHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TownHeaderView.swift; sourceTree = "<group>"; };
@@ -165,6 +173,7 @@
 				A62D96B22424A442006F1722 /* Assets.xcassets */,
 				A62D96B42424A442006F1722 /* LaunchScreen.storyboard */,
 				A62D96B72424A442006F1722 /* Info.plist */,
+				ACB2B5FF243302E7002FAF27 /* GoogleService-Info.plist */,
 			);
 			path = DaangnMarket;
 			sourceTree = "<group>";
@@ -190,9 +199,18 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		AC52A4D924385B5A00DB4FB6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AC52A4DA24385EDB00DB4FB6 /* PhoneAuthorization.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		ACB2B60124333742002FAF27 /* Authorization */ = {
 			isa = PBXGroup;
 			children = (
+				AC52A4D924385B5A00DB4FB6 /* Model */,
 				ACB2B605243346F4002FAF27 /* View */,
 				ACB2B604243346D4002FAF27 /* Controller */,
 			);
@@ -212,6 +230,7 @@
 			children = (
 				ACB2B6062433472B002FAF27 /* AuthDescriptionView.swift */,
 				AC829F4624347FDC00D0623A /* NumberField.swift */,
+				AC52A4D524384C1F00DB4FB6 /* AuthInputForm.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -342,6 +361,7 @@
 				ACCD94F1242A250500153545 /* DGButton.swift */,
 				ACFB7D33242C876800E47F97 /* DGToastAlert.swift */,
 				ACFB7D3B242CCFF000E47F97 /* DGNavigationBar.swift */,
+				ACEE24CB2435CA1B0044D573 /* DGUpperAlert.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -441,6 +461,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ACCD94CE2429E59500153545 /* .swiftlint.yml in Resources */,
+				ACB2B600243302E7002FAF27 /* GoogleService-Info.plist in Resources */,
 				A62D96B62424A442006F1722 /* LaunchScreen.storyboard in Resources */,
 				A62D96B32424A442006F1722 /* Assets.xcassets in Resources */,
 			);
@@ -518,6 +539,7 @@
 				ACCD94D72429F81D00153545 /* CategoryViewController.swift in Sources */,
 				AC829F4724347FDC00D0623A /* NumberField.swift in Sources */,
 				AC28CD24242A3FCA0031999B /* References.swift in Sources */,
+				AC52A4DB24385EDB00DB4FB6 /* PhoneAuthorization.swift in Sources */,
 				AC28CD27242A40B30031999B /* UIImageView+Extension.swift in Sources */,
 				A62D96AE2424A440006F1722 /* HomeFeedViewController.swift in Sources */,
 				ACCD94D92429F84200153545 /* ProductPostViewController.swift in Sources */,
@@ -544,7 +566,9 @@
 				ACCC9753242B48D6008F95DE /* TownAddressCell.swift in Sources */,
 				ACFB7D34242C876800E47F97 /* DGToastAlert.swift in Sources */,
 				ACFB7D3C242CCFF000E47F97 /* DGNavigationBar.swift in Sources */,
+				AC52A4D624384C1F00DB4FB6 /* AuthInputForm.swift in Sources */,
 				ACB2B60324333763002FAF27 /* AuthViewController.swift in Sources */,
+				ACEE24CC2435CA1B0044D573 /* DGUpperAlert.swift in Sources */,
 				ACFB7D38242CA45600E47F97 /* TownNoResultView.swift in Sources */,
 				ACFB7D36242C9A0C00E47F97 /* InitialStartView.swift in Sources */,
 				ACCD94DF2429F89200153545 /* MyPageViewController.swift in Sources */,
