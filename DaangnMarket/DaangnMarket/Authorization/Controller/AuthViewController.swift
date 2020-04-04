@@ -44,9 +44,7 @@ class AuthViewController: UIViewController {
     super.viewDidLayoutSubviews()
     
     let bottomMargin = self.view.frame.maxY - self.scrollView.frame.maxY
-    self.authInputForm.snp.updateConstraints {
-      $0.bottom.equalToSuperview().offset(-bottomMargin)
-    }
+    self.authInputForm.updateBottomMargin(bottomMargin)
   }
   
   // MARK: Initialize

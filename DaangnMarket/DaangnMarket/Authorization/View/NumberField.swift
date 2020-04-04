@@ -20,7 +20,7 @@ class NumberField: UITextField {
     self.layer.borderColor = UIColor(named: ColorReference.borderLine.rawValue)?.cgColor
     self.layer.cornerRadius = 4
     
-    let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 0, height: 44))
+    let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UINavigationBar.statusBarSize.width, height: 44))
     let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     let dismiss = UIBarButtonItem(image: UIImage(systemName: ImageReference.keyboardDown.rawValue), style: .plain, target: self, action: #selector(didTapDismissButton(_:))).then {
       $0.tintColor = UIColor(named: ColorReference.item.rawValue)

@@ -23,6 +23,12 @@ class AuthInputForm: UIView {
     self.requestCodeButton.setTitle("인증문자 다시 받기 \(time)", for: .normal)
   }
   
+  func updateBottomMargin(_ margin: CGFloat) {
+    self.authButton.snp.updateConstraints {
+      $0.bottom.equalToSuperview().offset(-margin)
+    }
+  }
+  
   // MARK: Views
   
   private lazy var phoneNumberField = NumberField().then {
@@ -125,7 +131,7 @@ class AuthInputForm: UIView {
           .equalTo(self.privacyPolicyLabel.snp.bottom)
           .offset(28)
         $0.leading.trailing.equalToSuperview()
-        $0.bottom.lessThanOrEqualToSuperview()
+        $0.bottom.equalToSuperview()
         $0.height.equalTo(height.button)
     }
   }
