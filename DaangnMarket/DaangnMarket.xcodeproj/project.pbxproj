@@ -35,6 +35,7 @@
 		ACCD94EA242A238300153545 /* FindMyTownViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD94E9242A238300153545 /* FindMyTownViewController.swift */; };
 		ACCD94EE242A23B800153545 /* DaangnAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD94ED242A23B800153545 /* DaangnAnimationView.swift */; };
 		ACCD94F2242A250500153545 /* DGButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD94F1242A250500153545 /* DGButton.swift */; };
+		ACEE24CE243706380044D573 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEE24CD243706380044D573 /* UIViewController+Extension.swift */; };
 		ACFB7D32242C5C3200E47F97 /* TownHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFB7D31242C5C3200E47F97 /* TownHeaderView.swift */; };
 		ACFB7D34242C876800E47F97 /* DGToastAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFB7D33242C876800E47F97 /* DGToastAlert.swift */; };
 		ACFB7D36242C9A0C00E47F97 /* InitialStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFB7D35242C9A0C00E47F97 /* InitialStartView.swift */; };
@@ -82,6 +83,7 @@
 		ACCD94E9242A238300153545 /* FindMyTownViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindMyTownViewController.swift; sourceTree = "<group>"; };
 		ACCD94ED242A23B800153545 /* DaangnAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaangnAnimationView.swift; sourceTree = "<group>"; };
 		ACCD94F1242A250500153545 /* DGButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DGButton.swift; sourceTree = "<group>"; };
+		ACEE24CD243706380044D573 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		ACFB7D30242C417400E47F97 /* APITest.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = APITest.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		ACFB7D31242C5C3200E47F97 /* TownHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TownHeaderView.swift; sourceTree = "<group>"; };
 		ACFB7D33242C876800E47F97 /* DGToastAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DGToastAlert.swift; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 				ACFB7D39242CCE9200E47F97 /* UIDevice+Extension.swift */,
 				ACFB7D3D242CD94E00E47F97 /* UINavigationBar+Extension.swift */,
 				ACB2B60824334813002FAF27 /* NSMutableAttributedString+Extension.swift */,
+				ACEE24CD243706380044D573 /* UIViewController+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -537,6 +540,7 @@
 				ADD05135242C4FC000312DF1 /* Service.swift in Sources */,
 				ACCD94DB2429F86B00153545 /* WriteUsedViewController.swift in Sources */,
 				ACCC975B242B6DB0008F95DE /* API.swift in Sources */,
+				ACEE24CE243706380044D573 /* UIViewController+Extension.swift in Sources */,
 				ACCC9753242B48D6008F95DE /* TownAddressCell.swift in Sources */,
 				ACFB7D34242C876800E47F97 /* DGToastAlert.swift in Sources */,
 				ACFB7D3C242CCFF000E47F97 /* DGNavigationBar.swift in Sources */,
