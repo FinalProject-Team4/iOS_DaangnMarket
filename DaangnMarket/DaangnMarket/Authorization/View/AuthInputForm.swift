@@ -45,6 +45,19 @@ class AuthInputForm: UIView {
   private lazy var authCodeField = NumberField().then {
     $0.delegate = self
     $0.placeholder = "인증번호 입력"
+    $0.clearsOnBeginEditing = true
+  }
+  private let authFieldStackView = UIStackView().then {
+    $0.axis = .vertical
+    $0.spacing = 8
+    $0.alignment = .fill
+    $0.distribution = .fill
+  }
+  private let warningLabel = UILabel().then {
+    $0.text = "⚠︎ 인증문자를 다시 입력해주세요."
+    $0.textColor = .red
+    $0.font = .systemFont(ofSize: 13)
+    $0.textAlignment = .center
   }
   private let privacyPolicyLabel = UILabel().then {
     $0.attributedText = NSMutableAttributedString()
@@ -106,20 +119,23 @@ class AuthInputForm: UIView {
     }
     
     self.authCodeField
+      .then { self.authFieldStackView.addArrangedSubview($0) }
+      .snp.makeConstraints { $0.height.equalTo(height.textField) }
+    
+    self.authFieldStackView
       .then { self.addSubview($0) }
       .snp.makeConstraints {
         $0.top
           .equalTo(self.requestCodeButton.snp.bottom)
           .offset(spacing * 3)
         $0.leading.trailing.equalToSuperview()
-        $0.height.equalTo(height.textField)
     }
     
     self.privacyPolicyLabel
       .then { self.addSubview($0) }
       .snp.makeConstraints {
         $0.top
-          .equalTo(self.authCodeField.snp.bottom)
+          .equalTo(self.authFieldStackView.snp.bottom)
           .offset(36)
         $0.centerX.equalToSuperview()
     }
@@ -145,7 +161,13 @@ class AuthInputForm: UIView {
   
   @objc private func didTapAuthButton(_ sender: UIButton) {
     self.endEditing(false)
-    self.delegate?.authInputForm(self, didSelectAuthorizationButton: sender, verificationCode: self.authCodeField.text ?? "")
+    
+    if let text = self.authCodeField.text, text.count < 6 {
+      self.authFieldStackView.addArrangedSubview(self.warningLabel)
+      self.authCodeField.layer.borderColor = UIColor.red.cgColor
+    } else {
+      self.delegate?.authInputForm(self, didSelectAuthorizationButton: sender, verificationCode: self.authCodeField.text ?? "")
+    }
   }
   
   // MARK: Keyboard Notification Handler
@@ -185,6 +207,14 @@ class AuthInputForm: UIView {
 // MARK: - UITextFieldDelegate
 
 extension AuthInputForm: UITextFieldDelegate {
+  func textFieldDidBeginEditing(_ textField: UITextField) {
+    self.authCodeField.layer.borderColor = UIColor(named: ColorReference.borderLine.rawValue)?.cgColor
+    self.warningLabel.do {
+      self.authFieldStackView.removeArrangedSubview($0)
+      $0.removeFromSuperview()
+    }
+  }
+  
   func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
     if textField.isEqual(self.phoneNumberField) {
       self.formatPhoneNumber(textField, replacementString: string)
