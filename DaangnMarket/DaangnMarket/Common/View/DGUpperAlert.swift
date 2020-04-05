@@ -27,9 +27,7 @@ class DGUpperAlert: UIView {
     $0.adjustsFontSizeToFitWidth = true
   }
   private var currentWindow: UIView {
-    let window = (UIApplication.shared.delegate as? AppDelegate)?.window ?? UIView()
-    dump(window)
-    return window
+    return (UIApplication.shared.delegate as? AppDelegate)?.window ?? UIView()
   }
   
   // MARK: Properties
