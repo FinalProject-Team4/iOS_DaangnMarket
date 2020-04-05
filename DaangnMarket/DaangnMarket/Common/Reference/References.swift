@@ -17,6 +17,8 @@ enum ImageReference: String {
   case searchNoResult = "doc.text.magnifyingglass"
   case xmark
   case keyboardDown = "keyboard.chevron.compact.down"
+  case camera = "camera.fill"
+  case profileDefault = "person.fill"
 }
 
 enum ColorReference: String {
