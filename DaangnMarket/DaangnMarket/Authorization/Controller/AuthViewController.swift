@@ -177,7 +177,15 @@ extension AuthViewController: AuthInputFormDelegate {
     self.authorizationManager.signIn(with: verificationCode) { (result) in
       switch result {
       case .success(let token):
-        self.presentAlert(title: "ID Token", message: token)
+        API.default.request(.login(idToken: token)) { (result: Result) in
+          print("Token :", token)
+          switch result {
+          case .success(let isExist):
+            self.presentAlert(title: "User Info", message: isExist ? "User Exist" : "Needs sign up")
+          case .failure(let error):
+            self.presentAlert(title: "Error", message: error.localizedDescription)
+          }
+        }
       case .failure(let error):
         print(error.localizedDescription)
       }

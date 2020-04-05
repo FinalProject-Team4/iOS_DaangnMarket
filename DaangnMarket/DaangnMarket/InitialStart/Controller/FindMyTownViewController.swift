@@ -206,7 +206,7 @@ extension FindMyTownViewController: LocationManagerDelegate {
     self.activityIndicator.startAnimating()
     let coordinate = location.coordinate
     API.default
-      .request(.addressByGPS(lat: coordinate.latitude, lon: coordinate.longitude)) { (result) in
+      .request(.GPS(lat: coordinate.latitude, lon: coordinate.longitude)) { (result) in
         defer { self.activityIndicator.stopAnimating() }
         
         switch result {
@@ -229,7 +229,7 @@ extension FindMyTownViewController: TownSearchBarDelegate {
       self.sectionTitle = "'\(text)' 검색 결과"
       self.activityIndicator.startAnimating()
       API.default
-        .request(.addressBySearch(text: text)) { (result) in
+        .request(.search(text: text)) { (result) in
           defer { self.activityIndicator.stopAnimating() }
           
           switch result {
