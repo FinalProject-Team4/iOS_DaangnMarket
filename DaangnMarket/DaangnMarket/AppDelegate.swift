@@ -11,6 +11,7 @@ import Then
 import SnapKit
 import Kingfisher
 import Alamofire
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    FirebaseApp.configure()
     
     let homeFeedVC = HomeFeedViewController()
     let categoryVC = CategoryViewController()
@@ -44,7 +46,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     UITabBar.appearance().tintColor = .black
     
     self.window = UIWindow(frame: UIScreen.main.bounds)
-    self.window?.rootViewController = UINavigationController(rootViewController: InitialStartViewController())
+    self.window?.rootViewController = UINavigationController(rootViewController: writeUseVC)
+//      UINavigationController(rootViewController: InitialStartViewController())
     self.window?.makeKeyAndVisible()
     
     return true

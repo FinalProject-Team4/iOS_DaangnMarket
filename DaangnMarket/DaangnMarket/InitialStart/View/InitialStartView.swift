@@ -23,7 +23,8 @@ class InitialStartView: UIView {
     $0.numberOfLines = 2
     $0.font = .systemFont(ofSize: 16)
   }
-  private lazy var startButton = DGButton(title: "내 동네 설정하고 시작하기").then {
+  private lazy var startButton = DGButton().then {
+    $0.setTitle("내 동네 설정하고 시작하기", for: .normal)
     $0.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
     $0.layer.cornerRadius = 8
   }

@@ -83,3 +83,4 @@ excluded:
   - DaangnMarket/SceneDelegate.swift
   - DaangnMarket/InitialStart/Model/Address.swift
   - DaangnMarket/Test
+  - DaangnMarket/Common/Extensions

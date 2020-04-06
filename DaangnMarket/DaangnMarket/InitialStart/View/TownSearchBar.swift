@@ -28,7 +28,7 @@ class TownSearchBar: UIView {
     $0.addTarget(self, action: #selector(didTapSearchButton(_:)), for: .touchUpInside)
   }
   private let underline = UIView().then {
-    $0.backgroundColor = UIColor(named: ColorReference.underline.rawValue)
+    $0.backgroundColor = UIColor(named: ColorReference.borderLine.rawValue)
   }
   
   // MARK: Properties

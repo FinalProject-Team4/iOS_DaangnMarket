@@ -9,16 +9,29 @@
 import UIKit
 
 class DGButton: UIButton {
-  // MARK: Initialize
-  init(title: String) {
-    super.init(frame: .zero)
-    self.setupUI(title: title)
+  // MARK: Properties
+  
+  private var originBackgroundColor: UIColor?
+  override var isEnabled: Bool {
+    didSet {
+      self.backgroundColor = isEnabled ? self.originBackgroundColor : UIColor(named: ColorReference.borderLine.rawValue)
+    }
   }
   
-  private func setupUI(title: String) {
-    self.setTitle(title, for: .normal)
+  // MARK: Initialize
+  enum DGButtonType {
+    case `default`, auth
+  }
+  init(type: DGButtonType = .default) {
+    super.init(frame: .zero)
     self.setTitleColor(.white, for: .normal)
-    self.backgroundColor = UIColor(named: ColorReference.daangnMain.rawValue)
+    switch type {
+    case .default:
+      self.backgroundColor = UIColor(named: ColorReference.daangnMain.rawValue)
+    case .auth:
+      self.backgroundColor = UIColor(named: ColorReference.auth.rawValue)
+    }
+    self.originBackgroundColor = self.backgroundColor
   }
   
   required init?(coder: NSCoder) {
