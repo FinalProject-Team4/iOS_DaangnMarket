@@ -44,13 +44,21 @@ class ConfigProfileViewController: UIViewController {
   // MARK: Properties
   
   private var profileImage: UIImage?
-  private var nickname: String?
+  private var username: String?
+  private var idToken: String
   
   // MARK: Life Cycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
     self.setupUI()
+  }
+  
+  // MARK: Initialize
+  
+  init(idToken: String) {
+    self.idToken = idToken
+    super.init(nibName: nil, bundle: nil)
   }
   
   private func setupUI() {
@@ -110,8 +118,18 @@ class ConfigProfileViewController: UIViewController {
   // MARK: Actions
   
   @objc private func didTapDoneButton(_ sender: UIBarButtonItem) {
-    print("Profile image, nickname upload")
-    self.dismiss(animated: true)
+    guard let username = self.username else { return }
+    let imageData = self.profileImage?.jpegData(compressionQuality: 0.2)
+    
+    API.default.request(.signUp(idToken: self.idToken, username: username, avatar: imageData)) { (result) in
+      switch result {
+      case .success(let userInfo):
+        self.presentAlert(title: "Sign Up", message: "\(userInfo)")
+        self.presentingViewController?.dismiss(animated: true)
+      case .failure(let error):
+        print(error.localizedDescription)
+      }
+    }
   }
   
   @objc private func didTapSelectButton(_ sender: UIButton) {
@@ -125,6 +143,12 @@ class ConfigProfileViewController: UIViewController {
       ]
     )
   }
+  
+  // MARK: Useless
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
 }
 
 // MARK: - UITextFieldDelegate
@@ -133,6 +157,7 @@ extension ConfigProfileViewController: UITextFieldDelegate {
   func textFieldDidChangeSelection(_ textField: UITextField) {
     guard let text = textField.text else { return }
     
+    self.username = text.isEmpty ? nil : text
     self.warningLabel.do {
       if text.isEmpty, self.labelContainer.subviews.contains($0) {
         self.labelContainer.removeArrangedSubview($0)

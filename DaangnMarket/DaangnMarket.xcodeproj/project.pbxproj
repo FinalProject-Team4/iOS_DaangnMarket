@@ -21,6 +21,7 @@
 		AC52A4DF2438BA5100DB4FB6 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4DE2438BA5000DB4FB6 /* APIRequest.swift */; };
 		AC52A4E12439A53000DB4FB6 /* ConfigProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4E02439A53000DB4FB6 /* ConfigProfileViewController.swift */; };
 		AC52A4E32439AF4300DB4FB6 /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4E22439AF4300DB4FB6 /* ProfileImageView.swift */; };
+		AC52A4E52439E88200DB4FB6 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4E42439E88100DB4FB6 /* UserInfo.swift */; };
 		AC829F4724347FDC00D0623A /* NumberField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC829F4624347FDC00D0623A /* NumberField.swift */; };
 		ACB2B60324333763002FAF27 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B60224333763002FAF27 /* AuthViewController.swift */; };
 		ACB2B6072433472B002FAF27 /* AuthDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B6062433472B002FAF27 /* AuthDescriptionView.swift */; };
@@ -76,6 +77,7 @@
 		AC52A4DE2438BA5000DB4FB6 /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
 		AC52A4E02439A53000DB4FB6 /* ConfigProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigProfileViewController.swift; sourceTree = "<group>"; };
 		AC52A4E22439AF4300DB4FB6 /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
+		AC52A4E42439E88100DB4FB6 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		AC829F4624347FDC00D0623A /* NumberField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberField.swift; sourceTree = "<group>"; };
 		ACB2B60224333763002FAF27 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		ACB2B6062433472B002FAF27 /* AuthDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDescriptionView.swift; sourceTree = "<group>"; };
@@ -209,6 +211,7 @@
 			isa = PBXGroup;
 			children = (
 				AC52A4DA24385EDB00DB4FB6 /* PhoneAuthorizationManager.swift */,
+				AC52A4E42439E88100DB4FB6 /* UserInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -562,6 +565,7 @@
 				AC52A4E12439A53000DB4FB6 /* ConfigProfileViewController.swift in Sources */,
 				AD677861242A21ED00CFEB86 /* FirstAlertViewController.swift in Sources */,
 				AC52A4DF2438BA5100DB4FB6 /* APIRequest.swift in Sources */,
+				AC52A4E52439E88200DB4FB6 /* UserInfo.swift in Sources */,
 				ADD05132242B595200312DF1 /* HomeFeedTableViewCell.swift in Sources */,
 				A62D96AA2424A440006F1722 /* AppDelegate.swift in Sources */,
 				ACCC9750242B31CB008F95DE /* TownSearchBar.swift in Sources */,

@@ -4,6 +4,28 @@ let phone = "010 9813 8829"
 let regex = "^01([0|1|6|7|8|9]?)\\s?([0-9]{3,4})\\s?([0-9]{4})$"
 let result = NSPredicate(format: "SELF MATCHES %@", regex).evaluate(with: phone)
 
+private func checkValidNickname(_ nickname: String) -> Bool {
+  let regex = "^[가-힣|a-z|A-Z|0-9|\\*]+$"
+  return NSPredicate(format: "SELF MATCHES %@", regex).evaluate(with: nickname)
+}
+checkValidNickname("집엑..")
+
+
+//func hasCharacters() -> Bool{
+//  do{
+//    let regex = try NSRegularExpression(pattern: "^[a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ\\s]$", options: .caseInsensitive)
+//    if let _ = regex.firstMatch(in: "집에", options: NSRegularExpression.MatchingOptions.reportCompletion, range: NSMakeRange(0, "집에".count)) {
+//      return true
+//    }
+//  }catch{
+//    print(error.localizedDescription)
+//    return false
+//  }
+//  return false
+//}
+//hasCharacters()
+
+
 //
 //
 //class TimerTest {

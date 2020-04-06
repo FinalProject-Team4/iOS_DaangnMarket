@@ -60,18 +60,14 @@ enum RequestAddress: APIRequest {
 
 enum RequestMembers: APIRequest {
   case login(idToken: String)
+  case signUp(idToken: String, username: String, avatar: Data?)
   
   var url: String {
     switch self {
     case .login(_):
       return host + "/members/login/"
-    }
-  }
-  
-  var parameters: [String: String] {
-    switch self {
-    case let .login(idToken):
-      return ["idToken": idToken]
+    case .signUp(_, _, _):
+      return host + "/members/signup/"
     }
   }
 }

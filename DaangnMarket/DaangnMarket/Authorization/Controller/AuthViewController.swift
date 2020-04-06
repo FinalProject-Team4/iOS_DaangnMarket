@@ -177,17 +177,22 @@ extension AuthViewController: AuthInputFormDelegate {
     self.authorizationManager.signIn(with: verificationCode) { (result) in
       switch result {
       case .success(let token):
-        API.default.request(.login(idToken: token)) { (result: Result) in
+        API.default.request(.login(idToken: token)) { (result) in
           print("Token :", token)
           switch result {
-          case .success(let isExist):
-            self.presentAlert(title: "User Info", message: isExist ? "User Exist" : "Needs sign up")
+          case .success(let userInfo):
+            self.presentAlert(title: "Signed Up User", message: "\(userInfo)")
+          case .failure(let error) where error.responseCode == 401:
+            UINavigationController(rootViewController: ConfigProfileViewController(idToken: token)).do {
+              $0.modalPresentationStyle = .fullScreen
+              self.present($0, animated: true)
+            }
           case .failure(let error):
-            self.presentAlert(title: "Error", message: error.localizedDescription)
+            self.presentAlert(title: "Login Error", message: error.localizedDescription)
           }
         }
       case .failure(let error):
-        print(error.localizedDescription)
+        self.presentAlert(title: "Auth Error", message: error.localizedDescription)
       }
     }
   }

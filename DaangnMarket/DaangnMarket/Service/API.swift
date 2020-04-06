@@ -49,15 +49,51 @@ class API {
     }
   }
   
-  func request(_ type: RequestMembers, completion: @escaping (Result<Bool, AFError>) -> Void) {
-    AF.request(type.url, method: .post, parameters: type.parameters, encoder: JSONParameterEncoder.default)
+  func request(_ type: RequestMembers, completion: @escaping (Result<UserInfo, AFError>) -> Void) {
+    switch type {
+    case let .login(idToken):
+      let parameters = ["idToken": idToken]
+      self.requestLogin(url: type.url, parameters: parameters) { completion($0) }
+    case let .signUp(idToken, username, avatar):
+      let parameters = [
+        "idToken": idToken,
+        "username": username
+      ]
+      self.requestSignUp(url: type.url, imageData: avatar, parameters: parameters) { completion($0) }
+    }
+  }
+  
+  private func requestLogin(url: String, parameters: [String: String], completion: @escaping (Result<UserInfo, AFError>) -> Void) {
+    AF.request(url, method: .post, parameters: parameters, encoder: JSONParameterEncoder.default)
       .validate()
-      .response { (response) in
+      .responseDecodable { (response: DataResponse<UserInfo, AFError>) in
         switch response.result {
-        case .success(_):
-          let statusCode = response.response?.statusCode ?? 0
-          print("Status Code :", statusCode)
-          completion(.success(statusCode == 201))
+        case .success(let user):
+          completion(.success(user))
+        case .failure(let error):
+          completion(.failure(error))
+        }
+    }
+  }
+  
+  private func requestSignUp(url: String, imageData: Data?, parameters: [String: String], completion: @escaping (Result<UserInfo, AFError>) -> Void) {
+    AF.upload(
+      multipartFormData: { (formData) in
+        parameters.forEach {
+          guard let data = $0.value.data(using: .utf8) else { return }
+          formData.append(data, withName: $0.key)
+        }
+        if let imageData = imageData {
+          formData.append(imageData, withName: "avatar")
+        }
+    },
+      to: url
+    )
+      .validate()
+      .responseDecodable { (response: DataResponse<UserInfo, AFError>) in
+        switch response.result {
+        case .success(let userInfo):
+          completion(.success(userInfo))
         case .failure(let error):
           completion(.failure(error))
         }
