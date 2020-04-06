@@ -22,6 +22,7 @@
 		AC52A4E12439A53000DB4FB6 /* ConfigProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4E02439A53000DB4FB6 /* ConfigProfileViewController.swift */; };
 		AC52A4E32439AF4300DB4FB6 /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4E22439AF4300DB4FB6 /* ProfileImageView.swift */; };
 		AC52A4E52439E88200DB4FB6 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4E42439E88100DB4FB6 /* UserInfo.swift */; };
+		AC52A4E7243AED3900DB4FB6 /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4E6243AED3900DB4FB6 /* UIApplication+Extension.swift */; };
 		AC829F4724347FDC00D0623A /* NumberField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC829F4624347FDC00D0623A /* NumberField.swift */; };
 		ACB2B60324333763002FAF27 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B60224333763002FAF27 /* AuthViewController.swift */; };
 		ACB2B6072433472B002FAF27 /* AuthDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B6062433472B002FAF27 /* AuthDescriptionView.swift */; };
@@ -78,6 +79,7 @@
 		AC52A4E02439A53000DB4FB6 /* ConfigProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigProfileViewController.swift; sourceTree = "<group>"; };
 		AC52A4E22439AF4300DB4FB6 /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
 		AC52A4E42439E88100DB4FB6 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		AC52A4E6243AED3900DB4FB6 /* UIApplication+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extension.swift"; sourceTree = "<group>"; };
 		AC829F4624347FDC00D0623A /* NumberField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberField.swift; sourceTree = "<group>"; };
 		ACB2B60224333763002FAF27 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		ACB2B6062433472B002FAF27 /* AuthDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDescriptionView.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 				ACFB7D3D242CD94E00E47F97 /* UINavigationBar+Extension.swift */,
 				ACB2B60824334813002FAF27 /* NSMutableAttributedString+Extension.swift */,
 				ACEE24CD243706380044D573 /* UIViewController+Extension.swift */,
+				AC52A4E6243AED3900DB4FB6 /* UIApplication+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -558,6 +561,7 @@
 				ACCC975D242B75B7008F95DE /* Address.swift in Sources */,
 				ACCD94DD2429F87900153545 /* ChatViewController.swift in Sources */,
 				ACCC9757242B509E008F95DE /* LocationManager.swift in Sources */,
+				AC52A4E7243AED3900DB4FB6 /* UIApplication+Extension.swift in Sources */,
 				AC52A4E32439AF4300DB4FB6 /* ProfileImageView.swift in Sources */,
 				AC5052DB242DA1B40045B9BC /* TownBackgroundView.swift in Sources */,
 				ACCD94EA242A238300153545 /* FindMyTownViewController.swift in Sources */,
