@@ -8,44 +8,6 @@
 
 import Alamofire
 
-enum RequestType {
-  case addressBySearch(text: String, page: Int = 1)
-  case addressByGPS(lat: Double, lon: Double, distance: Double = 100_000, page: Int = 1)
-  case addressByDistance(distance: Double)
-  
-  var url: String {
-    switch self {
-    case .addressBySearch(_, _):
-      return "http://13.125.217.34/location/locate/search/"
-    case .addressByGPS(_, _, _, _):
-      return "http://13.125.217.34/location/locate/gps/"
-    case .addressByDistance(_):
-      return "http://13.125.217.34/location/locate/"
-    }
-  }
-  
-  var parameters: Parameters {
-    switch self {
-    case let .addressBySearch(text, page):
-      return [
-        "dong_name": text,
-        "page": page
-      ]
-    case let .addressByGPS(latitude, longitude, distance, page):
-      return [
-        "latitude": latitude,
-        "longitude": longitude,
-        "distance": distance,
-        "page": page
-      ]
-    case let .addressByDistance(distance):
-      return [
-        "distance": distance
-      ]
-    }
-  }
-}
-
 class API {
   // MARK: Singleton
   static let `default` = API()
@@ -58,7 +20,7 @@ class API {
   
   // MARK: Interface
   
-  func request(_ type: RequestType, completion: @escaping (Result<[Address], AFError>) -> Void) {
+  func request(_ type: RequestAddress, completion: @escaping (Result<[Address], AFError>) -> Void) {
     AF.request(type.url, parameters: type.parameters)
       .validate()
       .responseDecodable { (response: DataResponse<AddressInfo, AFError>) in
@@ -81,6 +43,57 @@ class API {
         case .success(let addressInfo):
           completion(.success(addressInfo.results))
           self.nextURL = addressInfo.next
+        case .failure(let error):
+          completion(.failure(error))
+        }
+    }
+  }
+  
+  func request(_ type: RequestMembers, completion: @escaping (Result<UserInfo, AFError>) -> Void) {
+    switch type {
+    case let .login(idToken):
+      let parameters = ["idToken": idToken]
+      self.requestLogin(url: type.url, parameters: parameters) { completion($0) }
+    case let .signUp(idToken, username, avatar):
+      let parameters = [
+        "idToken": idToken,
+        "username": username
+      ]
+      self.requestSignUp(url: type.url, imageData: avatar, parameters: parameters) { completion($0) }
+    }
+  }
+  
+  private func requestLogin(url: String, parameters: [String: String], completion: @escaping (Result<UserInfo, AFError>) -> Void) {
+    AF.request(url, method: .post, parameters: parameters, encoder: JSONParameterEncoder.default)
+      .validate()
+      .responseDecodable { (response: DataResponse<UserInfo, AFError>) in
+        switch response.result {
+        case .success(let user):
+          completion(.success(user))
+        case .failure(let error):
+          completion(.failure(error))
+        }
+    }
+  }
+  
+  private func requestSignUp(url: String, imageData: Data?, parameters: [String: String], completion: @escaping (Result<UserInfo, AFError>) -> Void) {
+    AF.upload(
+      multipartFormData: { (formData) in
+        parameters.forEach {
+          guard let data = $0.value.data(using: .utf8) else { return }
+          formData.append(data, withName: $0.key)
+        }
+        if let imageData = imageData {
+          formData.append(imageData, withName: "avatar")
+        }
+    },
+      to: url
+    )
+      .validate()
+      .responseDecodable { (response: DataResponse<UserInfo, AFError>) in
+        switch response.result {
+        case .success(let userInfo):
+          completion(.success(userInfo))
         case .failure(let error):
           completion(.failure(error))
         }

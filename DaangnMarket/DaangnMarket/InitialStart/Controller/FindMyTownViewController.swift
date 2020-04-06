@@ -22,7 +22,8 @@ class FindMyTownViewController: UIViewController {
   private lazy var townSearchBar = TownSearchBar().then {
     $0.delegate = self
   }
-  private lazy var searchWithLocationButton = DGButton(title: "현재 위치로 찾기").then {
+  private lazy var searchWithLocationButton = DGButton().then {
+    $0.setTitle("현재 위치로 찾기", for: .normal)
     $0.addTarget(self, action: #selector(didTapSearchWithLocationButton), for: .touchUpInside)
     $0.titleLabel?.font = .systemFont(ofSize: 13, weight: .semibold)
     $0.layer.cornerRadius = 18
@@ -205,7 +206,7 @@ extension FindMyTownViewController: LocationManagerDelegate {
     self.activityIndicator.startAnimating()
     let coordinate = location.coordinate
     API.default
-      .request(.addressByGPS(lat: coordinate.latitude, lon: coordinate.longitude)) { (result) in
+      .request(.GPS(lat: coordinate.latitude, lon: coordinate.longitude)) { (result) in
         defer { self.activityIndicator.stopAnimating() }
         
         switch result {
@@ -228,7 +229,7 @@ extension FindMyTownViewController: TownSearchBarDelegate {
       self.sectionTitle = "'\(text)' 검색 결과"
       self.activityIndicator.startAnimating()
       API.default
-        .request(.addressBySearch(text: text)) { (result) in
+        .request(.search(text: text)) { (result) in
           defer { self.activityIndicator.stopAnimating() }
           
           switch result {

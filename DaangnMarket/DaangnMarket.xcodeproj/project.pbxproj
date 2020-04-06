@@ -29,6 +29,18 @@
 		AC28CD24242A3FCA0031999B /* References.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC28CD23242A3FCA0031999B /* References.swift */; };
 		AC28CD27242A40B30031999B /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC28CD26242A40B30031999B /* UIImageView+Extension.swift */; };
 		AC5052DB242DA1B40045B9BC /* TownBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5052DA242DA1B40045B9BC /* TownBackgroundView.swift */; };
+		AC52A4D624384C1F00DB4FB6 /* AuthInputForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4D524384C1F00DB4FB6 /* AuthInputForm.swift */; };
+		AC52A4DB24385EDB00DB4FB6 /* PhoneAuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4DA24385EDB00DB4FB6 /* PhoneAuthorizationManager.swift */; };
+		AC52A4DD243883EE00DB4FB6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AC52A4DC243883EE00DB4FB6 /* GoogleService-Info.plist */; };
+		AC52A4DF2438BA5100DB4FB6 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4DE2438BA5000DB4FB6 /* APIRequest.swift */; };
+		AC52A4E12439A53000DB4FB6 /* ConfigProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4E02439A53000DB4FB6 /* ConfigProfileViewController.swift */; };
+		AC52A4E32439AF4300DB4FB6 /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4E22439AF4300DB4FB6 /* ProfileImageView.swift */; };
+		AC52A4E52439E88200DB4FB6 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4E42439E88100DB4FB6 /* UserInfo.swift */; };
+		AC52A4E7243AED3900DB4FB6 /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4E6243AED3900DB4FB6 /* UIApplication+Extension.swift */; };
+		AC829F4724347FDC00D0623A /* NumberField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC829F4624347FDC00D0623A /* NumberField.swift */; };
+		ACB2B60324333763002FAF27 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B60224333763002FAF27 /* AuthViewController.swift */; };
+		ACB2B6072433472B002FAF27 /* AuthDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B6062433472B002FAF27 /* AuthDescriptionView.swift */; };
+		ACB2B60924334813002FAF27 /* NSMutableAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B60824334813002FAF27 /* NSMutableAttributedString+Extension.swift */; };
 		ACCC9750242B31CB008F95DE /* TownSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCC974F242B31CB008F95DE /* TownSearchBar.swift */; };
 		ACCC9753242B48D6008F95DE /* TownAddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCC9752242B48D6008F95DE /* TownAddressCell.swift */; };
 		ACCC9755242B490E008F95DE /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCC9754242B490E008F95DE /* Identifiable.swift */; };
@@ -45,6 +57,8 @@
 		ACCD94EA242A238300153545 /* FindMyTownViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD94E9242A238300153545 /* FindMyTownViewController.swift */; };
 		ACCD94EE242A23B800153545 /* DaangnAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD94ED242A23B800153545 /* DaangnAnimationView.swift */; };
 		ACCD94F2242A250500153545 /* DGButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD94F1242A250500153545 /* DGButton.swift */; };
+		ACEE24CC2435CA1B0044D573 /* DGUpperAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEE24CB2435CA1B0044D573 /* DGUpperAlert.swift */; };
+		ACEE24CE243706380044D573 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEE24CD243706380044D573 /* UIViewController+Extension.swift */; };
 		ACFB7D32242C5C3200E47F97 /* TownHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFB7D31242C5C3200E47F97 /* TownHeaderView.swift */; };
 		ACFB7D34242C876800E47F97 /* DGToastAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFB7D33242C876800E47F97 /* DGToastAlert.swift */; };
 		ACFB7D36242C9A0C00E47F97 /* InitialStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFB7D35242C9A0C00E47F97 /* InitialStartView.swift */; };
@@ -86,6 +100,18 @@
 		AC28CD23242A3FCA0031999B /* References.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = References.swift; sourceTree = "<group>"; };
 		AC28CD26242A40B30031999B /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		AC5052DA242DA1B40045B9BC /* TownBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownBackgroundView.swift; sourceTree = "<group>"; };
+		AC52A4D524384C1F00DB4FB6 /* AuthInputForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInputForm.swift; sourceTree = "<group>"; };
+		AC52A4DA24385EDB00DB4FB6 /* PhoneAuthorizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneAuthorizationManager.swift; sourceTree = "<group>"; };
+		AC52A4DC243883EE00DB4FB6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		AC52A4DE2438BA5000DB4FB6 /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
+		AC52A4E02439A53000DB4FB6 /* ConfigProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigProfileViewController.swift; sourceTree = "<group>"; };
+		AC52A4E22439AF4300DB4FB6 /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
+		AC52A4E42439E88100DB4FB6 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		AC52A4E6243AED3900DB4FB6 /* UIApplication+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extension.swift"; sourceTree = "<group>"; };
+		AC829F4624347FDC00D0623A /* NumberField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberField.swift; sourceTree = "<group>"; };
+		ACB2B60224333763002FAF27 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
+		ACB2B6062433472B002FAF27 /* AuthDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDescriptionView.swift; sourceTree = "<group>"; };
+		ACB2B60824334813002FAF27 /* NSMutableAttributedString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Extension.swift"; sourceTree = "<group>"; };
 		ACCC974F242B31CB008F95DE /* TownSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownSearchBar.swift; sourceTree = "<group>"; };
 		ACCC9752242B48D6008F95DE /* TownAddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownAddressCell.swift; sourceTree = "<group>"; };
 		ACCC9754242B490E008F95DE /* Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
@@ -102,6 +128,8 @@
 		ACCD94E9242A238300153545 /* FindMyTownViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindMyTownViewController.swift; sourceTree = "<group>"; };
 		ACCD94ED242A23B800153545 /* DaangnAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaangnAnimationView.swift; sourceTree = "<group>"; };
 		ACCD94F1242A250500153545 /* DGButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DGButton.swift; sourceTree = "<group>"; };
+		ACEE24CB2435CA1B0044D573 /* DGUpperAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DGUpperAlert.swift; sourceTree = "<group>"; };
+		ACEE24CD243706380044D573 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		ACFB7D30242C417400E47F97 /* APITest.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = APITest.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		ACFB7D31242C5C3200E47F97 /* TownHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TownHeaderView.swift; sourceTree = "<group>"; };
 		ACFB7D33242C876800E47F97 /* DGToastAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DGToastAlert.swift; sourceTree = "<group>"; };
@@ -170,6 +198,7 @@
 			children = (
 				A62D96A92424A440006F1722 /* AppDelegate.swift */,
 				ACCD94E2242A19B900153545 /* InitialStart */,
+				ACB2B60124333742002FAF27 /* Authorization */,
 				ACCD94D02429F5B900153545 /* Home */,
 				ACCD94D52429F60900153545 /* Category */,
 				ACCD94D12429F5C000153545 /* Product */,
@@ -182,6 +211,7 @@
 				A62D96B22424A442006F1722 /* Assets.xcassets */,
 				A62D96B42424A442006F1722 /* LaunchScreen.storyboard */,
 				A62D96B72424A442006F1722 /* Info.plist */,
+				AC52A4DC243883EE00DB4FB6 /* GoogleService-Info.plist */,
 			);
 			path = DaangnMarket;
 			sourceTree = "<group>";
@@ -201,8 +231,50 @@
 				AC28CD26242A40B30031999B /* UIImageView+Extension.swift */,
 				ACFB7D39242CCE9200E47F97 /* UIDevice+Extension.swift */,
 				ACFB7D3D242CD94E00E47F97 /* UINavigationBar+Extension.swift */,
+				ACB2B60824334813002FAF27 /* NSMutableAttributedString+Extension.swift */,
+				ACEE24CD243706380044D573 /* UIViewController+Extension.swift */,
+				AC52A4E6243AED3900DB4FB6 /* UIApplication+Extension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		AC52A4D924385B5A00DB4FB6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AC52A4DA24385EDB00DB4FB6 /* PhoneAuthorizationManager.swift */,
+				AC52A4E42439E88100DB4FB6 /* UserInfo.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		ACB2B60124333742002FAF27 /* Authorization */ = {
+			isa = PBXGroup;
+			children = (
+				AC52A4D924385B5A00DB4FB6 /* Model */,
+				ACB2B605243346F4002FAF27 /* View */,
+				ACB2B604243346D4002FAF27 /* Controller */,
+			);
+			path = Authorization;
+			sourceTree = "<group>";
+		};
+		ACB2B604243346D4002FAF27 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				ACB2B60224333763002FAF27 /* AuthViewController.swift */,
+				AC52A4E02439A53000DB4FB6 /* ConfigProfileViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		ACB2B605243346F4002FAF27 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				ACB2B6062433472B002FAF27 /* AuthDescriptionView.swift */,
+				AC829F4624347FDC00D0623A /* NumberField.swift */,
+				AC52A4D524384C1F00DB4FB6 /* AuthInputForm.swift */,
+				AC52A4E22439AF4300DB4FB6 /* ProfileImageView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		ACCC9758242B591B008F95DE /* Cell */ = {
@@ -303,6 +375,7 @@
 			children = (
 				ACCC9756242B509E008F95DE /* LocationManager.swift */,
 				ACCC975A242B6DB0008F95DE /* API.swift */,
+				AC52A4DE2438BA5000DB4FB6 /* APIRequest.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -345,6 +418,7 @@
 				ACCD94F1242A250500153545 /* DGButton.swift */,
 				ACFB7D33242C876800E47F97 /* DGToastAlert.swift */,
 				ACFB7D3B242CCFF000E47F97 /* DGNavigationBar.swift */,
+				ACEE24CB2435CA1B0044D573 /* DGUpperAlert.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -444,6 +518,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ACCD94CE2429E59500153545 /* .swiftlint.yml in Resources */,
+				AC52A4DD243883EE00DB4FB6 /* GoogleService-Info.plist in Resources */,
 				A62D96B62424A442006F1722 /* LaunchScreen.storyboard in Resources */,
 				A62D96B32424A442006F1722 /* Assets.xcassets in Resources */,
 			);
@@ -519,10 +594,13 @@
 				ACFB7D3A242CCE9200E47F97 /* UIDevice+Extension.swift in Sources */,
 				A62D97E4242B403E006F1722 /* WriteTablePriceCell.swift in Sources */,
 				A6FB7195243755770092A5F1 /* DGAlertAction.swift in Sources */,
+				ACB2B60924334813002FAF27 /* NSMutableAttributedString+Extension.swift in Sources */,
 				ACCD94D72429F81D00153545 /* CategoryViewController.swift in Sources */,
+				AC829F4724347FDC00D0623A /* NumberField.swift in Sources */,
 				A63F37C224359B5D002C0D9B /* KeywordTableViewCell.swift in Sources */,
 				A62D97EC242DC449006F1722 /* SelectCategoryViewController.swift in Sources */,
 				AC28CD24242A3FCA0031999B /* References.swift in Sources */,
+				AC52A4DB24385EDB00DB4FB6 /* PhoneAuthorizationManager.swift in Sources */,
 				AC28CD27242A40B30031999B /* UIImageView+Extension.swift in Sources */,
 				A62D96AE2424A440006F1722 /* HomeFeedViewController.swift in Sources */,
 				A6FB7193243731560092A5F1 /* DGAlertController.swift in Sources */,
@@ -537,13 +615,19 @@
 				A62D97E0242B401B006F1722 /* WriteTableTitleCell.swift in Sources */,
 				A62D97E8242B5FDC006F1722 /* AddImageView.swift in Sources */,
 				ACCC9757242B509E008F95DE /* LocationManager.swift in Sources */,
+				AC52A4E7243AED3900DB4FB6 /* UIApplication+Extension.swift in Sources */,
+				AC52A4E32439AF4300DB4FB6 /* ProfileImageView.swift in Sources */,
 				AC5052DB242DA1B40045B9BC /* TownBackgroundView.swift in Sources */,
 				ACCD94EA242A238300153545 /* FindMyTownViewController.swift in Sources */,
 				ADAA12BF2433214000A692A0 /* PopoverViewController.swift in Sources */,
+				AC52A4E12439A53000DB4FB6 /* ConfigProfileViewController.swift in Sources */,
 				AD677861242A21ED00CFEB86 /* FirstAlertViewController.swift in Sources */,
+				AC52A4DF2438BA5100DB4FB6 /* APIRequest.swift in Sources */,
+				AC52A4E52439E88200DB4FB6 /* UserInfo.swift in Sources */,
 				ADD05132242B595200312DF1 /* HomeFeedTableViewCell.swift in Sources */,
 				A62D96AA2424A440006F1722 /* AppDelegate.swift in Sources */,
 				ACCC9750242B31CB008F95DE /* TownSearchBar.swift in Sources */,
+				ACB2B6072433472B002FAF27 /* AuthDescriptionView.swift in Sources */,
 				A6FB71992439A7AE0092A5F1 /* CategoryModel.swift in Sources */,
 				ACFB7D3E242CD94E00E47F97 /* UINavigationBar+Extension.swift in Sources */,
 				ACFB7D32242C5C3200E47F97 /* TownHeaderView.swift in Sources */,
@@ -553,9 +637,13 @@
 				ADD05135242C4FC000312DF1 /* Service.swift in Sources */,
 				ACCD94DB2429F86B00153545 /* WriteUsedViewController.swift in Sources */,
 				ACCC975B242B6DB0008F95DE /* API.swift in Sources */,
+				ACEE24CE243706380044D573 /* UIViewController+Extension.swift in Sources */,
 				ACCC9753242B48D6008F95DE /* TownAddressCell.swift in Sources */,
 				ACFB7D34242C876800E47F97 /* DGToastAlert.swift in Sources */,
 				ACFB7D3C242CCFF000E47F97 /* DGNavigationBar.swift in Sources */,
+				AC52A4D624384C1F00DB4FB6 /* AuthInputForm.swift in Sources */,
+				ACB2B60324333763002FAF27 /* AuthViewController.swift in Sources */,
+				ACEE24CC2435CA1B0044D573 /* DGUpperAlert.swift in Sources */,
 				ACFB7D38242CA45600E47F97 /* TownNoResultView.swift in Sources */,
 				ACFB7D36242C9A0C00E47F97 /* InitialStartView.swift in Sources */,
 				A62D97EA242CAD7E006F1722 /* SelectLocationView.swift in Sources */,
