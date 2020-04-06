@@ -181,11 +181,14 @@ extension AuthViewController: AuthInputFormDelegate {
           print("Token :", token)
           switch result {
           case .success(let userInfo):
-            self.presentAlert(title: "Signed Up User", message: "\(userInfo)")
+            AuthorizationManager.shared.register(userInfo)
+            self.dismiss(animated: true)
           case .failure(let error) where error.responseCode == 401:
-            UINavigationController(rootViewController: ConfigProfileViewController(idToken: token)).do {
-              $0.modalPresentationStyle = .fullScreen
-              self.present($0, animated: true)
+            ViewControllerGenerator.shared
+              .make(.signUp, parameters: ["idToken": token])?
+              .do {
+                $0.modalPresentationStyle = .fullScreen
+                self.present($0, animated: true)
             }
           case .failure(let error):
             self.presentAlert(title: "Login Error", message: error.localizedDescription)

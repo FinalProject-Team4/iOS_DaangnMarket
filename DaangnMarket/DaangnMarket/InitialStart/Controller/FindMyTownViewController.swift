@@ -166,7 +166,12 @@ extension FindMyTownViewController: UITableViewDataSource {
 
 extension FindMyTownViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    print("Select Address. Present to Home through alert")
+    AuthorizationManager.shared.register(self.addresses[indexPath.row])
+    ViewControllerGenerator.shared
+      .make(.default)?
+      .do {
+        UIApplication.shared.switchRootViewController($0)
+      }
   }
   
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
