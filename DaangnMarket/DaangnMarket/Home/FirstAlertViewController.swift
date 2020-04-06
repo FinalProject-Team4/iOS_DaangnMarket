@@ -9,7 +9,6 @@
 import UIKit
 
 class FirstAlertViewController: UIViewController {
-  static var isFirstStart = true
   static let orangeish = UIColor(red: 254.0 / 255.0, green: 138.0 / 255.0, blue: 61.0 / 255.0, alpha: 1.0)
   static let lightBlueGrey = UIColor(red: 206.0 / 255.0, green: 212.0 / 255.0, blue: 217.0 / 255.0, alpha: 1.0)
   private let firsAlertView = UIView().then {
@@ -38,6 +37,7 @@ class FirstAlertViewController: UIViewController {
     $0.backgroundColor = UIColor(named: "symbolColor")
     $0.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
     $0.layer.cornerRadius = 5.0
+    $0.addTarget(self, action: #selector(didTapButtonsAction(_:)), for: .touchUpInside)
   }
   private let signUpButton = UIButton().then {
     $0.setTitle("로그인하기", for: .normal)
@@ -47,6 +47,7 @@ class FirstAlertViewController: UIViewController {
     $0.layer.borderColor = orangeish.cgColor
     $0.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
     $0.layer.cornerRadius = 5.0
+    $0.addTarget(self, action: #selector(didTapButtonsAction(_:)), for: .touchUpInside)
   }
   private let lookAroundButton = UIButton().then {
     $0.setTitle("둘러보기", for: .normal)
@@ -109,12 +110,18 @@ class FirstAlertViewController: UIViewController {
     }
   }
   
+  private var homeVC: UIViewController?
+  
   @objc private func didTapButtonsAction(_ sender: UIButton) {
-    FirstAlertViewController.isFirstStart = false
-    if (sender == signUpAndWatchButton) || (sender == signUpButton) {
-      print("Go to SignUp Page")
-    } else {
+    if sender == lookAroundButton {
       dismiss(animated: false)
+    } else {
+      self.homeVC = self.presentingViewController
+      self.dismiss(animated: true) {
+        guard let phoneAuthVC = ViewControllerGenerator.shared.make(.phoneAuth) else { return }
+        phoneAuthVC.modalPresentationStyle = .fullScreen
+        self.homeVC?.present(phoneAuthVC, animated: true)
+      }
     }
   }
 }

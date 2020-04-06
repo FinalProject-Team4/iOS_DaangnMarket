@@ -37,6 +37,9 @@
 		AC52A4E32439AF4300DB4FB6 /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4E22439AF4300DB4FB6 /* ProfileImageView.swift */; };
 		AC52A4E52439E88200DB4FB6 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4E42439E88100DB4FB6 /* UserInfo.swift */; };
 		AC52A4E7243AED3900DB4FB6 /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4E6243AED3900DB4FB6 /* UIApplication+Extension.swift */; };
+		AC52A4EB243B113B00DB4FB6 /* AuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4EA243B113B00DB4FB6 /* AuthorizationManager.swift */; };
+		AC52A4ED243B116F00DB4FB6 /* ViewControllerGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4EC243B116F00DB4FB6 /* ViewControllerGenerator.swift */; };
+		AC52A4EF243B426A00DB4FB6 /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4EE243B426A00DB4FB6 /* UserDefaults+Extension.swift */; };
 		AC829F4724347FDC00D0623A /* NumberField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC829F4624347FDC00D0623A /* NumberField.swift */; };
 		ACB2B60324333763002FAF27 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B60224333763002FAF27 /* AuthViewController.swift */; };
 		ACB2B6072433472B002FAF27 /* AuthDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B6062433472B002FAF27 /* AuthDescriptionView.swift */; };
@@ -108,6 +111,9 @@
 		AC52A4E22439AF4300DB4FB6 /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
 		AC52A4E42439E88100DB4FB6 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		AC52A4E6243AED3900DB4FB6 /* UIApplication+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extension.swift"; sourceTree = "<group>"; };
+		AC52A4EA243B113B00DB4FB6 /* AuthorizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationManager.swift; sourceTree = "<group>"; };
+		AC52A4EC243B116F00DB4FB6 /* ViewControllerGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerGenerator.swift; sourceTree = "<group>"; };
+		AC52A4EE243B426A00DB4FB6 /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
 		AC829F4624347FDC00D0623A /* NumberField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberField.swift; sourceTree = "<group>"; };
 		ACB2B60224333763002FAF27 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		ACB2B6062433472B002FAF27 /* AuthDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDescriptionView.swift; sourceTree = "<group>"; };
@@ -234,6 +240,7 @@
 				ACB2B60824334813002FAF27 /* NSMutableAttributedString+Extension.swift */,
 				ACEE24CD243706380044D573 /* UIViewController+Extension.swift */,
 				AC52A4E6243AED3900DB4FB6 /* UIApplication+Extension.swift */,
+				AC52A4EE243B426A00DB4FB6 /* UserDefaults+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -241,6 +248,7 @@
 		AC52A4D924385B5A00DB4FB6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				AC52A4EA243B113B00DB4FB6 /* AuthorizationManager.swift */,
 				AC52A4DA24385EDB00DB4FB6 /* PhoneAuthorizationManager.swift */,
 				AC52A4E42439E88100DB4FB6 /* UserInfo.swift */,
 			);
@@ -405,6 +413,7 @@
 		ACCD94EF242A24A300153545 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				AC52A4EC243B116F00DB4FB6 /* ViewControllerGenerator.swift */,
 				AC28CD25242A40A10031999B /* Extensions */,
 				AC28CD22242A3FBF0031999B /* Reference */,
 				ACCD94F0242A24F300153545 /* View */,
@@ -607,6 +616,7 @@
 				A63F37C0243596EF002C0D9B /* WriteKeywordViewController.swift in Sources */,
 				A62D97DE242B3F57006F1722 /* WriteTableAlbumCell.swift in Sources */,
 				A62D97E6242B40AE006F1722 /* WriteTableDescriptionCell.swift in Sources */,
+				AC52A4EB243B113B00DB4FB6 /* AuthorizationManager.swift in Sources */,
 				ACCD94D92429F84200153545 /* ProductPostViewController.swift in Sources */,
 				ACCC975D242B75B7008F95DE /* Address.swift in Sources */,
 				A63F37C42435CB87002C0D9B /* Extension.swift in Sources */,
@@ -621,6 +631,7 @@
 				ACCD94EA242A238300153545 /* FindMyTownViewController.swift in Sources */,
 				ADAA12BF2433214000A692A0 /* PopoverViewController.swift in Sources */,
 				AC52A4E12439A53000DB4FB6 /* ConfigProfileViewController.swift in Sources */,
+				AC52A4EF243B426A00DB4FB6 /* UserDefaults+Extension.swift in Sources */,
 				AD677861242A21ED00CFEB86 /* FirstAlertViewController.swift in Sources */,
 				AC52A4DF2438BA5100DB4FB6 /* APIRequest.swift in Sources */,
 				AC52A4E52439E88200DB4FB6 /* UserInfo.swift in Sources */,
@@ -643,6 +654,7 @@
 				ACFB7D3C242CCFF000E47F97 /* DGNavigationBar.swift in Sources */,
 				AC52A4D624384C1F00DB4FB6 /* AuthInputForm.swift in Sources */,
 				ACB2B60324333763002FAF27 /* AuthViewController.swift in Sources */,
+				AC52A4ED243B116F00DB4FB6 /* ViewControllerGenerator.swift in Sources */,
 				ACEE24CC2435CA1B0044D573 /* DGUpperAlert.swift in Sources */,
 				ACFB7D38242CA45600E47F97 /* TownNoResultView.swift in Sources */,
 				ACFB7D36242C9A0C00E47F97 /* InitialStartView.swift in Sources */,
