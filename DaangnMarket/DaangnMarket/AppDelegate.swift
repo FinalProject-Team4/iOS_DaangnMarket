@@ -29,6 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       rootVC = ViewControllerGenerator.shared.make(.initialStart)
     }
     self.window?.rootViewController = rootVC
+//    self.window?.rootViewController = ViewControllerGenerator.shared.make(.townSetting)
     self.window?.makeKeyAndVisible()
     
     return true

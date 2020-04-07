@@ -22,6 +22,8 @@ class ViewControllerGenerator {
     case initialStart
     case phoneAuth
     case signUp
+    case townSetting
+    case townShow
     case popover
     case writeUsed
   }
@@ -37,12 +39,16 @@ class ViewControllerGenerator {
     case .signUp:
       guard let idToken = parameters["idToken"] as? String else { return nil }
       return UINavigationController(rootViewController: ConfigProfileViewController(idToken: idToken))
+    case .townSetting:
+      return UINavigationController(rootViewController: MyTownSettingViewController())
     case .popover:
       guard let homeVC = parameters["target"] as? UIViewController,
         let sender = parameters["sender"] as? UIView else { return nil }
       return self.makePopoverController(homeVC, sender)
     case .writeUsed:
       return UINavigationController(rootViewController: WriteUsedViewController())
+    case .townShow:
+      return UINavigationController(rootViewController: ChooseTownToShowViewController())
     }
   }
   

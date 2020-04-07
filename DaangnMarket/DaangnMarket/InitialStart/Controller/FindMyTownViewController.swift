@@ -79,7 +79,8 @@ class FindMyTownViewController: UIViewController {
   private func setupConstraints() {
     self.navigationBar
       .then { self.view.addSubview($0) }
-      .snp.makeConstraints {
+      .snp
+      .makeConstraints {
         $0.top.equalToSuperview().offset(UINavigationBar.statusBarSize.height)
         $0.centerX.equalToSuperview()
     }
