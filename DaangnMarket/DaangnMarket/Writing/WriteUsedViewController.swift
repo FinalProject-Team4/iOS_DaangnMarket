@@ -110,7 +110,7 @@ class WriteUsedViewController: UIViewController {
     self.navigationItem.rightBarButtonItem =
       UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(requestCreate))
     self.navigationItem.leftBarButtonItem =
-      UIBarButtonItem(title: "닫기", style: .plain, target: self, action: nil)
+      UIBarButtonItem(title: "닫기", style: .plain, target: self, action: #selector(dismissVC))
   }
   
   private func setupAttributes() {
@@ -195,6 +195,10 @@ class WriteUsedViewController: UIViewController {
     alert.addAction(okAction)
     alert.modalPresentationStyle = .overFullScreen
     present(alert, animated: false)
+  }
+  
+  @objc private func dismissVC() {
+    dismiss(animated: true, completion: nil)
   }
   
   @objc private func requestCreate() {

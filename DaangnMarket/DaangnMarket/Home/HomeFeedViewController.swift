@@ -175,12 +175,14 @@ class HomeFeedViewController: UIViewController {
   }
 
   @objc private func didTapButtonsInNaviBar(_ sender: UIView) {
-    let homeVC = HomeFeedViewController()
-    let popoverVC = PopoverViewController()
     switch sender {
     case leftBarItemButton:
-      let popPresent = HomeFeedViewController.popoverPresent(homeVC, popoverVC, sender)
-      present(popPresent, animated: true)
+      let parameters: [String: Any] = [
+        "target": self,
+        "sender": sender
+      ]
+      guard let popover = ViewControllerGenerator.shared.make(.popover, parameters: parameters) else { return }
+      present(popover, animated: true)
     case rightBarItemMagnifyingglass:
       print("검색하기")
     case rightBarItemSlider:
@@ -190,17 +192,6 @@ class HomeFeedViewController: UIViewController {
     default:
       break
     }
-  }
-  
-  static func popoverPresent(_ delegateVC: UIViewController, _ controller: UIViewController, _ sender: UIView) -> UIViewController {
-    controller.preferredContentSize = CGSize(width: 300, height: 150)
-    controller.modalPresentationStyle = .popover
-    guard let presentationController = controller.popoverPresentationController else { fatalError("popOverPresent casting error") }
-    presentationController.delegate = delegateVC as? UIPopoverPresentationControllerDelegate
-    presentationController.sourceRect = sender.bounds
-    presentationController.sourceView = sender
-    presentationController.permittedArrowDirections = .up
-    return controller
   }
   
   private func checkGoodsImage(_ cell: HomeFeedTableViewCell, _ indexPath: IndexPath) {

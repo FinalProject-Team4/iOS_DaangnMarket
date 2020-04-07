@@ -23,6 +23,11 @@
 		A63F37C0243596EF002C0D9B /* WriteKeywordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63F37BF243596EF002C0D9B /* WriteKeywordViewController.swift */; };
 		A63F37C224359B5D002C0D9B /* KeywordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63F37C124359B5D002C0D9B /* KeywordTableViewCell.swift */; };
 		A63F37C42435CB87002C0D9B /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63F37C32435CB87002C0D9B /* Extension.swift */; };
+		A6C1E369243B1AC800A6FF32 /* WriteTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C1E368243B1AC800A6FF32 /* WriteTypeViewController.swift */; };
+		A6C1E36B243B38AF00A6FF32 /* WriteTypeButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C1E36A243B38AF00A6FF32 /* WriteTypeButtonView.swift */; };
+		A6C1E36D243B51A100A6FF32 /* WriteClearViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C1E36C243B51A100A6FF32 /* WriteClearViewController.swift */; };
+		A6C1E36F243C506400A6FF32 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A6C1E36E243C506400A6FF32 /* GoogleService-Info.plist */; };
+		A6C1E393243C5CE400A6FF32 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C1E392243C5CE400A6FF32 /* MainTabBarController.swift */; };
 		A6FB7193243731560092A5F1 /* DGAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6FB7192243731560092A5F1 /* DGAlertController.swift */; };
 		A6FB7195243755770092A5F1 /* DGAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6FB7194243755770092A5F1 /* DGAlertAction.swift */; };
 		A6FB71992439A7AE0092A5F1 /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6FB71982439A7AE0092A5F1 /* CategoryModel.swift */; };
@@ -31,7 +36,6 @@
 		AC5052DB242DA1B40045B9BC /* TownBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5052DA242DA1B40045B9BC /* TownBackgroundView.swift */; };
 		AC52A4D624384C1F00DB4FB6 /* AuthInputForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4D524384C1F00DB4FB6 /* AuthInputForm.swift */; };
 		AC52A4DB24385EDB00DB4FB6 /* PhoneAuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4DA24385EDB00DB4FB6 /* PhoneAuthorizationManager.swift */; };
-		AC52A4DD243883EE00DB4FB6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AC52A4DC243883EE00DB4FB6 /* GoogleService-Info.plist */; };
 		AC52A4DF2438BA5100DB4FB6 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4DE2438BA5000DB4FB6 /* APIRequest.swift */; };
 		AC52A4E12439A53000DB4FB6 /* ConfigProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4E02439A53000DB4FB6 /* ConfigProfileViewController.swift */; };
 		AC52A4E32439AF4300DB4FB6 /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4E22439AF4300DB4FB6 /* ProfileImageView.swift */; };
@@ -105,6 +109,11 @@
 		A63F37BF243596EF002C0D9B /* WriteKeywordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteKeywordViewController.swift; sourceTree = "<group>"; };
 		A63F37C124359B5D002C0D9B /* KeywordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordTableViewCell.swift; sourceTree = "<group>"; };
 		A63F37C32435CB87002C0D9B /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		A6C1E368243B1AC800A6FF32 /* WriteTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteTypeViewController.swift; sourceTree = "<group>"; };
+		A6C1E36A243B38AF00A6FF32 /* WriteTypeButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteTypeButtonView.swift; sourceTree = "<group>"; };
+		A6C1E36C243B51A100A6FF32 /* WriteClearViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteClearViewController.swift; sourceTree = "<group>"; };
+		A6C1E36E243C506400A6FF32 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		A6C1E392243C5CE400A6FF32 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		A6FB7192243731560092A5F1 /* DGAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DGAlertController.swift; sourceTree = "<group>"; };
 		A6FB7194243755770092A5F1 /* DGAlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DGAlertAction.swift; sourceTree = "<group>"; };
 		A6FB71982439A7AE0092A5F1 /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
@@ -113,7 +122,6 @@
 		AC5052DA242DA1B40045B9BC /* TownBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownBackgroundView.swift; sourceTree = "<group>"; };
 		AC52A4D524384C1F00DB4FB6 /* AuthInputForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInputForm.swift; sourceTree = "<group>"; };
 		AC52A4DA24385EDB00DB4FB6 /* PhoneAuthorizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneAuthorizationManager.swift; sourceTree = "<group>"; };
-		AC52A4DC243883EE00DB4FB6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AC52A4DE2438BA5000DB4FB6 /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
 		AC52A4E02439A53000DB4FB6 /* ConfigProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigProfileViewController.swift; sourceTree = "<group>"; };
 		AC52A4E22439AF4300DB4FB6 /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
@@ -233,7 +241,7 @@
 				A62D96B22424A442006F1722 /* Assets.xcassets */,
 				A62D96B42424A442006F1722 /* LaunchScreen.storyboard */,
 				A62D96B72424A442006F1722 /* Info.plist */,
-				AC52A4DC243883EE00DB4FB6 /* GoogleService-Info.plist */,
+				A6C1E36E243C506400A6FF32 /* GoogleService-Info.plist */,
 			);
 			path = DaangnMarket;
 			sourceTree = "<group>";
@@ -387,6 +395,9 @@
 				A63F37C124359B5D002C0D9B /* KeywordTableViewCell.swift */,
 				A63F37C32435CB87002C0D9B /* Extension.swift */,
 				A6FB71982439A7AE0092A5F1 /* CategoryModel.swift */,
+				A6C1E368243B1AC800A6FF32 /* WriteTypeViewController.swift */,
+				A6C1E36A243B38AF00A6FF32 /* WriteTypeButtonView.swift */,
+				A6C1E36C243B51A100A6FF32 /* WriteClearViewController.swift */,
 			);
 			path = Writing;
 			sourceTree = "<group>";
@@ -462,6 +473,7 @@
 			isa = PBXGroup;
 			children = (
 				AC52A4EC243B116F00DB4FB6 /* ViewControllerGenerator.swift */,
+				A6C1E392243C5CE400A6FF32 /* MainTabBarController.swift */,
 				AC28CD25242A40A10031999B /* Extensions */,
 				AC28CD22242A3FBF0031999B /* Reference */,
 				ACCD94F0242A24F300153545 /* View */,
@@ -575,7 +587,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ACCD94CE2429E59500153545 /* .swiftlint.yml in Resources */,
-				AC52A4DD243883EE00DB4FB6 /* GoogleService-Info.plist in Resources */,
+				A6C1E36F243C506400A6FF32 /* GoogleService-Info.plist in Resources */,
 				A62D96B62424A442006F1722 /* LaunchScreen.storyboard in Resources */,
 				A62D96B32424A442006F1722 /* Assets.xcassets in Resources */,
 			);
@@ -651,6 +663,7 @@
 				ACFB7D3A242CCE9200E47F97 /* UIDevice+Extension.swift in Sources */,
 				A62D97E4242B403E006F1722 /* WriteTablePriceCell.swift in Sources */,
 				A6FB7195243755770092A5F1 /* DGAlertAction.swift in Sources */,
+				A6C1E36B243B38AF00A6FF32 /* WriteTypeButtonView.swift in Sources */,
 				ACB2B60924334813002FAF27 /* NSMutableAttributedString+Extension.swift in Sources */,
 				ACCD94D72429F81D00153545 /* CategoryViewController.swift in Sources */,
 				AC829F4724347FDC00D0623A /* NumberField.swift in Sources */,
@@ -661,6 +674,7 @@
 				A62D97EC242DC449006F1722 /* SelectCategoryViewController.swift in Sources */,
 				AC28CD24242A3FCA0031999B /* References.swift in Sources */,
 				AC52A4DB24385EDB00DB4FB6 /* PhoneAuthorizationManager.swift in Sources */,
+				A6C1E36D243B51A100A6FF32 /* WriteClearViewController.swift in Sources */,
 				AC28CD27242A40B30031999B /* UIImageView+Extension.swift in Sources */,
 				A62D96AE2424A440006F1722 /* HomeFeedViewController.swift in Sources */,
 				AC52A4FB243C495600DB4FB6 /* SellerInformationTableViewCell.swift in Sources */,
@@ -673,6 +687,7 @@
 				AC52A502243C495600DB4FB6 /* ImagesScrollView.swift in Sources */,
 				ACCC975D242B75B7008F95DE /* Address.swift in Sources */,
 				A63F37C42435CB87002C0D9B /* Extension.swift in Sources */,
+				A6C1E369243B1AC800A6FF32 /* WriteTypeViewController.swift in Sources */,
 				A63F37BA24344C39002C0D9B /* SelectedImageView.swift in Sources */,
 				ACCD94DD2429F87900153545 /* ChatViewController.swift in Sources */,
 				A62D97E0242B401B006F1722 /* WriteTableTitleCell.swift in Sources */,
@@ -692,6 +707,7 @@
 				ADD05132242B595200312DF1 /* HomeFeedTableViewCell.swift in Sources */,
 				AC52A4FE243C495600DB4FB6 /* OtherItemsCollectionViewCell.swift in Sources */,
 				A62D96AA2424A440006F1722 /* AppDelegate.swift in Sources */,
+				A6C1E393243C5CE400A6FF32 /* MainTabBarController.swift in Sources */,
 				ACCC9750242B31CB008F95DE /* TownSearchBar.swift in Sources */,
 				ACB2B6072433472B002FAF27 /* AuthDescriptionView.swift in Sources */,
 				A6FB71992439A7AE0092A5F1 /* CategoryModel.swift in Sources */,
