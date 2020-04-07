@@ -80,7 +80,7 @@
 		ACFB7D38242CA45600E47F97 /* TownNoResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFB7D37242CA45600E47F97 /* TownNoResultView.swift */; };
 		ACFB7D3A242CCE9200E47F97 /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFB7D39242CCE9200E47F97 /* UIDevice+Extension.swift */; };
 		ACFB7D3C242CCFF000E47F97 /* DGNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFB7D3B242CCFF000E47F97 /* DGNavigationBar.swift */; };
-		ACFB7D3E242CD94E00E47F97 /* UINavigationBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFB7D3D242CD94E00E47F97 /* UINavigationBar+Extension.swift */; };
+		ACFB7D3E242CD94E00E47F97 /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFB7D3D242CD94E00E47F97 /* UINavigationController+Extension.swift */; };
 		AD677861242A21ED00CFEB86 /* FirstAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD677860242A21ED00CFEB86 /* FirstAlertViewController.swift */; };
 		ADAA12BF2433214000A692A0 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAA12BE2433214000A692A0 /* PopoverViewController.swift */; };
 		ADD05132242B595200312DF1 /* HomeFeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD05131242B595200312DF1 /* HomeFeedTableViewCell.swift */; };
@@ -167,7 +167,7 @@
 		ACFB7D37242CA45600E47F97 /* TownNoResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownNoResultView.swift; sourceTree = "<group>"; };
 		ACFB7D39242CCE9200E47F97 /* UIDevice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
 		ACFB7D3B242CCFF000E47F97 /* DGNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DGNavigationBar.swift; sourceTree = "<group>"; };
-		ACFB7D3D242CD94E00E47F97 /* UINavigationBar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+Extension.swift"; sourceTree = "<group>"; };
+		ACFB7D3D242CD94E00E47F97 /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
 		AD677860242A21ED00CFEB86 /* FirstAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstAlertViewController.swift; sourceTree = "<group>"; };
 		ADAA12BE2433214000A692A0 /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
 		ADD05131242B595200312DF1 /* HomeFeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeedTableViewCell.swift; sourceTree = "<group>"; };
@@ -260,7 +260,7 @@
 				ACCC9754242B490E008F95DE /* Identifiable.swift */,
 				AC28CD26242A40B30031999B /* UIImageView+Extension.swift */,
 				ACFB7D39242CCE9200E47F97 /* UIDevice+Extension.swift */,
-				ACFB7D3D242CD94E00E47F97 /* UINavigationBar+Extension.swift */,
+				ACFB7D3D242CD94E00E47F97 /* UINavigationController+Extension.swift */,
 				ACB2B60824334813002FAF27 /* NSMutableAttributedString+Extension.swift */,
 				ACEE24CD243706380044D573 /* UIViewController+Extension.swift */,
 				AC52A4E6243AED3900DB4FB6 /* UIApplication+Extension.swift */,
@@ -711,7 +711,7 @@
 				ACCC9750242B31CB008F95DE /* TownSearchBar.swift in Sources */,
 				ACB2B6072433472B002FAF27 /* AuthDescriptionView.swift in Sources */,
 				A6FB71992439A7AE0092A5F1 /* CategoryModel.swift in Sources */,
-				ACFB7D3E242CD94E00E47F97 /* UINavigationBar+Extension.swift in Sources */,
+				ACFB7D3E242CD94E00E47F97 /* UINavigationController+Extension.swift in Sources */,
 				ACFB7D32242C5C3200E47F97 /* TownHeaderView.swift in Sources */,
 				ACCD94E4242A19DD00153545 /* InitialStartViewController.swift in Sources */,
 				ACCD94F2242A250500153545 /* DGButton.swift in Sources */,
