@@ -22,6 +22,7 @@ class ViewControllerGenerator {
     case initialStart
     case phoneAuth
     case signUp
+    case writeUsed
   }
   
   func make(_ type: ControllerType, parameters: [String: Any] = [:]) -> UIViewController? {
@@ -35,6 +36,8 @@ class ViewControllerGenerator {
     case .signUp:
       guard let idToken = parameters["idToken"] as? String else { return nil }
       return UINavigationController(rootViewController: ConfigProfileViewController(idToken: idToken))
+    case .writeUsed:
+      return UINavigationController(rootViewController: WriteUsedViewController())
     }
   }
   
@@ -47,7 +50,7 @@ class ViewControllerGenerator {
     let categoryVC = CategoryViewController().then {
       $0.tabBarItem = UITabBarItem(title: "카테고리", image: UIImage(systemName: "line.horizontal.3"), tag: 1)
     }
-    let writeUseVC = WriteUsedViewController().then {
+    let writeUseVC = WriteClearViewController().then {
       $0.tabBarItem = UITabBarItem(title: "글쓰기", image: UIImage(systemName: "pencil"), tag: 2)
     }
     let chatVC = ChatViewController().then {
@@ -57,7 +60,7 @@ class ViewControllerGenerator {
       $0.tabBarItem = UITabBarItem(title: "나의 당근", image: UIImage(systemName: "person"), tag: 4)
     }
     
-    return UITabBarController().then {
+    return MainTabBarController().then {
       $0.viewControllers = [homeFeedVC, categoryVC, writeUseVC, chatVC, mypageVC]
       $0.tabBar.tintColor = .black
     }
