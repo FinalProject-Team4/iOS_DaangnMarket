@@ -12,7 +12,19 @@ extension CALayer {
     let border = CALayer()
     switch edge {
     case .top:
-      border.frame = CGRect(x: 0, y: 0, width: frame.width, height: thickness)
+      border.frame = CGRect(
+        x: 0,
+        y: 0,
+        width: frame.width,
+        height: thickness
+      )
+    case .bottom:
+      border.frame = CGRect(
+        x: frame.width * 0.05,
+        y: frame.height - thickness,
+        width: frame.width * 0.9,
+        height: thickness
+      )
     default:
       break
     }
@@ -33,8 +45,8 @@ extension UIView {
     var responder: UIResponder? = self
     while let nextResponder = responder?.next {
       responder = nextResponder
-      if let vc = nextResponder as? UIViewController {
-        return vc
+      if let viewController = nextResponder as? UIViewController {
+        return viewController
       }
     }
     return nil
