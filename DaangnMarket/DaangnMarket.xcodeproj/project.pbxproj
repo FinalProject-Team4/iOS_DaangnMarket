@@ -40,6 +40,14 @@
 		AC52A4EB243B113B00DB4FB6 /* AuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4EA243B113B00DB4FB6 /* AuthorizationManager.swift */; };
 		AC52A4ED243B116F00DB4FB6 /* ViewControllerGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4EC243B116F00DB4FB6 /* ViewControllerGenerator.swift */; };
 		AC52A4EF243B426A00DB4FB6 /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4EE243B426A00DB4FB6 /* UserDefaults+Extension.swift */; };
+		AC52A4FB243C495600DB4FB6 /* SellerInformationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4F1243C495600DB4FB6 /* SellerInformationTableViewCell.swift */; };
+		AC52A4FC243C495600DB4FB6 /* ContentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4F2243C495600DB4FB6 /* ContentsTableViewCell.swift */; };
+		AC52A4FD243C495600DB4FB6 /* OtherItemsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4F3243C495600DB4FB6 /* OtherItemsTableViewCell.swift */; };
+		AC52A4FE243C495600DB4FB6 /* OtherItemsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4F4243C495600DB4FB6 /* OtherItemsCollectionViewCell.swift */; };
+		AC52A4FF243C495600DB4FB6 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4F6243C495600DB4FB6 /* Data.swift */; };
+		AC52A500243C495600DB4FB6 /* CustomNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4F8243C495600DB4FB6 /* CustomNavigationBarView.swift */; };
+		AC52A501243C495600DB4FB6 /* BottomButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4F9243C495600DB4FB6 /* BottomButtonsView.swift */; };
+		AC52A502243C495600DB4FB6 /* ImagesScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4FA243C495600DB4FB6 /* ImagesScrollView.swift */; };
 		AC829F4724347FDC00D0623A /* NumberField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC829F4624347FDC00D0623A /* NumberField.swift */; };
 		ACB2B60324333763002FAF27 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B60224333763002FAF27 /* AuthViewController.swift */; };
 		ACB2B6072433472B002FAF27 /* AuthDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B6062433472B002FAF27 /* AuthDescriptionView.swift */; };
@@ -114,6 +122,14 @@
 		AC52A4EA243B113B00DB4FB6 /* AuthorizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationManager.swift; sourceTree = "<group>"; };
 		AC52A4EC243B116F00DB4FB6 /* ViewControllerGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerGenerator.swift; sourceTree = "<group>"; };
 		AC52A4EE243B426A00DB4FB6 /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
+		AC52A4F1243C495600DB4FB6 /* SellerInformationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SellerInformationTableViewCell.swift; sourceTree = "<group>"; };
+		AC52A4F2243C495600DB4FB6 /* ContentsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentsTableViewCell.swift; sourceTree = "<group>"; };
+		AC52A4F3243C495600DB4FB6 /* OtherItemsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherItemsTableViewCell.swift; sourceTree = "<group>"; };
+		AC52A4F4243C495600DB4FB6 /* OtherItemsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherItemsCollectionViewCell.swift; sourceTree = "<group>"; };
+		AC52A4F6243C495600DB4FB6 /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		AC52A4F8243C495600DB4FB6 /* CustomNavigationBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationBarView.swift; sourceTree = "<group>"; };
+		AC52A4F9243C495600DB4FB6 /* BottomButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomButtonsView.swift; sourceTree = "<group>"; };
+		AC52A4FA243C495600DB4FB6 /* ImagesScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagesScrollView.swift; sourceTree = "<group>"; };
 		AC829F4624347FDC00D0623A /* NumberField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberField.swift; sourceTree = "<group>"; };
 		ACB2B60224333763002FAF27 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		ACB2B6062433472B002FAF27 /* AuthDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDescriptionView.swift; sourceTree = "<group>"; };
@@ -255,6 +271,35 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		AC52A4F0243C495600DB4FB6 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				AC52A4F1243C495600DB4FB6 /* SellerInformationTableViewCell.swift */,
+				AC52A4F2243C495600DB4FB6 /* ContentsTableViewCell.swift */,
+				AC52A4F3243C495600DB4FB6 /* OtherItemsTableViewCell.swift */,
+				AC52A4F4243C495600DB4FB6 /* OtherItemsCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		AC52A4F5243C495600DB4FB6 /* Dummy */ = {
+			isa = PBXGroup;
+			children = (
+				AC52A4F6243C495600DB4FB6 /* Data.swift */,
+			);
+			path = Dummy;
+			sourceTree = "<group>";
+		};
+		AC52A4F7243C495600DB4FB6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AC52A4F8243C495600DB4FB6 /* CustomNavigationBarView.swift */,
+				AC52A4F9243C495600DB4FB6 /* BottomButtonsView.swift */,
+				AC52A4FA243C495600DB4FB6 /* ImagesScrollView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		ACB2B60124333742002FAF27 /* Authorization */ = {
 			isa = PBXGroup;
 			children = (
@@ -316,6 +361,9 @@
 		ACCD94D12429F5C000153545 /* Product */ = {
 			isa = PBXGroup;
 			children = (
+				AC52A4F0243C495600DB4FB6 /* Cell */,
+				AC52A4F5243C495600DB4FB6 /* Dummy */,
+				AC52A4F7243C495600DB4FB6 /* View */,
 				ACCD94D82429F84200153545 /* ProductPostViewController.swift */,
 			);
 			path = Product;
@@ -606,18 +654,23 @@
 				ACB2B60924334813002FAF27 /* NSMutableAttributedString+Extension.swift in Sources */,
 				ACCD94D72429F81D00153545 /* CategoryViewController.swift in Sources */,
 				AC829F4724347FDC00D0623A /* NumberField.swift in Sources */,
+				AC52A4FD243C495600DB4FB6 /* OtherItemsTableViewCell.swift in Sources */,
+				AC52A4FC243C495600DB4FB6 /* ContentsTableViewCell.swift in Sources */,
 				A63F37C224359B5D002C0D9B /* KeywordTableViewCell.swift in Sources */,
+				AC52A4FF243C495600DB4FB6 /* Data.swift in Sources */,
 				A62D97EC242DC449006F1722 /* SelectCategoryViewController.swift in Sources */,
 				AC28CD24242A3FCA0031999B /* References.swift in Sources */,
 				AC52A4DB24385EDB00DB4FB6 /* PhoneAuthorizationManager.swift in Sources */,
 				AC28CD27242A40B30031999B /* UIImageView+Extension.swift in Sources */,
 				A62D96AE2424A440006F1722 /* HomeFeedViewController.swift in Sources */,
+				AC52A4FB243C495600DB4FB6 /* SellerInformationTableViewCell.swift in Sources */,
 				A6FB7193243731560092A5F1 /* DGAlertController.swift in Sources */,
 				A63F37C0243596EF002C0D9B /* WriteKeywordViewController.swift in Sources */,
 				A62D97DE242B3F57006F1722 /* WriteTableAlbumCell.swift in Sources */,
 				A62D97E6242B40AE006F1722 /* WriteTableDescriptionCell.swift in Sources */,
 				AC52A4EB243B113B00DB4FB6 /* AuthorizationManager.swift in Sources */,
 				ACCD94D92429F84200153545 /* ProductPostViewController.swift in Sources */,
+				AC52A502243C495600DB4FB6 /* ImagesScrollView.swift in Sources */,
 				ACCC975D242B75B7008F95DE /* Address.swift in Sources */,
 				A63F37C42435CB87002C0D9B /* Extension.swift in Sources */,
 				A63F37BA24344C39002C0D9B /* SelectedImageView.swift in Sources */,
@@ -633,9 +686,11 @@
 				AC52A4E12439A53000DB4FB6 /* ConfigProfileViewController.swift in Sources */,
 				AC52A4EF243B426A00DB4FB6 /* UserDefaults+Extension.swift in Sources */,
 				AD677861242A21ED00CFEB86 /* FirstAlertViewController.swift in Sources */,
+				AC52A501243C495600DB4FB6 /* BottomButtonsView.swift in Sources */,
 				AC52A4DF2438BA5100DB4FB6 /* APIRequest.swift in Sources */,
 				AC52A4E52439E88200DB4FB6 /* UserInfo.swift in Sources */,
 				ADD05132242B595200312DF1 /* HomeFeedTableViewCell.swift in Sources */,
+				AC52A4FE243C495600DB4FB6 /* OtherItemsCollectionViewCell.swift in Sources */,
 				A62D96AA2424A440006F1722 /* AppDelegate.swift in Sources */,
 				ACCC9750242B31CB008F95DE /* TownSearchBar.swift in Sources */,
 				ACB2B6072433472B002FAF27 /* AuthDescriptionView.swift in Sources */,
@@ -649,6 +704,7 @@
 				ACCD94DB2429F86B00153545 /* WriteUsedViewController.swift in Sources */,
 				ACCC975B242B6DB0008F95DE /* API.swift in Sources */,
 				ACEE24CE243706380044D573 /* UIViewController+Extension.swift in Sources */,
+				AC52A500243C495600DB4FB6 /* CustomNavigationBarView.swift in Sources */,
 				ACCC9753242B48D6008F95DE /* TownAddressCell.swift in Sources */,
 				ACFB7D34242C876800E47F97 /* DGToastAlert.swift in Sources */,
 				ACFB7D3C242CCFF000E47F97 /* DGNavigationBar.swift in Sources */,
