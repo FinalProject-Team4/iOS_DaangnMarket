@@ -22,6 +22,7 @@ class ViewControllerGenerator {
     case initialStart
     case phoneAuth
     case signUp
+    case popover
   }
   
   func make(_ type: ControllerType, parameters: [String: Any] = [:]) -> UIViewController? {
@@ -35,6 +36,10 @@ class ViewControllerGenerator {
     case .signUp:
       guard let idToken = parameters["idToken"] as? String else { return nil }
       return UINavigationController(rootViewController: ConfigProfileViewController(idToken: idToken))
+    case .popover:
+      guard let homeVC = parameters["target"] as? UIViewController,
+        let sender = parameters["sender"] as? UIView else { return nil }
+      return self.makePopoverController(homeVC, sender)
     }
   }
   
@@ -61,6 +66,19 @@ class ViewControllerGenerator {
       $0.viewControllers = [homeFeedVC, categoryVC, writeUseVC, chatVC, mypageVC]
       $0.tabBar.tintColor = .black
     }
+  }
+  
+  private func makePopoverController(_ homeVC: UIViewController, _ sender: UIView) -> UIViewController {
+    let popover = PopoverViewController()
+    popover.preferredContentSize = CGSize(width: 300, height: 150)
+    popover.modalPresentationStyle = .popover
+    guard let presentationController = popover.popoverPresentationController else { fatalError("popOverPresent casting error") }
+    
+    presentationController.delegate = homeVC as? UIPopoverPresentationControllerDelegate
+    presentationController.sourceRect = sender.bounds
+    presentationController.sourceView = sender
+    presentationController.permittedArrowDirections = .up
+    return popover
   }
 }
 
