@@ -32,6 +32,7 @@ enum ColorReference: String {
   case auth = "Auth"
   case inputText = "InputText"
   case subText = "SubText"
+  case mannerTemperature = "MannerTemperature"
 }
 
 enum UserReference: String {
