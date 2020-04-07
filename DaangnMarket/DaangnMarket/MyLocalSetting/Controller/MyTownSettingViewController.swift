@@ -24,14 +24,16 @@ class MyTownSettingViewController: UIViewController {
     super.viewDidLoad()
     self.view.backgroundColor = .white    
     MyTownSetting.shared.towns["first"] = AuthorizationManager.shared.address[0].dong
+    MyTownSetting.shared.selectTownName = AuthorizationManager.shared.address[0].dong
     setupConstraint()
     setupNaviBar()
   }
+  
   private func setupNaviBar() {
     self.navigationController?.navigationBar.barTintColor = .white
     self.navigationController?.navigationBar.tintColor = .black
     self.navigationItem.titleView = naviTitle
-    self.navigationItem.leftBarButtonItem = .init(image: UIImage(systemName:"multiply"),
+    self.navigationItem.leftBarButtonItem = .init(image: UIImage(systemName: "multiply"),
                                                   style: .plain,
                                                   target: self,
                                                   action: #selector(didTapLeftBarButton))

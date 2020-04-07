@@ -10,7 +10,7 @@ import UIKit
 
 class TownCountView: UIView {
   lazy var myTownLabel = UILabel().then {
-    $0.text = "군자동"
+    $0.text = MyTownSetting.shared.selectTownName ?? "동네오류"
     $0.textAlignment = .center
     $0.font = .systemFont(ofSize: 17, weight: .regular)
   }
@@ -22,11 +22,8 @@ class TownCountView: UIView {
   override init(frame: CGRect) {
     super.init(frame: frame)
     setupConstraints()
-    MyTownSetting.shared.selectTownName = MyTownSetting.shared.towns["first"] ?? "동네없음"
-//    MyTownSetting.shared.numberOfAroundTown = 40
-//    print(MyTownSetting.shared.selectTownName)
-//    MyTownSetting.shared.numberOfAroundTown = AuthorizationManager.shared.address.count
   }
+  
   private func setupConstraints() {
     let viewSubUI = [myTownLabel, aroundTownCountLabel]
     viewSubUI.forEach { self.addSubview($0) }

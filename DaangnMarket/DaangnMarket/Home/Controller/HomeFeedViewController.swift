@@ -21,7 +21,6 @@ class HomeFeedViewController: UIViewController {
   var goodsLimits = 15
   var page: Int = 1 // -> page 1; 서버호출, 그외; 임시
   
-//  var barButtonTitle = ""
   private lazy var customNaviBar = UIView().then {
     $0.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 98)
     $0.backgroundColor = .white
@@ -29,7 +28,6 @@ class HomeFeedViewController: UIViewController {
     $0.layer.borderWidth = 0.3
   }
   let leftBarItemButton = UIButton().then {
-//    $0.setTitle("", for: .normal)
     $0.setTitleColor(.black, for: .normal)
     $0.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
     $0.addTarget(self, action: #selector(didTapButtonsInNaviBar(_:)), for: .touchUpInside)
@@ -69,6 +67,7 @@ class HomeFeedViewController: UIViewController {
     super.viewDidLoad()
     self.view.backgroundColor = .white
     self.tabBarController?.tabBar.isHidden = false
+    leftBarItemButton.setTitle(AuthorizationManager.shared.address[0].dong, for: .normal)
     setupUI()
     makeCustomNavigation()
     saveOutputDate(page)
@@ -205,7 +204,6 @@ class HomeFeedViewController: UIViewController {
   }
   
   private func checkGoodsImage(_ cell: HomeFeedTableViewCell, _ indexPath: IndexPath) {
-    //    goodsImage.kf.setImage(with: URL(string: "http://13.125.217.34/media/images/fabinho2.jpg")) -> 참고용
     let imageURL = localData[indexPath.row].postImageSet
     if !imageURL.isEmpty {
       cell.goodsImageView.kf.setImage(with: URL(string: imageURL[0].photo))
@@ -255,11 +253,6 @@ extension HomeFeedViewController: UITableViewDataSource {
     cell.goodsName.text = localData[indexPath.row].title
     cell.sellerLoctionAndTime.text = removeNotNeededTimeUnit(localData[indexPath.row].address, userUpdateTimes[indexPath.row])
     checkGoodsImage(cell, indexPath)
-//    var cell = tableView.dequeueReusableCell(withIdentifier: "GoodsCell")!
-//    if cell == nil {
-//      cell = UITableViewCell(style: .default, reuseIdentifier: "GoodsCell")
-//    }
-//    cell.textLabel?.text = "Row \(indexPath.row)"
     return cell
   }
   
