@@ -39,4 +39,6 @@ enum UserReference: String {
   case userInfo
   case selectedAddress
   case anotherAddress
+  case selectedAround
+  case anotherAround
 }

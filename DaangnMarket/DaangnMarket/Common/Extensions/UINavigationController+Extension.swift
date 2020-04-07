@@ -8,6 +8,14 @@
 
 import UIKit
 
+extension UINavigationController {
+  func lastViewController(offset: Int = 0) -> UIViewController? {
+    guard self.viewControllers.count > offset else { return nil }
+    return self.viewControllers.reversed()[offset]
+  }
+}
+
+
 extension UINavigationBar {
   static var statusBarSize: CGSize {
     return CGSize(width: UIScreen.main.bounds.width, height: UIDevice.current.hasNotch ? 44 : 20)
