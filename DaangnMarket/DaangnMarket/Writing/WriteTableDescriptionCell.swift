@@ -35,6 +35,7 @@ class WriteTableDescriptionCell: UITableViewCell {
   
   // MARK: Properties
   
+  var keyboardHeight: CGFloat = 0
   private var location = "동네 어떻게 받아올까~~~"
   
   // MARK: Initialize
@@ -64,7 +65,7 @@ class WriteTableDescriptionCell: UITableViewCell {
       $0.top.equalToSuperview().offset(24)
       $0.leading.equalToSuperview().offset(16)
       $0.trailing.equalToSuperview().offset(-16)
-      $0.bottom.equalToSuperview()
+      $0.bottom.equalToSuperview().offset(-24)
     }
     placeholderLabel.snp.makeConstraints {
       $0.edges.equalTo(bodyTextView)
@@ -81,12 +82,24 @@ class WriteTableDescriptionCell: UITableViewCell {
 
 // MARK: - Extension Level
 extension WriteTableDescriptionCell: UITextViewDelegate {
+  func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+    self.tableView?.contentOffset.y = UIScreen.main.bounds.height * 0.4
+
+    UIView.setAnimationsEnabled(false)
+    self.tableView?.beginUpdates()
+    self.tableView?.endUpdates()
+    UIView.setAnimationsEnabled(true)
+    return true
+  }
+  
   func textViewDidChange(_ textView: UITextView) {
     if !textView.text.isEmpty {
       placeholderLabel.isHidden = true
     } else {
       placeholderLabel.isHidden = false
     }
+    
+    self.tableView?.contentOffset.y = UIScreen.main.bounds.height * 0.4
     
     UIView.setAnimationsEnabled(false)
     self.tableView?.beginUpdates()
