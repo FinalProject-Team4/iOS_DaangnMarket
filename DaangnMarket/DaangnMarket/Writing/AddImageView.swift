@@ -45,7 +45,7 @@ class AddImageView: UIView {
       countLabel.text = "\(self.imageCount)/10"
       if self.imageCount != 0 {
         countLabel.attributedText = NSMutableAttributedString()
-          .normal("\(self.imageCount)", textColor: .orange, fontSize: 12)
+          .normal("\(self.imageCount)", textColor: UIColor(named: ColorReference.daangnMain.rawValue), fontSize: 12)
           .normal("/10", fontSize: 12)
       }
     }

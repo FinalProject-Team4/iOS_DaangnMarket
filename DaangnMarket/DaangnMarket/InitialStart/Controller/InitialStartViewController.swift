@@ -32,6 +32,7 @@ class InitialStartViewController: UIViewController {
   private func setupUI() {
     self.view.backgroundColor = .systemBackground
     self.navigationController?.navigationBar.isHidden = true
+    self.tabBarController?.tabBar.isHidden = true
     self.setupConstraints()
   }
   

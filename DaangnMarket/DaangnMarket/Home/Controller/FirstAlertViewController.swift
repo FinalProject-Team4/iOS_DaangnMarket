@@ -58,7 +58,6 @@ class FirstAlertViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-//    dummyData()
     self.view.backgroundColor = UIColor.black.withAlphaComponent(0.4)
     setupUI()
   }
@@ -73,8 +72,10 @@ class FirstAlertViewController: UIViewController {
   private func setupConstrains() {
     firsAlertView.snp.makeConstraints {
       $0.center.equalTo(self.view)
-      $0.width.equalTo(314)
-      $0.height.equalTo(445)
+//      $0.width.equalTo(314)
+      $0.width.equalTo(self.view.safeAreaLayoutGuide.snp.width).multipliedBy(0.8)
+//      $0.height.equalTo(470)
+      $0.height.equalTo(self.view.safeAreaLayoutGuide.snp.height).multipliedBy(0.6)
     }
     mascotImage.snp.makeConstraints {
       $0.centerX.equalToSuperview()
