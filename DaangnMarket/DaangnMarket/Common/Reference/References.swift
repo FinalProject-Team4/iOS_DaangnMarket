@@ -32,4 +32,11 @@ enum ColorReference: String {
   case auth = "Auth"
   case inputText = "InputText"
   case subText = "SubText"
+  case mannerTemperature = "MannerTemperature"
+}
+
+enum UserReference: String {
+  case userInfo
+  case selectedAddress
+  case anotherAddress
 }

@@ -15,8 +15,11 @@ extension NSMutableAttributedString {
     return self
   }
   
-  func normal(_ text: String, fontSize: CGFloat) -> NSMutableAttributedString {
-    let attrs = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize)]
+  func normal(_ text: String, textColor: UIColor? = .black, fontSize: CGFloat) -> NSMutableAttributedString {
+    let attrs: [NSAttributedString.Key: Any] = [
+      NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize),
+      NSAttributedString.Key.foregroundColor: textColor ?? .black,
+    ]
     self.append(NSMutableAttributedString(string: text, attributes: attrs))
     return self
   }

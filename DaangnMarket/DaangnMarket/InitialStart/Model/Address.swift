@@ -10,7 +10,7 @@ import Foundation
 
 // MARK: - AddressInfo
 
-struct AddressInfo: Decodable {
+struct AddressInfo: Codable {
   let count: Int
   let next: String?
   let previous: String?
@@ -26,7 +26,7 @@ struct AddressInfo: Decodable {
 
 // MARK: - Address
 
-struct Address: Decodable {
+struct Address: Codable {
   let id: Int
   let dong: String
   let gu: String

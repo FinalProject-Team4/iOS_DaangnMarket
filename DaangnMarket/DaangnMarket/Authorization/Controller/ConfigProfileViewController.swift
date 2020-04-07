@@ -124,10 +124,13 @@ class ConfigProfileViewController: UIViewController {
     API.default.request(.signUp(idToken: self.idToken, username: username, avatar: imageData)) { (result) in
       switch result {
       case .success(let userInfo):
-        self.presentAlert(title: "Sign Up", message: "\(userInfo)")
-        self.presentingViewController?.dismiss(animated: true)
+        AuthorizationManager.shared.register(userInfo)
+        self.navigationController?
+          .presentingViewController?
+          .presentingViewController?
+          .dismiss(animated: true)
       case .failure(let error):
-        print(error.localizedDescription)
+        self.presentAlert(title: "Sign Up Error", message: error.localizedDescription)
       }
     }
   }
