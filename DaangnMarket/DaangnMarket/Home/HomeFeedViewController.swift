@@ -73,7 +73,7 @@ class HomeFeedViewController: UIViewController {
   
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    if !AuthorizationManager.shared.isLogined {
+    if AuthorizationManager.shared.userInfo == nil {
       doFirstViewAlert()
     }
   }
