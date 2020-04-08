@@ -10,7 +10,7 @@ import UIKit
 
 class MyTownSetting {
   static var shared = MyTownSetting()
-  static var findTownAddres: Address?
+  static var findTownAddres: Town?
   var towns = [String: String]()
   var distance = Double()
   var numberOfAroundTown: Int?
