@@ -16,11 +16,11 @@ final class ServiceManager {
   private let postsListPath = "post/list/"
 //  let parameters: Parameters = ["page": 1]
   
-  func requestUser(_ parameters: Parameters, completionHandler: @escaping (Result<PostsInfo, Error>) -> Void) {
+  func requestUser(_ parameters: Parameters, completionHandler: @escaping (Result<PostInfo, Error>) -> Void) {
     let url = host + postsListPath
     AF.request(url, parameters: parameters)
       .validate()
-      .responseDecodable { (response: DataResponse<PostsInfo, AFError>) in
+      .responseDecodable { (response: DataResponse<PostInfo, AFError>) in
         switch response.result {
         case .success(let data):
           completionHandler(.success(data))
