@@ -67,7 +67,7 @@ class HomeFeedViewController: UIViewController {
     super.viewDidLoad()
     self.view.backgroundColor = .white
     self.tabBarController?.tabBar.isHidden = false
-    leftBarItemButton.setTitle(AuthorizationManager.shared.address[0].dong, for: .normal)
+    leftBarItemButton.setTitle(AuthorizationManager.shared.selectedAddress?.dong ?? "unknown", for: .normal)
     setupUI()
     makeCustomNavigation()
     saveOutputDate(page)
@@ -75,7 +75,7 @@ class HomeFeedViewController: UIViewController {
   
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    if !AuthorizationManager.shared.isLogined {
+    if AuthorizationManager.shared.userInfo == nil {
       doFirstViewAlert()
     }
   }

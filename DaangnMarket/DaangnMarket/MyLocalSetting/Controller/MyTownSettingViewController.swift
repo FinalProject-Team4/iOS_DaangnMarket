@@ -22,9 +22,11 @@ class MyTownSettingViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.view.backgroundColor = .white    
-    MyTownSetting.shared.towns["first"] = AuthorizationManager.shared.address[0].dong
-    MyTownSetting.shared.selectTownName = AuthorizationManager.shared.address[0].dong
+    self.view.backgroundColor = .white
+    if let selectedTown = AuthorizationManager.shared.selectedAddress {
+      MyTownSetting.shared.towns["first"] = selectedTown.dong
+      MyTownSetting.shared.selectTownName = selectedTown.dong
+    }
     setupConstraint()
     setupNaviBar()
   }

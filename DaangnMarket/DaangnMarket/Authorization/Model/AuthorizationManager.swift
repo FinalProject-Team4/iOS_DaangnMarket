@@ -17,57 +17,57 @@ class AuthorizationManager {
   
   // MARK: Interface - Address
   
-  var hasSelectedAddress: Bool {
-    return UserDefaults.standard.data(forKey: UserReference.selectedAddress.rawValue) != nil
+  var selectedAddress: Address? {
+    return UserDefaults.standard.object(Address.self, forKey: .selectedAddress)
   }
   
-  var address: [Address] {
-    var addresses = [Address]()
-    if let selectedData = UserDefaults.standard.data(forKey: UserReference.selectedAddress.rawValue),
-      let selectedAddress = try? JSONDecoder().decode(Address.self, from: selectedData) {
-      addresses.append(selectedAddress)
-    } else if let anotherData = UserDefaults.standard.data(forKey: UserReference.anotherAddress.rawValue),
-      let anotherAddress = try? JSONDecoder().decode(Address.self, from: anotherData) {
-      addresses.append(anotherAddress)
+  var anotherAddress: Address? {
+    return UserDefaults.standard.object(Address.self, forKey: .anotherAddress)
+  }
+  
+  var selectedAround: [Address]? {
+    return UserDefaults.standard.object([Address].self, forKey: .selectedAround)
+  }
+  
+  var anotherAround: [Address]? {
+    return UserDefaults.standard.object([Address].self, forKey: .anotherAround)
+  }
+  
+  func register(address: Address, around: [Address]) {
+    if self.selectedAddress == nil, self.selectedAround == nil {
+      UserDefaults.standard.set(address, forKey: .selectedAddress)
+      UserDefaults.standard.set(around, forKey: .selectedAround)
+    } else if self.anotherAddress == nil, self.anotherAround == nil {
+      UserDefaults.standard.set(address, forKey: .anotherAddress)
+      UserDefaults.standard.set(around, forKey: .anotherAround)
+    } else {
+      return
     }
-    return addresses
-  }
-  
-  func register(_ address: Address) {
-    guard self.address.count < 2,
-      let encoded = try? JSONEncoder().encode(address) else { return }
-    UserDefaults.standard.set(
-      encoded,
-      forKey: self.address.isEmpty ? UserReference.selectedAddress.rawValue : UserReference.anotherAddress.rawValue
-    )
   }
   
   func changeSelectedAddress() {
-    UserDefaults.standard.swapAt(
-      UserReference.selectedAddress.rawValue,
-      UserReference.anotherAddress.rawValue
-    )
+    UserDefaults.standard.swapAt(.selectedAddress, .anotherAddress)
+    UserDefaults.standard.swapAt(.selectedAround, .anotherAround)
   }
   
-  func removeAddress() {
-    guard self.address.count == 2 else { return }
-    UserDefaults.standard.removeObject(forKey: UserReference.anotherAddress.rawValue)
+  func removeAddress(forKey key: UserReference) {
+    if key == .anotherAddress {
+      UserDefaults.standard.remove(forKey: key)
+      UserDefaults.standard.remove(forKey: key)
+    } else {
+      UserDefaults.standard.swapAt(.selectedAddress, .anotherAddress)
+      UserDefaults.standard.swapAt(.selectedAround, .anotherAround)
+      self.removeAddress(forKey: .anotherAddress)
+    }
   }
   
   // MARK: Interface - UserInfo
   
-  var isLogined: Bool {
-    return UserDefaults.standard.data(forKey: UserReference.userInfo.rawValue) != nil
-  }
-  
   var userInfo: UserInfo? {
-    guard let userData = UserDefaults.standard.data(forKey: UserReference.userInfo.rawValue),
-      let userInfo = try? JSONDecoder().decode(UserInfo.self, from: userData) else { return nil }
-    return userInfo
+    return UserDefaults.standard.object(UserInfo.self, forKey: .userInfo)
   }
   
   func register(_ userInfo: UserInfo) {
-    guard let encoded = try? JSONEncoder().encode(userInfo) else { return }
-    UserDefaults.standard.set(encoded, forKey: UserReference.userInfo.rawValue)
+    UserDefaults.standard.set(userInfo, forKey: .userInfo)
   }
 }

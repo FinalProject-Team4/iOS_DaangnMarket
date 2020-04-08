@@ -167,12 +167,25 @@ extension FindMyTownViewController: UITableViewDataSource {
 
 extension FindMyTownViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    AuthorizationManager.shared.register(self.addresses[indexPath.row])
-    ViewControllerGenerator.shared
-      .make(.default)?
-      .do {
-        UIApplication.shared.switchRootViewController($0)
+    let selected = self.addresses[indexPath.row]
+    API.default.request(.distance(dongId: selected.id, distance: 4_800)) { (result) in
+      switch result {
+      case .success(let around):
+        AuthorizationManager.shared.register(address: selected, around: around)
+      case .failure(let error):
+        self.presentAlert(title: "Around Address Error", message: error.localizedDescription)
+        return
       }
+      
+      switch self.navigationController?.lastViewController(offset: 1) {
+      case is InitialStartViewController:
+        ViewControllerGenerator.shared.make(.default)?.do {
+          UIApplication.shared.switchRootViewController($0)
+        }
+      default:
+        return
+      }
+    }
   }
   
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
