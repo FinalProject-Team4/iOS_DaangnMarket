@@ -10,16 +10,22 @@ import UIKit
 import Alamofire
 
 class HomeFeedViewController: UIViewController {
+  // MARK: Property
+  
   let service = ServiceManager.shared
-  var localData = [Post]() {
+  private var url = "http://13.125.217.34/post/list/"
+  var nextPageURL: String?
+  var posts = [Post]() {
     didSet {
       self.tableView.reloadData()
     }
   }
-  var testData = [Int]() // 숫자배열; 서버데이터 없어서 임시로 만든 배열
+  
+  var testData = [Int]()
   var userUpdateTimes = [DateComponents]()
   var goodsLimits = 15
-  var page: Int = 1 // -> page 1; 서버호출, 그외; 임시
+  
+  // MARK: Views
   
   private lazy var customNaviBar = UIView().then {
     $0.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 98)
@@ -63,6 +69,8 @@ class HomeFeedViewController: UIViewController {
     $0.register(HomeFeedTableViewCell.self, forCellReuseIdentifier: "GoodsCell")
   }
   
+  // MARK: Life Cycle
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     self.view.backgroundColor = .white
@@ -70,21 +78,18 @@ class HomeFeedViewController: UIViewController {
     leftBarItemButton.setTitle(AuthorizationManager.shared.selectedTown?.dong ?? "unknown", for: .normal)
     setupUI()
     makeCustomNavigation()
-    saveOutputDate(page)
+    requestPostData(url)
   }
   
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
+    print("AuthorizationManager.shared.userInfo", AuthorizationManager.shared.userInfo)
     if AuthorizationManager.shared.userInfo == nil {
-      doFirstViewAlert()
+      doFirstViewPresent()
     }
   }
   
-  private func doFirstViewAlert() {
-    let firstVC = FirstAlertViewController()
-    firstVC.modalPresentationStyle = .overFullScreen
-    present(firstVC, animated: false)
-  }
+  // MARK: Initialize
   
   private func makeCustomNavigation() {
     navigationController?.navigationBar.isHidden = true
@@ -101,19 +106,6 @@ class HomeFeedViewController: UIViewController {
     tableView.frame = view.frame
     tableView.dataSource = self
     tableView.delegate = self
-    var idx = 0
-    while idx < goodsLimits {
-      testData.append(idx)
-      idx += 1
-    }
-    let refreshControl = UIRefreshControl()
-    refreshControl.tintColor = UIColor(named: "symbolColor")
-    refreshControl.addTarget(self, action: #selector(updateGoods), for: .valueChanged)
-    tableView.refreshControl = refreshControl
-  }
-  
-  @objc func updateGoods() {
-    saveOutputDate(page)
   }
   
   private func setupConstraints() {
@@ -146,12 +138,14 @@ class HomeFeedViewController: UIViewController {
     }
   }
   
-  private func saveOutputDate(_ page: Any) {
-    let parameters: Parameters = ["page": self.page]
-    service.requestUser(parameters) { [weak self] result in
+  // MARK: Request PostData
+  
+  private func requestPostData(_ url: String) {
+    service.requestPostData(URL(string: url)!) { [weak self] result in
       switch result {
-      case .success(let data):
-        self!.localData = data.results
+      case .success(let postInfoData):
+        self!.posts += postInfoData.results
+        self?.nextPageURL = postInfoData.next
         self!.calculateDifferentTime()
       case .failure(let error):
         print(error.localizedDescription)
@@ -162,10 +156,12 @@ class HomeFeedViewController: UIViewController {
     }
   }
   
+  // MARK: Time Calculate
+  
   private func calculateDifferentTime() {
     let currentTime = Date()
-    for idx in 0..<localData.count {
-      let tempTime = localData[idx].updated.replacingOccurrences(of: "T", with: " ").components(separatedBy: ".")[0]
+    for idx in 0..<self.posts.count {
+      let tempTime = self.posts[idx].updated.replacingOccurrences(of: "T", with: " ").components(separatedBy: ".")[0]
       let dateFormatter = DateFormatter()
       dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
       let updatedTime: Date = dateFormatter.date(from: tempTime) ?? currentTime
@@ -175,6 +171,8 @@ class HomeFeedViewController: UIViewController {
       userUpdateTimes.append(compareTime)
     }
   }
+  
+  // MARK: Action
 
   @objc private func didTapButtonsInNaviBar(_ sender: UIView) {
     let popoverVC = PopoverViewController()
@@ -192,6 +190,14 @@ class HomeFeedViewController: UIViewController {
     }
   }
   
+  // MARK: Method
+  
+  private func doFirstViewPresent() {
+    let firstVC = FirstAlertViewController()
+    firstVC.modalPresentationStyle = .overFullScreen
+    present(firstVC, animated: false)
+  }
+  
   static func popoverPresent(_ delegateVC: UIViewController, _ controller: UIViewController, _ sender: UIView) -> UIViewController {
     controller.preferredContentSize = CGSize(width: 300, height: 150)
     controller.modalPresentationStyle = .popover
@@ -204,7 +210,7 @@ class HomeFeedViewController: UIViewController {
   }
   
   private func checkGoodsImage(_ cell: HomeFeedTableViewCell, _ indexPath: IndexPath) {
-    let imageURL = localData[indexPath.row].postImageSet
+    let imageURL = posts[indexPath.row].postImageSet
     if !imageURL.isEmpty {
       cell.goodsImageView.kf.setImage(with: URL(string: imageURL[0].photo))
     } else {
@@ -231,6 +237,8 @@ class HomeFeedViewController: UIViewController {
   }
 }
 
+// MARK: TableView DataSource
+
 extension HomeFeedViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     let sectionView = UIView().then {
@@ -241,29 +249,32 @@ extension HomeFeedViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    if page == 1 {
-      return  localData.count
-    } else {
-      return testData.count // 서버 호출 안될 시 확인용
-    }
+    return  posts.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: "GoodsCell", for: indexPath) as? HomeFeedTableViewCell else { fatalError("faile type casting") }
-    cell.goodsName.text = localData[indexPath.row].title
-    cell.sellerLoctionAndTime.text = removeNotNeededTimeUnit(localData[indexPath.row].address, userUpdateTimes[indexPath.row])
+//    cell.goodsName.text = posts[indexPath.row].title
+    cellPostGoodsImage(cell, indexPath)
+    cell.goodsName.text = "Post ID \(posts[indexPath.row].postId)"
+    cell.goodsPrice.text = "\(posts[indexPath.row].price)"
+    cell.sellerLoctionAndTime.text = removeNotNeededTimeUnit(posts[indexPath.row].address, userUpdateTimes[indexPath.row])
     checkGoodsImage(cell, indexPath)
     return cell
   }
   
+  func cellPostGoodsImage(_ cell: HomeFeedTableViewCell, _ indexPath: IndexPath) {
+    if posts[indexPath.row].postImageSet.isEmpty {
+      cell.goodsImageView.image = UIImage(named: "DaanggnMascot")
+    } else {
+      cell.goodsImageView.kf.setImage(with: URL(string: posts[indexPath.row].postImageSet[0].photo))
+    }
+  }
+  
   func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-    if indexPath.row == testData.count - 19 {
-      var idx = testData.count
-      goodsLimits = idx + 10
-      while idx < goodsLimits {
-        testData.append(idx)
-        idx += 1
-      }
+    if posts.count == (indexPath.row + 2) {
+      guard let pageURL = nextPageURL else { return }
+      requestPostData(pageURL)
       self.perform(#selector(loadTable), with: nil, afterDelay: 1.0)
     }
   }
@@ -273,8 +284,16 @@ extension HomeFeedViewController: UITableViewDataSource {
   }
 }
 
+// MARK: TableView Delegate
+
 extension HomeFeedViewController: UITableViewDelegate {
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//    print("\(indexPath.row)번 셀 선택")
+    print("\(posts[indexPath.row].postId)번 id")
+  }
 }
+
+// MARK: PopoverPresent Delegate
 
 extension HomeFeedViewController: UIPopoverPresentationControllerDelegate {
   func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {

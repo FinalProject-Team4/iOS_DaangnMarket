@@ -10,24 +10,25 @@ import UIKit
 import Alamofire
 
 final class ServiceManager {
+  // MARK: Property
+  
   static let shared = ServiceManager()
+//  private let host = "http://13.125.217.34/"
+//  private let postsListPath = "post/list/"
   
-  private let host = "http://13.125.217.34/"
-  private let postsListPath = "post/list/"
-//  let parameters: Parameters = ["page": 1]
+  // MARK: Request Post & PostInfo Data
   
-  func requestUser(_ parameters: Parameters, completionHandler: @escaping (Result<PostInfo, Error>) -> Void) {
-    let url = host + postsListPath
-    AF.request(url, parameters: parameters)
+  func requestPostData(_ url: URL, completionHandler: @escaping (Result<PostInfo, Error>) -> Void) {
+    AF.request(url)
       .validate()
       .responseDecodable { (response: DataResponse<PostInfo, AFError>) in
         switch response.result {
-        case .success(let data):
-          completionHandler(.success(data))
+        case .success(let postInfo):
+          completionHandler(.success(postInfo))
         case . failure(let error):
           completionHandler(.failure(error))
         }
-      }
+    }
   }
 }
 

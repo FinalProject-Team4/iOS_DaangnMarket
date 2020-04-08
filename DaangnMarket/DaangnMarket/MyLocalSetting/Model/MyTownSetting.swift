@@ -15,7 +15,7 @@ class MyTownSetting {
   
   // MARK: TownSelectView Property
   
-  static var findTownAddres: Address?
+//  static var findTownAddres: Address?
   var towns = [String: String]()
   
   // MARK: MyTownAroundView Property
