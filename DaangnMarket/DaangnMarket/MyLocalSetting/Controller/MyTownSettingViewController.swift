@@ -9,6 +9,8 @@
 import UIKit
 
 class MyTownSettingViewController: UIViewController {
+  // MARK: Views
+  
   lazy var townSelectView = TownSelectView().then {
     $0.backgroundColor = .white
   }
@@ -20,6 +22,8 @@ class MyTownSettingViewController: UIViewController {
     $0.font = .systemFont(ofSize: 17, weight: .light)
   }
   
+  // MARK: Life Cycle
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     self.view.backgroundColor = .white
@@ -30,6 +34,8 @@ class MyTownSettingViewController: UIViewController {
     setupConstraint()
     setupNaviBar()
   }
+  
+  // MARK: Initialize
   
   private func setupNaviBar() {
     self.navigationController?.navigationBar.barTintColor = .white
@@ -51,6 +57,8 @@ class MyTownSettingViewController: UIViewController {
       $0.leading.trailing.bottom.equalToSuperview()
     }
   }
+  
+  // MARK: Action
   
   @objc private func didTapLeftBarButton() {
     dismiss(animated: true)

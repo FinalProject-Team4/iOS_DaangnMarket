@@ -9,6 +9,8 @@
 import UIKit
 
 class FirstTownSelectButton: UIButton {
+  // MARK: Views
+  
   lazy var selectedMyFirstTownLabel = UILabel().then {
     $0.text = MyTownSetting.shared.towns["first"]
     $0.textColor = .white
@@ -20,6 +22,8 @@ class FirstTownSelectButton: UIButton {
     $0.tintColor = .white
     $0.addTarget(self, action: #selector(didTapDeleteTownButton), for: .touchUpInside)
   }
+  
+  // MARK: Initialize
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -40,6 +44,8 @@ class FirstTownSelectButton: UIButton {
       $0.height.equalTo(25)
     }
   }
+  
+  // MARK: Action
   
   @objc private func didTapDeleteTownButton() {
     print("Delete First Town")

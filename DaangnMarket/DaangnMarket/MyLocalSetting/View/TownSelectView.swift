@@ -9,6 +9,8 @@
 import UIKit
 
 class TownSelectView: UIView {
+  // MARK: Views
+  
   private let partitionLineView = UIView().then {
     $0.backgroundColor = UIColor(named: ColorReference.noResultImage.rawValue)
   }
@@ -33,6 +35,8 @@ class TownSelectView: UIView {
     $0.layer.borderWidth = 1
     $0.backgroundColor = .white
   }
+  
+  // MARK: Initialize
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -69,6 +73,9 @@ class TownSelectView: UIView {
       $0.height.equalTo(0.5)
     }
   }
+  
+  // MARK: Method
+  
   private func changeSelectedTownButton(_ item: UIView) {
     item.backgroundColor = UIColor(named: ColorReference.daangnMain.rawValue)
     item.layer.borderWidth = 1
@@ -94,6 +101,8 @@ class TownSelectView: UIView {
     }
   }
   
+  // MARK: Action
+  
   @objc func didTapSelectTownButton(_ sender: UIButton) {
     switch sender {
     case firstTownSelectBtn:
@@ -109,12 +118,6 @@ class TownSelectView: UIView {
     default: break
     }
   }
-  
-//  private func addSecondMyTownAction() {
-//    let alertController = UIAlertController()
-//
-//    alertController.addAction(alertAction)
-//  }
   
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")

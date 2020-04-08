@@ -9,6 +9,8 @@
 import UIKit
 
 class MyTownAroundView: UIView {
+  // MARK: UIViews
+  
   let townCountView = TownCountView().then {
     $0.backgroundColor = .yellow
   }
@@ -32,7 +34,9 @@ class MyTownAroundView: UIView {
     $0.text = "근처동네"
     $0.font = .systemFont(ofSize: 12)
   }
-
+  
+  // MARK: Initialize
+  
   override init(frame: CGRect) {
     super.init(frame: frame)
     setupConstraint()
@@ -66,6 +70,8 @@ class MyTownAroundView: UIView {
       $0.trailing.equalTo(distanceSlider.snp.trailing)
     }
   }
+  
+  // MARK: Action
   
   @objc private func slideAction(_ sender: UISlider) {
     MyTownSetting.shared.numberOfAroundTown = Int(sender.value)
