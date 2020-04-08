@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import Then
 
-class AuthorizationManager {
+class AuthorizationManager: Then {
   // MARK: Singleton
   
   static let shared = AuthorizationManager()
@@ -16,6 +17,8 @@ class AuthorizationManager {
   private init() { }
   
   // MARK: Interface - Town
+  
+  var aroundTown = [Town]()
   
   var selectedTown: Town? {
     return UserDefaults.standard.object(Town.self, forKey: .selectedTown)
@@ -25,21 +28,11 @@ class AuthorizationManager {
     return UserDefaults.standard.object(Town.self, forKey: .anotherTown)
   }
   
-  var selectedAround: [Town]? {
-    return UserDefaults.standard.object([Town].self, forKey: .selectedAround)
-  }
-  
-  var anotherAround: [Town]? {
-    return UserDefaults.standard.object([Town].self, forKey: .anotherAround)
-  }
-  
-  func register(town: Town, around: [Town]) {
-    if self.selectedTown == nil, self.selectedAround == nil {
+  func register(town: Town) {
+    if self.selectedTown == nil {
       UserDefaults.standard.set(town, forKey: .selectedTown)
-      UserDefaults.standard.set(around, forKey: .selectedAround)
-    } else if self.anotherTown == nil, self.anotherAround == nil {
+    } else if self.anotherTown == nil {
       UserDefaults.standard.set(town, forKey: .anotherTown)
-      UserDefaults.standard.set(around, forKey: .anotherAround)
     } else {
       return
     }
@@ -47,16 +40,13 @@ class AuthorizationManager {
   
   func changeSelectedTown() {
     UserDefaults.standard.swapAt(.selectedTown, .anotherTown)
-    UserDefaults.standard.swapAt(.selectedAround, .anotherAround)
   }
   
   func removeTown(forKey key: UserReference) {
     if key == .anotherTown {
       UserDefaults.standard.remove(forKey: key)
-      UserDefaults.standard.remove(forKey: key)
     } else {
       UserDefaults.standard.swapAt(.selectedTown, .anotherTown)
-      UserDefaults.standard.swapAt(.selectedAround, .anotherAround)
       self.removeTown(forKey: .anotherTown)
     }
   }

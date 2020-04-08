@@ -21,7 +21,7 @@ extension APIRequest {
 enum RequestTown: APIRequest {
   case search(text: String, page: Int = 1)
   case GPS(lat: Double, lon: Double, distance: Double = 100_000, page: Int = 1)
-  case distance(dongId: Int, distance: Double)
+  case distance(dongId: Int, distance: Double = 4_800)
   
   var url: String {
     switch self {
