@@ -1,5 +1,5 @@
 //
-//  GPSAddress.swift
+//  TownInfo.swift
 //  DaangnMarket
 //
 //  Created by cskim on 2020/03/25.
@@ -8,13 +8,13 @@
 
 import Foundation
 
-// MARK: - AddressInfo
+// MARK: - TownInfo
 
-struct AddressInfo: Codable {
+struct TownInfo: Codable {
   let count: Int
   let next: String?
   let previous: String?
-  let results: [Address]
+  let results: [Town]
   
   init() {
     self.count = 0
@@ -24,9 +24,9 @@ struct AddressInfo: Codable {
   }
 }
 
-// MARK: - Address
+// MARK: - Town
 
-struct Address: Codable {
+struct Town: Codable {
   let id: Int
   let dong: String
   let gu: String

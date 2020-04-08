@@ -8,11 +8,16 @@
 
 import UIKit
 
+protocol SelectLocationButtonDelegate: class {
+  func selectLocationButton(_ selectLocationButton: UIButton)
+}
+
 // MARK: - Class Level
 class SelectLocationView: UIView {
   // MARK: Views
+  weak var delegate: SelectLocationButtonDelegate?
   
-  private lazy var selectLocationButton = UIButton().then {
+  lazy var selectLocationButton = UIButton().then {
     $0.semanticContentAttribute = .forceRightToLeft
     $0.setTitle("게시글 보여줄 동네 고르기", for: .normal)
     $0.setTitleColor(.black, for: .normal)
@@ -88,6 +93,7 @@ class SelectLocationView: UIView {
   
   @objc private func didTapSelectButton(_ button: UIButton) {
     print("게시글 보여줄 동네 고르기")
+    self.delegate?.selectLocationButton(button)
   }
   
   @objc private func didTapKeywordButton(_ button: UIButton) {
@@ -123,3 +129,5 @@ class SelectLocationView: UIView {
     }
   }
 }
+
+

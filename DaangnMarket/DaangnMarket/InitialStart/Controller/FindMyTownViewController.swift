@@ -45,9 +45,9 @@ class FindMyTownViewController: UIViewController {
   
   // MARK: Model
   
-  private var addresses = [Address]() {
+  private var towns = [Town]() {
     didSet {
-      self.tableView.backgroundView = addresses.isEmpty ? self.backgroundView : nil
+      self.tableView.backgroundView = towns.isEmpty ? self.backgroundView : nil
       self.tableView.reloadData()
     }
   }
@@ -79,7 +79,8 @@ class FindMyTownViewController: UIViewController {
   private func setupConstraints() {
     self.navigationBar
       .then { self.view.addSubview($0) }
-      .snp.makeConstraints {
+      .snp
+      .makeConstraints {
         $0.top.equalToSuperview().offset(UINavigationBar.statusBarSize.height)
         $0.centerX.equalToSuperview()
     }
@@ -146,18 +147,18 @@ class FindMyTownViewController: UIViewController {
 
 extension FindMyTownViewController: UITableViewDataSource {
   func numberOfSections(in tableView: UITableView) -> Int {
-    return self.addresses.isEmpty ? 0 : 1
+    return self.towns.isEmpty ? 0 : 1
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return self.addresses.count
+    return self.towns.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: TownAddressCell.identifier, for: indexPath) as? TownAddressCell else {
       return UITableViewCell()
     }
-    cell.update(address: self.addresses[indexPath.row].address)
+    cell.update(address: self.towns[indexPath.row].address)
     return cell
   }
 }
@@ -166,11 +167,14 @@ extension FindMyTownViewController: UITableViewDataSource {
 
 extension FindMyTownViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    let selected = self.addresses[indexPath.row]
-    API.default.request(.distance(dongId: selected.id, distance: 4_800)) { (result) in
+    let selected = self.towns[indexPath.row]
+    API.default.request(.distance(dongId: selected.id)) { (result) in
       switch result {
       case .success(let around):
-        AuthorizationManager.shared.register(address: selected, around: around)
+        AuthorizationManager.shared.do {
+          $0.register(town: selected)
+          $0.aroundTown = around
+        }
       case .failure(let error):
         self.presentAlert(title: "Around Address Error", message: error.localizedDescription)
         return
@@ -202,11 +206,11 @@ extension FindMyTownViewController: UITableViewDelegate {
   }
   
   func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-    if indexPath.row == self.addresses.count - 2 {
+    if indexPath.row == self.towns.count - 2 {
       API.default.requestNext { (result) in
         switch result {
         case .success(let addresses):
-          self.addresses.append(contentsOf: addresses)
+          self.towns.append(contentsOf: addresses)
         case .failure(let error):
           print(error.localizedDescription)
         }
@@ -229,7 +233,7 @@ extension FindMyTownViewController: LocationManagerDelegate {
         
         switch result {
         case .success(let addresses):
-          self.addresses = addresses
+          self.towns = addresses
         case .failure(let error):
           print(error.localizedDescription)
         }
@@ -252,7 +256,7 @@ extension FindMyTownViewController: TownSearchBarDelegate {
           
           switch result {
           case .success(let addresses):
-            self.addresses = addresses
+            self.towns = addresses
           case .failure(let error):
             print(error.localizedDescription)
           }

@@ -14,10 +14,8 @@ extension UIApplication {
   }
   
   func switchRootViewController(_ viewController: UIViewController) {
-    let newWindow = UIWindow(frame: UIScreen.main.bounds)
-    newWindow.rootViewController = viewController
-    newWindow.makeKeyAndVisible()
-    self.appDelegate.window = newWindow
+    guard let window = self.appDelegate.window else { return }
+    window.rootViewController = viewController
   }
 }
 

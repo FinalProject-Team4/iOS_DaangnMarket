@@ -20,29 +20,29 @@ class API {
   
   // MARK: Interface
   
-  func request(_ type: RequestAddress, completion: @escaping (Result<[Address], AFError>) -> Void) {
+  func request(_ type: RequestTown, completion: @escaping (Result<[Town], AFError>) -> Void) {
     AF.request(type.url, parameters: type.parameters)
       .validate()
-      .responseDecodable { (response: DataResponse<AddressInfo, AFError>) in
+      .responseDecodable { (response: DataResponse<TownInfo, AFError>) in
         switch response.result {
-        case .success(let addressInfo):
-          completion(.success(addressInfo.results))
-          self.nextURL = addressInfo.next
+        case .success(let townInfo):
+          completion(.success(townInfo.results))
+          self.nextURL = townInfo.next
         case .failure(let error):
           completion(.failure(error))
         }
     }
   }
   
-  func requestNext(completion: @escaping (Result<[Address], AFError>) -> Void) {
+  func requestNext(completion: @escaping (Result<[Town], AFError>) -> Void) {
     guard let next = self.nextURL else { return }
     AF.request(next)
       .validate()
-      .responseDecodable { (response: DataResponse<AddressInfo, AFError>) in
+      .responseDecodable { (response: DataResponse<TownInfo, AFError>) in
         switch response.result {
-        case .success(let addressInfo):
-          completion(.success(addressInfo.results))
-          self.nextURL = addressInfo.next
+        case .success(let townInfo):
+          completion(.success(townInfo.results))
+          self.nextURL = townInfo.next
         case .failure(let error):
           completion(.failure(error))
         }

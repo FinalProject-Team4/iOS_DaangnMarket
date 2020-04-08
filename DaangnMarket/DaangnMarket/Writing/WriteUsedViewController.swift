@@ -59,7 +59,9 @@ class WriteUsedViewController: UIViewController {
       $0.register(WriteTableDescriptionCell.self, forCellReuseIdentifier: WriteTableDescriptionCell.cellID)
   }
   
-  private lazy var selectLocationView = SelectLocationView()
+  private lazy var selectLocationView = SelectLocationView().then {
+    $0.delegate = self
+  }
   
   private let imagePicker = UIImagePickerController()
   
@@ -379,5 +381,12 @@ extension WriteUsedViewController: AddImageViewDelegate {
   
   func presentAlert(alert: UIAlertController) {
     present(alert, animated: true)
+  }
+}
+
+extension WriteUsedViewController: SelectLocationButtonDelegate {
+  func selectLocationButton(_ sender: UIButton) {
+    let chooseTownController = ChooseTownToShowViewController()
+    self.navigationController?.pushViewController(chooseTownController, animated: true)
   }
 }
