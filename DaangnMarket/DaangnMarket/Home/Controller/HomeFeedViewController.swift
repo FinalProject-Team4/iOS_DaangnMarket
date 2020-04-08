@@ -11,7 +11,7 @@ import Alamofire
 
 class HomeFeedViewController: UIViewController {
   let service = ServiceManager.shared
-  var localData = [Results]() {
+  var localData = [Post]() {
     didSet {
       self.tableView.reloadData()
     }
