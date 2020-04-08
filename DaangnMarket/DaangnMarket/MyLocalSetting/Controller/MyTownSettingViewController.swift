@@ -27,7 +27,7 @@ class MyTownSettingViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.view.backgroundColor = .white
-    if let selectedTown = AuthorizationManager.shared.selectedAddress {
+    if let selectedTown = AuthorizationManager.shared.selectedTown {
       MyTownSetting.shared.towns["first"] = selectedTown.dong
       MyTownSetting.shared.selectTownName = selectedTown.dong
     }

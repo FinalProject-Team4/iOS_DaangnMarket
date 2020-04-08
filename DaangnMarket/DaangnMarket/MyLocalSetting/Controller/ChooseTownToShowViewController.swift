@@ -24,7 +24,7 @@ class ChooseTownToShowViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.view.backgroundColor = .white
-    MyTownSetting.shared.towns["first"] = AuthorizationManager.shared.selectedAddress?.dong ?? "unknown"
+    MyTownSetting.shared.towns["first"] = AuthorizationManager.shared.selectedTown?.dong ?? "unknown"
     setupConstraint()
     setupNaviBar()
   }

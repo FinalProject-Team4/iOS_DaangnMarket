@@ -18,6 +18,7 @@ class ViewControllerGenerator {
   // MARK: Interface
   
   enum ControllerType {
+    case launch
     case `default`
     case initialStart
     case phoneAuth
@@ -30,6 +31,8 @@ class ViewControllerGenerator {
   
   func make(_ type: ControllerType, parameters: [String: Any] = [:]) -> UIViewController? {
     switch type {
+    case .launch:
+      return LaunchViewController()
     case .default:
       return self.makeTabBarController()
     case .initialStart:

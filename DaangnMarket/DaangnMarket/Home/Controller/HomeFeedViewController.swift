@@ -67,7 +67,7 @@ class HomeFeedViewController: UIViewController {
     super.viewDidLoad()
     self.view.backgroundColor = .white
     self.tabBarController?.tabBar.isHidden = false
-    leftBarItemButton.setTitle(AuthorizationManager.shared.selectedAddress?.dong ?? "unknown", for: .normal)
+    leftBarItemButton.setTitle(AuthorizationManager.shared.selectedTown?.dong ?? "unknown", for: .normal)
     setupUI()
     makeCustomNavigation()
     saveOutputDate(page)
@@ -257,8 +257,6 @@ extension HomeFeedViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-    print("testData.count:", testData.count)
-    print("indexPath.row:", indexPath.row)
     if indexPath.row == testData.count - 19 {
       var idx = testData.count
       goodsLimits = idx + 10
