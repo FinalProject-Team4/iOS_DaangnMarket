@@ -185,11 +185,11 @@ private enum CodingKeys: String, CodingKey {
   }
 }
 
-func dummyData() {
-  do {
-    let temp = try JSONDecoder().decode(PostsInfo.self, from: jsonData)
-    dump(temp)
-  } catch {
-    print(error.localizedDescription)
-  }
-}
+//func dummyData() {
+//  do {
+//    let temp = try JSONDecoder().decode(PostsInfo.self, from: jsonData)
+//    dump(temp)
+//  } catch {
+//    print(error.localizedDescription)
+//  }
+//}

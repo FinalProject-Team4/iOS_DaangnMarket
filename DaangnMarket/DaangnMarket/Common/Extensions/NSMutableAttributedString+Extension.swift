@@ -32,4 +32,13 @@ extension NSMutableAttributedString {
     self.append(NSMutableAttributedString(string: text, attributes: attrs))
     return self
   }
+  
+  func underlineBold(_ text: String, fontSize: CGFloat) -> NSMutableAttributedString {
+    let attrs: [NSAttributedString.Key: Any] = [
+      NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue,
+      NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: fontSize)
+    ]
+    self.append(NSMutableAttributedString(string: text, attributes: attrs))
+    return self
+  }
 }
