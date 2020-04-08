@@ -22,15 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     FirebaseApp.configure()
     
     self.window = UIWindow(frame: UIScreen.main.bounds)
-    
-    let rootVC: UIViewController?
-    if AuthorizationManager.shared.selectedTown == nil {
-      rootVC = ViewControllerGenerator.shared.make(.default)
-    } else {
-      rootVC = ViewControllerGenerator.shared.make(.initialStart)
-    }
-    self.window?.rootViewController = rootVC
-//    self.window?.rootViewController = ViewControllerGenerator.shared.make(.townSetting)
+    self.window?.rootViewController = ViewControllerGenerator.shared.make(.launch)
     self.window?.makeKeyAndVisible()
     
     return true

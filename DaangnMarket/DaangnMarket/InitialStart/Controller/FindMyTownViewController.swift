@@ -168,10 +168,13 @@ extension FindMyTownViewController: UITableViewDataSource {
 extension FindMyTownViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let selected = self.towns[indexPath.row]
-    API.default.request(.distance(dongId: selected.id, distance: 4_800)) { (result) in
+    API.default.request(.distance(dongId: selected.id)) { (result) in
       switch result {
       case .success(let around):
-        AuthorizationManager.shared.register(town: selected, around: around)
+        AuthorizationManager.shared.do {
+          $0.register(town: selected)
+          $0.aroundTown = around
+        }
       case .failure(let error):
         self.presentAlert(title: "Around Address Error", message: error.localizedDescription)
         return

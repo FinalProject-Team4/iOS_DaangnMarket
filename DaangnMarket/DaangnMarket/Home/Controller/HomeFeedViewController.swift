@@ -257,8 +257,6 @@ extension HomeFeedViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-    print("testData.count:", testData.count)
-    print("indexPath.row:", indexPath.row)
     if indexPath.row == testData.count - 19 {
       var idx = testData.count
       goodsLimits = idx + 10
