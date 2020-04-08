@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     self.window = UIWindow(frame: UIScreen.main.bounds)
     
     let rootVC: UIViewController?
-    if AuthorizationManager.shared.selectedAddress == nil {
+    if AuthorizationManager.shared.selectedTown == nil {
       rootVC = ViewControllerGenerator.shared.make(.default)
     } else {
       rootVC = ViewControllerGenerator.shared.make(.initialStart)

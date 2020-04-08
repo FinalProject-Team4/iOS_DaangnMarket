@@ -15,49 +15,49 @@ class AuthorizationManager {
   
   private init() { }
   
-  // MARK: Interface - Address
+  // MARK: Interface - Town
   
-  var selectedAddress: Address? {
-    return UserDefaults.standard.object(Address.self, forKey: .selectedAddress)
+  var selectedTown: Town? {
+    return UserDefaults.standard.object(Town.self, forKey: .selectedTown)
   }
   
-  var anotherAddress: Address? {
-    return UserDefaults.standard.object(Address.self, forKey: .anotherAddress)
+  var anotherTown: Town? {
+    return UserDefaults.standard.object(Town.self, forKey: .anotherTown)
   }
   
-  var selectedAround: [Address]? {
-    return UserDefaults.standard.object([Address].self, forKey: .selectedAround)
+  var selectedAround: [Town]? {
+    return UserDefaults.standard.object([Town].self, forKey: .selectedAround)
   }
   
-  var anotherAround: [Address]? {
-    return UserDefaults.standard.object([Address].self, forKey: .anotherAround)
+  var anotherAround: [Town]? {
+    return UserDefaults.standard.object([Town].self, forKey: .anotherAround)
   }
   
-  func register(address: Address, around: [Address]) {
-    if self.selectedAddress == nil, self.selectedAround == nil {
-      UserDefaults.standard.set(address, forKey: .selectedAddress)
+  func register(town: Town, around: [Town]) {
+    if self.selectedTown == nil, self.selectedAround == nil {
+      UserDefaults.standard.set(town, forKey: .selectedTown)
       UserDefaults.standard.set(around, forKey: .selectedAround)
-    } else if self.anotherAddress == nil, self.anotherAround == nil {
-      UserDefaults.standard.set(address, forKey: .anotherAddress)
+    } else if self.anotherTown == nil, self.anotherAround == nil {
+      UserDefaults.standard.set(town, forKey: .anotherTown)
       UserDefaults.standard.set(around, forKey: .anotherAround)
     } else {
       return
     }
   }
   
-  func changeSelectedAddress() {
-    UserDefaults.standard.swapAt(.selectedAddress, .anotherAddress)
+  func changeSelectedTown() {
+    UserDefaults.standard.swapAt(.selectedTown, .anotherTown)
     UserDefaults.standard.swapAt(.selectedAround, .anotherAround)
   }
   
-  func removeAddress(forKey key: UserReference) {
-    if key == .anotherAddress {
+  func removeTown(forKey key: UserReference) {
+    if key == .anotherTown {
       UserDefaults.standard.remove(forKey: key)
       UserDefaults.standard.remove(forKey: key)
     } else {
-      UserDefaults.standard.swapAt(.selectedAddress, .anotherAddress)
+      UserDefaults.standard.swapAt(.selectedTown, .anotherTown)
       UserDefaults.standard.swapAt(.selectedAround, .anotherAround)
-      self.removeAddress(forKey: .anotherAddress)
+      self.removeTown(forKey: .anotherTown)
     }
   }
   

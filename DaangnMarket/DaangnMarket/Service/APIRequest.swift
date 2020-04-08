@@ -16,9 +16,9 @@ extension APIRequest {
   var host: String { "http://13.125.217.34" }
 }
 
-// MARK: - Reqeust Address
+// MARK: - Reqeust Town
 
-enum RequestAddress: APIRequest {
+enum RequestTown: APIRequest {
   case search(text: String, page: Int = 1)
   case GPS(lat: Double, lon: Double, distance: Double = 100_000, page: Int = 1)
   case distance(dongId: Int, distance: Double)
