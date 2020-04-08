@@ -21,7 +21,7 @@ extension APIRequest {
 enum RequestAddress: APIRequest {
   case search(text: String, page: Int = 1)
   case GPS(lat: Double, lon: Double, distance: Double = 100_000, page: Int = 1)
-  case distance(distance: Double)
+  case distance(dongId: Int, distance: Double)
   
   var url: String {
     switch self {
@@ -29,7 +29,7 @@ enum RequestAddress: APIRequest {
       return host + "/location/locate/search/"
     case .GPS(_, _, _, _):
       return host + "/location/locate/gps/"
-    case .distance(_):
+    case .distance(_, _):
       return host + "/location/locate/"
     }
   }
@@ -48,8 +48,9 @@ enum RequestAddress: APIRequest {
         "distance": distance,
         "page": page
       ]
-    case let .distance(distance):
+    case let .distance(dongId, distance):
       return [
+        "dong_id": dongId,
         "distance": distance
       ]
     }

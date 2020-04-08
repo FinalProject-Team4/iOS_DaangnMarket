@@ -94,6 +94,8 @@ class WriteUsedViewController: UIViewController {
   
   deinit {
     NotificationCenter.default.removeObserver(self, name: .keyboardWillShow, object: nil)
+    NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+    NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
   }
   
   // MARK: Initialize
@@ -125,7 +127,7 @@ class WriteUsedViewController: UIViewController {
   private func setupConstraints() {
     writeTableView.snp.makeConstraints {
       $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-      $0.bottom.equalToSuperview()
+      $0.bottom.equalTo(selectLocationView.snp.top)
     }
     selectLocationView.snp.makeConstraints {
       $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -137,14 +139,14 @@ class WriteUsedViewController: UIViewController {
   private func setupNotification() {
     NotificationCenter
       .default
-      .addObserver(self, selector: #selector(keyboardWillShow(_:)),
-                   name: UIResponder.keyboardWillShowNotification,
-                   object: nil)
+      .addObserver(
+        self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil
+    )
     NotificationCenter
       .default
-      .addObserver(self, selector: #selector(keyboardWillHide(_:)),
-                   name: UIResponder.keyboardWillHideNotification,
-                   object: nil)
+      .addObserver(
+        self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil
+    )
   }
   
   // MARK: Actions
@@ -162,6 +164,9 @@ class WriteUsedViewController: UIViewController {
     UIView.animate(withDuration: duration) {
       self.selectLocationView.snp.updateConstraints {
         $0.bottom.equalTo(self.view.safeAreaLayoutGuide).offset(-diff)
+      }
+      self.writeTableView.snp.updateConstraints {
+        $0.bottom.equalTo(self.selectLocationView.snp.top)
       }
       self.view.layoutIfNeeded()
     }
@@ -222,8 +227,7 @@ class WriteUsedViewController: UIViewController {
     let content = bodyCell.cellData
     
     alert(title: title, body: content, category: currentCategory)
-    
-    
+             
     let params = WriteData(
       title: title.isEmpty ? "알림" : title,
       content: content.isEmpty ? "알림" : content,
