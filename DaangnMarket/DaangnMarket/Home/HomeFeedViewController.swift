@@ -150,6 +150,7 @@ class HomeFeedViewController: UIViewController {
       switch result {
       case .success(let data):
         self!.localData = data.results
+        print("!!!!localData", self!.localData)
         self!.calculateDifferentTime()
       case .failure(let error):
         print(error.localizedDescription)
@@ -273,6 +274,11 @@ extension HomeFeedViewController: UITableViewDataSource {
 }
 
 extension HomeFeedViewController: UITableViewDelegate {
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    guard let productPostVC = ViewControllerGenerator.shared.make(.productPost) else { return }
+//    productPostVC.hidesBottomBarWhenPushed = true
+    navigationController?.pushViewController(productPostVC, animated: true)
+  }
 }
 
 extension HomeFeedViewController: UIPopoverPresentationControllerDelegate {

@@ -117,7 +117,7 @@ class BottomButtonsView: UIView {
     }
     self.bottomLineView.then { self.addSubview($0) }
       .snp.makeConstraints {
-        $0.height.equalTo(0.5)
+        $0.height.equalTo(0.3)
         $0.width.equalTo(self)
         $0.top.equalTo(self)
     }
