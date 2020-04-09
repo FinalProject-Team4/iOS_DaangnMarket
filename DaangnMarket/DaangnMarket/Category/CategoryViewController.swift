@@ -7,7 +7,9 @@
 //
 
 import UIKit
+import Alamofire
 
+// MARK: - Class Level
 class CategoryViewController: UIViewController {
   // MARK: Views
   private let scrollView = UIScrollView()
@@ -21,7 +23,6 @@ class CategoryViewController: UIViewController {
   
   // MARK: Properties
   private lazy var itemViews = [CategoryItemView]()
-  
   
   // MARK: LifeCycle
   override func viewDidLoad() {
@@ -84,7 +85,10 @@ class CategoryViewController: UIViewController {
       itemViews.append(itemView)
     }
     
-    itemViews.forEach { itemViews.append($0) }
+    itemViews.forEach {
+      itemViews.append($0)
+      $0.addTarget(self, action: #selector(didTapItem(_:)), for: .touchUpInside)
+    }
     return itemViews
   }
   
@@ -99,6 +103,7 @@ class CategoryViewController: UIViewController {
   }
   
   @objc func didTapItem(_ sender: CategoryItemView) {
-    // pushViewController -> FeedVC(category: String)
+    let category = itemViews.filter { $0.isEqual(sender) }.first?.identifier
+    self.navigationController?.pushViewController(SelectedCategoryFeedViewController(category: category!), animated: true)
   }
 }

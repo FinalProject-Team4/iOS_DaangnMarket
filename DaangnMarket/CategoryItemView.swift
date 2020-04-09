@@ -19,6 +19,9 @@ class CategoryItemView: UIControl {
     $0.font = .systemFont(ofSize: 16)
   }
   
+  // MARK: Properties
+  var identifier: String?
+  
   // MARK: Initialize
   
   init(headerText: String) {
@@ -30,6 +33,7 @@ class CategoryItemView: UIControl {
   
   init(image: UIImage, text: String) {
     super.init(frame: .zero)
+    identifier = text
     imageView.image = image
     titleLabel.text = text
     setImageAndLabel()
