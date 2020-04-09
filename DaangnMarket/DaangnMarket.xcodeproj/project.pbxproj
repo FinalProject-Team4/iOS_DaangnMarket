@@ -27,6 +27,7 @@
 		A6C1E36B243B38AF00A6FF32 /* WriteTypeButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C1E36A243B38AF00A6FF32 /* WriteTypeButtonView.swift */; };
 		A6C1E36D243B51A100A6FF32 /* WriteClearViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C1E36C243B51A100A6FF32 /* WriteClearViewController.swift */; };
 		A6C1E393243C5CE400A6FF32 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C1E392243C5CE400A6FF32 /* MainTabBarController.swift */; };
+		A6C1E395243D6B0E00A6FF32 /* CategoryItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C1E394243D6B0E00A6FF32 /* CategoryItemView.swift */; };
 		A6FB7193243731560092A5F1 /* DGAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6FB7192243731560092A5F1 /* DGAlertController.swift */; };
 		A6FB7195243755770092A5F1 /* DGAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6FB7194243755770092A5F1 /* DGAlertAction.swift */; };
 		A6FB71992439A7AE0092A5F1 /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6FB71982439A7AE0092A5F1 /* CategoryModel.swift */; };
@@ -122,6 +123,7 @@
 		A6C1E36A243B38AF00A6FF32 /* WriteTypeButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteTypeButtonView.swift; sourceTree = "<group>"; };
 		A6C1E36C243B51A100A6FF32 /* WriteClearViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteClearViewController.swift; sourceTree = "<group>"; };
 		A6C1E392243C5CE400A6FF32 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		A6C1E394243D6B0E00A6FF32 /* CategoryItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CategoryItemView.swift; path = ../../CategoryItemView.swift; sourceTree = "<group>"; };
 		A6FB7192243731560092A5F1 /* DGAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DGAlertController.swift; sourceTree = "<group>"; };
 		A6FB7194243755770092A5F1 /* DGAlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DGAlertAction.swift; sourceTree = "<group>"; };
 		A6FB71982439A7AE0092A5F1 /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
@@ -444,6 +446,7 @@
 			isa = PBXGroup;
 			children = (
 				ACCD94D62429F81D00153545 /* CategoryViewController.swift */,
+				A6C1E394243D6B0E00A6FF32 /* CategoryItemView.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -736,6 +739,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A6C1E395243D6B0E00A6FF32 /* CategoryItemView.swift in Sources */,
 				ACCC9755242B490E008F95DE /* Identifiable.swift in Sources */,
 				ACFB7D3A242CCE9200E47F97 /* UIDevice+Extension.swift in Sources */,
 				A62D97E4242B403E006F1722 /* WriteTablePriceCell.swift in Sources */,

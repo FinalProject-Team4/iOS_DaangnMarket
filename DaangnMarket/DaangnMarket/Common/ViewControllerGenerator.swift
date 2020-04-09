@@ -61,7 +61,7 @@ class ViewControllerGenerator {
     let homeFeedVC = UINavigationController(rootViewController: HomeFeedViewController()).then {
       $0.tabBarItem = UITabBarItem(title: "홈", image: UIImage(systemName: "house"), tag: 0)
     }
-    let categoryVC = CategoryViewController().then {
+    let categoryVC = UINavigationController(rootViewController: CategoryViewController()).then {
       $0.tabBarItem = UITabBarItem(title: "카테고리", image: UIImage(systemName: "line.horizontal.3"), tag: 1)
     }
     let writeUseVC = WriteClearViewController().then {
