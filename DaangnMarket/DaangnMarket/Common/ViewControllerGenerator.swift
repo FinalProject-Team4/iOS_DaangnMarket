@@ -27,6 +27,7 @@ class ViewControllerGenerator {
     case townShow
     case popover
     case writeUsed
+    case productPost
   }
   
   func make(_ type: ControllerType, parameters: [String: Any] = [:]) -> UIViewController? {
@@ -52,6 +53,10 @@ class ViewControllerGenerator {
       return UINavigationController(rootViewController: WriteUsedViewController())
     case .townShow:
       return UINavigationController(rootViewController: ChooseTownToShowViewController())
+    case .productPost:
+      let productPostVC = ProductPostViewController()
+      productPostVC.hidesBottomBarWhenPushed = true
+      return productPostVC
     }
   }
   
