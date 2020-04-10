@@ -17,7 +17,6 @@ class HomeFeedViewController: UIViewController {
   var nextPageURL: String?
   var posts = [Post]() {
     didSet {
-      print("output")
       self.homeTableView.reloadData()
     }
   }
@@ -46,6 +45,7 @@ class HomeFeedViewController: UIViewController {
     super.viewDidLoad()
     homeTableView.dataSource = self
     homeTableView.delegate = self
+    self.customNaviBar.delegate = self
     self.view.backgroundColor = .white
     self.tabBarController?.tabBar.isHidden = false
     requestPostData(url)
@@ -221,7 +221,7 @@ extension HomeFeedViewController: UIPopoverPresentationControllerDelegate {
 
 extension HomeFeedViewController: NavigationBarButtonDelegate {
   func navigationBarButton(_ naviBarButton: UIButton) {
-    let popoverVC = PopoverViewController()
+    guard let popoverVC = ViewControllerGenerator.shared.make(.popover, parameters: ["target": PopoverViewController(), "sender": naviBarButton]) else { print("return"); return }
     switch naviBarButton {
     case customNaviBar.selectedTownButton:
       let popPresent = HomeFeedViewController.popoverPresent(self, popoverVC, naviBarButton)
