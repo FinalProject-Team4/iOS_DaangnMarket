@@ -9,6 +9,8 @@
 import UIKit
 
 class PopoverViewController: UIViewController {
+  // MARK: Views
+  
   lazy var firstLocation = UILabel().then {
     $0.backgroundColor = .green
     $0.textAlignment = .left
@@ -29,11 +31,15 @@ class PopoverViewController: UIViewController {
     $0.frame = CGRect(x: 0, y: 0, width: 264, height: 50)
   }
   
+  // MARK: Life Cycle
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     self.view.backgroundColor = .gray
     constraint()
   }
+  
+  // MARK: Initialize
   
   func constraint() {
     self.view.addSubview(firstLocation)
@@ -47,6 +53,8 @@ class PopoverViewController: UIViewController {
       $0.leading.equalTo(firstLocation.snp.leading)
     }
   }
+  
+  // MARK: Action
   
   @objc func viewChange(_ sender: UIButton) {
     guard let myTownVC = ViewControllerGenerator.shared.make(.townSetting) else { return }

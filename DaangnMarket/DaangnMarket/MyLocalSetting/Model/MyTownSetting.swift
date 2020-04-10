@@ -9,9 +9,17 @@
 import UIKit
 
 class MyTownSetting {
+  // MARK: Shared
+  
   static var shared = MyTownSetting()
-  static var findTownAddres: Town?
+  
+  // MARK: TownSelectView Property
+  
+//  static var findTownAddres: Address?
   var towns = [String: String]()
+  
+  // MARK: MyTownAroundView Property
+  
   var distance = Double()
   var numberOfAroundTown: Int?
   var selectTownName: String?

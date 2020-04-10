@@ -52,7 +52,6 @@
 		AC52A501243C495600DB4FB6 /* BottomButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4F9243C495600DB4FB6 /* BottomButtonsView.swift */; };
 		AC52A502243C495600DB4FB6 /* ImagesScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4FA243C495600DB4FB6 /* ImagesScrollView.swift */; };
 		AC52A50C243D90D000DB4FB6 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A50B243D90D000DB4FB6 /* LaunchViewController.swift */; };
-		AC52A50E243D938E00DB4FB6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AC52A50D243D938E00DB4FB6 /* GoogleService-Info.plist */; };
 		AC829F4724347FDC00D0623A /* NumberField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC829F4624347FDC00D0623A /* NumberField.swift */; };
 		ACB2B60324333763002FAF27 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B60224333763002FAF27 /* AuthViewController.swift */; };
 		ACB2B6072433472B002FAF27 /* AuthDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B6062433472B002FAF27 /* AuthDescriptionView.swift */; };
@@ -82,6 +81,8 @@
 		ACFB7D3A242CCE9200E47F97 /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFB7D39242CCE9200E47F97 /* UIDevice+Extension.swift */; };
 		ACFB7D3C242CCFF000E47F97 /* DGNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFB7D3B242CCFF000E47F97 /* DGNavigationBar.swift */; };
 		ACFB7D3E242CD94E00E47F97 /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFB7D3D242CD94E00E47F97 /* UINavigationController+Extension.swift */; };
+		AD5DC675243E024A00A4A5A4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD5DC674243E024A00A4A5A4 /* GoogleService-Info.plist */; };
+		AD5DC679243F5DF200A4A5A4 /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5DC678243F5DF200A4A5A4 /* CustomNavigationBar.swift */; };
 		AD6208AA243CB386007818C6 /* ChooseTownToShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6208A9243CB386007818C6 /* ChooseTownToShowViewController.swift */; };
 		AD677861242A21ED00CFEB86 /* FirstAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD677860242A21ED00CFEB86 /* FirstAlertViewController.swift */; };
 		AD6EBFA22436C427003F01CA /* MyTownSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6EBFA12436C427003F01CA /* MyTownSettingViewController.swift */; };
@@ -95,6 +96,7 @@
 		ADD05132242B595200312DF1 /* HomeFeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD05131242B595200312DF1 /* HomeFeedTableViewCell.swift */; };
 		ADD05135242C4FC000312DF1 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD05134242C4FC000312DF1 /* Service.swift */; };
 		ADD05137242C62CF00312DF1 /* PostInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD05136242C62CF00312DF1 /* PostInfo.swift */; };
+		ADDF1822243D965100CA5205 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDF1821243D965100CA5205 /* WelcomeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -147,7 +149,6 @@
 		AC52A4F9243C495600DB4FB6 /* BottomButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomButtonsView.swift; sourceTree = "<group>"; };
 		AC52A4FA243C495600DB4FB6 /* ImagesScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagesScrollView.swift; sourceTree = "<group>"; };
 		AC52A50B243D90D000DB4FB6 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
-		AC52A50D243D938E00DB4FB6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AC829F4624347FDC00D0623A /* NumberField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberField.swift; sourceTree = "<group>"; };
 		ACB2B60224333763002FAF27 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		ACB2B6062433472B002FAF27 /* AuthDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDescriptionView.swift; sourceTree = "<group>"; };
@@ -178,6 +179,8 @@
 		ACFB7D39242CCE9200E47F97 /* UIDevice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
 		ACFB7D3B242CCFF000E47F97 /* DGNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DGNavigationBar.swift; sourceTree = "<group>"; };
 		ACFB7D3D242CD94E00E47F97 /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
+		AD5DC674243E024A00A4A5A4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		AD5DC678243F5DF200A4A5A4 /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
 		AD6208A9243CB386007818C6 /* ChooseTownToShowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseTownToShowViewController.swift; sourceTree = "<group>"; };
 		AD677860242A21ED00CFEB86 /* FirstAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstAlertViewController.swift; sourceTree = "<group>"; };
 		AD6EBFA12436C427003F01CA /* MyTownSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTownSettingViewController.swift; sourceTree = "<group>"; };
@@ -192,6 +195,7 @@
 		ADD05131242B595200312DF1 /* HomeFeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeedTableViewCell.swift; sourceTree = "<group>"; };
 		ADD05134242C4FC000312DF1 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		ADD05136242C62CF00312DF1 /* PostInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostInfo.swift; sourceTree = "<group>"; };
+		ADDF1821243D965100CA5205 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -262,8 +266,8 @@
 				A62D96B22424A442006F1722 /* Assets.xcassets */,
 				A62D96B42424A442006F1722 /* LaunchScreen.storyboard */,
 				A62D96B72424A442006F1722 /* Info.plist */,
-				AC52A50D243D938E00DB4FB6 /* GoogleService-Info.plist */,
 				AC52A50B243D90D000DB4FB6 /* LaunchViewController.swift */,
+				AD5DC674243E024A00A4A5A4 /* GoogleService-Info.plist */,
 			);
 			path = DaangnMarket;
 			sourceTree = "<group>";
@@ -572,7 +576,8 @@
 		AD6EBFB0243AEEA5003F01CA /* View */ = {
 			isa = PBXGroup;
 			children = (
-				ADAA12BE2433214000A692A0 /* PopoverViewController.swift */,
+				ADDF1821243D965100CA5205 /* WelcomeView.swift */,
+				AD5DC678243F5DF200A4A5A4 /* CustomNavigationBar.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -582,6 +587,7 @@
 			children = (
 				AD677860242A21ED00CFEB86 /* FirstAlertViewController.swift */,
 				A62D96AD2424A440006F1722 /* HomeFeedViewController.swift */,
+				ADAA12BE2433214000A692A0 /* PopoverViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -664,7 +670,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ACCD94CE2429E59500153545 /* .swiftlint.yml in Resources */,
-				AC52A50E243D938E00DB4FB6 /* GoogleService-Info.plist in Resources */,
+				AD5DC675243E024A00A4A5A4 /* GoogleService-Info.plist in Resources */,
 				A62D96B62424A442006F1722 /* LaunchScreen.storyboard in Resources */,
 				A62D96B32424A442006F1722 /* Assets.xcassets in Resources */,
 			);
@@ -766,6 +772,7 @@
 				AC52A502243C495600DB4FB6 /* ImagesScrollView.swift in Sources */,
 				ACCC975D242B75B7008F95DE /* TownInfo.swift in Sources */,
 				A63F37C42435CB87002C0D9B /* Extension.swift in Sources */,
+				AD5DC679243F5DF200A4A5A4 /* CustomNavigationBar.swift in Sources */,
 				A6C1E369243B1AC800A6FF32 /* WriteTypeViewController.swift in Sources */,
 				A63F37BA24344C39002C0D9B /* SelectedImageView.swift in Sources */,
 				ACCD94DD2429F87900153545 /* ChatViewController.swift in Sources */,
@@ -785,6 +792,7 @@
 				AC52A501243C495600DB4FB6 /* BottomButtonsView.swift in Sources */,
 				AC52A4DF2438BA5100DB4FB6 /* APIRequest.swift in Sources */,
 				AC52A4E52439E88200DB4FB6 /* UserInfo.swift in Sources */,
+				ADDF1822243D965100CA5205 /* WelcomeView.swift in Sources */,
 				AD6EBFA22436C427003F01CA /* MyTownSettingViewController.swift in Sources */,
 				ADD05132242B595200312DF1 /* HomeFeedTableViewCell.swift in Sources */,
 				AC52A4FE243C495600DB4FB6 /* OtherItemsCollectionViewCell.swift in Sources */,

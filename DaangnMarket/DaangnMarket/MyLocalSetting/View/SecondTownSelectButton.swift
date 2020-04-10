@@ -9,6 +9,8 @@
 import UIKit
 
 class SecondTownSelectButton: UIButton {
+  // MARK: Views
+  
   lazy var selectedMySecondTownLabel = UILabel().then {
     if MyTownSetting.shared.towns["second"] == nil {
       $0.isHidden = true
@@ -41,6 +43,8 @@ class SecondTownSelectButton: UIButton {
     }
   }
   
+  // MARK: Initialize
+  
   override init(frame: CGRect) {
     super.init(frame: frame)
     inButtonSetupConstraints()
@@ -63,6 +67,8 @@ class SecondTownSelectButton: UIButton {
       $0.center.equalToSuperview()
     }
   }
+  
+  // MARK: Action
   
   @objc private func didTapButton() {
     print("Delete Second Town")

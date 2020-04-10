@@ -9,6 +9,7 @@
 import UIKit
 
 class TownCountView: UIView {
+  // MARK: Views
   lazy var myTownLabel = UILabel().then {
     $0.text = MyTownSetting.shared.selectTownName ?? "동네오류"
     $0.textAlignment = .center
@@ -18,6 +19,8 @@ class TownCountView: UIView {
     $0.textAlignment = .center
     $0.attributedText = NSMutableAttributedString().underlineBold("근처 동네 \(MyTownSetting.shared.numberOfAroundTown ?? 0)개", fontSize: 17)
   }
+  
+  // MARK: Initialize
   
   override init(frame: CGRect) {
     super.init(frame: frame)
