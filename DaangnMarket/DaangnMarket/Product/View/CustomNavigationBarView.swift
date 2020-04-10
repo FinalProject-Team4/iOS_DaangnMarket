@@ -126,7 +126,6 @@ class CustomNavigationBarView: UIView {
         $0.bottom.equalTo(self)
     }
   }
-  
   // MARK: Actions
   
   @objc func didTapBackButton(_ sender: Any) {

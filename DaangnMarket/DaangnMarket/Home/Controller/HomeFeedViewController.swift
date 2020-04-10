@@ -281,13 +281,6 @@ extension HomeFeedViewController: UITableViewDelegate {
     navigationController?.pushViewController(productPVC, animated: true)
     let addressTime = removeNotNeededTimeUnit(localData[indexPath.row].address, userUpdateTimes[indexPath.row])
     PostData.shared.updated = addressTime.components(separatedBy: " • ")[1]
-    print(item.title)
-    print(item.content)
-    print(item.username)
-    print(item.category)
-    print(item.address)
-    print(item.price)
-    print(item.state)
   }
 }
 

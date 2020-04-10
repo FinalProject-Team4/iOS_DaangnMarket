@@ -34,17 +34,6 @@ class ProductPostViewController: UIViewController {
     $0.hidesWhenStopped = true
   }
   
-  // MARK: Model
-  
-  var dummy = dummyData1
-  //var dummy = [dummyData1, dummyData2, dummyData3, dummyData4].randomElement()!
-  // dummyData1 : 가격제안불가, 다른 판매상품 4개, dummyData2 : 가격제안 가능, 다른 판매상품 2개, dummyData3: 다른 판매상품 없는 경우, dummyData4 : 상품이미지 없는 경우
-  
-  // MARK: Properties
-  
-  let viewWidth = UIScreen.main.bounds.width
-  let navigationHeight: CGFloat = 90
-  
   // MARK: Initialize
   
   override func viewDidLoad() {
@@ -68,7 +57,7 @@ class ProductPostViewController: UIViewController {
     navigationController?.isNavigationBarHidden = true
     self.tabBarController?.tabBar.isHidden = true
     view.backgroundColor = .white
-    pageControl.numberOfPages = dummy.images.count
+    //pageControl.numberOfPages = dummy.postImageSet.count
     pageControl.numberOfPages = postData.postImageSet.count
     hScrollView.delegate = self
     setupTableView()
@@ -167,7 +156,6 @@ extension ProductPostViewController: UITableViewDataSource {
     case 0:
       guard let cell = tableView.dequeueReusableCell(withIdentifier: SellerInformationTableViewCell.identifier, for: indexPath) as? SellerInformationTableViewCell else { return UITableViewCell() }
       cell.configure(image: UIImage(named: "sellerImage1"), sellerId: postData.username, addr: postData.address)
-      cell.configure(image: UIImage(named: seller[0]), sellerId: seller[1], addr: seller[2])
       cell.selectionStyle = .none
       return cell
     case 1:
