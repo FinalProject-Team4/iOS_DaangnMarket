@@ -51,7 +51,7 @@ class ChooseTownToShowViewController: UIViewController {
   // MARK: Action
   
   @objc private func didTapLeftBarButton() {
-    dismiss(animated: true)
+    self.navigationController?.popViewController(animated: true)
   }
 }
 

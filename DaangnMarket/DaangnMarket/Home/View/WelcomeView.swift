@@ -79,8 +79,8 @@ class WelcomeView: UIView {
     mascotImage.snp.makeConstraints {
       $0.centerX.equalToSuperview()
       $0.top.equalTo(lookAroundButton.snp.bottom)
-      $0.width.equalTo(self.bounds.width * 0.5)
-      $0.height.equalTo(self.bounds.width * 0.5)
+      $0.width.equalTo(UIScreen.main.bounds.width * 0.5)
+      $0.height.equalTo(UIScreen.main.bounds.width * 0.5)
     }
     startViewTopLabel.snp.makeConstraints {
       $0.centerX.equalToSuperview()

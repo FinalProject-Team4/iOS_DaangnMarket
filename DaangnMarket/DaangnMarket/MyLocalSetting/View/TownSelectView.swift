@@ -113,7 +113,7 @@ class TownSelectView: UIView {
         changeSelectedTownButton(secondTownSelectBtn)
         changeUnSelectedTownButton(firstTownSelectBtn)
       } else {
-        
+        print("구현중")
       }
     default: break
     }
