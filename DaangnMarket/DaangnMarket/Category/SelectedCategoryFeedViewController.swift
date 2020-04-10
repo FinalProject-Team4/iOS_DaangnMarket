@@ -55,15 +55,15 @@ class SelectedCategoryFeedViewController: UIViewController {
     $0.register(HomeFeedTableViewCell.self, forCellReuseIdentifier: "GoodsCell")
     $0.rowHeight = 136
     view.addSubview($0)
-    $0.snp.makeConstraints { constraints in
-      constraints.edges.equalTo(view.safeAreaLayoutGuide)
-    }
   }
   
   // MARK: Properties
   
   //  private var postData: [ResultsByPostByCategory]?
   private var postData: [ResultsByPostByCategory] = []
+  
+  var cellHeightDictionary: NSMutableDictionary = [:]
+  
   //  {
   //    didSet {
   //      print(self.postData.count)
@@ -92,6 +92,7 @@ class SelectedCategoryFeedViewController: UIViewController {
     super.viewDidLoad()
     view.backgroundColor = .white
     setupNavigation()
+    setupContraints()
   }
   
   private func setupNavigation() {
@@ -103,6 +104,12 @@ class SelectedCategoryFeedViewController: UIViewController {
     self.navigationItem.rightBarButtonItem = UIBarButtonItem(
       image: UIImage(systemName: "magnifyingglass"), style: .plain, target: self, action: #selector(didTabNaviSearchButton)
     )
+  }
+  
+  private func setupContraints() {
+    tableView.snp.makeConstraints { constraints in
+      constraints.edges.equalTo(view.safeAreaLayoutGuide)
+    }
   }
   
   // MARK: Methods
@@ -132,7 +139,7 @@ class SelectedCategoryFeedViewController: UIViewController {
           print(err.localizedDescription)
         }
     }
-    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3 ) {
       self.tableView.reloadData()
     }
   }
@@ -199,16 +206,15 @@ extension SelectedCategoryFeedViewController: UITableViewDataSource {
 
 extension SelectedCategoryFeedViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-    if indexPath.row == postData.count - 1 {
+    if indexPath.row == postData.count - 3 {
       request(url: nextURL)
-      self.perform(#selector(reload), with: nil, afterDelay: 1.0)
+    } else {
+      return
     }
-  }
-  @objc func reload() {
-    self.tableView.reloadData()
+    cellHeightDictionary.setObject(cell.frame.size.height, forKey: indexPath as NSCopying)
   }
   
-//  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//    <#code#>
-//  }
+  func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+    return UITableView.automaticDimension
+  }
 }

@@ -104,6 +104,8 @@ class CategoryViewController: UIViewController {
   
   @objc func didTapItem(_ sender: CategoryItemView) {
     let category = itemViews.filter { $0.isEqual(sender) }.first?.identifier
-    self.navigationController?.pushViewController(SelectedCategoryFeedViewController(category: category!), animated: true)
+    let categoryVC = SelectedCategoryFeedViewController(category: category!)
+    categoryVC.hidesBottomBarWhenPushed = true
+    self.navigationController?.pushViewController(categoryVC, animated: true)
   }
 }
