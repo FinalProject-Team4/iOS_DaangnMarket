@@ -8,8 +8,14 @@
 
 import UIKit
 
+protocol CustomNavigationBarViewDelegate: class {
+  func goBackPage()
+}
+
 class CustomNavigationBarView: UIView {
   // MARK: Views
+  
+  weak var delegate: CustomNavigationBarViewDelegate?
   
   var backButton = UIButton().then {
     $0.setImage(UIImage(systemName: "arrow.left"), for: .normal)
@@ -120,11 +126,10 @@ class CustomNavigationBarView: UIView {
         $0.bottom.equalTo(self)
     }
   }
-  
   // MARK: Actions
   
   @objc func didTapBackButton(_ sender: Any) {
-    print("didTapBackButton")
+    delegate?.goBackPage()
   }
   @objc func didTapSendOptionButton(_ sender: Any) {
     print("didTapSendOptionButton")

@@ -136,7 +136,7 @@ class SellerInformationTableViewCell: UITableViewCell {
     }
     self.bottomLineView.then { self.addSubview($0) }
       .snp.makeConstraints {
-        $0.height.equalTo(0.5)
+        $0.height.equalTo(0.3)
         $0.width.equalTo(self).offset(-spacing * 2)
         $0.centerX.equalTo(self)
         $0.bottom.equalTo(self)
