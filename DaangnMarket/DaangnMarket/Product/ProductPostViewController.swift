@@ -9,15 +9,21 @@
 import UIKit
 
 class ProductPostViewController: UIViewController {
+  // MARK: Properties
+  
+  let postData = PostData.shared
+  let viewWidth = UIScreen.main.bounds.width
+  let navigationHeight: CGFloat = 90
+  
   // MARK: Views
   
-  lazy var bottomButtons = BottomButtonsView(price: self.dummy.price, nego: dummy.isNegociable)
+  lazy var bottomButtons = BottomButtonsView(price: self.postData.price, nego: false)
   lazy var navigationBar = CustomNavigationBarView()
   private let tableView = UITableView().then {
     $0.backgroundColor = .white
     $0.contentInsetAdjustmentBehavior = .never
   }
-  lazy var hScrollView = ImagesScrollView(items: dummy.images)
+  lazy var hScrollView = ImagesScrollView(items: postData.postImageSet)
   let pageControl = UIPageControl().then {
     $0.pageIndicatorTintColor = UIColor(named: ColorReference.noResultImage.rawValue)
     $0.currentPageIndicatorTintColor = .white
@@ -46,6 +52,11 @@ class ProductPostViewController: UIViewController {
     setupUI()
   }
   
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(false)
+    UIApplication.shared.statusBarStyle = .darkContent
+  }
+  
   private func setupUI() {
     setupAttributes()
     setupConstraints()
@@ -53,15 +64,17 @@ class ProductPostViewController: UIViewController {
   
   private func setupAttributes() {
     navigationBar.delegate = self
-    UIApplication.shared.statusBarStyle = .lightContent
+    UIApplication.shared.statusBarStyle = .darkContent
     navigationController?.isNavigationBarHidden = true
     self.tabBarController?.tabBar.isHidden = true
     view.backgroundColor = .white
     pageControl.numberOfPages = dummy.images.count
+    pageControl.numberOfPages = postData.postImageSet.count
     hScrollView.delegate = self
     setupTableView()
-    if dummy.isImage {
+    if !postData.postImageSet.isEmpty {
       setupScrollView()
+      UIApplication.shared.statusBarStyle = .lightContent
     }
   }
   
@@ -75,7 +88,7 @@ class ProductPostViewController: UIViewController {
     self.tableView
       .then { view.addSubview($0) }
       .snp.makeConstraints {
-        if dummy.isImage {
+        if !postData.postImageSet.isEmpty {
           $0.top.equalTo(view)
         } else {
           $0.top.equalTo(view).offset(91)
@@ -83,7 +96,7 @@ class ProductPostViewController: UIViewController {
         $0.leading.trailing.equalTo(guide)
         $0.bottom.equalTo(bottomButtons.snp.top)
     }
-    if dummy.isImage {
+    if !postData.postImageSet.isEmpty {
       self.pageControl.then { tableView.addSubview($0) }
         .snp.makeConstraints {
           $0.centerX.equalTo(tableView)
@@ -113,7 +126,7 @@ class ProductPostViewController: UIViewController {
     tableView.contentOffset = CGPoint(x: 0, y: -viewWidth)
     self.tableView.addSubview(hScrollView)
     hScrollView.frame = CGRect(x: 0, y: -viewWidth, width: viewWidth, height: viewWidth)
-    hScrollView.contentSize = CGSize(width: viewWidth * CGFloat(dummy.images.count), height: viewWidth)
+    hScrollView.contentSize = CGSize(width: viewWidth * CGFloat(postData.postImageSet.count), height: viewWidth)
   }
   
   // MARK: Actions
@@ -129,7 +142,7 @@ class ProductPostViewController: UIViewController {
   }
   
   private func blackBackNavigationBar() {
-    if dummy.isImage {
+    if !postData.postImageSet.isEmpty {
       navigationBar.gradientLayer.backgroundColor = UIColor.clear.cgColor
       navigationBar.gradientLayer.colors = [UIColor.black.withAlphaComponent(0.7).cgColor, UIColor.clear.cgColor]
       [navigationBar.backButton, navigationBar.sendOptionButton, navigationBar.otherOptionButton].forEach {
@@ -153,13 +166,17 @@ extension ProductPostViewController: UITableViewDataSource {
     switch indexPath.section {
     case 0:
       guard let cell = tableView.dequeueReusableCell(withIdentifier: SellerInformationTableViewCell.identifier, for: indexPath) as? SellerInformationTableViewCell else { return UITableViewCell() }
-      let seller = dummy.seller
+      cell.configure(image: UIImage(named: "sellerImage1"), sellerId: postData.username, addr: postData.address)
       cell.configure(image: UIImage(named: seller[0]), sellerId: seller[1], addr: seller[2])
       cell.selectionStyle = .none
       return cell
     case 1:
       guard let cell = tableView.dequeueReusableCell(withIdentifier: ContentsTableViewCell.identifier, for: indexPath) as? ContentsTableViewCell else { return UITableViewCell() }
-      let item = dummy.contents
+      var item: [String] = []
+      item.append(postData.title)
+      item.append(postData.updated)
+      item.append(postData.category)
+      item.append(postData.content)
       cell.selectionStyle = .none
       cell.configure(contents: item)
       return cell
@@ -171,8 +188,8 @@ extension ProductPostViewController: UITableViewDataSource {
       return cell
     case 3:
       guard let cell = tableView.dequeueReusableCell(withIdentifier: OtherItemsTableViewCell.identifier, for: indexPath) as? OtherItemsTableViewCell else { return UITableViewCell() }
-      let others = dummy.otherItems
-      let name = dummy.seller[1]
+      let others = [["others1", "미니 스트랩백", "20,000원"], ["others2", "수박 에어팟케이스", "5,000원"], ["others3", "벙거지모자", "10,000원"], ["others4", "데님 원피스", "20,000원"]]
+      let name = postData.username
       cell.delegate = self
       cell.configure(items: others, sellerName: name)
       cell.selectionStyle = .none
@@ -188,10 +205,11 @@ extension ProductPostViewController: UITableViewDataSource {
 
 extension ProductPostViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    let tempOtherItems = ["0", "1", "2", "3"]
     if indexPath.section == 3 {
-      if dummy.otherItems.isEmpty {
+      if tempOtherItems.isEmpty {
         return 0
-      } else if dummy.otherItems.count > 2 {
+      } else if tempOtherItems.count > 2 {
         return viewWidth + (CGFloat(16) * 3)
       } else {
         return ( viewWidth + (CGFloat(16) * 3)) / 1.8

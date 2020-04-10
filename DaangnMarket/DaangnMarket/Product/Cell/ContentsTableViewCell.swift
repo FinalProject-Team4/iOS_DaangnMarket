@@ -49,7 +49,7 @@ class ContentsTableViewCell: UITableViewCell {
     titleLabel.text = contents[0]
     informLabel.text = "\(contents[1])﹒\(contents[2])"
     contentsLabel.text = contents[3]
-    countLabel.text = "관심 \(contents[4])﹒조회\(contents[5])"
+    countLabel.text = "관심 2﹒조회 10"
   }
   
   private func setupUI() {
