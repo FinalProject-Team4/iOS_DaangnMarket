@@ -9,17 +9,6 @@
 import UIKit
 import Alamofire
 
-struct PostByCategory: Decodable {
-  let next: URL
-  let results: [ResultsByPostByCategory]
-}
-struct ResultsByPostByCategory: Decodable {
-  //  let image
-  let title: String
-  let address: String
-  let price: Int
-}
-
 // MARK: - Class Level
 class SelectedCategoryFeedViewController: UIViewController {
   // MARK: Views
@@ -38,7 +27,7 @@ class SelectedCategoryFeedViewController: UIViewController {
   }
   
   // MARK: Properties
-  private var postData: [ResultsByPostByCategory] = []
+  private var postData: [Post] = []
   
   var cellHeightDictionary: NSMutableDictionary = [:]
  
@@ -130,10 +119,10 @@ class SelectedCategoryFeedViewController: UIViewController {
         switch response.result {
         case .success:
           guard let responseData = response.data else { return }
-          guard let decodeResult = try? JSONDecoder().decode(PostByCategory.self, from: responseData) else { return }
+          guard let decodeResult = try? JSONDecoder().decode(PostInfo.self, from: responseData) else { return }
+          print(decodeResult)
           self.postData += decodeResult.results
-          //          decodeResult.results.forEach { self.postData.append($0) }
-          self.nextURL = decodeResult.next
+          self.nextURL = URL(string: decodeResult.next ?? "")
         case .failure(let err):
           print(err.localizedDescription)
         }
@@ -161,6 +150,7 @@ extension SelectedCategoryFeedViewController: UITableViewDataSource {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: "GoodsCell", for: indexPath) as? HomeFeedTableViewCell else { return UITableViewCell() }
     let post = postData[indexPath.row]
     cell.goodsName.text = post.title
+    cell.sellerLoctionAndTime.text = post.address
     cell.goodsPrice.text = "\(post.price)"
     cell.goodsImageView.image = UIImage(systemName: "person")
     return cell
@@ -171,8 +161,6 @@ extension SelectedCategoryFeedViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
     if indexPath.row == postData.count - 3 {
       nextRequest(url: nextURL)
-    } else {
-      return
     }
     cellHeightDictionary.setObject(cell.frame.size.height, forKey: indexPath as NSCopying)
   }
