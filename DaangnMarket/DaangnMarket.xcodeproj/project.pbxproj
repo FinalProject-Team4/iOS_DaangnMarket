@@ -53,7 +53,9 @@
 		AC52A501243C495600DB4FB6 /* BottomButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4F9243C495600DB4FB6 /* BottomButtonsView.swift */; };
 		AC52A502243C495600DB4FB6 /* ImagesScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A4FA243C495600DB4FB6 /* ImagesScrollView.swift */; };
 		AC52A50C243D90D000DB4FB6 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A50B243D90D000DB4FB6 /* LaunchViewController.swift */; };
-		AC52A55A244049BA00DB4FB6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AC52A559244049BA00DB4FB6 /* GoogleService-Info.plist */; };
+		AC52A5842441925600DB4FB6 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A5832441925600DB4FB6 /* NotificationViewController.swift */; };
+		AC52A5862441958600DB4FB6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AC52A5852441958600DB4FB6 /* GoogleService-Info.plist */; };
+		AC52A58A244196DF00DB4FB6 /* DGSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A589244196DF00DB4FB6 /* DGSegmentedControl.swift */; };
 		AC829F4724347FDC00D0623A /* NumberField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC829F4624347FDC00D0623A /* NumberField.swift */; };
 		ACB2B60324333763002FAF27 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B60224333763002FAF27 /* AuthViewController.swift */; };
 		ACB2B6072433472B002FAF27 /* AuthDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B6062433472B002FAF27 /* AuthDescriptionView.swift */; };
@@ -96,7 +98,6 @@
 		ADD05132242B595200312DF1 /* HomeFeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD05131242B595200312DF1 /* HomeFeedTableViewCell.swift */; };
 		ADD05135242C4FC000312DF1 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD05134242C4FC000312DF1 /* Service.swift */; };
 		ADD05137242C62CF00312DF1 /* PostInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD05136242C62CF00312DF1 /* PostInfo.swift */; };
-		DE839EB0244058B200D2AAB1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DE839EAF244058B200D2AAB1 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -150,7 +151,9 @@
 		AC52A4F9243C495600DB4FB6 /* BottomButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomButtonsView.swift; sourceTree = "<group>"; };
 		AC52A4FA243C495600DB4FB6 /* ImagesScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagesScrollView.swift; sourceTree = "<group>"; };
 		AC52A50B243D90D000DB4FB6 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
-		AC52A559244049BA00DB4FB6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		AC52A5832441925600DB4FB6 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		AC52A5852441958600DB4FB6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
+		AC52A589244196DF00DB4FB6 /* DGSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DGSegmentedControl.swift; sourceTree = "<group>"; };
 		AC829F4624347FDC00D0623A /* NumberField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberField.swift; sourceTree = "<group>"; };
 		ACB2B60224333763002FAF27 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		ACB2B6062433472B002FAF27 /* AuthDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDescriptionView.swift; sourceTree = "<group>"; };
@@ -195,7 +198,6 @@
 		ADD05131242B595200312DF1 /* HomeFeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeedTableViewCell.swift; sourceTree = "<group>"; };
 		ADD05134242C4FC000312DF1 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		ADD05136242C62CF00312DF1 /* PostInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostInfo.swift; sourceTree = "<group>"; };
-		DE839EAF244058B200D2AAB1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/finalProject/GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -260,14 +262,14 @@
 				ACCD94D32429F5E400153545 /* Chat */,
 				ACCD94D42429F5E600153545 /* MyDaangn */,
 				AD6EBFA02436C3CB003F01CA /* MyLocalSetting */,
+				AC52A5822441923F00DB4FB6 /* Notificatiion */,
 				ACCD94E5242A206400153545 /* Service */,
 				ACCD94EF242A24A300153545 /* Common */,
 				ACFB7D2F242C415F00E47F97 /* Test */,
 				A62D96B22424A442006F1722 /* Assets.xcassets */,
-				DE839EAF244058B200D2AAB1 /* GoogleService-Info.plist */,
 				A62D96B42424A442006F1722 /* LaunchScreen.storyboard */,
 				A62D96B72424A442006F1722 /* Info.plist */,
-				AC52A559244049BA00DB4FB6 /* GoogleService-Info.plist */,
+				AC52A5852441958600DB4FB6 /* GoogleService-Info.plist */,
 				AC52A50B243D90D000DB4FB6 /* LaunchViewController.swift */,
 			);
 			path = DaangnMarket;
@@ -331,6 +333,31 @@
 				AC52A4F8243C495600DB4FB6 /* CustomNavigationBarView.swift */,
 				AC52A4F9243C495600DB4FB6 /* BottomButtonsView.swift */,
 				AC52A4FA243C495600DB4FB6 /* ImagesScrollView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		AC52A5822441923F00DB4FB6 /* Notificatiion */ = {
+			isa = PBXGroup;
+			children = (
+				AC52A5882441969F00DB4FB6 /* View */,
+				AC52A5872441969A00DB4FB6 /* Controller */,
+			);
+			path = Notificatiion;
+			sourceTree = "<group>";
+		};
+		AC52A5872441969A00DB4FB6 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				AC52A5832441925600DB4FB6 /* NotificationViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		AC52A5882441969F00DB4FB6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AC52A589244196DF00DB4FB6 /* DGSegmentedControl.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -670,7 +697,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ACCD94CE2429E59500153545 /* .swiftlint.yml in Resources */,
-				AC52A55A244049BA00DB4FB6 /* GoogleService-Info.plist in Resources */,
+				AC52A5862441958600DB4FB6 /* GoogleService-Info.plist in Resources */,
 				A62D96B62424A442006F1722 /* LaunchScreen.storyboard in Resources */,
 				A62D96B32424A442006F1722 /* Assets.xcassets in Resources */,
 			);
@@ -763,6 +790,7 @@
 				A62D96AE2424A440006F1722 /* HomeFeedViewController.swift in Sources */,
 				AC52A4FB243C495600DB4FB6 /* SellerInformationTableViewCell.swift in Sources */,
 				A6FB7193243731560092A5F1 /* DGAlertController.swift in Sources */,
+				AC52A58A244196DF00DB4FB6 /* DGSegmentedControl.swift in Sources */,
 				A63F37C0243596EF002C0D9B /* WriteKeywordViewController.swift in Sources */,
 				AC52A50C243D90D000DB4FB6 /* LaunchViewController.swift in Sources */,
 				A62D97DE242B3F57006F1722 /* WriteTableAlbumCell.swift in Sources */,
@@ -822,6 +850,7 @@
 				AC52A4ED243B116F00DB4FB6 /* ViewControllerGenerator.swift in Sources */,
 				ACEE24CC2435CA1B0044D573 /* DGUpperAlert.swift in Sources */,
 				ACFB7D38242CA45600E47F97 /* TownNoResultView.swift in Sources */,
+				AC52A5842441925600DB4FB6 /* NotificationViewController.swift in Sources */,
 				ACFB7D36242C9A0C00E47F97 /* InitialStartView.swift in Sources */,
 				A62D97EA242CAD7E006F1722 /* SelectLocationView.swift in Sources */,
 				ACCD94DF2429F89200153545 /* MyPageViewController.swift in Sources */,
