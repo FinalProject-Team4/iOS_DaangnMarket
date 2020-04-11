@@ -171,11 +171,11 @@ class HomeFeedViewController: UIViewController {
       let updatedTime: Date = dateFormatter.date(from: tempTime) ?? currentTime
       let calculrate = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)
       guard let compareTime = calculrate?.components([.day, .hour, .minute, .second], from: updatedTime, to: currentTime, options: [])
-      else { fatalError("castin error") }
+        else { fatalError("castin error") }
       userUpdateTimes.append(compareTime)
     }
   }
-
+  
   @objc private func didTapButtonsInNaviBar(_ sender: UIView) {
     let popoverVC = PopoverViewController()
     switch sender {
@@ -274,6 +274,14 @@ extension HomeFeedViewController: UITableViewDataSource {
 }
 
 extension HomeFeedViewController: UITableViewDelegate {
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    guard let productPVC = ViewControllerGenerator.shared.make(.productPost) else { return }
+    PostData.shared.saveData(localData[indexPath.row])
+    
+    navigationController?.pushViewController(productPVC, animated: true)
+    let addressTime = removeNotNeededTimeUnit(localData[indexPath.row].address, userUpdateTimes[indexPath.row])
+    PostData.shared.updated = addressTime.components(separatedBy: " • ")[1]
+  }
 }
 
 extension HomeFeedViewController: UIPopoverPresentationControllerDelegate {
