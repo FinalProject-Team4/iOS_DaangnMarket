@@ -85,6 +85,14 @@ class DGNavigationBar: UIView {
     set { self.titleLabel.text = newValue }
   }
   
+  var isShadowHidden: Bool = false {
+    didSet {
+      self.shadowLine.backgroundColor = isShadowHidden ?
+        .clear :
+        UIColor(named: ColorReference.navigationShadow.rawValue)
+    }
+  }
+  
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
