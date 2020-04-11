@@ -67,6 +67,7 @@ class SelectedCategoryFeedViewController: UIViewController {
   }
   
   private func setupNavigation() {
+    self.navigationController?.isNavigationBarHidden = false
     self.navigationController?.navigationBar.barTintColor = .white
     self.navigationController?.navigationBar.tintColor = .black
     self.navigationItem.leftBarButtonItem = UIBarButtonItem(
