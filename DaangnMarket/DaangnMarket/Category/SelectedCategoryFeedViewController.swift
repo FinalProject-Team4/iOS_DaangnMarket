@@ -9,17 +9,6 @@
 import UIKit
 import Alamofire
 
-struct PostByCategory: Decodable {
-  let next: URL
-  let results: [ResultsByPostByCategory]
-}
-struct ResultsByPostByCategory: Decodable {
-  //  let image
-  let title: String
-  let address: String
-  let price: Int
-}
-
 // MARK: - Class Level
 class SelectedCategoryFeedViewController: UIViewController {
   // MARK: Views
@@ -38,11 +27,18 @@ class SelectedCategoryFeedViewController: UIViewController {
   }
   
   // MARK: Properties
-  private var postData: [ResultsByPostByCategory] = []
-  
-  var cellHeightDictionary: NSMutableDictionary = [:]
- 
+  private var postData: [Post] = [] {
+    didSet {
+      tableView.reloadData()
+    }
+  }
+  private var cellHeightDictionary: NSMutableDictionary = [:]
   private var nextURL: URL?
+  private var userUpdateTimes = [DateComponents]() {
+    didSet {
+      print(self.userUpdateTimes)
+    }
+  }
   
   // MARK: Initialieze
   init(category: String) {
@@ -60,13 +56,18 @@ class SelectedCategoryFeedViewController: UIViewController {
     super.viewDidLoad()
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    setupNavigation()
+  }
+  
   private func setupUI(category: String) {
     view.backgroundColor = .white
-    setupNavigation()
     category == "인기매물" ? setupEmptyView() : makeURL(category: category)
   }
   
   private func setupNavigation() {
+    self.navigationController?.isNavigationBarHidden = false
     self.navigationController?.navigationBar.barTintColor = .white
     self.navigationController?.navigationBar.tintColor = .black
     self.navigationItem.leftBarButtonItem = UIBarButtonItem(
@@ -130,13 +131,46 @@ class SelectedCategoryFeedViewController: UIViewController {
         switch response.result {
         case .success:
           guard let responseData = response.data else { return }
-          guard let decodeResult = try? JSONDecoder().decode(PostByCategory.self, from: responseData) else { return }
+          guard let decodeResult = try? JSONDecoder().decode(PostInfo.self, from: responseData) else { return }
+          print(decodeResult)
           self.postData += decodeResult.results
-          //          decodeResult.results.forEach { self.postData.append($0) }
-          self.nextURL = decodeResult.next
+          self.calculateDifferentTime()
+          self.nextURL = URL(string: decodeResult.next ?? "")
         case .failure(let err):
           print(err.localizedDescription)
         }
+    }
+  }
+  
+  private func removeNotNeededTimeUnit(_ address: String, _ userUpdateTimes: DateComponents) -> String {
+    var updateTime = String()
+    if userUpdateTimes.day != 0 {
+      if userUpdateTimes.day == 1 {
+        updateTime += "\(address) • 어제"
+      } else {
+        updateTime += "\(address) • \(userUpdateTimes.day!)일 전"
+      }
+    } else if userUpdateTimes.hour != 0 {
+      updateTime += "\(address) • \(userUpdateTimes.hour!)시간 전"
+    } else if userUpdateTimes.minute != 0 {
+      updateTime += "\(address) • \(userUpdateTimes.minute!)분 전"
+    } else if userUpdateTimes.second != 0 {
+      updateTime += "\(address) • \(userUpdateTimes.second!)초 전"
+    }
+    return updateTime
+  }
+  
+  private func calculateDifferentTime() {
+    let currentTime = Date()
+    for idx in 0..<postData.count {
+      let tempTime = postData[idx].updated.replacingOccurrences(of: "T", with: " ").components(separatedBy: ".")[0]
+      let dateFormatter = DateFormatter()
+      dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+      let updatedTime: Date = dateFormatter.date(from: tempTime) ?? currentTime
+      let calculrate = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)
+      guard let compareTime = calculrate?.components([.day, .hour, .minute, .second], from: updatedTime, to: currentTime, options: [])
+        else { fatalError("castin error") }
+      userUpdateTimes.append(compareTime)
     }
   }
   
@@ -161,6 +195,7 @@ extension SelectedCategoryFeedViewController: UITableViewDataSource {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: "GoodsCell", for: indexPath) as? HomeFeedTableViewCell else { return UITableViewCell() }
     let post = postData[indexPath.row]
     cell.goodsName.text = post.title
+    cell.sellerLoctionAndTime.text = removeNotNeededTimeUnit(post.address, userUpdateTimes[indexPath.row])
     cell.goodsPrice.text = "\(post.price)"
     cell.goodsImageView.image = UIImage(systemName: "person")
     return cell
@@ -171,13 +206,19 @@ extension SelectedCategoryFeedViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
     if indexPath.row == postData.count - 3 {
       nextRequest(url: nextURL)
-    } else {
-      return
     }
     cellHeightDictionary.setObject(cell.frame.size.height, forKey: indexPath as NSCopying)
   }
   
   func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
     return UITableView.automaticDimension
+  }
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    guard let productPVC = ViewControllerGenerator.shared.make(.productPost) else { return }
+    let addressTime = removeNotNeededTimeUnit(postData[indexPath.row].address, userUpdateTimes[indexPath.row])
+    PostData.shared.updated = addressTime.components(separatedBy: " • ")[1]
+    PostData.shared.saveData(postData[indexPath.row])
+    self.navigationController?.pushViewController(productPVC, animated: true)
   }
 }
