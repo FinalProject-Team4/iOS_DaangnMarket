@@ -23,65 +23,33 @@ struct ResultsByPostByCategory: Decodable {
 // MARK: - Class Level
 class SelectedCategoryFeedViewController: UIViewController {
   // MARK: Views
-  
-  //  private lazy var layout = UICollectionViewFlowLayout().then {
-  //    $0.scrollDirection = .vertical
-  //    $0.sectionInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
-  //    $0.minimumInteritemSpacing = 16
-  //    $0.minimumLineSpacing = 20
-  //    let itemWidth: CGFloat =
-  //      (view.frame.width - CGFloat(view.safeAreaInsets.left + view.safeAreaInsets.right) - (16 * 3)) / 2
-  //    let itemHeight: CGFloat =
-  //      (view.frame.height - CGFloat(view.safeAreaInsets.top + view.safeAreaInsets.bottom)) * 0.4
-  //    $0.itemSize = CGSize(width: itemWidth, height: itemHeight)
-  //  }
-  //
-  //  private lazy var collectionView = UICollectionView(frame: view.frame, collectionViewLayout: layout).then {
-  //    $0.dataSource = self
-  //    $0.delegate = self
-  //    $0.register(
-  //      SelectedCategoryFeedCollectionCell.self, forCellWithReuseIdentifier: SelectedCategoryFeedCollectionCell.cellID
-  //    )
-  //    $0.backgroundColor = .white
-  //    view.addSubview($0)
-  //    $0.snp.makeConstraints { contraints in
-  //      contraints.edges.equalTo(view.safeAreaLayoutGuide)
-  //    }
-  //  }
-  
   private lazy var tableView = UITableView().then {
     $0.dataSource = self
     $0.delegate = self
     $0.register(HomeFeedTableViewCell.self, forCellReuseIdentifier: "GoodsCell")
     $0.rowHeight = 136
+  }
+  
+  private lazy var indicator = UIActivityIndicatorView().then {
+    $0.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+    $0.center = self.view.center
+    $0.color = UIColor(named: ColorReference.daangnMain.rawValue)
     view.addSubview($0)
   }
   
   // MARK: Properties
-  
-  //  private var postData: [ResultsByPostByCategory]?
   private var postData: [ResultsByPostByCategory] = []
   
   var cellHeightDictionary: NSMutableDictionary = [:]
-  
-  //  {
-  //    didSet {
-  //      print(self.postData.count)
-  //    }
-  //  }
-  //
+ 
   private var nextURL: URL?
-  //  {
-  //    willSet {
-  //      print(self.nextURL)
-  //    }
-  //  }
   
   // MARK: Initialieze
   init(category: String) {
     super.init(nibName: nil, bundle: nil)
     self.title = category
-    makeURL(category: category)
+    setupUI(category: category)
+    indicator.startAnimating()
   }
   
   required init?(coder: NSCoder) {
@@ -90,9 +58,12 @@ class SelectedCategoryFeedViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+  }
+  
+  private func setupUI(category: String) {
     view.backgroundColor = .white
     setupNavigation()
-    setupContraints()
+    category == "인기매물" ? setupEmptyView() : makeURL(category: category)
   }
   
   private func setupNavigation() {
@@ -106,21 +77,49 @@ class SelectedCategoryFeedViewController: UIViewController {
     )
   }
   
-  private func setupContraints() {
+  private func setupEmptyView() {
+    let label = UILabel().then {
+      $0.text = "인기글이 없습니당."
+      $0.textColor = .gray
+      view.addSubview($0)
+    }
+    label.snp.makeConstraints {
+      $0.center.equalToSuperview()
+    }
+    indicator.stopAnimating()
+  }
+  
+  private func setupTableView() {
+    view.addSubview(tableView)
     tableView.snp.makeConstraints { constraints in
       constraints.edges.equalTo(view.safeAreaLayoutGuide)
     }
   }
   
   // MARK: Methods
-  
   private func makeURL(category: String) {
     let category = DGCategory.allCases
       .filter { $0.korean == category }
       .map { $0.rawValue }
       .first ?? "other"
     let url = URL(string: "http://13.125.217.34/post/list/category/?category=\(category)&page=1&locate=8725")
+    firstRequest(url: url)
+  }
+  
+  private func firstRequest(url: URL?) {
     request(url: url)
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3 ) {
+      self.indicator.stopAnimating()
+      self.setupTableView()
+      self.tableView.reloadData()
+    }
+  }
+  
+  private func nextRequest(url: URL?) {
+    request(url: url)
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3 ) {
+      self.tableView.reloadData()
+    }
   }
   
   private func request(url: URL?) {
@@ -139,9 +138,6 @@ class SelectedCategoryFeedViewController: UIViewController {
           print(err.localizedDescription)
         }
     }
-    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3 ) {
-      self.tableView.reloadData()
-    }
   }
   
   // MARK: Actions
@@ -156,39 +152,6 @@ class SelectedCategoryFeedViewController: UIViewController {
 }
 
 // MARK: - Extension Level
-//extension SelectedCategoryFeedViewController: UICollectionViewDataSource {
-//  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//    print(postData.count)
-//    return postData.count
-//    //    guard let count = postData?.count else { return 0 }
-//    //    return count
-//  }
-//
-//  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//    guard let item = collectionView.dequeueReusableCell(
-//      withReuseIdentifier: SelectedCategoryFeedCollectionCell.cellID, for: indexPath
-//      ) as? SelectedCategoryFeedCollectionCell else { return UICollectionViewCell() }
-//    let post = postData[indexPath.row]
-//    //    let post = postData![indexPath.row]
-//    item.inputData(image: nil, title: post.title, town: post.address, price: post.price)
-//    return item
-//  }
-//}
-//
-//extension SelectedCategoryFeedViewController: UICollectionViewDelegate {
-//  func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//    if indexPath.row == postData.count - 1 {
-//      //      print("뭐라도 좀,..")
-//      request(url: nextURL)
-//      self.perform(#selector(reload), with: nil, afterDelay: 0.3)
-//    }
-//  }
-//
-//  @objc func reload() {
-//    self.collectionView.reloadData()
-//  }
-//}
-
 extension SelectedCategoryFeedViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     postData.count
@@ -207,7 +170,7 @@ extension SelectedCategoryFeedViewController: UITableViewDataSource {
 extension SelectedCategoryFeedViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
     if indexPath.row == postData.count - 3 {
-      request(url: nextURL)
+      nextRequest(url: nextURL)
     } else {
       return
     }

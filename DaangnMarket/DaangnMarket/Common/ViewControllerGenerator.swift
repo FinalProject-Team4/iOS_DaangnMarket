@@ -27,6 +27,7 @@ class ViewControllerGenerator {
     case townShow
     case popover
     case writeUsed
+    case categoryFeed
   }
   
   func make(_ type: ControllerType, parameters: [String: Any] = [:]) -> UIViewController? {
@@ -52,6 +53,9 @@ class ViewControllerGenerator {
       return UINavigationController(rootViewController: WriteUsedViewController())
     case .townShow:
       return UINavigationController(rootViewController: ChooseTownToShowViewController())
+    case .categoryFeed:
+      guard let category = parameters["category"] as? String else { return nil }
+      return SelectedCategoryFeedViewController(category: category)
     }
   }
   
