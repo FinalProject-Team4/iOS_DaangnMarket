@@ -11,7 +11,7 @@ import UIKit
 class MyTownSettingViewController: UIViewController {
   // MARK: Views
   
-  lazy var townSelectView = TownSelectView().then {
+  var townSelectView = TownSelectView().then {
     $0.backgroundColor = .white
   }
   lazy var townAroundView = MyTownAroundView().then {
@@ -27,12 +27,15 @@ class MyTownSettingViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.view.backgroundColor = .white
-    if let selectedTown = AuthorizationManager.shared.selectedTown {
-      MyTownSetting.shared.towns["first"] = selectedTown.dong
-      MyTownSetting.shared.selectTownName = selectedTown.dong
-    }
+    townSelectView.delegate = self
     setupConstraint()
     setupNaviBar()
+    postNotification()
+  }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    postNotification()
   }
   
   // MARK: Initialize
@@ -58,9 +61,36 @@ class MyTownSettingViewController: UIViewController {
     }
   }
   
+  // MARK: Method
+  
+  private func postNotification() {
+    if let firstTown = AuthorizationManager.shared.selectedTown {
+      MyTownSetting.shared.firstSelectTown = firstTown.dong
+      NotificationCenter.default.post(name: NSNotification.Name("FirstSelectTownCountView"),
+                                      object: nil)
+    }
+    if let secondTown = AuthorizationManager.shared.anotherTown {
+      MyTownSetting.shared.secondSelectTown = secondTown.dong
+      NotificationCenter.default.post(name: NSNotification.Name("anotherTownSecondTownBtn"),
+                                      object: nil)
+      NotificationCenter.default.post(name: NSNotification.Name("hidePlusTownSelectView"),
+                                      object: nil)
+      NotificationCenter.default.post(name: NSNotification.Name("SecondSelectTownCountView"),
+                                      object: nil)
+    }
+  }
+  
   // MARK: Action
   
   @objc private func didTapLeftBarButton() {
     dismiss(animated: true)
+  } 
+}
+
+// MARK: SecondTownSelectButton Delegate
+extension MyTownSettingViewController: SecondTownButtonDelegate {
+  func secondTownSelectBtn(_ secondButton: UIButton) {
+    let findTownVC = FindMyTownViewController()
+    self.navigationController?.pushViewController(findTownVC, animated: true)
   }
 }

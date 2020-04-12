@@ -76,7 +76,6 @@ class MyTownAroundView: UIView {
   @objc private func slideAction(_ sender: UISlider) {
     MyTownSetting.shared.numberOfAroundTown = Int(sender.value)
     townCountView.aroundTownCountLabel.attributedText = NSMutableAttributedString().underlineBold("근처 동네 \(Int(sender.value))개", fontSize: 17)
-//    MyTownSetting.shared.numberOfAroundTown = AuthorizationManager.shared.address.count
   }
   
   required init?(coder: NSCoder) {

@@ -14,13 +14,15 @@ class MyTownSetting {
   static var shared = MyTownSetting()
   
   // MARK: TownSelectView Property
-  
+
 //  static var findTownAddres: Address?
+  var firstSelectTown: String?
+  var secondSelectTown: String?
+
   var towns = [String: String]()
   
   // MARK: MyTownAroundView Property
   
   var distance = Double()
   var numberOfAroundTown: Int?
-  var selectTownName: String?
 }

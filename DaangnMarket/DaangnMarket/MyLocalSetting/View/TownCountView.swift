@@ -11,7 +11,7 @@ import UIKit
 class TownCountView: UIView {
   // MARK: Views
   lazy var myTownLabel = UILabel().then {
-    $0.text = MyTownSetting.shared.selectTownName ?? "동네오류"
+    $0.text = MyTownSetting.shared.firstSelectTown
     $0.textAlignment = .center
     $0.font = .systemFont(ofSize: 17, weight: .regular)
   }
@@ -25,6 +25,7 @@ class TownCountView: UIView {
   override init(frame: CGRect) {
     super.init(frame: frame)
     setupConstraints()
+    changeNameNoti()
   }
   
   private func setupConstraints() {
@@ -40,6 +41,21 @@ class TownCountView: UIView {
       $0.trailing.equalTo(self.snp.trailing)
     }
   }
+  
+  // MARK: Action
+  
+  func changeNameNoti() {
+    NotificationCenter.default.addObserver(self, selector: #selector(firstTownName), name: NSNotification.Name("FirstSelectTownCountView"), object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(secondTownName), name: NSNotification.Name("SecondSelectTownCountView"), object: nil)
+  }
+  
+  @objc func firstTownName() {
+    myTownLabel.text = MyTownSetting.shared.firstSelectTown
+  }
+  @objc func secondTownName() {
+    myTownLabel.text = MyTownSetting.shared.secondSelectTown
+  }
+
   
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")

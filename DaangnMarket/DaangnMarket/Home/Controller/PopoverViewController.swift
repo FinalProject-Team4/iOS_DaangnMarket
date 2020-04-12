@@ -57,6 +57,13 @@ class PopoverViewController: UIViewController {
   // MARK: Action
   
   @objc func viewChange(_ sender: UIButton) {
+    if let selectedTown = AuthorizationManager.shared.selectedTown {
+      MyTownSetting.shared.towns["first"] = selectedTown.dong
+    }
+    if let anotherTown = AuthorizationManager.shared.anotherTown {
+      MyTownSetting.shared.towns["second"] = anotherTown.dong
+    }
+    
     guard let myTownVC = ViewControllerGenerator.shared.make(.townSetting) else { return }
     myTownVC.modalPresentationStyle = .fullScreen
     self.present(myTownVC, animated: true)

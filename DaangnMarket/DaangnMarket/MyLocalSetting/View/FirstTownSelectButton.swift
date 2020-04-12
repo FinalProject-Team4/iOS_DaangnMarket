@@ -11,33 +11,34 @@ import UIKit
 class FirstTownSelectButton: UIButton {
   // MARK: Views
   
-  lazy var selectedMyFirstTownLabel = UILabel().then {
-    $0.text = MyTownSetting.shared.towns["first"]
+  lazy var selectedFirstTownLabel = UILabel().then {
+    guard let selected = AuthorizationManager.shared.selectedTown else { fatalError("First Town Select Lable error") }
+    $0.text = selected.dong
     $0.textColor = .white
     $0.font = .systemFont(ofSize: 16, weight: .bold)
   }
-  lazy var deleteSelectedMyFirstTownButton = UIButton().then {
+  lazy var deleteSelectedFirstTownButton = UIButton().then {
     $0.setImage(UIImage(systemName: "xmark.circle"), for: .normal)
     $0.transform = .init(scaleX: 1.2, y: 1.2)
     $0.tintColor = .white
-    $0.addTarget(self, action: #selector(didTapDeleteTownButton), for: .touchUpInside)
+    $0.addTarget(self, action: #selector(didTapFirstTownDeleteButton), for: .touchUpInside)
   }
   
   // MARK: Initialize
   
   override init(frame: CGRect) {
     super.init(frame: frame)
-    setupConstraints()
+    setupFirstBtnConstraints()
   }
   
-  private func setupConstraints() {
-    let inButtonSubUI = [selectedMyFirstTownLabel, deleteSelectedMyFirstTownButton]
+  private func setupFirstBtnConstraints() {
+    let inButtonSubUI = [selectedFirstTownLabel, deleteSelectedFirstTownButton]
     inButtonSubUI.forEach { self.addSubview($0) }
-    selectedMyFirstTownLabel.snp.makeConstraints {
+    selectedFirstTownLabel.snp.makeConstraints {
       $0.centerY.equalToSuperview()
       $0.leading.equalToSuperview().offset(16)
     }
-    deleteSelectedMyFirstTownButton.snp.makeConstraints {
+    deleteSelectedFirstTownButton.snp.makeConstraints {
       $0.centerY.equalToSuperview()
       $0.trailing.equalToSuperview().offset(-14)
       $0.width.equalTo(25)
@@ -47,7 +48,7 @@ class FirstTownSelectButton: UIButton {
   
   // MARK: Action
   
-  @objc private func didTapDeleteTownButton() {
+  @objc private func didTapFirstTownDeleteButton() {
     print("Delete First Town")
   }
   

@@ -150,17 +150,6 @@ class HomeFeedViewController: UIViewController {
     firstVC.modalPresentationStyle = .overFullScreen
     present(firstVC, animated: false)
   }
-  
-  static func popoverPresent(_ delegateVC: UIViewController, _ controller: UIViewController, _ sender: UIView) -> UIViewController {
-    controller.preferredContentSize = CGSize(width: 300, height: 150)
-    controller.modalPresentationStyle = .popover
-    guard let presentationController = controller.popoverPresentationController else { fatalError("popOverPresent casting error") }
-    presentationController.delegate = delegateVC as? UIPopoverPresentationControllerDelegate
-    presentationController.sourceRect = sender.bounds
-    presentationController.sourceView = sender
-    presentationController.permittedArrowDirections = .up
-    return controller
-  }
 }
 
 // MARK: TableView DataSource
@@ -182,7 +171,6 @@ extension HomeFeedViewController: UITableViewDataSource {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: "GoodsCell", for: indexPath) as? HomeFeedTableViewCell else { fatalError("faile type casting") }
     cellPostGoodsImage(cell, indexPath)
     cell.goodsName.text = "\(posts[indexPath.row].title)"
-//    cell.goodsName.text = "Post ID \(posts[indexPath.row].postId)"
     cell.goodsPrice.text = "\(posts[indexPath.row].price)"
     cell.sellerLoctionAndTime.text = removeNotNeededTimeUnit(posts[indexPath.row].address, userUpdateTimes[indexPath.row])
     return cell
@@ -221,11 +209,11 @@ extension HomeFeedViewController: UIPopoverPresentationControllerDelegate {
 
 extension HomeFeedViewController: NavigationBarButtonDelegate {
   func navigationBarButton(_ naviBarButton: UIButton) {
-    guard let popoverVC = ViewControllerGenerator.shared.make(.popover, parameters: ["target": PopoverViewController(), "sender": naviBarButton]) else { print("return"); return }
+    guard let popoverVC = ViewControllerGenerator.shared.make(.popover, parameters: ["target": self, "sender": naviBarButton]) else { print("return"); return }
     switch naviBarButton {
     case customNaviBar.selectedTownButton:
-      let popPresent = HomeFeedViewController.popoverPresent(self, popoverVC, naviBarButton)
-      present(popPresent, animated: true)
+      popoverVC.modalPresentationStyle = .popover
+      present(popoverVC, animated: true)
     case customNaviBar.searchButton:
       print("검색하기")
     case customNaviBar.categoryFilterButton:

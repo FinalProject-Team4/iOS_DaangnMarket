@@ -7,14 +7,22 @@
 //
 
 import UIKit
+protocol SecondTownButtonDelegate: class {
+  func secondTownSelectBtn(_ secondButton: UIButton)
+}
 
 class TownSelectView: UIView {
+  // MARK: Delegate creation
+  
+  weak var delegate: SecondTownButtonDelegate?
+
+  
   // MARK: Views
   
   private let partitionLineView = UIView().then {
     $0.backgroundColor = UIColor(named: ColorReference.noResultImage.rawValue)
   }
-  private lazy var townSelectLabel = UILabel().then {
+  private let townSelectLabel = UILabel().then {
     $0.text = "동네 선택"
     $0.font = .systemFont(ofSize: 17, weight: .bold)
   }
@@ -23,13 +31,15 @@ class TownSelectView: UIView {
     $0.font = .systemFont(ofSize: 13, weight: .regular)
     $0.textColor = UIColor(named: ColorReference.noResultImage.rawValue)
   }
-  private let firstTownSelectBtn = FirstTownSelectButton().then {
+  var firstTownSelectBtn = FirstTownSelectButton().then {
     $0.layer.cornerRadius = 5
     $0.addTarget(self, action: #selector(didTapSelectTownButton), for: .touchUpInside)
     $0.backgroundColor = UIColor(named: ColorReference.daangnMain.rawValue)
-  }
-  private let secondTownSelectBtn = SecondTownSelectButton().then {
+    }
+  var secondTownSelectBtn = SecondTownSelectButton().then {
     $0.addTarget(self, action: #selector(didTapSelectTownButton), for: .touchUpInside)
+    $0.setImage(UIImage(systemName: "plus"), for: .normal)
+    $0.tintColor = UIColor(named: ColorReference.noResultImage.rawValue)
     $0.layer.cornerRadius = 5
     $0.layer.borderColor = UIColor(named: ColorReference.noResultImage.rawValue)?.cgColor
     $0.layer.borderWidth = 1
@@ -41,6 +51,7 @@ class TownSelectView: UIView {
   override init(frame: CGRect) {
     super.init(frame: frame)
     inViewSetupConstraints()
+    hidePlusImageNoti()
   }
   
   private func inViewSetupConstraints() {
@@ -54,6 +65,12 @@ class TownSelectView: UIView {
       $0.centerX.equalToSuperview()
       $0.top.equalTo(townSelectLabel.snp.bottom).offset(8)
     }
+    partitionLineView.snp.makeConstraints {
+      $0.centerX.equalToSuperview()
+      $0.bottom.equalToSuperview()
+      $0.width.equalTo(self.snp.width).multipliedBy(0.9)
+      $0.height.equalTo(0.5)
+    }
     firstTownSelectBtn.snp.makeConstraints {
       $0.top.equalTo(townSelectDescribeLabel.snp.bottom).offset(16)
       $0.leading.equalTo(self.snp.leading).offset(12)
@@ -66,12 +83,6 @@ class TownSelectView: UIView {
       $0.width.equalTo(172)
       $0.height.equalTo(50)
     }
-    partitionLineView.snp.makeConstraints {
-      $0.centerX.equalToSuperview()
-      $0.bottom.equalToSuperview()
-      $0.width.equalTo(self.snp.width).multipliedBy(0.9)
-      $0.height.equalTo(0.5)
-    }
   }
   
   // MARK: Method
@@ -81,11 +92,11 @@ class TownSelectView: UIView {
     item.layer.borderWidth = 1
     item.layer.borderColor = UIColor(named: ColorReference.daangnMain.rawValue)?.cgColor
     if item == firstTownSelectBtn {
-      firstTownSelectBtn.selectedMyFirstTownLabel.textColor = .white
-      firstTownSelectBtn.deleteSelectedMyFirstTownButton.tintColor = .white
+      firstTownSelectBtn.selectedFirstTownLabel.textColor = .white
+      firstTownSelectBtn.deleteSelectedFirstTownButton.tintColor = .white
     } else if item == secondTownSelectBtn {
-      secondTownSelectBtn.selectedMySecondTownLabel.textColor = .white
-      secondTownSelectBtn.deleteSelectedMySecondTownButton.tintColor = .white
+      secondTownSelectBtn.selectedSecondTownLabel.textColor = .white
+      secondTownSelectBtn.deleteSelectedSecondTownButton.tintColor = .white
     }
   }
   private func changeUnSelectedTownButton(_ item: UIView) {
@@ -93,34 +104,48 @@ class TownSelectView: UIView {
     item.layer.borderColor = UIColor(named: ColorReference.noResultImage.rawValue)?.cgColor
     item.backgroundColor = .white
     if item == firstTownSelectBtn {
-      firstTownSelectBtn.selectedMyFirstTownLabel.textColor = .black
-      firstTownSelectBtn.deleteSelectedMyFirstTownButton.tintColor = UIColor(named: ColorReference.noResultImage.rawValue)
+      firstTownSelectBtn.selectedFirstTownLabel.textColor = .black
+      firstTownSelectBtn.deleteSelectedFirstTownButton.tintColor = UIColor(named: ColorReference.noResultImage.rawValue)
     } else if item == secondTownSelectBtn {
-      secondTownSelectBtn.selectedMySecondTownLabel.textColor = .black
-      secondTownSelectBtn.deleteSelectedMySecondTownButton.tintColor = UIColor(named: ColorReference.noResultImage.rawValue)
+      secondTownSelectBtn.selectedSecondTownLabel.textColor = .black
+      secondTownSelectBtn.deleteSelectedSecondTownButton.tintColor = UIColor(named: ColorReference.noResultImage.rawValue)
     }
+  }
+  private func hidePlusImageNoti() {
+    NotificationCenter.default.addObserver(self,
+                                           selector: #selector(hidePlusImage),
+                                           name: NSNotification.Name("hidePlusTownSelectView"),
+                                           object: nil)
   }
   
   // MARK: Action
-  
+
   @objc func didTapSelectTownButton(_ sender: UIButton) {
     switch sender {
     case firstTownSelectBtn:
+      NotificationCenter.default.post(name: NSNotification.Name("FirstSelectTownCountView"),
+                                      object: nil)
       changeSelectedTownButton(firstTownSelectBtn)
       changeUnSelectedTownButton(secondTownSelectBtn)
     case secondTownSelectBtn:
-      if MyTownSetting.shared.towns["second"] != nil {
+      if MyTownSetting.shared.secondSelectTown != nil {
+        NotificationCenter.default.post(name: NSNotification.Name("SecondSelectTownCountView"),
+                                        object: nil)
         changeSelectedTownButton(secondTownSelectBtn)
         changeUnSelectedTownButton(firstTownSelectBtn)
       } else {
-        print("구현중")
+        self.delegate?.secondTownSelectBtn(sender)
       }
     default: break
     }
+  }
+  
+  @objc func hidePlusImage() {
+    print("hide plus image")
+    secondTownSelectBtn.setImage(UIImage(), for: .normal)
   }
   
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 }
-

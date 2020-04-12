@@ -82,7 +82,6 @@
 		ACFB7D3A242CCE9200E47F97 /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFB7D39242CCE9200E47F97 /* UIDevice+Extension.swift */; };
 		ACFB7D3C242CCFF000E47F97 /* DGNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFB7D3B242CCFF000E47F97 /* DGNavigationBar.swift */; };
 		ACFB7D3E242CD94E00E47F97 /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFB7D3D242CD94E00E47F97 /* UINavigationController+Extension.swift */; };
-		AD5DC675243E024A00A4A5A4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD5DC674243E024A00A4A5A4 /* GoogleService-Info.plist */; };
 		AD5DC679243F5DF200A4A5A4 /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5DC678243F5DF200A4A5A4 /* CustomNavigationBar.swift */; };
 		AD6208AA243CB386007818C6 /* ChooseTownToShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6208A9243CB386007818C6 /* ChooseTownToShowViewController.swift */; };
 		AD677861242A21ED00CFEB86 /* FirstAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD677860242A21ED00CFEB86 /* FirstAlertViewController.swift */; };
@@ -93,6 +92,7 @@
 		AD6EBFAE2438EF4C003F01CA /* MyTownSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6EBFAD2438EF4C003F01CA /* MyTownSetting.swift */; };
 		AD6EBFB3243AF07C003F01CA /* MyTownAroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6EBFB2243AF07C003F01CA /* MyTownAroundView.swift */; };
 		AD6EBFB5243B1D70003F01CA /* TownCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6EBFB4243B1D70003F01CA /* TownCountView.swift */; };
+		AD7ABAB22440601E00520C28 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD7ABAB12440601E00520C28 /* GoogleService-Info.plist */; };
 		ADAA12BF2433214000A692A0 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAA12BE2433214000A692A0 /* PopoverViewController.swift */; };
 		ADD05132242B595200312DF1 /* HomeFeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD05131242B595200312DF1 /* HomeFeedTableViewCell.swift */; };
 		ADD05135242C4FC000312DF1 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD05134242C4FC000312DF1 /* Service.swift */; };
@@ -181,7 +181,6 @@
 		ACFB7D39242CCE9200E47F97 /* UIDevice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
 		ACFB7D3B242CCFF000E47F97 /* DGNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DGNavigationBar.swift; sourceTree = "<group>"; };
 		ACFB7D3D242CD94E00E47F97 /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
-		AD5DC674243E024A00A4A5A4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AD5DC678243F5DF200A4A5A4 /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
 		AD6208A9243CB386007818C6 /* ChooseTownToShowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseTownToShowViewController.swift; sourceTree = "<group>"; };
 		AD677860242A21ED00CFEB86 /* FirstAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstAlertViewController.swift; sourceTree = "<group>"; };
@@ -193,6 +192,7 @@
 		AD6EBFAD2438EF4C003F01CA /* MyTownSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTownSetting.swift; sourceTree = "<group>"; };
 		AD6EBFB2243AF07C003F01CA /* MyTownAroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTownAroundView.swift; sourceTree = "<group>"; };
 		AD6EBFB4243B1D70003F01CA /* TownCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownCountView.swift; sourceTree = "<group>"; };
+		AD7ABAB12440601E00520C28 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ADAA12BE2433214000A692A0 /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
 		ADD05131242B595200312DF1 /* HomeFeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeedTableViewCell.swift; sourceTree = "<group>"; };
 		ADD05134242C4FC000312DF1 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
@@ -269,7 +269,7 @@
 				A62D96B42424A442006F1722 /* LaunchScreen.storyboard */,
 				A62D96B72424A442006F1722 /* Info.plist */,
 				AC52A50B243D90D000DB4FB6 /* LaunchViewController.swift */,
-				AD5DC674243E024A00A4A5A4 /* GoogleService-Info.plist */,
+				AD7ABAB12440601E00520C28 /* GoogleService-Info.plist */,
 			);
 			path = DaangnMarket;
 			sourceTree = "<group>";
@@ -459,8 +459,8 @@
 			isa = PBXGroup;
 			children = (
 				ACCC9759242B6D89008F95DE /* Model */,
-				ACCC9758242B591B008F95DE /* Cell */,
 				ACCD94EC242A239F00153545 /* View */,
+				ACCC9758242B591B008F95DE /* Cell */,
 				ACCD94EB242A239900153545 /* Controller */,
 			);
 			path = InitialStart;
@@ -673,7 +673,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ACCD94CE2429E59500153545 /* .swiftlint.yml in Resources */,
-				AD5DC675243E024A00A4A5A4 /* GoogleService-Info.plist in Resources */,
+				AD7ABAB22440601E00520C28 /* GoogleService-Info.plist in Resources */,
 				A62D96B62424A442006F1722 /* LaunchScreen.storyboard in Resources */,
 				A62D96B32424A442006F1722 /* Assets.xcassets in Resources */,
 			);
