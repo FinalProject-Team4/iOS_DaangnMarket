@@ -56,6 +56,8 @@
 		AC52A5842441925600DB4FB6 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A5832441925600DB4FB6 /* NotificationViewController.swift */; };
 		AC52A5862441958600DB4FB6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AC52A5852441958600DB4FB6 /* GoogleService-Info.plist */; };
 		AC52A58A244196DF00DB4FB6 /* DGSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A589244196DF00DB4FB6 /* DGSegmentedControl.swift */; };
+		AC52A58C2442E52400DB4FB6 /* ActivityNotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A58B2442E52400DB4FB6 /* ActivityNotificationCell.swift */; };
+		AC52A58F2442F06C00DB4FB6 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC52A58E2442F06C00DB4FB6 /* NotificationModel.swift */; };
 		AC829F4724347FDC00D0623A /* NumberField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC829F4624347FDC00D0623A /* NumberField.swift */; };
 		ACB2B60324333763002FAF27 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B60224333763002FAF27 /* AuthViewController.swift */; };
 		ACB2B6072433472B002FAF27 /* AuthDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B6062433472B002FAF27 /* AuthDescriptionView.swift */; };
@@ -154,6 +156,8 @@
 		AC52A5832441925600DB4FB6 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		AC52A5852441958600DB4FB6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AC52A589244196DF00DB4FB6 /* DGSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DGSegmentedControl.swift; sourceTree = "<group>"; };
+		AC52A58B2442E52400DB4FB6 /* ActivityNotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityNotificationCell.swift; sourceTree = "<group>"; };
+		AC52A58E2442F06C00DB4FB6 /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
 		AC829F4624347FDC00D0623A /* NumberField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberField.swift; sourceTree = "<group>"; };
 		ACB2B60224333763002FAF27 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		ACB2B6062433472B002FAF27 /* AuthDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDescriptionView.swift; sourceTree = "<group>"; };
@@ -340,6 +344,7 @@
 		AC52A5822441923F00DB4FB6 /* Notificatiion */ = {
 			isa = PBXGroup;
 			children = (
+				AC52A58D2442F05A00DB4FB6 /* Model */,
 				AC52A5882441969F00DB4FB6 /* View */,
 				AC52A5872441969A00DB4FB6 /* Controller */,
 			);
@@ -358,8 +363,17 @@
 			isa = PBXGroup;
 			children = (
 				AC52A589244196DF00DB4FB6 /* DGSegmentedControl.swift */,
+				AC52A58B2442E52400DB4FB6 /* ActivityNotificationCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		AC52A58D2442F05A00DB4FB6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AC52A58E2442F06C00DB4FB6 /* NotificationModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		ACB2B60124333742002FAF27 /* Authorization */ = {
@@ -770,6 +784,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A6C1E395243D6B0E00A6FF32 /* CategoryItemView.swift in Sources */,
+				AC52A58C2442E52400DB4FB6 /* ActivityNotificationCell.swift in Sources */,
 				ACCC9755242B490E008F95DE /* Identifiable.swift in Sources */,
 				ACFB7D3A242CCE9200E47F97 /* UIDevice+Extension.swift in Sources */,
 				A62D97E4242B403E006F1722 /* WriteTablePriceCell.swift in Sources */,
@@ -810,6 +825,7 @@
 				AC52A4E7243AED3900DB4FB6 /* UIApplication+Extension.swift in Sources */,
 				AC52A4E32439AF4300DB4FB6 /* ProfileImageView.swift in Sources */,
 				AC5052DB242DA1B40045B9BC /* TownBackgroundView.swift in Sources */,
+				AC52A58F2442F06C00DB4FB6 /* NotificationModel.swift in Sources */,
 				AD6EBFAE2438EF4C003F01CA /* MyTownSetting.swift in Sources */,
 				AD6EBFAC2438E83C003F01CA /* SecondTownSelectButton.swift in Sources */,
 				ACCD94EA242A238300153545 /* FindMyTownViewController.swift in Sources */,

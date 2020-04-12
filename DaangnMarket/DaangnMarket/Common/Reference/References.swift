@@ -21,6 +21,12 @@ enum ImageReference: String {
   case camera = "camera.fill"
   case profileDefault = "person.fill"
   case trash
+  
+  enum Notification: String {
+    case daangnLogo = "DaangnLogo-Noti"
+    case daangni = "DaangnLogo-Noti-Daangni"
+    case priceDown = "DaangnLogo-Noti-Down"
+  }
 }
 
 enum ColorReference: String {

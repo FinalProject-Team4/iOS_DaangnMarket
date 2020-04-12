@@ -35,10 +35,18 @@ class NotificationViewController: UIViewController {
   }
   private lazy var activityNotiTableView = UITableView().then {
     $0.dataSource = self
+    $0.register(ActivityNotificationCell.self, forCellReuseIdentifier: ActivityNotificationCell.identifier)
+    let insetX = $0.separatorInset.left
+    $0.separatorInset = UIEdgeInsets(top: 0, left: insetX, bottom: 0, right: insetX)
+    $0.tableFooterView = UIView()
   }
   private lazy var keywordNotiTableView = UITableView().then {
     $0.dataSource = self
   }
+  
+  // MARK: Model
+  
+  private let model = NotificationModel()
   
   // MARK: Properties
   
@@ -114,12 +122,28 @@ class NotificationViewController: UIViewController {
 
 extension NotificationViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 5
+    return self.model.contents.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: "cell") ?? UITableViewCell()
-    cell.textLabel?.text = "Row \(indexPath.row)"
+    guard let cell = tableView.dequeueReusableCell(withIdentifier: ActivityNotificationCell.identifier)  as? ActivityNotificationCell else { return UITableViewCell() }
+    
+    let thumbnail: ImageReference.Notification
+    switch indexPath.row {
+    case 2:
+      thumbnail = .priceDown
+    case 3:
+      thumbnail = .daangni
+    default:
+      thumbnail = .daangnLogo
+    }
+    
+    cell.configure(
+      content: self.model.contents[indexPath.row],
+      thumbnail: thumbnail,
+      date: "\(indexPath.row + 1)시간 전"
+    )
+    
     return cell
   }
 }
