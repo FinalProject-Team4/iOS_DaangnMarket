@@ -22,7 +22,7 @@ class ActivityNotificationCell: UITableViewCell {
   private let thumbnailImageView = UIImageView()
   private let contentLabel = UILabel().then {
     $0.numberOfLines = 0
-    $0.font = .systemFont(ofSize: 15)
+    $0.font = .systemFont(ofSize: 16)
   }
   private let dateLabel = UILabel().then {
     $0.textColor = UIColor(named: ColorReference.item.rawValue)
@@ -33,13 +33,14 @@ class ActivityNotificationCell: UITableViewCell {
   
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
+    self.selectionStyle = .none
     self.setupConstraints()
   }
   
   private func setupConstraints() {
-    let padding: (x: CGFloat, y: CGFloat) = (16, 12)
+    let padding: (x: CGFloat, y: CGFloat) = (16, 24)
     let spacing: CGFloat = 8
-    let imageSize: CGFloat = 38
+    let imageSize: CGFloat = 40
     
     self.thumbnailImageView
       .then { self.contentView.addSubview($0) }
