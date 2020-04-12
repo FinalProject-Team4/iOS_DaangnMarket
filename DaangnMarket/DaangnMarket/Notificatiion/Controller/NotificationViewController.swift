@@ -38,10 +38,12 @@ class NotificationViewController: UIViewController {
     $0.register(ActivityNotificationCell.self, forCellReuseIdentifier: ActivityNotificationCell.identifier)
     let insetX = $0.separatorInset.left
     $0.separatorInset = UIEdgeInsets(top: 0, left: insetX, bottom: 0, right: insetX)
-    $0.tableFooterView = UIView()
   }
   private lazy var keywordNotiTableView = UITableView().then {
     $0.dataSource = self
+    $0.register(KeywordNotificationCell.self, forCellReuseIdentifier: KeywordNotificationCell.identifier)
+    let insetX = $0.separatorInset.left
+    $0.separatorInset = UIEdgeInsets(top: 0, left: insetX, bottom: 0, right: insetX)
   }
   
   // MARK: Model
@@ -122,29 +124,45 @@ class NotificationViewController: UIViewController {
 
 extension NotificationViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return self.model.contents.count
+    if tableView.isEqual(self.activityNotiTableView) {
+      return self.model.contents.count
+    } else {
+      return self.model.keywordContents.count
+    }
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = tableView.dequeueReusableCell(withIdentifier: ActivityNotificationCell.identifier)  as? ActivityNotificationCell else { return UITableViewCell() }
-    
-    let thumbnail: ImageReference.Notification
-    switch indexPath.row {
-    case 2:
-      thumbnail = .priceDown
-    case 3:
-      thumbnail = .daangni
-    default:
-      thumbnail = .daangnLogo
+    if tableView.isEqual(self.activityNotiTableView) {
+      guard let cell = tableView.dequeueReusableCell(withIdentifier: ActivityNotificationCell.identifier)  as? ActivityNotificationCell else { return UITableViewCell() }
+      
+      let thumbnail: ImageReference.Notification
+      switch indexPath.row {
+      case 2:
+        thumbnail = .priceDown
+      case 3:
+        thumbnail = .daangni
+      default:
+        thumbnail = .daangnLogo
+      }
+      
+      cell.configure(
+        content: self.model.contents[indexPath.row],
+        thumbnail: thumbnail,
+        date: "\(indexPath.row + 1)시간 전"
+      )
+      
+      return cell
+    } else {
+      guard let cell = tableView.dequeueReusableCell(withIdentifier: KeywordNotificationCell.identifier)  as? KeywordNotificationCell else { return UITableViewCell() }
+      
+      cell.configure(
+        content: self.model.keywordContents[indexPath.row],
+        image: UIImage(named: "image1")!,
+        date: "\(indexPath.row + 1)시간 전"
+      )
+      
+      return cell
     }
-    
-    cell.configure(
-      content: self.model.contents[indexPath.row],
-      thumbnail: thumbnail,
-      date: "\(indexPath.row + 1)시간 전"
-    )
-    
-    return cell
   }
 }
 
