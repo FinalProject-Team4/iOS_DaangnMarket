@@ -28,7 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     UNUserNotificationCenter.current().delegate = self
     Messaging.messaging().delegate = self
     UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound], completionHandler: { (_, _) in })
-    
     application.registerForRemoteNotifications()
     
     

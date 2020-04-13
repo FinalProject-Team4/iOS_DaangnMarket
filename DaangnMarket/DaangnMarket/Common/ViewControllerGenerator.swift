@@ -28,6 +28,7 @@ class ViewControllerGenerator {
     case popover
     case writeUsed
     case productPost
+    case categoryFeed
   }
   
   func make(_ type: ControllerType, parameters: [String: Any] = [:]) -> UIViewController? {
@@ -57,6 +58,9 @@ class ViewControllerGenerator {
       let productPostVC = ProductPostViewController()
       productPostVC.hidesBottomBarWhenPushed = true
       return productPostVC
+    case .categoryFeed:
+      guard let category = parameters["category"] as? String else { return nil }
+      return SelectedCategoryFeedViewController(category: category)
     }
   }
   
