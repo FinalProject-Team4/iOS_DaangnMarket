@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		58D3EF8D049708F21D9CA70D /* Pods_DaangnMarket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 032F584B1595BE08B167E3AB /* Pods_DaangnMarket.framework */; };
-		9A6536B42441A56E00301D01 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9A6536B32441A56E00301D01 /* GoogleService-Info.plist */; };
 		9A6536B92441A7FB00301D01 /* ProfilePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6536B82441A7FB00301D01 /* ProfilePageViewController.swift */; };
 		9A6536BB2441ABF200301D01 /* ProfileUserInformTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6536BA2441ABF200301D01 /* ProfileUserInformTableViewCell.swift */; };
 		9A6536BF2441AC3700301D01 /* PageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6536BE2441AC3700301D01 /* PageCollectionViewCell.swift */; };
@@ -111,7 +110,6 @@
 		DE4B705E24447EF0001BC5D8 /* UserProfilePercentageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4B705D24447EF0001BC5D8 /* UserProfilePercentageView.swift */; };
 		DE4B7080244490EE001BC5D8 /* MannerTemperatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4B707F244490EE001BC5D8 /* MannerTemperatureView.swift */; };
 		DE4B708224449981001BC5D8 /* PageChatLikeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4B708124449981001BC5D8 /* PageChatLikeView.swift */; };
-		DE4B70842444A46C001BC5D8 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4B70832444A46C001BC5D8 /* TestViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -225,7 +223,6 @@
 		DE4B705D24447EF0001BC5D8 /* UserProfilePercentageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePercentageView.swift; sourceTree = "<group>"; };
 		DE4B707F244490EE001BC5D8 /* MannerTemperatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MannerTemperatureView.swift; sourceTree = "<group>"; };
 		DE4B708124449981001BC5D8 /* PageChatLikeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageChatLikeView.swift; sourceTree = "<group>"; };
-		DE4B70832444A46C001BC5D8 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -263,7 +260,6 @@
 				ACCD94DE2429F89200153545 /* MyPageViewController.swift */,
 				9A6536B82441A7FB00301D01 /* ProfilePageViewController.swift */,
 				9A6536C62442738A00301D01 /* SellingItemsViewController.swift */,
-				DE4B70832444A46C001BC5D8 /* TestViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -833,7 +829,6 @@
 				AC52A4FC243C495600DB4FB6 /* ContentsTableViewCell.swift in Sources */,
 				A63F37C224359B5D002C0D9B /* KeywordTableViewCell.swift in Sources */,
 				9A6536C12441AC4B00301D01 /* PageTableViewCell.swift in Sources */,
-				DE4B70842444A46C001BC5D8 /* TestViewController.swift in Sources */,
 				AC52A4FF243C495600DB4FB6 /* PostData.swift in Sources */,
 				A62D97EC242DC449006F1722 /* SelectCategoryViewController.swift in Sources */,
 				AC28CD24242A3FCA0031999B /* References.swift in Sources */,
