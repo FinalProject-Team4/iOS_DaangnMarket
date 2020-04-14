@@ -21,6 +21,7 @@ class PostData {
   var address: String = ""
   var updated: String = ""
   var postImageSet: [String] = ["image1", "image2", "image3", "image4", "image5"]
+  //var postImageSet: [String] = []
   
   let numberFormatter = NumberFormatter()
  

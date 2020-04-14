@@ -43,7 +43,7 @@ class CustomNavigationBarView: UIView {
   
   // MARK: Properties
   
-  let viewWidth = UIScreen.main.bounds.width
+  private let viewWidth = UIScreen.main.bounds.width
   
   // MARK: Initialize
   
@@ -82,16 +82,17 @@ class CustomNavigationBarView: UIView {
     }
   }
   
-  func setupUI() {
+  private func setupUI() {
     setupAttributes()
     setupConstraints()
   }
   
-  func setupAttributes() {
-    self.frame = CGRect(x: 0, y: 0, width: viewWidth, height: 90)
+  private func setupAttributes() {
+    let sizeOfHeight = UINavigationBar.statusBarSize.height + UINavigationBar.navigationBarSize.height
+    self.frame = CGRect(x: 0, y: 0, width: viewWidth, height: sizeOfHeight)
     self.layer.addSublayer(gradientLayer)
-    let buttonSize: CGFloat = 23
-    let size: CGFloat = 15
+    let buttonSize: CGFloat = 22
+    let size: CGFloat = 14
     otherOptionButton.imageEdgeInsets = UIEdgeInsets(top: size, left: size, bottom: size, right: size)
     [backButton, sendOptionButton].forEach {
       $0.imageEdgeInsets = UIEdgeInsets(top: buttonSize, left: buttonSize, bottom: buttonSize, right: buttonSize)
@@ -101,31 +102,33 @@ class CustomNavigationBarView: UIView {
     otherOptionButton.addTarget(self, action: #selector(didTapOtherOptionButton(_:)), for: .touchUpInside)
   }
   
-  func setupConstraints() {
-    let spacing: CGFloat = 16
+  private func setupConstraints() {
+    let spacing: CGFloat = 10
+    
     self.backButton.then { self.addSubview($0) }
       .snp.makeConstraints {
-        $0.top.equalTo(self).offset(spacing * 3.5)
-        $0.leading.equalTo(self).offset(spacing)
+        $0.bottom.equalToSuperview().offset(-spacing)
+        $0.leading.equalToSuperview().offset(spacing)
     }
     self.otherOptionButton.then { self.addSubview($0) }
       .snp.makeConstraints {
         $0.top.equalTo(backButton).offset(4)
-        $0.trailing.equalTo(self).offset(-spacing)
+        $0.trailing.equalToSuperview().offset(-spacing * 2)
         $0.width.height.equalTo(15)
     }
     self.sendOptionButton.then { self.addSubview($0) }
       .snp.makeConstraints {
-        $0.trailing.equalTo(otherOptionButton.snp.leading).offset(-spacing)
+        $0.trailing.equalTo(otherOptionButton.snp.leading).offset(-spacing * 2)
         $0.top.equalTo(backButton)
     }
     self.lineView.then { self.addSubview($0) }
       .snp.makeConstraints {
         $0.height.equalTo(0.5)
-        $0.width.equalTo(self)
-        $0.bottom.equalTo(self)
+        $0.width.equalToSuperview()
+        $0.bottom.equalToSuperview()
     }
   }
+  
   // MARK: Actions
   
   @objc func didTapBackButton(_ sender: Any) {
