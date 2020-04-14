@@ -73,6 +73,12 @@ class HomeFeedViewController: UIViewController {
     saveOutputDate(page)
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    tabBarController?.tabBar.isHidden = false
+    navigationController?.navigationBar.isHidden = true
+  }
+  
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     if AuthorizationManager.shared.userInfo == nil {

@@ -35,35 +35,51 @@ class ProductPostViewController: UIViewController {
   }
   
   // MARK: Initialize
-  
+    
   override func viewDidLoad() {
     super.viewDidLoad()
     setupUI()
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    navigationController?.navigationBar.isHidden = true
+    tabBarController?.tabBar.isHidden = true
+    navigationController?.navigationBar.barStyle = .black
+  }
+  
   override func viewWillDisappear(_ animated: Bool) {
-    super.viewWillDisappear(false)
-    UIApplication.shared.statusBarStyle = .darkContent
+    super.viewWillDisappear(animated)
+    navigationController?.navigationBar.barStyle = .default
+    navigationController?.navigationBar.isHidden = false
+    self.hidesBottomBarWhenPushed = false
   }
   
   private func setupUI() {
+    setupNavigationBar()
     setupAttributes()
     setupConstraints()
+    self.setNeedsStatusBarAppearanceUpdate()
+  }
+  private func setupNavigationBar() {
+    navigationBar.delegate = self
+    self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+    let size: CGFloat = 4
+    let backImage = UIImage(systemName: "arrow.left")!.withAlignmentRectInsets(UIEdgeInsets(top: 0, left: 0, bottom: size, right: 0))
+    navigationController?.navigationBar.backIndicatorImage = backImage
+    navigationController?.navigationBar.backIndicatorTransitionMaskImage = backImage
   }
   
   private func setupAttributes() {
-    navigationBar.delegate = self
-    UIApplication.shared.statusBarStyle = .darkContent
-    navigationController?.isNavigationBarHidden = true
-    self.tabBarController?.tabBar.isHidden = true
     view.backgroundColor = .white
-    //pageControl.numberOfPages = dummy.postImageSet.count
     pageControl.numberOfPages = postData.postImageSet.count
     hScrollView.delegate = self
     setupTableView()
     if !postData.postImageSet.isEmpty {
       setupScrollView()
-      UIApplication.shared.statusBarStyle = .lightContent
+      navigationController?.navigationBar.barStyle = .black
+    } else {
+      navigationController?.navigationBar.barStyle = .default
     }
   }
   
@@ -127,7 +143,7 @@ class ProductPostViewController: UIViewController {
       $0.tintColor = .black
     }
     navigationBar.lineView.isHidden = false
-    UIApplication.shared.setStatusBarStyle(.darkContent, animated: true)
+    navigationController?.navigationBar.barStyle = .default
   }
   
   private func blackBackNavigationBar() {
@@ -138,7 +154,7 @@ class ProductPostViewController: UIViewController {
         $0.tintColor = .white
       }
       navigationBar.lineView.isHidden = true
-      UIApplication.shared.setStatusBarStyle(.lightContent, animated: true)
+      navigationController?.navigationBar.barStyle = .black
     }
   }
 }
@@ -172,7 +188,7 @@ extension ProductPostViewController: UITableViewDataSource {
       let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
       cell.selectionStyle = .none
       cell.textLabel?.text = "이 게시글 신고하기"
-      cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 17)
+      cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
       return cell
     case 3:
       guard let cell = tableView.dequeueReusableCell(withIdentifier: OtherItemsTableViewCell.identifier, for: indexPath) as? OtherItemsTableViewCell else { return UITableViewCell() }
@@ -194,7 +210,11 @@ extension ProductPostViewController: UITableViewDataSource {
 extension ProductPostViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     let tempOtherItems = ["0", "1", "2", "3"]
-    if indexPath.section == 3 {
+    
+    switch indexPath.section {
+    case 2:
+      return 50
+    case 3:
       if tempOtherItems.isEmpty {
         return 0
       } else if tempOtherItems.count > 2 {
@@ -202,10 +222,11 @@ extension ProductPostViewController: UITableViewDelegate {
       } else {
         return ( viewWidth + (CGFloat(16) * 3)) / 1.8
       }
-    } else {
+    default:
       return UITableView.automaticDimension
     }
   }
+  
   func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
     return 400
   }
@@ -222,6 +243,13 @@ extension ProductPostViewController: UITableViewDelegate {
       whiteBackNavigationBar()
     } else {
       blackBackNavigationBar()
+    }
+  }
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    if indexPath.section == 0 {
+      guard let profilePageVC = ViewControllerGenerator.shared.make(.profilePage) else { return }
+      navigationController?.pushViewController(profilePageVC, animated: true)
     }
   }
 }

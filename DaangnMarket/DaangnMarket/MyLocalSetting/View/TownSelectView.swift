@@ -104,7 +104,6 @@ class TownSelectView: UIView {
         changeSelectedTownButton(secondTownSelectBtn)
         changeUnSelectedTownButton(firstTownSelectBtn)
       } else {
-        
       }
     default: break
     }

@@ -18,9 +18,9 @@ class OtherItemsTableViewCell: UITableViewCell {
   
   // MARK: Views
   
-  private let sellerIDLabel = UILabel().then {
+  private let sellerNameLabel = UILabel().then {
     $0.textColor = .black
-    $0.font = UIFont.boldSystemFont(ofSize: 17)
+    $0.font = UIFont.boldSystemFont(ofSize: 15)
   }
   private let topLineView = UIView().then {
     $0.backgroundColor = UIColor(named: ColorReference.borderLine.rawValue)
@@ -46,7 +46,7 @@ class OtherItemsTableViewCell: UITableViewCell {
   
   func configure(items: [[String]], sellerName: String) {
     self.otherItems = items
-    sellerIDLabel.text = "\(sellerName)님의 판매 상품"
+    sellerNameLabel.text = "\(sellerName)님의 판매 상품"
   }
   
   private func setupUI() {
@@ -59,11 +59,11 @@ class OtherItemsTableViewCell: UITableViewCell {
   }
   
   private func setupFlowLayout() {
-    let cellSize: CGFloat = (viewWidth - (spacing * 3)) / 2
-    flowLayout.itemSize = CGSize(width: cellSize, height: cellSize)
-    flowLayout.minimumLineSpacing = spacing
-    flowLayout.minimumInteritemSpacing = spacing
-    flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+//    let cellSize: CGFloat = (viewWidth - (spacing * 3)) / 2
+//    flowLayout.itemSize = CGSize(width: cellSize, height: cellSize)
+//    flowLayout.minimumLineSpacing = spacing
+//    flowLayout.minimumInteritemSpacing = spacing
+//    flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
   }
   
   private func setupCollectionView() {
@@ -75,13 +75,13 @@ class OtherItemsTableViewCell: UITableViewCell {
   }
   
   private func setupConstraints() {
-    self.sellerIDLabel.then { self.addSubview($0) }
+    self.sellerNameLabel.then { self.addSubview($0) }
       .snp.makeConstraints {
         $0.top.leading.equalTo(self).offset(spacing)
     }
     self.collectionView.then { self.addSubview($0) }
       .snp.makeConstraints {
-        $0.top.equalTo(sellerIDLabel.snp.bottom).offset(spacing)
+        $0.top.equalTo(sellerNameLabel.snp.bottom).offset(spacing)
         $0.leading.trailing.equalTo(self).inset(spacing)
         $0.bottom.equalTo(self)
     }
@@ -111,6 +111,19 @@ extension OtherItemsTableViewCell: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegateFlowLayout
 
 extension OtherItemsTableViewCell: UICollectionViewDelegateFlowLayout {
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    let cellSize: CGFloat = (viewWidth - (spacing * 3)) / 2
+    return CGSize(width: cellSize, height: cellSize)
+  }
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    return spacing
+  }
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    return spacing
+  }
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+  }
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     delegate?.moveToPage()
   }
