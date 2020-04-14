@@ -13,13 +13,11 @@ final class ServiceManager {
   // MARK: Property
   
   static let shared = ServiceManager()
-//  private let host = "http://13.125.217.34/"
-//  private let postsListPath = "post/list/"
   
   // MARK: Request Post & PostInfo Data
   
-  func requestPostData(_ url: URL, completionHandler: @escaping (Result<PostInfo, Error>) -> Void) {
-    AF.request(url)
+  func requestPostData(_ url: URL, parameter: Parameters, completionHandler: @escaping (Result<PostInfo, Error>) -> Void) {
+    AF.request(url, parameters: parameter)
       .validate()
       .responseDecodable { (response: DataResponse<PostInfo, AFError>) in
         switch response.result {

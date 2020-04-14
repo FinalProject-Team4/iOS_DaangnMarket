@@ -9,14 +9,18 @@
 import UIKit
 
 class SecondTownSelectButton: UIButton {
+  // MARK: Property
+  
+  let noti = NotificationCenter.default
+  
   // MARK: Views
   
   lazy var selectedSecondTownLabel = UILabel().then {
-    $0.text = MyTownSetting.shared.secondSelectTown
     $0.textColor = .black
     $0.font = .systemFont(ofSize: 16, weight: .bold)
   }
   lazy var deleteSelectedSecondTownButton = UIButton().then {
+    $0.isHidden = true
     $0.transform = .init(scaleX: 1.2, y: 1.2)
     $0.tintColor = UIColor(named: ColorReference.noResultImage.rawValue)
     $0.setImage(UIImage(systemName: "xmark.circle"), for: .normal)
@@ -27,14 +31,24 @@ class SecondTownSelectButton: UIButton {
   
   override init(frame: CGRect) {
     super.init(frame: frame)
-    addAnotherTownNameNoti()
+    setupSecondBtnConstraints()
+    observeAnotherTownNameNoti()
+  }
+  
+  deinit {
+    noti.removeObserver(
+      self,
+      name: NSNotification.Name("anotherTownSecondTownBtn"),
+      object: nil
+    )
   }
   
   func setupSecondBtnConstraints() {
     let inButtonSubUI = [selectedSecondTownLabel, deleteSelectedSecondTownButton]
     inButtonSubUI.forEach { self.addSubview($0) }
     selectedSecondTownLabel.snp.makeConstraints {
-      $0.centerY.equalToSuperview()
+      $0.top.equalToSuperview().offset(16)
+      $0.bottom.equalToSuperview().offset(-16)
       $0.leading.equalToSuperview().offset(16)
     }
     deleteSelectedSecondTownButton.snp.makeConstraints {
@@ -45,11 +59,13 @@ class SecondTownSelectButton: UIButton {
     }
   }
   
-  private func addAnotherTownNameNoti() {
-    NotificationCenter.default.addObserver(self,
-                                           selector: #selector(addAnotherTownNameToButton),
-                                           name: NSNotification.Name("anotherTownSecondTownBtn"),
-                                           object: nil)
+  private func observeAnotherTownNameNoti() {
+    noti.addObserver(
+      self,
+      selector: #selector(addAnotherTownNameToButton),
+      name: NSNotification.Name("anotherTownSecondTownBtn"),
+      object: nil
+    )
   }
   
   // MARK: Action
@@ -58,7 +74,8 @@ class SecondTownSelectButton: UIButton {
     print("Delete Second Town")
   }
   @objc func addAnotherTownNameToButton() {
-    setupSecondBtnConstraints()
+    selectedSecondTownLabel.text = MyTownSetting.shared.secondSelectTown
+    deleteSelectedSecondTownButton.isHidden = false
   }
   
   required init?(coder: NSCoder) {

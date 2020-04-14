@@ -19,12 +19,8 @@ class MyTownAroundView: UIView {
     $0.text = "선택한 동네의 이웃들만 피드에서 이 게시글을 볼 수 있어요."
     $0.font = .systemFont(ofSize: 13)
   }
-  var distanceSlider = CustomSlider().then {
-    $0.minimumValue = 0.0
-    $0.maximumValue = 3.0
-    $0.minimumTrackTintColor = UIColor(named: ColorReference.daangnMain.rawValue)
-    $0.maximumTrackTintColor = UIColor(named: ColorReference.borderLine.rawValue)
-    $0.addTarget(self, action: #selector(slideAction(_:)), for: .valueChanged)
+  var distanceSlider = SliderView().then {
+    $0.addTarget(self, action: #selector(slideAction(_:)))
   }
   var sliderLeftLabel = UILabel().then {
     $0.text = "내동네"
@@ -34,7 +30,14 @@ class MyTownAroundView: UIView {
     $0.text = "근처동네"
     $0.font = .systemFont(ofSize: 12)
   }
-  
+  let sliderFirstPartView = UIView().then {
+    $0.backgroundColor = .white
+  }
+  let sliderSecondPartView = UIView().then {
+    $0.backgroundColor = .white
+  }
+ 
+
   // MARK: Initialize
   
   override init(frame: CGRect) {
@@ -58,7 +61,6 @@ class MyTownAroundView: UIView {
       $0.top.equalTo(descriptionLabel.snp.bottom).offset(26)
       $0.centerX.equalToSuperview()
       $0.leading.equalToSuperview().offset(25)
-//      $0.trailing.equalToSuperview().offset(-25)
       $0.height.equalTo(32)
     }
     sliderLeftLabel.snp.makeConstraints {
@@ -74,17 +76,12 @@ class MyTownAroundView: UIView {
   // MARK: Action
   
   @objc private func slideAction(_ sender: UISlider) {
-    MyTownSetting.shared.numberOfAroundTown = Int(sender.value)
-    townCountView.aroundTownCountLabel.attributedText = NSMutableAttributedString().underlineBold("근처 동네 \(Int(sender.value))개", fontSize: 17)
+    let aroundFirstTownCount = AuthorizationManager.shared.aroundTown.filter { Float($0.distance!/1_200) <= sender.value.rounded() }
+    MyTownSetting.shared.aroundFirtTown = aroundFirstTownCount
+    NotificationCenter.default.post(name: NSNotification.Name("AroundTownCountView"), object: nil)
   }
   
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
-  }
-}
-
-class CustomSlider: UISlider {
-  override func trackRect(forBounds bounds: CGRect) -> CGRect {
-    return .init(x: 0, y: 0, width: 325, height: 12)
   }
 }

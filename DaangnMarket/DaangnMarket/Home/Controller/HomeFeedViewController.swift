@@ -13,7 +13,8 @@ class HomeFeedViewController: UIViewController {
   // MARK: Property
   
   let service = ServiceManager.shared
-  private var url = "http://13.125.217.34/post/list/"
+  private var url = "http://13.125.217.34/post/list/gps"
+  var parameter: Parameters = [String: Any]()
   var nextPageURL: String?
   var posts = [Post]() {
     didSet {
@@ -43,12 +44,11 @@ class HomeFeedViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    homeTableView.dataSource = self
-    homeTableView.delegate = self
-    self.customNaviBar.delegate = self
     self.view.backgroundColor = .white
     self.tabBarController?.tabBar.isHidden = false
-    requestPostData(url)
+    self.parameter = ["local": 8750]
+    requestPostData(url, self.parameter)
+    callDelegate()
     setupUI()
   }
   
@@ -59,6 +59,12 @@ class HomeFeedViewController: UIViewController {
       doFirstViewPresent()
       }
     }
+  }
+  
+  private func callDelegate() {
+    homeTableView.dataSource = self
+    homeTableView.delegate = self
+    self.customNaviBar.delegate = self
   }
   
   // MARK: Initialize
@@ -73,7 +79,7 @@ class HomeFeedViewController: UIViewController {
   private func setupConstraints() {
     customNaviBar.snp.makeConstraints {
       $0.top.leading.trailing.equalToSuperview()
-      $0.height.equalTo(98)
+      $0.height.equalTo(80)
     }
     homeTableView.snp.makeConstraints {
       $0.top.equalTo(customNaviBar.snp.bottom)
@@ -83,8 +89,8 @@ class HomeFeedViewController: UIViewController {
   
   // MARK: Request PostData
   
-  func requestPostData(_ url: String) {
-    service.requestPostData(URL(string: url)!) { [weak self] result in
+  func requestPostData(_ url: String, _ parameter: Parameters) {
+    service.requestPostData(URL(string: url)!, parameter: parameter) { [weak self] result in
       guard let self = self else { return }
       switch result {
       case .success(let postInfoData):
@@ -179,7 +185,7 @@ extension HomeFeedViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
     if indexPath.row == (posts.count - 2) {
       guard let pageURL = nextPageURL else { return }
-      requestPostData(pageURL)
+      requestPostData(pageURL, self.parameter)
       self.perform(#selector(loadTable), with: nil, afterDelay: 1.0)
     }
   }

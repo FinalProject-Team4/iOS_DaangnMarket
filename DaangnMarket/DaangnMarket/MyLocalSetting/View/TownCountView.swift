@@ -8,16 +8,28 @@
 
 import UIKit
 
+protocol ShowAroundTownDelegate: class {
+  func showAroundTown()
+}
+
 class TownCountView: UIView {
+  // MARK: Property
+  
+  let noti = NotificationCenter.default
+  weak var delegate: ShowAroundTownDelegate?
+  
   // MARK: Views
+  
   lazy var myTownLabel = UILabel().then {
-    $0.text = MyTownSetting.shared.firstSelectTown
+//    $0.text = MyTownSetting.shared.firstSelectTown
     $0.textAlignment = .center
     $0.font = .systemFont(ofSize: 17, weight: .regular)
   }
-  lazy var aroundTownCountLabel = UILabel().then {
-    $0.textAlignment = .center
-    $0.attributedText = NSMutableAttributedString().underlineBold("근처 동네 \(MyTownSetting.shared.numberOfAroundTown ?? 0)개", fontSize: 17)
+  lazy var aroundTownCountBtn = UIButton().then {
+    let initTownCount = AuthorizationManager.shared.aroundTown.filter { Float($0.distance!/1_200) <= 1.0 }
+    var btnTitle = NSMutableAttributedString().underlineBold("근처 동네 \(initTownCount.count)개", fontSize: 17)
+    $0.setAttributedTitle(btnTitle, for: .normal)
+    $0.addTarget(self, action: #selector(didTapShowAroundTownCount), for: .touchUpInside)
   }
   
   // MARK: Initialize
@@ -28,34 +40,76 @@ class TownCountView: UIView {
     changeNameNoti()
   }
   
+  deinit {
+    noti.removeObserver(
+       self,
+       name: NSNotification.Name("FirstSelectTownCountView"),
+       object: nil
+    )
+    noti.removeObserver(
+      self,
+      name: NSNotification.Name("SecondSelectTownCountView"),
+      object: nil
+      )
+    noti.removeObserver(
+      self,
+      name: NSNotification.Name("AroundTownCountView"),
+      object: nil
+    )
+  }
+  
   private func setupConstraints() {
-    let viewSubUI = [myTownLabel, aroundTownCountLabel]
+    let viewSubUI = [myTownLabel, aroundTownCountBtn]
     viewSubUI.forEach { self.addSubview($0) }
     myTownLabel.snp.makeConstraints {
       $0.centerY.equalTo(self)
       $0.leading.equalTo(self)
     }
-    aroundTownCountLabel.snp.makeConstraints {
+    aroundTownCountBtn.snp.makeConstraints {
       $0.centerY.equalTo(self)
       $0.leading.equalTo(myTownLabel.snp.trailing).offset(5)
       $0.trailing.equalTo(self.snp.trailing)
     }
   }
   
+  // MARK: Notification Observer
+  
+  private func changeNameNoti() {
+    noti.addObserver(
+      self,
+      selector: #selector(setFirstTownName),
+      name: NSNotification.Name("FirstSelectTownCountView"),
+      object: nil
+    )
+    noti.addObserver(
+      self,
+      selector: #selector(setSecondTownName),
+      name: NSNotification.Name("SecondSelectTownCountView"),
+      object: nil
+    )
+    noti.addObserver(
+      self,
+      selector: #selector(setAroundTownCount),
+      name: NSNotification.Name("AroundTownCountView"),
+      object: nil
+    )
+  }
+  
   // MARK: Action
   
-  func changeNameNoti() {
-    NotificationCenter.default.addObserver(self, selector: #selector(firstTownName), name: NSNotification.Name("FirstSelectTownCountView"), object: nil)
-    NotificationCenter.default.addObserver(self, selector: #selector(secondTownName), name: NSNotification.Name("SecondSelectTownCountView"), object: nil)
-  }
-  
-  @objc func firstTownName() {
+  @objc private func setFirstTownName() {
     myTownLabel.text = MyTownSetting.shared.firstSelectTown
   }
-  @objc func secondTownName() {
+  @objc private func setSecondTownName() {
     myTownLabel.text = MyTownSetting.shared.secondSelectTown
   }
-
+  @objc private func setAroundTownCount() {
+    let btnChangeTitle = NSMutableAttributedString().underlineBold("근처 동네 \(MyTownSetting.shared.aroundFirtTown.count)개", fontSize: 17)
+    aroundTownCountBtn.setAttributedTitle(btnChangeTitle, for: .normal)
+  }
+  @objc private func didTapShowAroundTownCount() {
+    self.delegate?.showAroundTown()
+  }
   
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")

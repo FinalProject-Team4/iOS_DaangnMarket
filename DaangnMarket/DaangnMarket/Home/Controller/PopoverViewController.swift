@@ -11,24 +11,26 @@ import UIKit
 class PopoverViewController: UIViewController {
   // MARK: Views
   
-  lazy var firstLocation = UILabel().then {
-    $0.backgroundColor = .green
-    $0.textAlignment = .left
-    $0.font = .systemFont(ofSize: 16)
-    $0.frame = CGRect(x: 0, y: 0, width: 264, height: 50)
-    $0.text = "test"
-  }
-  lazy var secondLocation = UIButton().then {
+  lazy var firstMyTown = UIButton().then {
     $0.setTitle("나의동네 선택", for: .normal)
     $0.titleLabel?.font = .systemFont(ofSize: 16)
     $0.frame = CGRect(x: 0, y: 0, width: 264, height: 50)
     $0.restorationIdentifier = "myTownSelectButton"
-    $0.addTarget(self, action: #selector(viewChange(_:)), for: .touchUpInside)
+    $0.addTarget(self, action: #selector(didTapViewChange), for: .touchUpInside)
   }
-  lazy var thirdLocation = UILabel().then {
-    $0.textAlignment = .left
-    $0.font = .systemFont(ofSize: 16)
+  lazy var secondMyTown = UIButton().then {
+    $0.setTitle("나의동네 선택", for: .normal)
+    $0.titleLabel?.font = .systemFont(ofSize: 16)
     $0.frame = CGRect(x: 0, y: 0, width: 264, height: 50)
+    $0.restorationIdentifier = "myTownSelectButton"
+    $0.addTarget(self, action: #selector(didTapViewChange), for: .touchUpInside)
+  }
+  lazy var thirdMyTown = UIButton().then {
+    $0.setTitle("나의동네 선택", for: .normal)
+    $0.titleLabel?.font = .systemFont(ofSize: 16)
+    $0.frame = CGRect(x: 0, y: 0, width: 264, height: 50)
+    $0.restorationIdentifier = "myTownSelectButton"
+    $0.addTarget(self, action: #selector(didTapViewChange), for: .touchUpInside)
   }
   
   // MARK: Life Cycle
@@ -42,21 +44,22 @@ class PopoverViewController: UIViewController {
   // MARK: Initialize
   
   func constraint() {
-    self.view.addSubview(firstLocation)
-    firstLocation.snp.makeConstraints {
+    self.view.addSubview(firstMyTown)
+    firstMyTown.snp.makeConstraints {
       $0.top.equalToSuperview().offset(25)
       $0.leading.equalToSuperview().offset(25)
     }
-    self.view.addSubview(secondLocation)
-    secondLocation.snp.makeConstraints {
-      $0.top.equalTo(firstLocation.snp.bottom)
-      $0.leading.equalTo(firstLocation.snp.leading)
+    self.view.addSubview(secondMyTown)
+    secondMyTown.snp.makeConstraints {
+      $0.top.equalTo(firstMyTown.snp.bottom)
+      $0.leading.equalTo(firstMyTown.snp.leading)
     }
   }
   
   // MARK: Action
   
-  @objc func viewChange(_ sender: UIButton) {
+  @objc func didTapViewChange(_ sender: UIButton) {
+//    print(#function, "Sender : ", sender)
     if let selectedTown = AuthorizationManager.shared.selectedTown {
       MyTownSetting.shared.towns["first"] = selectedTown.dong
     }
@@ -67,8 +70,6 @@ class PopoverViewController: UIViewController {
     guard let myTownVC = ViewControllerGenerator.shared.make(.townSetting) else { return }
     myTownVC.modalPresentationStyle = .fullScreen
     self.present(myTownVC, animated: true)
-//    self.presentingViewController?.dismiss(animated: true)
-//    self.navigationController?.pushViewController(myLoclVC, animated: true)
   }
 }
 

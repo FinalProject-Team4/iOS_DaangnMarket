@@ -15,14 +15,24 @@ class MyTownSetting {
   
   // MARK: TownSelectView Property
 
-//  static var findTownAddres: Address?
-  var firstSelectTown: String?
-  var secondSelectTown: String?
+  var firstSelectTown = String()
+  var secondSelectTown = String()
 
   var towns = [String: String]()
   
   // MARK: MyTownAroundView Property
   
   var distance = Double()
-  var numberOfAroundTown: Int?
+  var aroundFirtTown = [Town]()
+  var aroundSecondTown = [Town]()
+  
+  enum DeleteTown {
+    case oneTown
+    case towTown
+  }
+  
+  enum UpperAlerCallBtn {
+    case firstBtn
+    case secondBtn
+  }
 }

@@ -8,14 +8,16 @@
 
 import UIKit
 protocol SecondTownButtonDelegate: class {
-  func secondTownSelectBtn(_ secondButton: UIButton)
+  func secondTownSelectBtn(_ button: UIButton)
 }
 
 class TownSelectView: UIView {
   // MARK: Delegate creation
   
   weak var delegate: SecondTownButtonDelegate?
-
+  
+  // MARK: Propoerty
+  let noti = NotificationCenter.default
   
   // MARK: Views
   
@@ -33,11 +35,11 @@ class TownSelectView: UIView {
   }
   var firstTownSelectBtn = FirstTownSelectButton().then {
     $0.layer.cornerRadius = 5
-    $0.addTarget(self, action: #selector(didTapSelectTownButton), for: .touchUpInside)
+    $0.addTarget(self, action: #selector(didTapSelectTownButton(_:)), for: .touchUpInside)
     $0.backgroundColor = UIColor(named: ColorReference.daangnMain.rawValue)
     }
   var secondTownSelectBtn = SecondTownSelectButton().then {
-    $0.addTarget(self, action: #selector(didTapSelectTownButton), for: .touchUpInside)
+    $0.addTarget(self, action: #selector(didTapSelectTownButton(_:)), for: .touchUpInside)
     $0.setImage(UIImage(systemName: "plus"), for: .normal)
     $0.tintColor = UIColor(named: ColorReference.noResultImage.rawValue)
     $0.layer.cornerRadius = 5
@@ -45,6 +47,7 @@ class TownSelectView: UIView {
     $0.layer.borderWidth = 1
     $0.backgroundColor = .white
   }
+  lazy var upperAlert = DGUpperAlert()
   
   // MARK: Initialize
   
@@ -52,6 +55,14 @@ class TownSelectView: UIView {
     super.init(frame: frame)
     inViewSetupConstraints()
     hidePlusImageNoti()
+  }
+  
+  deinit {
+    noti.removeObserver(
+      self,
+      name: NSNotification.Name("hidePlusTownSelectView"),
+      object: nil
+    )
   }
   
   private func inViewSetupConstraints() {
@@ -112,10 +123,12 @@ class TownSelectView: UIView {
     }
   }
   private func hidePlusImageNoti() {
-    NotificationCenter.default.addObserver(self,
-                                           selector: #selector(hidePlusImage),
-                                           name: NSNotification.Name("hidePlusTownSelectView"),
-                                           object: nil)
+    noti.addObserver(
+      self,
+      selector: #selector(hidePlusImage),
+      name: NSNotification.Name("hidePlusTownSelectView"),
+      object: nil
+    )
   }
   
   // MARK: Action
@@ -123,26 +136,49 @@ class TownSelectView: UIView {
   @objc func didTapSelectTownButton(_ sender: UIButton) {
     switch sender {
     case firstTownSelectBtn:
-      NotificationCenter.default.post(name: NSNotification.Name("FirstSelectTownCountView"),
-                                      object: nil)
-      changeSelectedTownButton(firstTownSelectBtn)
-      changeUnSelectedTownButton(secondTownSelectBtn)
+      noti.post(
+        name: NSNotification.Name("FirstSelectTownCountView"),
+        object: nil
+      )
+      changeBtnBGColor(firstTownSelectBtn)
+      willDisplayUpperAlert(.firstBtn)
     case secondTownSelectBtn:
-      if MyTownSetting.shared.secondSelectTown != nil {
-        NotificationCenter.default.post(name: NSNotification.Name("SecondSelectTownCountView"),
-                                        object: nil)
-        changeSelectedTownButton(secondTownSelectBtn)
-        changeUnSelectedTownButton(firstTownSelectBtn)
+      if !MyTownSetting.shared.secondSelectTown.isEmpty {
+        noti.post(
+          name: NSNotification.Name("SecondSelectTownCountView"),
+          object: nil
+        )
+        changeBtnBGColor(secondTownSelectBtn)
+        willDisplayUpperAlert(.secondBtn)
       } else {
         self.delegate?.secondTownSelectBtn(sender)
       }
     default: break
     }
   }
-  
   @objc func hidePlusImage() {
-    print("hide plus image")
     secondTownSelectBtn.setImage(UIImage(), for: .normal)
+  }
+  func changeBtnBGColor(_ sender: UIButton) {
+    switch sender {
+    case firstTownSelectBtn:
+      changeSelectedTownButton(firstTownSelectBtn)
+      changeUnSelectedTownButton(secondTownSelectBtn)
+    case secondTownSelectBtn:
+      if !MyTownSetting.shared.secondSelectTown.isEmpty {
+        changeSelectedTownButton(secondTownSelectBtn)
+        changeUnSelectedTownButton(firstTownSelectBtn)
+      }
+    default: break
+    }
+  }
+  private func willDisplayUpperAlert(_ selectButton: MyTownSetting.UpperAlerCallBtn) {
+    switch selectButton {
+    case .firstBtn:
+      upperAlert.show(message: "\(MyTownSetting.shared.firstSelectTown)으로 설정되었습니다.")
+    case .secondBtn:
+      upperAlert.show(message: "\(MyTownSetting.shared.secondSelectTown)으로 설정되었습니다.")
+    }
   }
   
   required init?(coder: NSCoder) {

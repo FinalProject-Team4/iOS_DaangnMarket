@@ -18,7 +18,7 @@ class CutomNavigationBar: UIView {
   
   let selectedTownButton = UIButton().then {
     $0.setTitleColor(.black, for: .normal)
-    $0.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
+    $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
     $0.addTarget(self, action: #selector(didTapButtonsInNaviBar(_:)), for: .touchUpInside)
   }
   let selectedTownArrowImage = UIImageView().then {
@@ -27,20 +27,20 @@ class CutomNavigationBar: UIView {
     $0.tintColor = .black
   }
   let searchButton = UIButton(type: .system).then {
-    $0.frame.size = CGSize(width: 32, height: 32)
+    $0.frame.size = CGSize(width: 22, height: 22)
     $0.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
     $0.tintColor = .black
     $0.restorationIdentifier = "magnifyingglass"
     $0.addTarget(self, action: #selector(didTapButtonsInNaviBar(_:)), for: .touchUpInside)
   }
   let categoryFilterButton = UIButton(type: .system).then {
-    $0.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
+    $0.frame = CGRect(x: 0, y: 0, width: 22, height: 22)
     $0.setImage(UIImage(systemName: "slider.horizontal.3"), for: .normal)
     $0.tintColor = .black
     $0.addTarget(self, action: #selector(didTapButtonsInNaviBar(_:)), for: .touchUpInside)
   }
   let notificationButton = UIButton(type: .system).then {
-    $0.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
+    $0.frame = CGRect(x: 0, y: 0, width: 22, height: 22)
     $0.setImage(UIImage(systemName: "bell"), for: .normal)
     $0.tintColor = .black
     $0.addTarget(self, action: #selector(didTapButtonsInNaviBar(_:)), for: .touchUpInside)
