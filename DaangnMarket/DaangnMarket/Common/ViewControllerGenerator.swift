@@ -29,6 +29,7 @@ class ViewControllerGenerator {
     case writeUsed
     case productPost
     case notification
+    case categoryFeed
   }
   
   func make(_ type: ControllerType, parameters: [String: Any] = [:]) -> UIViewController? {
@@ -60,6 +61,9 @@ class ViewControllerGenerator {
       return productPostVC
     case .notification:
       return NotificationViewController()
+    case .categoryFeed:
+      guard let category = parameters["category"] as? String else { return nil }
+      return SelectedCategoryFeedViewController(category: category)
     }
   }
   

@@ -28,6 +28,8 @@
 		A6C1E36D243B51A100A6FF32 /* WriteClearViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C1E36C243B51A100A6FF32 /* WriteClearViewController.swift */; };
 		A6C1E393243C5CE400A6FF32 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C1E392243C5CE400A6FF32 /* MainTabBarController.swift */; };
 		A6C1E395243D6B0E00A6FF32 /* CategoryItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C1E394243D6B0E00A6FF32 /* CategoryItemView.swift */; };
+		A6C1E397243EDA6700A6FF32 /* SelectedCategoryFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C1E396243EDA6700A6FF32 /* SelectedCategoryFeedViewController.swift */; };
+		A6F71D7A2440624F009DB2E9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A6F71D792440624F009DB2E9 /* GoogleService-Info.plist */; };
 		A6FB7193243731560092A5F1 /* DGAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6FB7192243731560092A5F1 /* DGAlertController.swift */; };
 		A6FB7195243755770092A5F1 /* DGAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6FB7194243755770092A5F1 /* DGAlertAction.swift */; };
 		A6FB71992439A7AE0092A5F1 /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6FB71982439A7AE0092A5F1 /* CategoryModel.swift */; };
@@ -131,6 +133,8 @@
 		A6C1E36C243B51A100A6FF32 /* WriteClearViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteClearViewController.swift; sourceTree = "<group>"; };
 		A6C1E392243C5CE400A6FF32 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		A6C1E394243D6B0E00A6FF32 /* CategoryItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CategoryItemView.swift; path = ../../CategoryItemView.swift; sourceTree = "<group>"; };
+		A6C1E396243EDA6700A6FF32 /* SelectedCategoryFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedCategoryFeedViewController.swift; sourceTree = "<group>"; };
+		A6F71D792440624F009DB2E9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A6FB7192243731560092A5F1 /* DGAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DGAlertController.swift; sourceTree = "<group>"; };
 		A6FB7194243755770092A5F1 /* DGAlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DGAlertAction.swift; sourceTree = "<group>"; };
 		A6FB71982439A7AE0092A5F1 /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
@@ -500,6 +504,7 @@
 			children = (
 				ACCD94D62429F81D00153545 /* CategoryViewController.swift */,
 				A6C1E394243D6B0E00A6FF32 /* CategoryItemView.swift */,
+				A6C1E396243EDA6700A6FF32 /* SelectedCategoryFeedViewController.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -832,6 +837,7 @@
 				A62D97E0242B401B006F1722 /* WriteTableTitleCell.swift in Sources */,
 				A62D97E8242B5FDC006F1722 /* AddImageView.swift in Sources */,
 				ACCC9757242B509E008F95DE /* LocationManager.swift in Sources */,
+				A6C1E397243EDA6700A6FF32 /* SelectedCategoryFeedViewController.swift in Sources */,
 				AC52A4E7243AED3900DB4FB6 /* UIApplication+Extension.swift in Sources */,
 				AC52A4E32439AF4300DB4FB6 /* ProfileImageView.swift in Sources */,
 				AC5052DB242DA1B40045B9BC /* TownBackgroundView.swift in Sources */,
