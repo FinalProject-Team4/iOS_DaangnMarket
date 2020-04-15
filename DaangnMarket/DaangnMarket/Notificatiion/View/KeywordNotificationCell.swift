@@ -8,13 +8,26 @@
 
 import UIKit
 
-class KeywordNotificationCell: UITableViewCell {
+class KeywordNotificationCell: NotificationCell {
   // MARK: Interface
   
-  func configure(content: String, image: UIImage, date: String) {
+  override func configure(thumbnail: UIImage?, content: String, date: String) -> Self {
     self.contentLabel.text = content
-    self.thumbnailImageView.image = image
+    self.thumbnailImageView.image = thumbnail
     self.dateLabel.text = date
+    return self
+  }
+  
+  func setEditMode(_ editMode: Bool, for tableView: UITableView) {
+    self.editButton
+      .snp.updateConstraints {
+        $0.size.equalTo(editMode ? 10 : .zero)
+        $0.leading
+          .equalTo(self.contentLabel.snp.trailing)
+          .offset(editMode ? 24 : 0)
+    }
+    tableView.beginUpdates()
+    tableView.endUpdates()
   }
   
   // MARK: Views
@@ -29,6 +42,10 @@ class KeywordNotificationCell: UITableViewCell {
   private let dateLabel = UILabel().then {
     $0.textColor = UIColor(named: ColorReference.item.rawValue)
     $0.font = .systemFont(ofSize: 13)
+  }
+  private let editButton = UIButton().then {
+    $0.setImage(UIImage(systemName: ImageReference.xmark.rawValue), for: .normal)
+    $0.tintColor = .black
   }
   
   // MARK: Identifier
@@ -59,9 +76,22 @@ class KeywordNotificationCell: UITableViewCell {
         $0.leading
           .equalTo(self.thumbnailImageView.snp.trailing)
           .offset(padding.x)
+//        $0.trailing
+//          .equalToSuperview()
+//          .offset(-padding.x)
+    }
+    
+    self.editButton
+      .then { self.contentView.addSubview($0) }
+      .snp.makeConstraints {
+        $0.top.equalTo(self.contentLabel)
+        $0.leading
+          .equalTo(self.contentLabel.snp.trailing)
+          .offset(padding.x)
         $0.trailing
           .equalToSuperview()
           .offset(-padding.x)
+        $0.size.equalTo(0)
     }
     
     self.dateLabel

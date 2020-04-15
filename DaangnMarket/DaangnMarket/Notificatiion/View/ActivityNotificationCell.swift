@@ -8,13 +8,26 @@
 
 import UIKit
 
-class ActivityNotificationCell: UITableViewCell {
+class ActivityNotificationCell: NotificationCell {
   // MARK: Interface
   
-  func configure(content: String, thumbnail: ImageReference.Notification, date: String) {
+  override func configure(thumbnail: UIImage?, content: String, date: String) -> Self {
     self.contentLabel.text = content
-    self.thumbnailImageView.image = UIImage(named: thumbnail.rawValue)
+    self.thumbnailImageView.image = thumbnail
     self.dateLabel.text = date
+    return self
+  }
+  
+  func setEditMode(_ editMode: Bool, for tableView: UITableView) {
+    self.editButton
+      .snp.updateConstraints {
+        $0.size.equalTo(editMode ? 10 : .zero)
+        $0.leading
+          .equalTo(self.contentLabel.snp.trailing)
+          .offset(editMode ? 24 : 0)
+    }
+    tableView.beginUpdates()
+    tableView.endUpdates()
   }
   
   // MARK: Views
@@ -27,6 +40,10 @@ class ActivityNotificationCell: UITableViewCell {
   private let dateLabel = UILabel().then {
     $0.textColor = UIColor(named: ColorReference.item.rawValue)
     $0.font = .systemFont(ofSize: 13)
+  }
+  private let editButton = UIButton().then {
+    $0.setImage(UIImage(systemName: ImageReference.xmark.rawValue), for: .normal)
+    $0.tintColor = .black
   }
   
   // MARK: Identifier
@@ -59,9 +76,19 @@ class ActivityNotificationCell: UITableViewCell {
         $0.leading
           .equalTo(self.thumbnailImageView.snp.trailing)
           .offset(spacing * 2)
+    }
+    
+    self.editButton
+      .then { self.contentView.addSubview($0) }
+      .snp.makeConstraints {
+        $0.top.equalTo(self.contentLabel)
+        $0.leading
+          .equalTo(self.contentLabel.snp.trailing)
+          .offset(spacing * 3)
         $0.trailing
           .equalToSuperview()
           .offset(-padding.x)
+        $0.size.equalTo(0)
     }
     
     self.dateLabel
@@ -75,6 +102,12 @@ class ActivityNotificationCell: UITableViewCell {
           .equalToSuperview()
           .offset(-padding.y)
     }
+  }
+  
+  // MARK: Actions
+  
+  @objc private func didTapEditButton(_ sender: UIButton) {
+    
   }
   
   required init?(coder: NSCoder) {

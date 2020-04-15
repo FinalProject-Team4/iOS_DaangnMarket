@@ -19,6 +19,7 @@ class NotificationViewController: UIViewController {
     }
     $0.rightButton = UIButton().then { button in
       button.setBackgroundImage(UIImage(systemName: ImageReference.trash.rawValue), for: .normal)
+      button.setBackgroundImage(UIImage(systemName: ImageReference.checkmark.rawValue), for: .selected)
       button.tintColor = .black
       button.addTarget(self, action: #selector(didTapEditButton(_:)), for: .touchUpInside)
     }
@@ -28,22 +29,9 @@ class NotificationViewController: UIViewController {
   private lazy var segmentedControl = DGSegmentedControl(items: ["활동 알림", "키워드 알림"]).then {
     $0.delegate = self
   }
-  private lazy var scrollView = UIScrollView().then {
-    $0.isPagingEnabled = true
-    $0.delegate = self
-    $0.showsHorizontalScrollIndicator = false
-  }
-  private lazy var activityNotiTableView = UITableView().then {
-    $0.dataSource = self
-    $0.register(ActivityNotificationCell.self, forCellReuseIdentifier: ActivityNotificationCell.identifier)
-    let insetX = $0.separatorInset.left
-    $0.separatorInset = UIEdgeInsets(top: 0, left: insetX, bottom: 0, right: insetX)
-  }
-  private lazy var keywordNotiTableView = UITableView().then {
-    $0.dataSource = self
-    $0.register(KeywordNotificationCell.self, forCellReuseIdentifier: KeywordNotificationCell.identifier)
-    let insetX = $0.separatorInset.left
-    $0.separatorInset = UIEdgeInsets(top: 0, left: insetX, bottom: 0, right: insetX)
+  private lazy var notificationTableView = NotificationTableView().then {
+    $0.scrollViewDelegate = self
+    $0.setTableViewDataSource(self)
   }
   
   // MARK: Model
@@ -85,27 +73,12 @@ class NotificationViewController: UIViewController {
         $0.leading.trailing.equalTo(self.navigationBar)
         $0.height.equalTo(40)
     }
-      
-    scrollView
+    
+    self.notificationTableView
       .then { self.view.addSubview($0) }
       .snp.makeConstraints {
         $0.top.equalTo(self.segmentedControl.snp.bottom)
         $0.leading.trailing.bottom.equalTo(self.view.safeAreaLayoutGuide)
-    }
-    
-    self.activityNotiTableView
-      .then { scrollView.addSubview($0) }
-      .snp.makeConstraints {
-        $0.top.leading.bottom.equalToSuperview()
-        $0.size.equalToSuperview()
-    }
-    
-    self.keywordNotiTableView
-      .then { scrollView.addSubview($0) }
-      .snp.makeConstraints {
-        $0.leading.equalTo(self.activityNotiTableView.snp.trailing)
-        $0.top.trailing.bottom.equalToSuperview()
-        $0.size.equalToSuperview()
     }
   }
   
@@ -116,7 +89,8 @@ class NotificationViewController: UIViewController {
   }
   
   @objc private func didTapEditButton(_ sender: UIButton) {
-    self.navigationController?.popViewController(animated: true)
+    sender.isSelected.toggle()
+    self.notificationTableView.setEditing(sender.isSelected)
   }
 }
 
@@ -124,7 +98,7 @@ class NotificationViewController: UIViewController {
 
 extension NotificationViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    if tableView.isEqual(self.activityNotiTableView) {
+    if self.notificationTableView.isActivityNotification(tableView) {
       return self.model.contents.count
     } else {
       return self.model.keywordContents.count
@@ -132,36 +106,22 @@ extension NotificationViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    if tableView.isEqual(self.activityNotiTableView) {
-      guard let cell = tableView.dequeueReusableCell(withIdentifier: ActivityNotificationCell.identifier)  as? ActivityNotificationCell else { return UITableViewCell() }
-      
-      let thumbnail: ImageReference.Notification
-      switch indexPath.row {
-      case 2:
-        thumbnail = .priceDown
-      case 3:
-        thumbnail = .daangni
-      default:
-        thumbnail = .daangnLogo
-      }
-      
-      cell.configure(
-        content: self.model.contents[indexPath.row],
-        thumbnail: thumbnail,
-        date: "\(indexPath.row + 1)시간 전"
+    if self.notificationTableView.isActivityNotification(tableView) {
+      return self.notificationTableView
+        .dequeueCell(.activity, for: indexPath)
+        .configure(
+          thumbnail: UIImage(named: self.model.thumbnails[indexPath.row].rawValue),
+          content: self.model.contents[indexPath.row],
+          date: "\(indexPath.row + 1)시간 전"
       )
-      
-      return cell
     } else {
-      guard let cell = tableView.dequeueReusableCell(withIdentifier: KeywordNotificationCell.identifier)  as? KeywordNotificationCell else { return UITableViewCell() }
-      
-      cell.configure(
-        content: self.model.keywordContents[indexPath.row],
-        image: UIImage(named: "image1")!,
-        date: "\(indexPath.row + 1)시간 전"
+      return self.notificationTableView
+        .dequeueCell(.keyword, for: indexPath)
+        .configure(
+          thumbnail: UIImage(named: "image1")!,
+          content: self.model.keywordContents[indexPath.row],
+          date: "\(indexPath.row + 1)시간 전"
       )
-      
-      return cell
     }
   }
 }
@@ -190,7 +150,7 @@ extension NotificationViewController: UIScrollViewDelegate {
 
 extension NotificationViewController: DGSegmentControlDelegate {
   func segmentControl(_ segmentControl: DGSegmentedControl, didSelectSegmeentAt index: Int) {
-    let offset = CGPoint(x: CGFloat(index) * self.scrollView.frame.width, y: 0)
-    self.scrollView.setContentOffset(offset, animated: true)
+    let offset = CGPoint(x: CGFloat(index) * self.notificationTableView.frame.width, y: 0)
+    self.notificationTableView.setContentOffset(offset, animated: true)
   }
 }

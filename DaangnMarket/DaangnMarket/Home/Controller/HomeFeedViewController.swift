@@ -50,7 +50,7 @@ class HomeFeedViewController: UIViewController {
     $0.tintColor = .black
     $0.addTarget(self, action: #selector(didTapButtonsInNaviBar(_:)), for: .touchUpInside)
   }
-  private let rightBarItemBell = UIButton(type: .system).then {
+  private lazy var rightBarItemBell = UIButton(type: .system).then {
     $0.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
     $0.setImage(UIImage(systemName: "bell"), for: .normal)
     $0.tintColor = .black
@@ -187,7 +187,9 @@ class HomeFeedViewController: UIViewController {
     case rightBarItemSlider:
       print("카테고리선택")
     case rightBarItemBell:
-      print("알림")
+      ViewControllerGenerator.shared
+        .make(.notification)?
+        .do { self.navigationController?.pushViewController($0, animated: true) }
     default: break
     }
   }

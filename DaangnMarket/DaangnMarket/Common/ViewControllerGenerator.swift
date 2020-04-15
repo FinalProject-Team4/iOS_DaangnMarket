@@ -28,6 +28,7 @@ class ViewControllerGenerator {
     case popover
     case writeUsed
     case productPost
+    case notification
   }
   
   func make(_ type: ControllerType, parameters: [String: Any] = [:]) -> UIViewController? {
@@ -57,6 +58,8 @@ class ViewControllerGenerator {
       let productPostVC = ProductPostViewController()
       productPostVC.hidesBottomBarWhenPushed = true
       return productPostVC
+    case .notification:
+      return NotificationViewController()
     }
   }
   

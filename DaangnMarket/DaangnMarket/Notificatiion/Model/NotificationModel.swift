@@ -16,6 +16,13 @@ class NotificationModel {
     "cskim님, 낙성대동 근처에서 최근 일주일 동안 29454.0개의 물품이 올라왔어요. 지금 앱을 켜서 확인해보세요!"
   ]
   
+  let thumbnails: [ImageReference.Notification] = [
+    .daangnLogo,
+    .daangnLogo,
+    .priceDown,
+    .daangni,
+  ]
+  
   let keywordContents = [
     "[기타 키워드 알림] 방배본동 - \"Taylor rlxk ahepff 712\"",
     "[기타 키워드 알림] 서초3동 - \"Dame 입문용기타+부속품\"",
