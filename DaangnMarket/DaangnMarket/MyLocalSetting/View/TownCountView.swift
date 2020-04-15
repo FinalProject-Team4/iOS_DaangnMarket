@@ -8,15 +8,15 @@
 
 import UIKit
 
-protocol ShowAroundTownDelegate: class {
-  func showAroundTown()
+protocol ShowAroundTownsNameDelegate: class {
+  func showAroundTownsName()
 }
 
 class TownCountView: UIView {
   // MARK: Property
   
   let noti = NotificationCenter.default
-  weak var delegate: ShowAroundTownDelegate?
+  weak var delegate: ShowAroundTownsNameDelegate?
   
   // MARK: Views
   
@@ -104,11 +104,11 @@ class TownCountView: UIView {
     myTownLabel.text = MyTownSetting.shared.secondSelectTown
   }
   @objc private func setAroundTownCount() {
-    let btnChangeTitle = NSMutableAttributedString().underlineBold("근처 동네 \(MyTownSetting.shared.aroundFirtTown.count)개", fontSize: 17)
+    let btnChangeTitle = NSMutableAttributedString().underlineBold("근처 동네 \(MyTownSetting.shared.numberOfAroundFirstTownByDistance.count)개", fontSize: 17)
     aroundTownCountBtn.setAttributedTitle(btnChangeTitle, for: .normal)
   }
   @objc private func didTapShowAroundTownCount() {
-    self.delegate?.showAroundTown()
+    self.delegate?.showAroundTownsName()
   }
   
   required init?(coder: NSCoder) {

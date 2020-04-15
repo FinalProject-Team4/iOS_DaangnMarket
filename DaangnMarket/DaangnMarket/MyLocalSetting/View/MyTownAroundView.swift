@@ -76,9 +76,14 @@ class MyTownAroundView: UIView {
   // MARK: Action
   
   @objc private func slideAction(_ sender: UISlider) {
-    let aroundFirstTownCount = AuthorizationManager.shared.aroundTown.filter { Float($0.distance!/1_200) <= sender.value.rounded() }
-    MyTownSetting.shared.aroundFirtTown = aroundFirstTownCount
-    NotificationCenter.default.post(name: NSNotification.Name("AroundTownCountView"), object: nil)
+    let aroundTownCount = AuthorizationManager.shared.aroundTown.filter { Float($0.distance!/1_200) <= sender.value.rounded() }
+    MyTownSetting.shared.numberOfAroundFirstTownByDistance = aroundTownCount
+    NotificationCenter.default.post(
+      name: NSNotification.Name("AroundTownCountView"),
+      object: nil
+    )
+    print("slide value", sender.value)
+    print("change num of town when slide action", MyTownSetting.shared.numberOfAroundFirstTownByDistance.count)
   }
   
   required init?(coder: NSCoder) {

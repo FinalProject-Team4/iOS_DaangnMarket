@@ -93,7 +93,7 @@
 		AD6EBFB3243AF07C003F01CA /* MyTownAroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6EBFB2243AF07C003F01CA /* MyTownAroundView.swift */; };
 		AD6EBFB5243B1D70003F01CA /* TownCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6EBFB4243B1D70003F01CA /* TownCountView.swift */; };
 		AD7ABAB22440601E00520C28 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD7ABAB12440601E00520C28 /* GoogleService-Info.plist */; };
-		AD7ABAB42443FFB000520C28 /* AroundTownViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7ABAB32443FFB000520C28 /* AroundTownViewController.swift */; };
+		AD7ABAB42443FFB000520C28 /* AroundTownsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7ABAB32443FFB000520C28 /* AroundTownsViewController.swift */; };
 		AD7BEF772444811300F72831 /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7BEF762444811300F72831 /* CustomSlider.swift */; };
 		ADAA12BF2433214000A692A0 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAA12BE2433214000A692A0 /* PopoverViewController.swift */; };
 		ADD05132242B595200312DF1 /* HomeFeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD05131242B595200312DF1 /* HomeFeedTableViewCell.swift */; };
@@ -195,7 +195,7 @@
 		AD6EBFB2243AF07C003F01CA /* MyTownAroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTownAroundView.swift; sourceTree = "<group>"; };
 		AD6EBFB4243B1D70003F01CA /* TownCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownCountView.swift; sourceTree = "<group>"; };
 		AD7ABAB12440601E00520C28 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		AD7ABAB32443FFB000520C28 /* AroundTownViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AroundTownViewController.swift; sourceTree = "<group>"; };
+		AD7ABAB32443FFB000520C28 /* AroundTownsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AroundTownsViewController.swift; sourceTree = "<group>"; };
 		AD7BEF762444811300F72831 /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
 		ADAA12BE2433214000A692A0 /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
 		ADD05131242B595200312DF1 /* HomeFeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeedTableViewCell.swift; sourceTree = "<group>"; };
@@ -569,7 +569,7 @@
 			children = (
 				AD6EBFA12436C427003F01CA /* MyTownSettingViewController.swift */,
 				AD6208A9243CB386007818C6 /* ChooseTownToShowViewController.swift */,
-				AD7ABAB32443FFB000520C28 /* AroundTownViewController.swift */,
+				AD7ABAB32443FFB000520C28 /* AroundTownsViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -756,7 +756,7 @@
 				ACFB7D3A242CCE9200E47F97 /* UIDevice+Extension.swift in Sources */,
 				A62D97E4242B403E006F1722 /* WriteTablePriceCell.swift in Sources */,
 				A6FB7195243755770092A5F1 /* DGAlertAction.swift in Sources */,
-				AD7ABAB42443FFB000520C28 /* AroundTownViewController.swift in Sources */,
+				AD7ABAB42443FFB000520C28 /* AroundTownsViewController.swift in Sources */,
 				A6C1E36B243B38AF00A6FF32 /* WriteTypeButtonView.swift in Sources */,
 				ACB2B60924334813002FAF27 /* NSMutableAttributedString+Extension.swift in Sources */,
 				ACCD94D72429F81D00153545 /* CategoryViewController.swift in Sources */,

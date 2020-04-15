@@ -67,7 +67,9 @@ class CustomSlider: UISlider {
     super.touchesEnded(touches, with: event)
     guard let point = touches.first?.location(in: self) else { return }
     let value = point.x / self.frame.width * 3
-//    print("Touch Point :", value)
+    let aroundTownCount = AuthorizationManager.shared.aroundTown.filter { Float($0.distance!/1_200) <= Float(value.rounded()) }
+    print("touched ended value", self.value)
+    MyTownSetting.shared.numberOfAroundFirstTownByDistance = aroundTownCount
     UIView.animate(
       withDuration: 0.3,
       delay: 0,
@@ -79,6 +81,11 @@ class CustomSlider: UISlider {
         self.layoutIfNeeded() },
       completion: nil
     )
+    NotificationCenter.default.post(
+      name: NSNotification.Name("AroundTownCountView"),
+      object: nil
+    )
+    print("change num of town when touches ended", MyTownSetting.shared.numberOfAroundFirstTownByDistance.count)
   }
   
   required init?(coder: NSCoder) {

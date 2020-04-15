@@ -13,8 +13,8 @@ class MyTownSettingViewController: UIViewController {
   
   static var isFirstButton = true
   let noti = NotificationCenter.default
-  weak var showDelegate: ShowAroundTownDelegate?
-  weak var deletaDelegate: DeleteButtonDelegate?
+  weak var showDelegate: ShowAroundTownsNameDelegate?
+  weak var deleteDelegate: DeleteButtonDelegate?
   
   // MARK: Views
   
@@ -102,10 +102,10 @@ class MyTownSettingViewController: UIViewController {
   }
   
   private func saveAroundTown() {
-    if MyTownSetting.shared.aroundFirtTown.isEmpty {
-      MyTownSetting.shared.aroundFirtTown = AuthorizationManager.shared.aroundTown
+    if MyTownSetting.shared.numberOfAroundFirstTownByDistance.isEmpty {
+      MyTownSetting.shared.numberOfAroundFirstTownByDistance = AuthorizationManager.shared.aroundTown
     } else {
-      MyTownSetting.shared.aroundSecondTown = AuthorizationManager.shared.aroundTown
+      MyTownSetting.shared.numberOfAroundSecondTownByDistance = AuthorizationManager.shared.aroundTown
     }
   }
   
@@ -145,11 +145,11 @@ extension MyTownSettingViewController: SecondTownButtonDelegate {
   }
 }
 
-// MARK: ShowAroundTown ViewController Delegte
-extension MyTownSettingViewController: ShowAroundTownDelegate {
-  func showAroundTown() {
-    let aroundTownVC = AroundTownViewController()
-    self.navigationController?.pushViewController(aroundTownVC, animated: true)
+// MARK: ShowAroundTownsName ViewController Delegte
+extension MyTownSettingViewController: ShowAroundTownsNameDelegate {
+  func showAroundTownsName() {
+    let aroundTownsVC = AroundTownsViewController()
+    self.navigationController?.pushViewController(aroundTownsVC, animated: true)
   }
 }
 

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AroundTownViewController: UIViewController {
+class AroundTownsViewController: UIViewController {
   // MARK: Views
 
 //  let aroundTownTableView = UITableView().then {

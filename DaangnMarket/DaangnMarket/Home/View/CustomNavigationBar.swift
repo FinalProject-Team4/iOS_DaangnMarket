@@ -18,12 +18,13 @@ class CutomNavigationBar: UIView {
   
   let selectedTownButton = UIButton().then {
     $0.setTitleColor(.black, for: .normal)
-    $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
+    $0.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
     $0.addTarget(self, action: #selector(didTapButtonsInNaviBar(_:)), for: .touchUpInside)
   }
   let selectedTownArrowImage = UIImageView().then {
     $0.frame.size = CGSize(width: 5, height: 5)
     $0.image = UIImage(systemName: "chevron.down")
+    $0.transform = .init(scaleX: 0.7, y: 0.7)
     $0.tintColor = .black
   }
   let searchButton = UIButton(type: .system).then {
@@ -58,11 +59,11 @@ class CutomNavigationBar: UIView {
     naviBarItems.forEach { self.addSubview($0) }
     selectedTownButton.snp.makeConstraints {
       $0.leading.equalTo(self).offset(15)
-      $0.bottom.equalTo(self).offset(-15)
+      $0.bottom.equalTo(self).offset(-5)
     }
     selectedTownArrowImage.snp.makeConstraints {
       $0.centerY.equalTo(selectedTownButton)
-      $0.leading.equalTo(selectedTownButton.snp.trailing).offset(7)
+      $0.leading.equalTo(selectedTownButton.snp.trailing).offset(5)
     }
     notificationButton.snp.makeConstraints {
       $0.centerY.equalTo(selectedTownButton)

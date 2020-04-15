@@ -22,9 +22,8 @@ class MyTownSetting {
   
   // MARK: MyTownAroundView Property
   
-  var distance = Double()
-  var aroundFirtTown = [Town]()
-  var aroundSecondTown = [Town]()
+  var numberOfAroundFirstTownByDistance = [Town]()
+  var numberOfAroundSecondTownByDistance = [Town]()
   
   enum DeleteTown {
     case oneTown
