@@ -19,14 +19,22 @@ class NotificationTableView: UIView {
     switch self.notificationType {
     case .activity:
       self.activityNotiTableView
-      .visibleCells
-      .compactMap { $0 as? ActivityNotificationCell }
-      .forEach { $0.setEditMode(editing, for: self.activityNotiTableView) }
+        .visibleCells
+        .compactMap { $0 as? ActivityNotificationCell }
+        .forEach {
+          $0.setEditMode(editing)
+          self.activityNotiTableView.beginUpdates()
+          self.activityNotiTableView.endUpdates()
+      }
     case .keyword:
       self.keywordNotiTableView
-      .visibleCells
-      .compactMap { $0 as? KeywordNotificationCell }
-      .forEach { $0.setEditMode(editing, for: self.activityNotiTableView) }
+        .visibleCells
+        .compactMap { $0 as? KeywordNotificationCell }
+        .forEach {
+          $0.setEditMode(editing)
+          self.keywordNotiTableView.beginUpdates()
+          self.keywordNotiTableView.endUpdates()
+      }
     }
   }
   

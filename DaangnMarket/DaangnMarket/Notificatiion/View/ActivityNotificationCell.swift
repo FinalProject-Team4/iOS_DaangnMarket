@@ -18,7 +18,7 @@ class ActivityNotificationCell: NotificationCell {
     return self
   }
   
-  func setEditMode(_ editMode: Bool, for tableView: UITableView) {
+  func setEditMode(_ editMode: Bool) {
     self.editButton
       .snp.updateConstraints {
         $0.size.equalTo(editMode ? 10 : .zero)
@@ -26,8 +26,6 @@ class ActivityNotificationCell: NotificationCell {
           .equalTo(self.contentLabel.snp.trailing)
           .offset(editMode ? 24 : 0)
     }
-    tableView.beginUpdates()
-    tableView.endUpdates()
   }
   
   // MARK: Views
@@ -84,7 +82,7 @@ class ActivityNotificationCell: NotificationCell {
         $0.top.equalTo(self.contentLabel)
         $0.leading
           .equalTo(self.contentLabel.snp.trailing)
-          .offset(spacing * 3)
+          .offset(0)
         $0.trailing
           .equalToSuperview()
           .offset(-padding.x)

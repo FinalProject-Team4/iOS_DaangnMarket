@@ -18,7 +18,7 @@ class KeywordNotificationCell: NotificationCell {
     return self
   }
   
-  func setEditMode(_ editMode: Bool, for tableView: UITableView) {
+  func setEditMode(_ editMode: Bool) {
     self.editButton
       .snp.updateConstraints {
         $0.size.equalTo(editMode ? 10 : .zero)
@@ -26,8 +26,6 @@ class KeywordNotificationCell: NotificationCell {
           .equalTo(self.contentLabel.snp.trailing)
           .offset(editMode ? 24 : 0)
     }
-    tableView.beginUpdates()
-    tableView.endUpdates()
   }
   
   // MARK: Views
@@ -76,9 +74,6 @@ class KeywordNotificationCell: NotificationCell {
         $0.leading
           .equalTo(self.thumbnailImageView.snp.trailing)
           .offset(padding.x)
-//        $0.trailing
-//          .equalToSuperview()
-//          .offset(-padding.x)
     }
     
     self.editButton
@@ -87,7 +82,7 @@ class KeywordNotificationCell: NotificationCell {
         $0.top.equalTo(self.contentLabel)
         $0.leading
           .equalTo(self.contentLabel.snp.trailing)
-          .offset(padding.x)
+          .offset(0)
         $0.trailing
           .equalToSuperview()
           .offset(-padding.x)
