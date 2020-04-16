@@ -9,13 +9,35 @@
 import UIKit
 
 class NoResultOfPersonView: UIView {
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+  private let label = UILabel().then {
+      $0.text = "검색 결과가 없습니다."
+      $0.textColor = .gray
+      $0.font = .systemFont(ofSize: 16)
     }
-    */
-
-}
+    
+    override init(frame: CGRect) {
+      super.init(frame: frame)
+      setupUI()
+    }
+    
+    required init?(coder: NSCoder) {
+      fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupUI() {
+      setupAttributes()
+      setupConstraints()
+    }
+    
+    private func setupAttributes() {
+      self.backgroundColor = .lightGray
+      self.addSubview(label)
+    }
+    
+    private func setupConstraints() {
+      label.snp.makeConstraints {
+        $0.center.equalToSuperview()
+      }
+    }
+    
+  }

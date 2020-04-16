@@ -7,3 +7,24 @@
 //
 
 import Foundation
+
+extension Notification.Name {
+  static let HistoryNotification = Notification.Name("HistoryNewValue")
+}
+
+
+class SearchHistory {
+  static let shared = SearchHistory()
+  
+  var history: [String] = [] {
+    didSet {
+      NotificationCenter.default.post(name: .HistoryNotification, object: nil)
+    }
+  }
+  
+  private init() { }
+}
+
+enum SearchType {
+  case usedDeal, townInfo
+}
