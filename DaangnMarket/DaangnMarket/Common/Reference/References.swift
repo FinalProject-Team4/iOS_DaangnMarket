@@ -22,6 +22,7 @@ enum ImageReference: String {
   case profileDefault = "person.fill"
   case trash
   case checkmark
+  case pencil 
   
   enum Notification: String {
     case daangnLogo = "DaangnLogo-Noti"

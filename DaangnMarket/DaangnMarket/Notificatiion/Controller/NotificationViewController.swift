@@ -17,12 +17,7 @@ class NotificationViewController: UIViewController {
       button.tintColor = .black
       button.addTarget(self, action: #selector(didTapBackButton(_:)), for: .touchUpInside)
     }
-    $0.rightButton = UIButton().then { button in
-      button.setBackgroundImage(UIImage(systemName: ImageReference.trash.rawValue), for: .normal)
-      button.setBackgroundImage(UIImage(systemName: ImageReference.checkmark.rawValue), for: .selected)
-      button.tintColor = .black
-      button.addTarget(self, action: #selector(didTapEditButton(_:)), for: .touchUpInside)
-    }
+    $0.rightButton = self.activityEditButton
     $0.title = "알림"
     $0.isShadowHidden = true
   }
@@ -32,6 +27,24 @@ class NotificationViewController: UIViewController {
   private lazy var notificationTableView = NotificationTableView().then {
     $0.scrollViewDelegate = self
     $0.setTableViewDataSource(self)
+  }
+  private let activityEditButton = UIButton().then { button in
+    button.setBackgroundImage(UIImage(systemName: ImageReference.trash.rawValue), for: .normal)
+    button.setBackgroundImage(UIImage(systemName: ImageReference.checkmark.rawValue), for: .selected)
+    button.tintColor = .black
+    button.addTarget(self, action: #selector(didTapEditButton(_:)), for: .touchUpInside)
+  }
+  private let keywordEditButton = UIButton().then { button in
+    button.setBackgroundImage(UIImage(systemName: ImageReference.trash.rawValue), for: .normal)
+    button.setBackgroundImage(UIImage(systemName: ImageReference.checkmark.rawValue), for: .selected)
+    button.tintColor = .black
+    button.addTarget(self, action: #selector(didTapEditButton(_:)), for: .touchUpInside)
+  }
+  private let keywordConfigButton = UIButton().then { button in
+    button.setBackgroundImage(UIImage(systemName: ImageReference.pencil.rawValue), for: .normal)
+    button.setBackgroundImage(nil, for: .selected)
+    button.tintColor = .black
+    button.addTarget(self, action: #selector(didTapKeywordConfigButton(_:)), for: .touchUpInside)
   }
   
   // MARK: Model
@@ -90,7 +103,14 @@ class NotificationViewController: UIViewController {
   
   @objc private func didTapEditButton(_ sender: UIButton) {
     sender.isSelected.toggle()
+    if sender.isEqual(self.keywordEditButton) {
+      self.keywordConfigButton.isHidden = sender.isSelected
+    }
     self.notificationTableView.setEditing(sender.isSelected)
+  }
+  
+  @objc private func didTapKeywordConfigButton(_ sender: UIButton) {
+    print("Configure Keyword")
   }
 }
 
@@ -135,6 +155,13 @@ extension NotificationViewController: UIScrollViewDelegate {
   
   func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
     self.shouldScrollWithPanGesture = false
+    // Dragging을 통해 offset이 바뀌는 경우
+    self.switchNavigationItem()
+  }
+  
+  func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+    // SegmentControl을 통해 offfset이 바뀌는 경우
+    self.switchNavigationItem()
   }
   
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -142,6 +169,15 @@ extension NotificationViewController: UIScrollViewDelegate {
       let offset = scrollView.contentOffset.x
       let numberOfSegments = CGFloat(self.segmentedControl.numberOfSegments)
       self.segmentedControl.updateSelectedIndicator(offset: offset / numberOfSegments, animated: false)
+    }
+  }
+  
+  private func switchNavigationItem() {
+    switch self.notificationTableView.notificationType {
+    case .activity:
+      self.navigationBar.rightButton = self.activityEditButton
+    case .keyword:
+      self.navigationBar.rightButtons = [self.keywordConfigButton, self.keywordEditButton]
     }
   }
 }

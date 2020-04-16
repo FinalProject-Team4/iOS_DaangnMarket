@@ -16,15 +16,18 @@ class NotificationTableView: UIView {
   }
   
   func setEditing(_ editing: Bool) {
-    self.activityNotiTableView
+    switch self.notificationType {
+    case .activity:
+      self.activityNotiTableView
       .visibleCells
       .compactMap { $0 as? ActivityNotificationCell }
       .forEach { $0.setEditMode(editing, for: self.activityNotiTableView) }
-    
-    self.keywordNotiTableView
+    case .keyword:
+      self.keywordNotiTableView
       .visibleCells
       .compactMap { $0 as? KeywordNotificationCell }
       .forEach { $0.setEditMode(editing, for: self.activityNotiTableView) }
+    }
   }
   
   func dequeueCell(_ type: NotificationType, for indexPath: IndexPath) -> NotificationCell {
@@ -42,6 +45,12 @@ class NotificationTableView: UIView {
   
   func isKeywordNotification(_ tableView: UITableView) -> Bool {
     return tableView.isEqual(self.keywordNotiTableView)
+  }
+  
+  var notificationType: NotificationType {
+    return self.scrollView.contentOffset.x > 0 ?
+      .keyword :
+      .activity
   }
   
   // MARK: Delegation
