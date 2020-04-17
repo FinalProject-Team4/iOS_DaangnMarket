@@ -37,6 +37,8 @@ class SearchViewController: UIViewController {
     $0.isHidden = true
   }
   
+  private var searchNoResultView: NoResultView?
+  
   // MARK: LifeCycle
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -140,6 +142,21 @@ class SearchViewController: UIViewController {
   @objc private func didTapLeftButton() {
     self.navigationController?.popViewController(animated: true)
   }
+  
+  private func setupNoResultView(town: String, searchText: String, type: SearchType) {
+    if searchNoResultView != nil {
+      searchNoResultView?.isHidden = false
+    } else {
+      searchNoResultView = NoResultView(town: town, keyword: searchText, type: type)
+      searchNoResultView?.isHidden = false
+      guard let noResultView = searchNoResultView else { return }
+      self.view.addSubview(noResultView)
+      noResultView.snp.makeConstraints {
+        $0.top.equalToSuperview().offset(8)
+        $0.leading.trailing.bottom.equalToSuperview()
+      }
+    }
+  }
 }
 
 // MARK: - Extension
@@ -149,11 +166,13 @@ extension SearchViewController: UISearchBarDelegate {
       searchMainView.isHidden = false
       searchListTableView.isHidden = true
       searchResultsView.isHidden = true
+      searchNoResultView?.isHidden = true
     } else {
       dummyList = dummyData.filter { $0.contains(searchText) }
       searchListTableView.isHidden = false
       searchMainView.isHidden = false
       searchResultsView.isHidden = true
+      searchNoResultView?.isHidden = true
     }
   }
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -162,23 +181,20 @@ extension SearchViewController: UISearchBarDelegate {
     searchMainView.isHidden = true
     searchListTableView.isHidden = true
     if dummyList.isEmpty {
-      let noResultView = NoResultView(town: "성수동", keyword: searchText, type: .townInfo)
-      self.view.addSubview(noResultView)
-      noResultView.snp.makeConstraints {
-        $0.top.equalToSuperview().offset(8)
-        $0.leading.trailing.bottom.equalToSuperview()
-      }
+      setupNoResultView(town: "성수동", searchText: searchText, type: .usedDeal)
     } else {
       searchResultsView.isHidden = false
+      searchNoResultView?.isHidden = true
     }
     searchBar.resignFirstResponder()
-
+    
     if !searchText.isEmpty { SearchHistory.shared.history.append(searchBar.text!) }
   }
   func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
     searchListTableView.isHidden = true
     searchResultsView.isHidden = true
     searchMainView.isHidden = false
+    searchNoResultView?.isHidden = true
   }
 }
 

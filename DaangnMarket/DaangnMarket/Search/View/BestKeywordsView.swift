@@ -9,7 +9,6 @@
 import UIKit
 
 class BestKeywordsView: UIView {
-  
   private let titleLabel = UILabel().then {
     $0.font = .systemFont(ofSize: 14, weight: .bold)
     $0.textColor = .black
