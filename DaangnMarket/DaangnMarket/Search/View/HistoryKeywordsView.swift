@@ -97,11 +97,14 @@ class HistoryKeywordsView: UIView {
       $0.backgroundColor = .white
     }
     let tagImageView = UIImageView().then {
-      $0.image = UIImage(systemName: "tag")
-      $0.image?.withAlignmentRectInsets(UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4))
+      let tagImage = UIImage(named: "tag")
+      tagImage?.withAlignmentRectInsets(UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20))
+//      $0.image = UIImage(systemName: "tag")
+      $0.image = tagImage
+//        UIImage(named: "tag")
       $0.contentMode = .scaleAspectFit
       $0.tintColor = .black
-      $0.transform = CGAffineTransform(scaleX: -1, y: 1)
+//      $0.transform = CGAffineTransform(scaleX: -1, y: 1)
       $0.clipsToBounds = true
       $0.layer.cornerRadius = 16
       $0.layer.borderWidth = 1

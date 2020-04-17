@@ -110,22 +110,22 @@ class SearchViewController: UIViewController {
   
   // MARK: Actions
   @objc private func keyboardWillShow(_ notification: Notification) {
-//    guard let userInfo = notification.userInfo,
-//      let frame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
-//
-//    let height = self.view.frame.maxY
-//    let keyboard = frame.minY
-//    let safeLayout = view.safeAreaInsets.bottom
-//    let diff = height - keyboard - safeLayout
-//
-//        searchMainView.snp.updateConstraints {
-//          $0.bottom.equalToSuperview().offset(-diff)
-//        }
-//
-//        searchListTableView.snp.updateConstraints {
-//          $0.bottom.equalToSuperview().offset(-diff)
-//        }
-//    self.view.layoutIfNeeded()
+    //    guard let userInfo = notification.userInfo,
+    //      let frame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+    //
+    //    let height = self.view.frame.maxY
+    //    let keyboard = frame.minY
+    //    let safeLayout = view.safeAreaInsets.bottom
+    //    let diff = height - keyboard - safeLayout
+    //
+    //        searchMainView.snp.updateConstraints {
+    //          $0.bottom.equalToSuperview().offset(-diff)
+    //        }
+    //
+    //        searchListTableView.snp.updateConstraints {
+    //          $0.bottom.equalToSuperview().offset(-diff)
+    //        }
+    //    self.view.layoutIfNeeded()
   }
   
   @objc private func changeHistoryNewItem() {
@@ -157,12 +157,23 @@ extension SearchViewController: UISearchBarDelegate {
     }
   }
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    guard let searchText = searchBar.text else { return }
+    dummyList = dummyData.filter { $0.contains(searchText) }
+    searchMainView.isHidden = true
     searchListTableView.isHidden = true
-    searchResultsView.isHidden = false
-    searchBar.resignFirstResponder()
-    if let searchText = searchBar.text {
-      if !searchText.isEmpty { SearchHistory.shared.history.append(searchBar.text!) }
+    if dummyList.isEmpty {
+      let noResultView = NoResultView(town: "성수동", keyword: searchText, type: .townInfo)
+      self.view.addSubview(noResultView)
+      noResultView.snp.makeConstraints {
+        $0.top.equalToSuperview().offset(8)
+        $0.leading.trailing.bottom.equalToSuperview()
+      }
+    } else {
+      searchResultsView.isHidden = false
     }
+    searchBar.resignFirstResponder()
+
+    if !searchText.isEmpty { SearchHistory.shared.history.append(searchBar.text!) }
   }
   func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
     searchListTableView.isHidden = true

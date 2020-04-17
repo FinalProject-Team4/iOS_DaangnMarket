@@ -12,7 +12,7 @@ class SearchResultsView: UIView {
   private lazy var tableView = UITableView().then {
     $0.dataSource = self
     $0.delegate = self
-    $0.register(HomeFeedTableViewCell.self, forCellReuseIdentifier: "cell")
+    $0.register(HomeFeedTableViewCell.self, forCellReuseIdentifier: HomeFeedTableViewCell.identifier)
   }
   
   private let headerView = UIView().then {
@@ -88,7 +88,7 @@ extension SearchResultsView: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+    let cell = tableView.dequeueReusableCell(withIdentifier: HomeFeedTableViewCell.identifier, for: indexPath)
     return cell
   }
   
