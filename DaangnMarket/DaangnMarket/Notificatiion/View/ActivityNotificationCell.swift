@@ -11,6 +11,11 @@ import UIKit
 class ActivityNotificationCell: NotificationCell {
   // MARK: Interface
   
+  override var indexPath: IndexPath {
+    get { return IndexPath(row: self.editButton.tag, section: 0) }
+    set { self.editButton.tag = newValue.row }
+  }
+  
   override func configure(thumbnail: UIImage?, content: String, date: String) -> Self {
     self.contentLabel.text = content
     self.thumbnailImageView.image = thumbnail
@@ -39,8 +44,9 @@ class ActivityNotificationCell: NotificationCell {
     $0.textColor = UIColor(named: ColorReference.item.rawValue)
     $0.font = .systemFont(ofSize: 13)
   }
-  private let editButton = UIButton().then {
+  private lazy var editButton = UIButton().then {
     $0.setImage(UIImage(systemName: ImageReference.xmark.rawValue), for: .normal)
+    $0.addTarget(self, action: #selector(didTapEditButton(_:)), for: .touchUpInside)
     $0.tintColor = .black
   }
   
@@ -105,7 +111,7 @@ class ActivityNotificationCell: NotificationCell {
   // MARK: Actions
   
   @objc private func didTapEditButton(_ sender: UIButton) {
-    
+    self.delegate?.notificationCell(self, didSelectDeleteAt: sender.tag)
   }
   
   required init?(coder: NSCoder) {

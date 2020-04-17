@@ -117,9 +117,15 @@ class NotificationViewController: UIViewController {
 // MARK: - UITableViewDataSource
 
 extension NotificationViewController: UITableViewDataSource {
+  func numberOfSections(in tableView: UITableView) -> Int {
+    return self.notificationTableView.isActivityNotification(tableView) ? 1 : 2
+  }
+  
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     if self.notificationTableView.isActivityNotification(tableView) {
       return self.model.contents.count
+    } else if section == 0 {
+      return self.keywordEditButton.isSelected ? 1 : 0
     } else {
       return self.model.keywordContents.count
     }
@@ -127,22 +133,44 @@ extension NotificationViewController: UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     if self.notificationTableView.isActivityNotification(tableView) {
-      return self.notificationTableView
-        .dequeueCell(.activity, for: indexPath)
-        .configure(
+      return self.activityCell(tableView, for: indexPath)
+    } else if indexPath.section == 0 {
+      return self.keywordHeader(tableView, for: indexPath)
+    } else {
+      return self.keywordCell(tableView, for: indexPath)
+    }
+  }
+  
+  private func activityCell(_ tableView: UITableView, for indexPath: IndexPath) -> UITableViewCell {
+    return self.notificationTableView
+      .dequeueCell(.activity, for: indexPath)
+      .then {
+        $0.delegate = self
+        $0.configure(
           thumbnail: UIImage(named: self.model.thumbnails[indexPath.row].rawValue),
           content: self.model.contents[indexPath.row],
           date: "\(indexPath.row + 1)시간 전"
-      )
-    } else {
-      return self.notificationTableView
-        .dequeueCell(.keyword, for: indexPath)
-        .configure(
+        )
+    }
+  }
+  
+  private func keywordCell(_ tableView: UITableView, for indexPath: IndexPath) -> UITableViewCell {
+    return self.notificationTableView
+      .dequeueCell(.keyword, for: indexPath)
+      .then {
+        $0.delegate = self
+        $0.configure(
           thumbnail: UIImage(named: "image1")!,
           content: self.model.keywordContents[indexPath.row],
           date: "\(indexPath.row + 1)시간 전"
-      )
+        )
     }
+  }
+  
+  private func keywordHeader(_ tableView: UITableView, for indexPath: IndexPath) -> UITableViewCell {
+    guard let header = tableView.dequeueReusableCell(withIdentifier: KeywordNotificationHeader.identifier, for: indexPath) as? KeywordNotificationHeader else { return UITableViewCell() }
+    header.delegate = self
+    return header
   }
 }
 
@@ -188,5 +216,37 @@ extension NotificationViewController: DGSegmentControlDelegate {
   func segmentControl(_ segmentControl: DGSegmentedControl, didSelectSegmeentAt index: Int) {
     let offset = CGPoint(x: CGFloat(index) * self.notificationTableView.frame.width, y: 0)
     self.notificationTableView.setContentOffset(offset, animated: true)
+  }
+}
+
+// MARK: - KeywordNotificationHeaderDelegate
+
+extension NotificationViewController: KeywordNotificationHeaderDelegate {
+  func headerView(_ headerView: KeywordNotificationHeader, didTapRemoveButton button: UIButton) {
+    let cancel = UIAlertAction(title: "취소", style: .cancel)
+    let remove = UIAlertAction(title: "삭제", style: .default) { (_) in
+      self.model.keywordContents.removeAll()
+      self.notificationTableView.reloadKeyword()
+    }
+    self.presentAlert(
+      title: "키워드 알림을 모두 삭제하시겠어요?",
+      actions: [cancel, remove]
+    )
+  }
+}
+
+// MARK: - NotificationCellDelegate
+
+extension NotificationViewController: NotificationCellDelegate {
+  func notificationCell(_ cell: NotificationCell, didSelectDeleteAt row: Int) {
+    if cell is ActivityNotificationCell {
+      self.model.removeContent(at: row)
+      self.notificationTableView.deleteRows([IndexPath(row: row, section: 0)], for: .activity)
+    }
+    
+    if cell is KeywordNotificationCell {
+      self.model.keywordContents.remove(at: row)
+      self.notificationTableView.deleteRows([IndexPath(row: row, section: 1)], for: .keyword)
+    }
   }
 }

@@ -9,10 +9,25 @@
 import UIKit
 
 class NotificationTableView: UIView {
-  // MARK: Interface
+  // MARK: Interface - ScrollView
   
   func setContentOffset(_ contentOffset: CGPoint, animated: Bool) {
     self.scrollView.setContentOffset(contentOffset, animated: animated)
+  }
+  
+  // MARK: Interface - TableView
+  
+  func deleteRows(_ rows: [IndexPath], for type: NotificationType) {
+    switch type {
+    case .activity:
+      self.activityNotiTableView.deleteRows(at: rows, with: .automatic)
+    case .keyword:
+      self.keywordNotiTableView.deleteRows(at: rows, with: .automatic)
+    }
+  }
+  
+  func reloadKeyword() {
+    self.keywordNotiTableView.reloadData()
   }
   
   func setEditing(_ editing: Bool) {
@@ -30,21 +45,21 @@ class NotificationTableView: UIView {
       self.keywordNotiTableView
         .visibleCells
         .compactMap { $0 as? KeywordNotificationCell }
-        .forEach {
-          $0.setEditMode(editing)
-          self.keywordNotiTableView.beginUpdates()
-          self.keywordNotiTableView.endUpdates()
-      }
+        .forEach { $0.setEditMode(editing) }
+      self.keywordNotiTableView.reloadSections([0], with: .automatic)
     }
   }
   
   func dequeueCell(_ type: NotificationType, for indexPath: IndexPath) -> NotificationCell {
+    let cell: NotificationCell
     switch type {
     case .activity:
-      return self.activityNotiTableView.dequeueReusableCell(withIdentifier: ActivityNotificationCell.identifier, for: indexPath) as? ActivityNotificationCell ?? NotificationCell()
+      cell = self.activityNotiTableView.dequeueReusableCell(withIdentifier: ActivityNotificationCell.identifier, for: indexPath) as? ActivityNotificationCell ?? NotificationCell()
     case .keyword:
-      return self.keywordNotiTableView.dequeueReusableCell(withIdentifier: KeywordNotificationCell.identifier, for: indexPath) as? KeywordNotificationCell ?? NotificationCell()
+      cell = self.keywordNotiTableView.dequeueReusableCell(withIdentifier: KeywordNotificationCell.identifier, for: indexPath) as? KeywordNotificationCell ?? NotificationCell()
     }
+    cell.indexPath = indexPath
+    return cell
   }
   
   func isActivityNotification(_ tableView: UITableView) -> Bool {
@@ -128,11 +143,17 @@ class NotificationTableView: UIView {
     $0.register(ActivityNotificationCell.self, forCellReuseIdentifier: ActivityNotificationCell.identifier)
     let insetX = $0.separatorInset.left
     $0.separatorInset = UIEdgeInsets(top: 0, left: insetX, bottom: 0, right: insetX)
+    $0.tableFooterView = UIView()
   }
   private lazy var keywordNotiTableView = UITableView().then {
     $0.register(KeywordNotificationCell.self, forCellReuseIdentifier: KeywordNotificationCell.identifier)
+    $0.register(KeywordNotificationHeader.self, forCellReuseIdentifier: KeywordNotificationHeader.identifier)
     let insetX = $0.separatorInset.left
     $0.separatorInset = UIEdgeInsets(top: 0, left: insetX, bottom: 0, right: insetX)
+    $0.tableFooterView = UIView()
+    $0.refreshControl = UIRefreshControl().then {
+      $0.tintColor = UIColor(named: ColorReference.daangnMain.rawValue)
+    }
   }
   
   // MARK: Initialize
