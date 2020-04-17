@@ -28,6 +28,7 @@ class ViewControllerGenerator {
     case popover
     case writeUsed
     case productPost
+    case notification
     case categoryFeed
   }
   
@@ -58,6 +59,8 @@ class ViewControllerGenerator {
       let productPostVC = ProductPostViewController()
       productPostVC.hidesBottomBarWhenPushed = true
       return productPostVC
+    case .notification:
+      return NotificationViewController()
     case .categoryFeed:
       guard let category = parameters["category"] as? String else { return nil }
       return SelectedCategoryFeedViewController(category: category)

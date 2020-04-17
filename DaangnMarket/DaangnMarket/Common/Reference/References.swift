@@ -20,6 +20,15 @@ enum ImageReference: String {
   case keyboardDown = "keyboard.chevron.compact.down"
   case camera = "camera.fill"
   case profileDefault = "person.fill"
+  case trash
+  case checkmark
+  case pencil 
+  
+  enum Notification: String {
+    case daangnLogo = "DaangnLogo-Noti"
+    case daangni = "DaangnLogo-Noti-Daangni"
+    case priceDown = "DaangnLogo-Noti-Down"
+  }
 }
 
 enum ColorReference: String {
@@ -34,6 +43,7 @@ enum ColorReference: String {
   case inputText = "InputText"
   case subText = "SubText"
   case mannerTemperature = "MannerTemperature"
+  case notiBackground = "NotiBackground"
 }
 
 enum UserReference: String {
