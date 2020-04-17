@@ -144,6 +144,10 @@ class NotificationTableView: UIView {
     let insetX = $0.separatorInset.left
     $0.separatorInset = UIEdgeInsets(top: 0, left: insetX, bottom: 0, right: insetX)
     $0.tableFooterView = UIView()
+    $0.refreshControl = UIRefreshControl().then {
+      $0.tintColor = UIColor(named: ColorReference.daangnMain.rawValue)
+      $0.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
+    }
   }
   private lazy var keywordNotiTableView = UITableView().then {
     $0.register(KeywordNotificationCell.self, forCellReuseIdentifier: KeywordNotificationCell.identifier)
@@ -153,6 +157,7 @@ class NotificationTableView: UIView {
     $0.tableFooterView = UIView()
     $0.refreshControl = UIRefreshControl().then {
       $0.tintColor = UIColor(named: ColorReference.daangnMain.rawValue)
+      $0.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
     }
   }
   
@@ -187,6 +192,14 @@ class NotificationTableView: UIView {
       .snp.makeConstraints {
         $0.top.trailing.bottom.size.equalToSuperview()
         $0.leading.equalTo(self.activityNotiTableView.snp.trailing)
+    }
+  }
+  
+  // MARK: Actions
+  
+  @objc private func refresh(_ sender: UIRefreshControl) {
+    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+      sender.endRefreshing()
     }
   }
   
