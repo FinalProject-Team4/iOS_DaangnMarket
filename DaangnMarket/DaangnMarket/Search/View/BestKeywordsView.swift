@@ -72,7 +72,7 @@ extension BestKeywordsView: UICollectionViewDataSource {
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     guard let item = collectionView.dequeueReusableCell(withReuseIdentifier: KeywordCollectionViewCell.cellID, for: indexPath) as? KeywordCollectionViewCell else { return UICollectionViewCell() }
-    item.label.text = keywordData[indexPath.row]
+    item.configure(text: keywordData[indexPath.row])
     return item
   }
 }

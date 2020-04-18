@@ -18,7 +18,7 @@ class KeywordCollectionViewCell: UICollectionViewCell {
     $0.layer.cornerRadius = 16
   }
   
-  let label = UILabel().then {
+  private let label = UILabel().then {
     $0.font = .systemFont(ofSize: 13)
     $0.textColor = .black
   }
@@ -42,6 +42,11 @@ class KeywordCollectionViewCell: UICollectionViewCell {
     label.snp.makeConstraints {
       $0.edges.equalToSuperview().inset(UIEdgeInsets(top: 8, left: 14, bottom: 8, right: 14))
     }
+  }
+  
+  // MARK: Interface
+  func configure(text: String) {
+    label.text = text
   }
 }
 

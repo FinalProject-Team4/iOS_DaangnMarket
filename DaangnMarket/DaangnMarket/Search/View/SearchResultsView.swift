@@ -8,36 +8,22 @@
 
 import UIKit
 
+// MARK: - Class
 class SearchResultsView: UIView {
+  // MARK: Views
   private lazy var tableView = UITableView().then {
+    $0.backgroundColor = UIColor(named: ColorReference.lightBackground.rawValue)
     $0.dataSource = self
     $0.delegate = self
+    $0.register(KeywordNotiTableCell.self, forCellReuseIdentifier: KeywordNotiTableCell.identifier)
+    $0.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.identifier)
     $0.register(HomeFeedTableViewCell.self, forCellReuseIdentifier: HomeFeedTableViewCell.identifier)
   }
   
-  private let headerView = UIView().then {
-    $0.backgroundColor = .white
-  }
-  
-  private let searchFilterButton = UIButton().then {
-    $0.setImage(UIImage(systemName: "slider.horizontal.3"), for: .normal)
-    $0.imageView?.transform = CGAffineTransform(scaleX: -1, y: 1)
-    $0.tintColor = .black
-    $0.setTitle("  검색 필터", for: .normal)
-    $0.setTitleColor(.black, for: .normal)
-    $0.titleLabel?.font = .systemFont(ofSize: 13)
-  }
-  
-  private let soldoutFilterButton = UIButton().then {
-    $0.setImage(UIImage(systemName: "checkmark.circle"), for: .normal)
-    $0.tintColor = .gray
-    $0.setTitle("  거래완료 안보기", for: .normal)
-    $0.setTitleColor(.black, for: .normal)
-    $0.titleLabel?.font = .systemFont(ofSize: 13)
-  }
-  
+  // MARK: Model
   private var dummyData: [String] = []
   
+  // MARK: Intialize
   override init(frame: CGRect) {
     super.init(frame: .zero)
     setupUI()
@@ -53,50 +39,76 @@ class SearchResultsView: UIView {
   }
   
   private func setupAttributes() {
+    self.backgroundColor = UIColor(named: ColorReference.lightBackground.rawValue)
     self.addSubview(tableView)
-    headerView.addSubview(searchFilterButton)
-    headerView.addSubview(soldoutFilterButton)
   }
   
   private func setupConstraints() {
     tableView.snp.makeConstraints {
-      $0.edges.equalToSuperview()
-    }
-    searchFilterButton.snp.makeConstraints {
-      $0.top.equalToSuperview().offset(8)
-      $0.bottom.equalToSuperview().offset(-8)
-      //      $0.centerY.equalToSuperview()
-      $0.leading.equalToSuperview().offset(14)
-//      $0.width.equalToSuperview().multipliedBy(0.3)
-    }
-    soldoutFilterButton.snp.makeConstraints {
-      $0.top.equalToSuperview().offset(8)
-      $0.bottom.equalToSuperview().offset(-8)
-      $0.trailing.equalToSuperview().offset(-14)
+      $0.top.equalToSuperview()
+      $0.leading.trailing.bottom.equalToSuperview()
     }
   }
   
-  func makeProductList(keyWord: String) {
-    // keyword 서버에 보내서, List 받아서, 다시 뿌리면 되겠지?
+  // MARK: Actions
+  @objc private func didTapKeywordNoti() {
+    //
+  }
+  
+  // MARK: Interface
+  func makeProductList(searchText: String) {
+    // 서버 들어올 곳
     tableView.reloadData()
   }
 }
 
+// MARK: - Extension
 extension SearchResultsView: UITableViewDataSource {
+  func numberOfSections(in tableView: UITableView) -> Int {
+    3
+  }
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    1
+    switch section {
+    case 0:
+      return 1
+    case 1:
+      return 1
+    case 2:
+      return 20
+    default:
+      return 0
+    }
   }
-  
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: HomeFeedTableViewCell.identifier, for: indexPath)
-    return cell
+    switch indexPath.section {
+    case 0:
+      guard let cell = tableView.dequeueReusableCell(withIdentifier: KeywordNotiTableCell.identifier, for: indexPath)
+        as? KeywordNotiTableCell else { fallthrough }
+      cell.setupKeywordView(text: "우아아앙")
+      return cell
+    case 1:
+      guard let cell = tableView.dequeueReusableCell(withIdentifier: FilterTableViewCell.identifier, for: indexPath)
+        as? FilterTableViewCell else { fallthrough }
+      return cell
+    case 2:
+      guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeFeedTableViewCell.identifier, for: indexPath) as? HomeFeedTableViewCell else { fallthrough }
+      return cell
+    default:
+      return UITableViewCell().then { $0.isHidden = true }
+    }
   }
-  
+  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    if section == 2 {
+      return 0
+    } else {
+      return 8
+    }
+  }
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    headerView
+    return UIView()
   }
 }
 
 extension SearchResultsView: UITableViewDelegate {
-//
+  //
 }

@@ -221,7 +221,8 @@ extension SearchViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     searchListTableView.isHidden = true
     searchResultsView.isHidden = false
-    searchResultsView.makeProductList(keyWord: searchBar.searchTextField.text ?? "")
+    searchResultsView.makeProductList(searchText: searchBar.searchTextField.text ?? "")
+//    searchResultsView.setupKeywordView(text: searchBar.searchTextField.text ?? "")
     searchBar.resignFirstResponder()
   }
 }
