@@ -13,7 +13,7 @@ class HomeFeedViewController: UIViewController {
   // MARK: Property
   
   let service = ServiceManager.shared
-  private var url = "http://13.125.217.34/post/list/gps"
+  private let url = "http://13.125.217.34/post/list/gps/"
   var parameters: Parameters = [String: Any]()
   var nextPageURL: String?
   var posts = [Post]() {
@@ -47,7 +47,8 @@ class HomeFeedViewController: UIViewController {
     self.view.backgroundColor = .white
     self.tabBarController?.tabBar.isHidden = false
     self.parameters = ["locate": 8_725]
-    requestPostData(url, self.parameters)
+    requestPostData(url)
+//    requestPostData(url, self.parameters)
     callDelegate()
     setupUI()
   }
@@ -89,8 +90,10 @@ class HomeFeedViewController: UIViewController {
   
   // MARK: Request PostData
   
-  func requestPostData(_ url: String, _ parameters: Parameters) {
-    service.requestPostData(URL(string: url)!, parameters) { [weak self] result in
+//  func requestPostData(_ url: String, _ parameters: Parameters) {
+    func requestPostData(_ url: String) {
+    service.requestPostData(URL(string: url)!) { [weak self] result in
+//      service.requestPostData(URL(string: url)!, parameters) { [weak self] result in
       guard let self = self else { return }
       switch result {
       case .success(let postInfoData):
@@ -185,7 +188,8 @@ extension HomeFeedViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
     if indexPath.row == (posts.count - 2) {
       guard let pageURL = nextPageURL else { return }
-      requestPostData(pageURL, self.parameters)
+      requestPostData(pageURL)
+//      requestPostData(pageURL, self.parameters)
       self.perform(#selector(loadTable), with: nil, afterDelay: 1.0)
     }
   }

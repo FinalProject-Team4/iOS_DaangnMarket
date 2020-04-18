@@ -10,8 +10,8 @@ import UIKit
 
 class SliderView: UIView {
   var slider = CustomSlider().then {
-    $0.minimumValue = 1.0
-    $0.maximumValue = 4.0
+    $0.minimumValue = 0.0
+    $0.maximumValue = 3.0
     $0.minimumTrackTintColor = UIColor(named: ColorReference.daangnMain.rawValue)
     $0.maximumTrackTintColor = UIColor(named: ColorReference.borderLine.rawValue)
   }
@@ -20,9 +20,14 @@ class SliderView: UIView {
     slider.addTarget(target, action: action, for: .valueChanged)
   }
   
-//  @objc private func slideAction(_ sender: UISlider) {
-//    print("Slider Value :", sender.value)
-//  }
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
   override func layoutSubviews() {
     super.layoutSubviews()
     self.slider
@@ -67,9 +72,6 @@ class CustomSlider: UISlider {
     super.touchesEnded(touches, with: event)
     guard let point = touches.first?.location(in: self) else { return }
     let value = point.x / self.frame.width * 3
-    let aroundTownCount = AuthorizationManager.shared.aroundTown.filter { Float($0.distance!/1_200) <= Float(value.rounded()) }
-    print("touched ended value", self.value)
-    MyTownSetting.shared.numberOfAroundFirstTownByDistance = aroundTownCount
     UIView.animate(
       withDuration: 0.3,
       delay: 0,
@@ -77,15 +79,11 @@ class CustomSlider: UISlider {
       initialSpringVelocity: 0,
       options: [.curveLinear],
       animations: {
-        self.value = Float(value.rounded()) + 1
+        self.value = Float(value.rounded())
         self.layoutIfNeeded() },
       completion: nil
     )
-    NotificationCenter.default.post(
-      name: NSNotification.Name("AroundTownCountView"),
-      object: nil
-    )
-    print("change num of town when touches ended", MyTownSetting.shared.numberOfAroundFirstTownByDistance.count)
+    MyTownSettingViewController.calculateNumberOfAourndTown(MyTownSetting.shared.isFirstTown, self.value)
   }
   
   required init?(coder: NSCoder) {

@@ -8,7 +8,7 @@
 
 import UIKit
 protocol SecondTownButtonDelegate: class {
-  func secondTownSelectBtn(_ button: UIButton)
+  func secondTownSetBtn(_ button: UIButton)
 }
 
 class TownSelectView: UIView {
@@ -39,6 +39,10 @@ class TownSelectView: UIView {
     $0.backgroundColor = UIColor(named: ColorReference.daangnMain.rawValue)
     }
   var secondTownSelectBtn = SecondTownSelectButton().then {
+    $0.layer.cornerRadius = 5
+    $0.addTarget(self, action: #selector(didTapSelectTownButton(_:)), for: .touchUpInside)
+  }
+  var secondTownSetBtn = SecondTownSetButton().then {
     $0.addTarget(self, action: #selector(didTapSelectTownButton(_:)), for: .touchUpInside)
     $0.setImage(UIImage(systemName: "plus"), for: .normal)
     $0.tintColor = UIColor(named: ColorReference.noResultImage.rawValue)
@@ -47,6 +51,7 @@ class TownSelectView: UIView {
     $0.layer.borderWidth = 1
     $0.backgroundColor = .white
   }
+  
   lazy var upperAlert = DGUpperAlert()
   
   // MARK: Initialize
@@ -54,19 +59,10 @@ class TownSelectView: UIView {
   override init(frame: CGRect) {
     super.init(frame: frame)
     inViewSetupConstraints()
-    hidePlusImageNoti()
   }
-  
-  deinit {
-    noti.removeObserver(
-      self,
-      name: NSNotification.Name("hidePlusTownSelectView"),
-      object: nil
-    )
-  }
-  
+    
   private func inViewSetupConstraints() {
-    let viewSubUI = [townSelectLabel, townSelectDescribeLabel, partitionLineView, firstTownSelectBtn, secondTownSelectBtn]
+    let viewSubUI = [townSelectLabel, townSelectDescribeLabel, partitionLineView, firstTownSelectBtn, secondTownSelectBtn, secondTownSetBtn]
     viewSubUI.forEach { self.addSubview($0) }
     townSelectLabel.snp.makeConstraints {
       $0.centerX.equalToSuperview()
@@ -94,6 +90,12 @@ class TownSelectView: UIView {
       $0.width.equalTo(172)
       $0.height.equalTo(50)
     }
+    secondTownSetBtn.snp.makeConstraints {
+      $0.top.equalTo(firstTownSelectBtn)
+      $0.trailing.equalTo(self.snp.trailing).offset(-12)
+      $0.width.equalTo(172)
+      $0.height.equalTo(50)
+    }
   }
   
   // MARK: Method
@@ -103,11 +105,19 @@ class TownSelectView: UIView {
     item.layer.borderWidth = 1
     item.layer.borderColor = UIColor(named: ColorReference.daangnMain.rawValue)?.cgColor
     if item == firstTownSelectBtn {
-      firstTownSelectBtn.selectedFirstTownLabel.textColor = .white
-      firstTownSelectBtn.deleteSelectedFirstTownButton.tintColor = .white
+      firstTownSelectBtn
+        .selectedFirstTownLabel
+        .textColor = .white
+      firstTownSelectBtn
+        .deleteSelectedFirstTownButton
+        .tintColor = .white
     } else if item == secondTownSelectBtn {
-      secondTownSelectBtn.selectedSecondTownLabel.textColor = .white
-      secondTownSelectBtn.deleteSelectedSecondTownButton.tintColor = .white
+      secondTownSelectBtn
+        .selectedSecondTownLabel
+        .textColor = .white
+      secondTownSelectBtn
+        .deleteSelectedSecondTownButton
+        .tintColor = .white
     }
   }
   private func changeUnSelectedTownButton(_ item: UIView) {
@@ -115,27 +125,37 @@ class TownSelectView: UIView {
     item.layer.borderColor = UIColor(named: ColorReference.noResultImage.rawValue)?.cgColor
     item.backgroundColor = .white
     if item == firstTownSelectBtn {
-      firstTownSelectBtn.selectedFirstTownLabel.textColor = .black
-      firstTownSelectBtn.deleteSelectedFirstTownButton.tintColor = UIColor(named: ColorReference.noResultImage.rawValue)
+      firstTownSelectBtn
+        .selectedFirstTownLabel
+        .textColor = .black
+      firstTownSelectBtn
+        .deleteSelectedFirstTownButton
+        .tintColor = UIColor(named: ColorReference.noResultImage.rawValue)
     } else if item == secondTownSelectBtn {
-      secondTownSelectBtn.selectedSecondTownLabel.textColor = .black
-      secondTownSelectBtn.deleteSelectedSecondTownButton.tintColor = UIColor(named: ColorReference.noResultImage.rawValue)
+      secondTownSelectBtn
+        .selectedSecondTownLabel
+        .textColor = .black
+      secondTownSelectBtn
+        .deleteSelectedSecondTownButton
+        .tintColor = UIColor(named: ColorReference.noResultImage.rawValue)
     }
-  }
-  private func hidePlusImageNoti() {
-    noti.addObserver(
-      self,
-      selector: #selector(hidePlusImage),
-      name: NSNotification.Name("hidePlusTownSelectView"),
-      object: nil
-    )
   }
   
   // MARK: Action
 
   @objc func didTapSelectTownButton(_ sender: UIButton) {
+    defer {
+      noti.post(
+        name: NSNotification.Name("AroundTownCountView"),
+        object: nil,
+        userInfo: [
+          "SingleTon": MyTownSetting.shared
+        ]
+      )
+    }
     switch sender {
     case firstTownSelectBtn:
+      MyTownSetting.shared.isFirstTown = true
       noti.post(
         name: NSNotification.Name("FirstSelectTownCountView"),
         object: nil
@@ -143,16 +163,15 @@ class TownSelectView: UIView {
       changeBtnBGColor(firstTownSelectBtn)
       willDisplayUpperAlert(.firstBtn)
     case secondTownSelectBtn:
-      if !MyTownSetting.shared.secondSelectTown.isEmpty {
-        noti.post(
-          name: NSNotification.Name("SecondSelectTownCountView"),
-          object: nil
-        )
-        changeBtnBGColor(secondTownSelectBtn)
-        willDisplayUpperAlert(.secondBtn)
-      } else {
-        self.delegate?.secondTownSelectBtn(sender)
-      }
+      MyTownSetting.shared.isFirstTown = false
+      noti.post(
+        name: NSNotification.Name("SecondSelectTownCountView"),
+        object: nil
+      )
+      changeBtnBGColor(secondTownSelectBtn)
+      willDisplayUpperAlert(.secondBtn)
+    case secondTownSetBtn:
+      self.delegate?.secondTownSetBtn(sender)
     default: break
     }
   }

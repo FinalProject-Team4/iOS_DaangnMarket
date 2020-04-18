@@ -23,7 +23,6 @@ class WelcomeView: UIView {
   }
   private let startViewTopLabel = UILabel().then {
     $0.numberOfLines = 0
-    $0.text = "가입하고 군자동"
     $0.contentMode = .center
     $0.font = .systemFont(ofSize: 20, weight: .bold)
   }
@@ -62,6 +61,8 @@ class WelcomeView: UIView {
   
   override init(frame: CGRect) {
     super.init(frame: frame)
+    guard let firstTown = AuthorizationManager.shared.selectedTown?.dong else { return }
+    startViewTopLabel.text = "가입하고 \(firstTown)"
     setupUI()
   }
   
@@ -73,36 +74,39 @@ class WelcomeView: UIView {
   
   private func setupConstrains() {
     lookAroundButton.snp.makeConstraints {
-      $0.top.equalToSuperview().offset(12)
+      $0.top.equalToSuperview().offset(16)
       $0.trailing.equalToSuperview().offset(-16)
+      $0.height.equalTo(12)
     }
     mascotImage.snp.makeConstraints {
       $0.centerX.equalToSuperview()
       $0.top.equalTo(lookAroundButton.snp.bottom)
-      $0.width.equalTo(UIScreen.main.bounds.width * 0.5)
-      $0.height.equalTo(UIScreen.main.bounds.width * 0.5)
+      $0.bottom.equalTo(startViewTopLabel.snp.top).offset(-16)
+      $0.width.equalToSuperview()
     }
     startViewTopLabel.snp.makeConstraints {
       $0.centerX.equalToSuperview()
-      $0.top.equalTo(mascotImage.snp.bottom).offset(20)
+      $0.height.equalTo(20)
+      $0.bottom.equalTo(startViewBottomLabel.snp.top).offset(-3)
     }
     startViewBottomLabel.snp.makeConstraints {
       $0.centerX.equalToSuperview()
-      $0.top.equalTo(startViewTopLabel.snp.bottom).offset(3)
+      $0.height.equalTo(20)
+      $0.bottom.equalTo(signUpAndWatchButton.snp.top).offset(-16)
     }
     signUpAndWatchButton.snp.makeConstraints {
-      $0.top.equalTo(startViewBottomLabel.snp.bottom).offset(20)
       $0.centerX.equalToSuperview()
       $0.leading.equalToSuperview().offset(24)
       $0.trailing.equalToSuperview().offset(-24)
       $0.height.equalToSuperview().multipliedBy(0.1)
+      $0.bottom.equalTo(signUpButton.snp.top).offset(-12)
     }
     signUpButton.snp.makeConstraints {
       $0.centerX.equalToSuperview()
-      $0.top.equalTo(signUpAndWatchButton.snp.bottom).offset(15)
       $0.leading.equalToSuperview().offset(24)
       $0.trailing.equalToSuperview().offset(-24)
       $0.height.equalToSuperview().multipliedBy(0.1)
+      $0.bottom.equalToSuperview().offset(-24)
     }
   }
   

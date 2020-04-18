@@ -16,8 +16,10 @@ final class ServiceManager {
   
   // MARK: Request Post & PostInfo Data
   
-  func requestPostData(_ url: URL, _ parameters: Parameters, completionHandler: @escaping (Result<PostInfo, Error>) -> Void) {
-    AF.request(url, parameters: parameters)
+//  func requestPostData(_ url: URL, _ parameters: Parameters, completionHandler: @escaping (Result<PostInfo, Error>) -> Void) {
+    func requestPostData(_ url: URL, completionHandler: @escaping (Result<PostInfo, Error>) -> Void) {
+    AF.request(url)
+//      AF.request(url, parameters: parameters)
       .validate()
       .responseDecodable { (response: DataResponse<PostInfo, AFError>) in
         switch response.result {

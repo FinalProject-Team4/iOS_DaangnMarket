@@ -21,7 +21,6 @@ class TownCountView: UIView {
   // MARK: Views
   
   lazy var myTownLabel = UILabel().then {
-//    $0.text = MyTownSetting.shared.firstSelectTown
     $0.textAlignment = .center
     $0.font = .systemFont(ofSize: 17, weight: .regular)
   }
@@ -89,7 +88,7 @@ class TownCountView: UIView {
     )
     noti.addObserver(
       self,
-      selector: #selector(setAroundTownCount),
+      selector: #selector(setAroundTownCount(_:)),
       name: NSNotification.Name("AroundTownCountView"),
       object: nil
     )
@@ -103,9 +102,20 @@ class TownCountView: UIView {
   @objc private func setSecondTownName() {
     myTownLabel.text = MyTownSetting.shared.secondSelectTown
   }
-  @objc private func setAroundTownCount() {
-    let btnChangeTitle = NSMutableAttributedString().underlineBold("근처 동네 \(MyTownSetting.shared.numberOfAroundFirstTownByDistance.count)개", fontSize: 17)
-    aroundTownCountBtn.setAttributedTitle(btnChangeTitle, for: .normal)
+  @objc private func setAroundTownCount(_ sender: Notification) {
+    guard let userInfo = sender.userInfo,
+      let sharedData = userInfo["SingleTon"] as? MyTownSetting else { return }
+    if sharedData.isFirstTown {
+      let btnChangeTitle = NSMutableAttributedString().underlineBold(
+        "근처 동네 \(sharedData.numberOfAroundTownByFirst.0)개", fontSize: 17
+      )
+      aroundTownCountBtn.setAttributedTitle(btnChangeTitle, for: .normal)
+    } else {
+      let btnChangeTitle = NSMutableAttributedString().underlineBold(
+        "근처 동네 \(sharedData.numberOfAroundTownBySecond.0)개", fontSize: 17
+      )
+      aroundTownCountBtn.setAttributedTitle(btnChangeTitle, for: .normal)
+    }
   }
   @objc private func didTapShowAroundTownCount() {
     self.delegate?.showAroundTownsName()

@@ -96,6 +96,7 @@
 		AD7ABAB42443FFB000520C28 /* AroundTownsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7ABAB32443FFB000520C28 /* AroundTownsViewController.swift */; };
 		AD7BEF772444811300F72831 /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7BEF762444811300F72831 /* CustomSlider.swift */; };
 		ADAA12BF2433214000A692A0 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAA12BE2433214000A692A0 /* PopoverViewController.swift */; };
+		ADB599202449846900E4322D /* SecondTownSetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB5991F2449846900E4322D /* SecondTownSetButton.swift */; };
 		ADD05132242B595200312DF1 /* HomeFeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD05131242B595200312DF1 /* HomeFeedTableViewCell.swift */; };
 		ADD05135242C4FC000312DF1 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD05134242C4FC000312DF1 /* Service.swift */; };
 		ADD05137242C62CF00312DF1 /* PostInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD05136242C62CF00312DF1 /* PostInfo.swift */; };
@@ -198,6 +199,7 @@
 		AD7ABAB32443FFB000520C28 /* AroundTownsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AroundTownsViewController.swift; sourceTree = "<group>"; };
 		AD7BEF762444811300F72831 /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
 		ADAA12BE2433214000A692A0 /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
+		ADB5991F2449846900E4322D /* SecondTownSetButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondTownSetButton.swift; sourceTree = "<group>"; };
 		ADD05131242B595200312DF1 /* HomeFeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeedTableViewCell.swift; sourceTree = "<group>"; };
 		ADD05134242C4FC000312DF1 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		ADD05136242C62CF00312DF1 /* PostInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostInfo.swift; sourceTree = "<group>"; };
@@ -557,9 +559,10 @@
 				AD6EBFA7243773BB003F01CA /* TownSelectView.swift */,
 				AD6EBFA92438E01D003F01CA /* FirstTownSelectButton.swift */,
 				AD6EBFAB2438E83C003F01CA /* SecondTownSelectButton.swift */,
+				ADB5991F2449846900E4322D /* SecondTownSetButton.swift */,
 				AD6EBFB2243AF07C003F01CA /* MyTownAroundView.swift */,
-				AD6EBFB4243B1D70003F01CA /* TownCountView.swift */,
 				AD7BEF762444811300F72831 /* CustomSlider.swift */,
+				AD6EBFB4243B1D70003F01CA /* TownCountView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -812,6 +815,7 @@
 				A6C1E393243C5CE400A6FF32 /* MainTabBarController.swift in Sources */,
 				ACCC9750242B31CB008F95DE /* TownSearchBar.swift in Sources */,
 				AD6EBFA8243773BB003F01CA /* TownSelectView.swift in Sources */,
+				ADB599202449846900E4322D /* SecondTownSetButton.swift in Sources */,
 				ACB2B6072433472B002FAF27 /* AuthDescriptionView.swift in Sources */,
 				A6FB71992439A7AE0092A5F1 /* CategoryModel.swift in Sources */,
 				ACFB7D3E242CD94E00E47F97 /* UINavigationController+Extension.swift in Sources */,

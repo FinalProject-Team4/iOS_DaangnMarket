@@ -11,6 +11,7 @@ import UIKit
 class SecondTownSelectButton: UIButton {
   // MARK: Property
   
+  weak var delegate: DeleteButtonDelegate?
   let noti = NotificationCenter.default
   
   // MARK: Views
@@ -20,11 +21,10 @@ class SecondTownSelectButton: UIButton {
     $0.font = .systemFont(ofSize: 16, weight: .bold)
   }
   lazy var deleteSelectedSecondTownButton = UIButton().then {
-    $0.isHidden = true
     $0.transform = .init(scaleX: 1.2, y: 1.2)
     $0.tintColor = UIColor(named: ColorReference.noResultImage.rawValue)
     $0.setImage(UIImage(systemName: "xmark.circle"), for: .normal)
-    $0.addTarget(self, action: #selector(didTapSecondTownDeleteButton), for: .touchUpInside)
+    $0.addTarget(self, action: #selector(didTapSecondTownDeleteButton(_:)), for: .touchUpInside)
   }
   
   // MARK: Initialize
@@ -70,12 +70,12 @@ class SecondTownSelectButton: UIButton {
   
   // MARK: Action
   
-  @objc func didTapSecondTownDeleteButton() {
-    print("Delete Second Town")
+  @objc func didTapSecondTownDeleteButton(_ sender: UIButton) {
+    self.delegate?.didTapDeleteButton(sender)
   }
   @objc func addAnotherTownNameToButton() {
     selectedSecondTownLabel.text = MyTownSetting.shared.secondSelectTown
-    deleteSelectedSecondTownButton.isHidden = false
+//    deleteSelectedSecondTownButton.isHidden = false
   }
   
   required init?(coder: NSCoder) {
