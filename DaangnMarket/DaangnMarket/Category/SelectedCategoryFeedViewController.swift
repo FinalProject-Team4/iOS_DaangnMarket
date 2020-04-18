@@ -87,7 +87,9 @@ class SelectedCategoryFeedViewController: UIViewController {
     label.snp.makeConstraints {
       $0.center.equalToSuperview()
     }
-    indicator.stopAnimating()
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+      self.indicator.stopAnimating()
+    }
   }
   
   private func setupTableView() {
