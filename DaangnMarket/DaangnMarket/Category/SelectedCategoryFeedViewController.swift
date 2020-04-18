@@ -130,7 +130,6 @@ class SelectedCategoryFeedViewController: UIViewController {
         case .success:
           guard let responseData = response.data else { return }
           guard let decodeResult = try? JSONDecoder().decode(PostInfo.self, from: responseData) else { return }
-          print(decodeResult)
           self.postData += decodeResult.results
           self.calculateDifferentTime()
           self.nextURL = URL(string: decodeResult.next ?? "")
@@ -153,15 +152,15 @@ class SelectedCategoryFeedViewController: UIViewController {
           guard let responseData = response.data else { return }
           guard let decodeResult = try? JSONDecoder().decode(PostInfo.self, from: responseData) else { return }
           self.postData += decodeResult.results
+          if self.postData.isEmpty {
+            self.setupEmptyView(category: self.selectedCategory!)
+            self.tableView.isHidden = true
+          }
           self.calculateDifferentTime()
           self.nextURL = URL(string: decodeResult.next ?? "")
         case .failure(let err):
           print(err.localizedDescription)
         }
-    }
-    if self.postData.isEmpty {
-      self.setupEmptyView(category: self.selectedCategory!)
-      self.tableView.isHidden = true
     }
   }
   
@@ -220,7 +219,7 @@ extension SelectedCategoryFeedViewController: UITableViewDataSource {
     cell.goodsName.text = post.title
     cell.sellerLoctionAndTime.text = removeNotNeededTimeUnit(post.address, userUpdateTimes[indexPath.row])
     cell.goodsPrice.text = "\(post.price)원"
-    cell.goodsImageView.image = UIImage(systemName: "person")
+    cell.goodsImageView.image = UIImage(named: ImageReference.noImage.rawValue)
     return cell
   }
 }
