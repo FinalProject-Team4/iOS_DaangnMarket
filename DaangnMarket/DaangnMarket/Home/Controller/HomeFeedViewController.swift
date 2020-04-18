@@ -183,7 +183,7 @@ class HomeFeedViewController: UIViewController {
       let popPresent = HomeFeedViewController.popoverPresent(self, popoverVC, sender)
       present(popPresent, animated: true)
     case rightBarItemMagnifyingglass:
-      print("검색하기")
+      self.navigationController?.pushViewController(SearchViewController(), animated: true)
     case rightBarItemSlider:
       print("카테고리선택")
     case rightBarItemBell:
