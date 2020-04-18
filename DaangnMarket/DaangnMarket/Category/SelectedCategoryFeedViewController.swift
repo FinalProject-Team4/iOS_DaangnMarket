@@ -39,11 +39,13 @@ class SelectedCategoryFeedViewController: UIViewController {
       print(self.userUpdateTimes)
     }
   }
+  private var selectedCategory: String?
   
   // MARK: Initialieze
   init(category: String) {
     super.init(nibName: nil, bundle: nil)
     self.title = category
+    selectedCategory = category
     setupUI(category: category)
     indicator.startAnimating()
   }
@@ -63,7 +65,7 @@ class SelectedCategoryFeedViewController: UIViewController {
   
   private func setupUI(category: String) {
     view.backgroundColor = .white
-    category == "인기매물" ? setupEmptyView() : makeURL(category: category)
+    category == "인기매물" ? setupEmptyView(category: category) : makeURL(category: category)
   }
   
   private func setupNavigation() {
@@ -78,16 +80,19 @@ class SelectedCategoryFeedViewController: UIViewController {
     )
   }
   
-  private func setupEmptyView() {
+  private func setupEmptyView(category: String) {
     let label = UILabel().then {
-      $0.text = "인기글이 없습니당."
+      $0.text =
+        category == "인기매물" ? "인기글이 없습니당." : "\(category) 매물이 없습니당."
       $0.textColor = .gray
       view.addSubview($0)
     }
     label.snp.makeConstraints {
       $0.center.equalToSuperview()
     }
-    indicator.stopAnimating()
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+      self.indicator.stopAnimating()
+    }
   }
   
   private func setupTableView() {
@@ -117,7 +122,21 @@ class SelectedCategoryFeedViewController: UIViewController {
   }
   
   private func nextRequest(url: URL?) {
-    request(url: url)
+    guard let url = url else { return }
+    AF.request(url, method: .get)
+      .validate()
+      .responseJSON { response in
+        switch response.result {
+        case .success:
+          guard let responseData = response.data else { return }
+          guard let decodeResult = try? JSONDecoder().decode(PostInfo.self, from: responseData) else { return }
+          self.postData += decodeResult.results
+          self.calculateDifferentTime()
+          self.nextURL = URL(string: decodeResult.next ?? "")
+        case .failure(let err):
+          print(err.localizedDescription)
+        }
+    }
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3 ) {
       self.tableView.reloadData()
     }
@@ -132,8 +151,11 @@ class SelectedCategoryFeedViewController: UIViewController {
         case .success:
           guard let responseData = response.data else { return }
           guard let decodeResult = try? JSONDecoder().decode(PostInfo.self, from: responseData) else { return }
-          print(decodeResult)
           self.postData += decodeResult.results
+          if self.postData.isEmpty {
+            self.setupEmptyView(category: self.selectedCategory!)
+            self.tableView.isHidden = true
+          }
           self.calculateDifferentTime()
           self.nextURL = URL(string: decodeResult.next ?? "")
         case .failure(let err):
@@ -196,8 +218,8 @@ extension SelectedCategoryFeedViewController: UITableViewDataSource {
     let post = postData[indexPath.row]
     cell.goodsName.text = post.title
     cell.sellerLoctionAndTime.text = removeNotNeededTimeUnit(post.address, userUpdateTimes[indexPath.row])
-    cell.goodsPrice.text = "\(post.price)"
-    cell.goodsImageView.image = UIImage(systemName: "person")
+    cell.goodsPrice.text = "\(post.price)원"
+    cell.goodsImageView.image = UIImage(named: ImageReference.noImage.rawValue)
     return cell
   }
 }
