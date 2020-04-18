@@ -124,6 +124,7 @@ class ConfigProfileViewController: UIViewController {
     API.default.request(.signUp(idToken: self.idToken, username: username, avatar: imageData)) { (result) in
       switch result {
       case .success(let userInfo):
+        print("=================== User Info ====================\n", userInfo)
         AuthorizationManager.shared.register(userInfo)
         self.navigationController?
           .presentingViewController?
