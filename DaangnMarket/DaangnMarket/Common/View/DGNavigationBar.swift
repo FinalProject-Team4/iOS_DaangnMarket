@@ -12,7 +12,12 @@ class DGNavigationBar: UIView {
   // MARK: Views
   
   private let leftButtonFrame = UIStackView()
-  private let rightButtonFrame = UIStackView()
+  private let rightButtonFrame = UIStackView().then {
+    $0.axis = .horizontal
+    $0.spacing = 16
+    $0.alignment = .fill
+    $0.distribution = .fillEqually
+  }
   private let titleLabel = UILabel().then {
     $0.font = .systemFont(ofSize: 17, weight: .semibold)
   }
@@ -40,7 +45,7 @@ class DGNavigationBar: UIView {
       .snp.makeConstraints {
         $0.trailing.equalToSuperview().offset(-16)
         $0.centerY.equalToSuperview()
-        $0.size.equalTo(UINavigationBar.navigationItemSize)
+        $0.height.equalTo(UINavigationBar.navigationItemSize.height)
     }
     self.titleLabel
       .then { self.addSubview($0) }
@@ -75,14 +80,40 @@ class DGNavigationBar: UIView {
     set {
       self.rightButtonFrame.arrangedSubviews.forEach {
         self.rightButtonFrame.removeArrangedSubview($0)
+        $0.removeFromSuperview()
       }
       self.rightButtonFrame.addArrangedSubview(newValue ?? UIButton())
+    }
+  }
+  
+  var rightButtons: [UIButton]? {
+    get {
+      return self.rightButtonFrame
+        .arrangedSubviews
+        .compactMap { $0 as? UIButton }
+    }
+    set {
+      self.rightButtonFrame.arrangedSubviews.forEach {
+        self.rightButtonFrame.removeArrangedSubview($0)
+        $0.removeFromSuperview()
+      }
+      newValue?.forEach {
+        self.rightButtonFrame.addArrangedSubview($0)
+      }
     }
   }
   
   var title: String {
     get { self.titleLabel.text ?? "" }
     set { self.titleLabel.text = newValue }
+  }
+  
+  var isShadowHidden: Bool = false {
+    didSet {
+      self.shadowLine.backgroundColor = isShadowHidden ?
+        .clear :
+        UIColor(named: ColorReference.navigationShadow.rawValue)
+    }
   }
   
   required init?(coder: NSCoder) {
