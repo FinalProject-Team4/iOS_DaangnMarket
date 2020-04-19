@@ -18,6 +18,10 @@ class ChatViewController: UIViewController {
     $0.separatorInset = .zero
   }
   
+  // MARK: Model
+  
+  private let model = ChatModel()
+  
   // MARK: Life Cycle
   
   override func viewDidLoad() {
@@ -49,11 +53,12 @@ class ChatViewController: UIViewController {
 
 extension ChatViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 1
+    return 4
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: ChattingCell.identifier, for: indexPath)
+    guard let cell = tableView.dequeueReusableCell(withIdentifier: ChattingCell.identifier, for: indexPath) as? ChattingCell else { return UITableViewCell() }
+    cell.configure(chatInfo: self.model.chatList[indexPath.row])
     return cell
   }
 }

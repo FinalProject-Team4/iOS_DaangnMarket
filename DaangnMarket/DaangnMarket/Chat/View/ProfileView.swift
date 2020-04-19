@@ -13,7 +13,9 @@ class ProfileView: UIView {
   
   var profileImage: UIImage? {
     get { return self.profileImageView.image }
-    set { self.profileImageView.image = newValue }
+    set {
+      self.profileImageView.image = newValue ?? UIImage(named: ImageReference.profileDefault.rawValue)
+    }
   }
   
   var badgeImage: UIImage? {
