@@ -15,6 +15,7 @@ class ChatViewController: UIViewController {
     $0.tableFooterView = UIView()
     $0.register(ChattingCell.self, forCellReuseIdentifier: ChattingCell.identifier)
     $0.dataSource = self
+    $0.delegate = self
     $0.separatorInset = .zero
   }
   
@@ -53,12 +54,35 @@ class ChatViewController: UIViewController {
 
 extension ChatViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 4
+    return self.model.chatList.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: ChattingCell.identifier, for: indexPath) as? ChattingCell else { return UITableViewCell() }
     cell.configure(chatInfo: self.model.chatList[indexPath.row])
     return cell
+  }
+}
+
+// MARK: - UITableViewDelegate
+
+extension ChatViewController: UITableViewDelegate {
+  func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    let bookmarkTitle = self.model.chatList[indexPath.row].isBookmarked ? "즐겨찾기\n해제" : "즐겨찾기"
+    let bookmarkAction = UIContextualAction(style: .normal, title: bookmarkTitle) { (_, _, actionPerformed) in
+      self.model.chatList[indexPath.row].isBookmarked.toggle()
+      tableView.reloadRows(at: [indexPath], with: .automatic)
+      actionPerformed(true)
+    }
+    
+    let deleteAction = UIContextualAction(style: .destructive, title: "삭제") { (_, _, actionPerformed) in
+      self.model.chatList.remove(at: indexPath.row)
+      tableView.deleteRows(at: [indexPath], with: .automatic)
+      actionPerformed(true)
+    }
+    
+    let configuration = UISwipeActionsConfiguration(actions: [deleteAction, bookmarkAction])
+    configuration.performsFirstActionWithFullSwipe = true
+    return configuration
   }
 }

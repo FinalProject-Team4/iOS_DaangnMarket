@@ -41,6 +41,7 @@ class ChattingCell: UITableViewCell {
         $0.width.equalTo(30)
       }
     }
+    self.bookmarkView.isHidden = !chat.isBookmarked
   }
   
   // MARK: Views
@@ -71,6 +72,9 @@ class ChattingCell: UITableViewCell {
     $0.layer.cornerRadius = 2
     $0.clipsToBounds = true
     $0.backgroundColor = .brown
+  }
+  private let bookmarkView = UIView().then {
+    $0.backgroundColor = UIColor(named: ColorReference.daangnMain.rawValue)
   }
   
   // MARK: Initialize
@@ -149,6 +153,17 @@ class ChattingCell: UITableViewCell {
           .offset(16)
         $0.leading.equalTo(self.usernameLabel)
         $0.trailing.equalTo(self.chatInfoLabel)
+    }
+    
+    self.setupBookmarkConstraint()
+  }
+  
+  private func setupBookmarkConstraint() {
+    self.bookmarkView
+      .then { self.contentView.addSubview($0) }
+      .snp.makeConstraints {
+        $0.width.equalTo(8)
+        $0.top.leading.bottom.equalToSuperview()
     }
   }
   

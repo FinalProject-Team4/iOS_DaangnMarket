@@ -16,6 +16,7 @@ struct ChatInfo {
   let content: String
   let badge: Int
   let productImage: String?
+  var isBookmarked: Bool
 }
 
 class ChatModel {
@@ -27,7 +28,8 @@ class ChatModel {
       updated: "하루 전",
       content: "비움을 실천하고 계신 cskim님, 정말 멋져요! 따뜻함이 배가 되는 당근마켓의 거래매너를 확인해보세요:)",
       badge: 0,
-      productImage: nil
+      productImage: nil,
+      isBookmarked: false
     ),
     ChatInfo(
       username: "user1",
@@ -36,7 +38,8 @@ class ChatModel {
       updated: "1시간 전",
       content: "넵 팔렸어요 ㅠㅠ",
       badge: 0,
-      productImage: "image1"
+      productImage: "image1",
+      isBookmarked: false
     ),
     ChatInfo(
       username: "user2",
@@ -45,7 +48,8 @@ class ChatModel {
       updated: "3시간 전",
       content: "조금만 깎아주시면 안되나요?",
       badge: 3,
-      productImage: nil
+      productImage: nil,
+      isBookmarked: false
     ),
     ChatInfo(
       username: "user3",
@@ -54,7 +58,8 @@ class ChatModel {
       updated: "1주 전",
       content: "내일 거래 가능하세요?",
       badge: 10,
-      productImage: "image3"
+      productImage: "image3",
+      isBookmarked: false
     )
   ]
 }
