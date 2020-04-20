@@ -31,6 +31,7 @@ class ViewControllerGenerator {
     case notification
     case categoryFeed
     case chatting
+    case search
   }
   
   func make(_ type: ControllerType, parameters: [String: Any] = [:]) -> UIViewController? {
@@ -67,6 +68,8 @@ class ViewControllerGenerator {
       return SelectedCategoryFeedViewController(category: category)
     case .chatting:
       return UINavigationController(rootViewController: ChatViewController())
+    case .search:
+      return SearchViewController()
     }
   }
   

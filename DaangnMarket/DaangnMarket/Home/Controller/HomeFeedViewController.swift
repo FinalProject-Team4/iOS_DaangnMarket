@@ -76,6 +76,7 @@ class HomeFeedViewController: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     self.navigationController?.navigationBar.isHidden = true
+    self.tabBarController?.tabBar.isHidden = false
   }
   
   override func viewDidAppear(_ animated: Bool) {
@@ -188,7 +189,8 @@ class HomeFeedViewController: UIViewController {
       let popPresent = HomeFeedViewController.popoverPresent(self, popoverVC, sender)
       present(popPresent, animated: true)
     case rightBarItemMagnifyingglass:
-      self.navigationController?.pushViewController(SearchViewController(), animated: true)
+      guard let searchVC = ViewControllerGenerator.shared.make(.search) else { return }
+      self.navigationController?.pushViewController(searchVC, animated: true)
     case rightBarItemSlider:
       print("카테고리선택")
     case rightBarItemBell:
