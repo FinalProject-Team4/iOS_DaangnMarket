@@ -19,11 +19,13 @@ enum ImageReference: String {
   case xmark
   case keyboardDown = "keyboard.chevron.compact.down"
   case camera = "camera.fill"
-  case profileDefault = "person.fill"
+  case profileDefault = "ProfileImage-Default"
   case trash
   case checkmark
-  case pencil
   case noImage
+  case pencil
+  case daangni = "DaangnLogo-Noti-Daangni"
+  case badge = "Badge"
   
   enum Notification: String {
     case daangnLogo = "DaangnLogo-Noti"
