@@ -1,5 +1,5 @@
 //
-//  BestKeywordsView.swift
+//  SearchKeywordsView.swift
 //  DaangnMarket
 //
 //  Created by 박지승 on 2020/04/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BestKeywordsView: UIView {
+class SearchKeywordsView: UIView {
   private let titleLabel = UILabel().then {
     $0.font = .systemFont(ofSize: 14, weight: .bold)
     $0.textColor = .black
@@ -28,12 +28,23 @@ class BestKeywordsView: UIView {
     $0.register(KeywordCollectionViewCell.self, forCellWithReuseIdentifier: KeywordCollectionViewCell.cellID)
   }
   
-  private let keywordData = ["마스크", "자전거", "의자", "노트북", "쇼파", "책상", "냉장고", "아이패드"]
+  private var keywordData: [String] = []
   
   init(type: SearchType) {
     super.init(frame: .zero)
-    setupUI()
-    type == .townInfo ? (titleLabel.text = "인기 검색어") : (titleLabel.text = "추천 검색어")
+    switch type {
+    case .usedDeal:
+      titleLabel.text = "인기 검색어"
+      keywordData = ["마스크", "자전거", "의자", "노트북", "쇼파", "책상", "냉장고", "아이패드"]
+      setupUI()
+    case .townInfo:
+      titleLabel.text = "추천 검색어"
+      keywordData = ["미용실", "이사", "네일", "인테리어", "속눈썹", "카페", "필라테스", "헬스장"]
+      setupUI()
+    case .person:
+      titleLabel.text = ""
+      keywordData = []
+    }
   }
   
   required init?(coder: NSCoder) {
@@ -65,7 +76,7 @@ class BestKeywordsView: UIView {
   }
 }
 
-extension BestKeywordsView: UICollectionViewDataSource {
+extension SearchKeywordsView: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     keywordData.count
   }

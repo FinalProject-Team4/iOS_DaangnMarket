@@ -12,7 +12,6 @@ extension Notification.Name {
   static let HistoryNotification = Notification.Name("HistoryNewValue")
 }
 
-
 class SearchHistory {
   static let shared = SearchHistory()
   
@@ -26,5 +25,9 @@ class SearchHistory {
 }
 
 enum SearchType {
-  case usedDeal, townInfo
+  case usedDeal, townInfo, person
+}
+
+enum SearchStatus {
+  case standBy, searching, success, fail
 }

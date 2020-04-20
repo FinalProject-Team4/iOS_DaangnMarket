@@ -9,10 +9,19 @@
 import UIKit
 
 protocol HistoryKeywordsViewDelegate: class {
+//  func deleteSelectedItem() -> String
   func deleteAllHistory()
 }
 
 class HistoryKeywordsView: UIView {
+  // MARK: Interface
+  func makeNewHistoryItem(_ item: String) {
+    addListStackView(text: item)
+  }
+  func removeAllItemsInStackView() {
+    listStackView.removeFromSuperview()
+  }
+  
   // MARK: Views
   private let titleLabel = UILabel().then {
     $0.text = "최근 검색"
@@ -75,6 +84,7 @@ class HistoryKeywordsView: UIView {
   // MARK: Actions
   @objc private func didTapXButton(_ sender: UIButton) {
     print(sender)
+//    delegate?.deleteSelectedItem()
   }
   
   @objc private func didTapAllDeleteButton() {
@@ -84,7 +94,6 @@ class HistoryKeywordsView: UIView {
   // MARK: Methods
   private func makeHistoryListItem() {
     if SearchHistory.shared.history.count == 1 {
-      print("self.addSubview(listStackView)")
       self.addSubview(listStackView)
     }
     for txt in SearchHistory.shared.history.sorted() {
@@ -151,13 +160,5 @@ class HistoryKeywordsView: UIView {
       $0.height.equalTo(64)
       $0.leading.trailing.width.equalToSuperview()
     }
-  }
-  
-  // MARK: Interface
-  func makeNewHistoryItem(_ item: String) {
-    addListStackView(text: item)
-  }
-  func removeAllItemsInStackView() {
-    listStackView.removeFromSuperview()
   }
 }

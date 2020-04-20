@@ -2,28 +2,44 @@
 //  SearchMainView.swift
 //  DaangnMarket
 //
-//  Created by 박지승 on 2020/04/16.
+//  Created by 박지승 on 2020/04/19.
 //  Copyright © 2020 Jisng. All rights reserved.
 //
 
 import UIKit
 
 class SearchMainView: UIView {
+  // MARK: Interface
+  func addHistoryNewItem(_ item: String) {
+    self.searchHistoyView.makeNewHistoryItem(item)
+    keywordView.snp.removeConstraints()
+    searchHistoyView.snp.removeConstraints()
+    SearchHistory.shared.history.isEmpty ? setupBestViewOnly() : setupHistoryViewAndBestView()
+  }
+  func removeAllHistoryItems() {
+    keywordView.snp.removeConstraints()
+    searchHistoyView.snp.removeConstraints()
+    searchHistoyView.removeFromSuperview()
+    searchHistoyView.removeAllItemsInStackView()
+    setupBestViewOnly()
+  }
+  
   // MARK: Views
   private let scrollView = UIScrollView()
-  private let historyKeywordsView = HistoryKeywordsView()
-  private let bestKeywordsView = BestKeywordsView(type: .townInfo)
+  private let searchHistoyView = HistoryKeywordsView()
+  private var keywordView: SearchKeywordsView
   
   // MARK: Properties
   weak var delegate: HistoryKeywordsViewDelegate? {
     willSet {
-      historyKeywordsView.delegate = newValue
+      searchHistoyView.delegate = newValue
     }
   }
   
-  // MARK: Initialize
-  override init(frame: CGRect) {
-    super.init(frame: frame)
+  // MARK: Interface
+  init(type: SearchType) {
+    keywordView = SearchKeywordsView(type: type)
+    super.init(frame: .zero)
     setupUI()
   }
   
@@ -35,46 +51,32 @@ class SearchMainView: UIView {
     self.backgroundColor = UIColor(named: ColorReference.lightBackground.rawValue)
     self.addSubview(scrollView)
     scrollView.snp.makeConstraints {
-      $0.edges.size.equalToSuperview()
+      $0.top.equalToSuperview().offset(8)
+      $0.leading.trailing.bottom.size.equalToSuperview()
     }
     SearchHistory.shared.history.isEmpty ? setupBestViewOnly() : setupHistoryViewAndBestView()
   }
   
   private func setupBestViewOnly() {
-    scrollView.addSubview(bestKeywordsView)
-    bestKeywordsView.snp.makeConstraints {
+    scrollView.addSubview(keywordView)
+    keywordView.snp.makeConstraints {
       $0.edges.width.equalToSuperview()
       $0.height.equalToSuperview().multipliedBy(0.2)
     }
   }
   
   private func setupHistoryViewAndBestView() {
-    scrollView.addSubview(historyKeywordsView)
-    historyKeywordsView.snp.makeConstraints {
+    scrollView.addSubview(searchHistoyView)
+    searchHistoyView.snp.makeConstraints {
       $0.top.leading.trailing.equalToSuperview()
       $0.width.equalToSuperview()
     }
-    scrollView.addSubview(bestKeywordsView)
-    bestKeywordsView.snp.makeConstraints {
-      $0.top.equalTo(historyKeywordsView.snp.bottom).offset(8)
+    scrollView.addSubview(keywordView)
+    keywordView.snp.makeConstraints {
+      $0.top.equalTo(searchHistoyView.snp.bottom).offset(8)
       $0.leading.trailing.equalToSuperview()
       $0.height.equalToSuperview().multipliedBy(0.2)
       $0.bottom.equalToSuperview()
     }
-  }
-  
-  // MARK: Interface
-  func addHistoryNewItem(_ item: String) {
-    self.historyKeywordsView.makeNewHistoryItem(item)
-    bestKeywordsView.snp.removeConstraints()
-    historyKeywordsView.snp.removeConstraints()
-    SearchHistory.shared.history.isEmpty ? setupBestViewOnly() : setupHistoryViewAndBestView()
-  }
-  func removeAllHistoryItems() {
-    bestKeywordsView.snp.removeConstraints()
-    historyKeywordsView.snp.removeConstraints()
-    historyKeywordsView.removeFromSuperview()
-    historyKeywordsView.removeAllItemsInStackView()
-    setupBestViewOnly()
   }
 }
