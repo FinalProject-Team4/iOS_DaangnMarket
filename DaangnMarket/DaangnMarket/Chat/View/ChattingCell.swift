@@ -94,6 +94,12 @@ class ChattingCell: UITableViewCell {
     let profileSize: CGFloat = 52
     let thumbnailSize: CGFloat = 40
     
+    self.setupProfileConstraint(padding: padding, profileSize: profileSize)
+    self.setupChatConstraint(padding: padding, thumbnailSize: thumbnailSize)
+    self.setupBookmarkConstraint()
+  }
+  
+  private func setupProfileConstraint(padding: (x: CGFloat, y: CGFloat), profileSize: CGFloat) {
     self.profileView
       .then { self.contentView.addSubview($0) }
       .snp.makeConstraints {
@@ -112,7 +118,9 @@ class ChattingCell: UITableViewCell {
           .offset(12)
     }
     self.usernameLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-    
+  }
+  
+  private func setupChatConstraint(padding: (x: CGFloat, y: CGFloat), thumbnailSize: CGFloat) {
     self.chatInfoLabel
       .then { self.contentView.addSubview($0) }
       .snp.makeConstraints {
@@ -120,9 +128,6 @@ class ChattingCell: UITableViewCell {
         $0.leading
           .equalTo(self.usernameLabel.snp.trailing)
           .offset(8)
-//        $0.trailing
-//          .equalTo(self.b)
-//          .offset(-padding.x)
     }
     self.chatInfoLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
     
@@ -154,8 +159,6 @@ class ChattingCell: UITableViewCell {
         $0.leading.equalTo(self.usernameLabel)
         $0.trailing.equalTo(self.chatInfoLabel)
     }
-    
-    self.setupBookmarkConstraint()
   }
   
   private func setupBookmarkConstraint() {
