@@ -82,7 +82,7 @@ class ViewControllerGenerator {
     let writeUseVC = WriteClearViewController().then {
       $0.tabBarItem = UITabBarItem(title: "글쓰기", image: UIImage(systemName: "pencil"), tag: 2)
     }
-    let chatVC = ChatViewController().then {
+    let chatVC = UINavigationController(rootViewController: ChatViewController()).then {
       $0.tabBarItem = UITabBarItem(title: "채팅", image: UIImage(systemName: "bubble.left.and.bubble.right"), tag: 3)
     }
     let mypageVC = MyPageViewController().then {
