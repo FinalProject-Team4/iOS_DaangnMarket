@@ -52,7 +52,7 @@ class SearchMainView: UIView {
     self.addSubview(scrollView)
     scrollView.snp.makeConstraints {
       $0.top.equalToSuperview().offset(8)
-      $0.leading.trailing.bottom.size.equalToSuperview()
+      $0.leading.trailing.bottom.equalToSuperview()
     }
     SearchHistory.shared.history.isEmpty ? setupBestViewOnly() : setupHistoryViewAndBestView()
   }

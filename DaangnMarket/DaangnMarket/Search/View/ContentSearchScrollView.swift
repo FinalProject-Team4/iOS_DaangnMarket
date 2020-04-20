@@ -11,9 +11,14 @@ import UIKit
 class ContentSearchScrollView: UIScrollView {
   // MARK: Interface
   func searchStatus(_ status: SearchStatus) {
-    usedDealView.changeStatus(status)
-    townInfoView.changeStatus(status)
-    personView.changeStatus(status)
+    if status == .searching {
+      self.isHidden = true
+    } else {
+      self.isHidden = false
+      usedDealView.changeStatus(status)
+      townInfoView.changeStatus(status)
+      personView.changeStatus(status)
+    }
   }
   func addHistoryNewItem(_ text: String) {
     usedDealView.addHistoryNewItem(text)
