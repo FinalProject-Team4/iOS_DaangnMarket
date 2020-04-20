@@ -30,6 +30,7 @@ class ViewControllerGenerator {
     case productPost
     case notification
     case categoryFeed
+    case chatting
   }
   
   func make(_ type: ControllerType, parameters: [String: Any] = [:]) -> UIViewController? {
@@ -64,6 +65,8 @@ class ViewControllerGenerator {
     case .categoryFeed:
       guard let category = parameters["category"] as? String else { return nil }
       return SelectedCategoryFeedViewController(category: category)
+    case .chatting:
+      return UINavigationController(rootViewController: ChatViewController())
     }
   }
   
@@ -79,7 +82,7 @@ class ViewControllerGenerator {
     let writeUseVC = WriteClearViewController().then {
       $0.tabBarItem = UITabBarItem(title: "글쓰기", image: UIImage(systemName: "pencil"), tag: 2)
     }
-    let chatVC = ChatViewController().then {
+    let chatVC = UINavigationController(rootViewController: ChatViewController()).then {
       $0.tabBarItem = UITabBarItem(title: "채팅", image: UIImage(systemName: "bubble.left.and.bubble.right"), tag: 3)
     }
     let mypageVC = MyPageViewController().then {
