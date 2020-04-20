@@ -22,6 +22,7 @@ enum ImageReference: String {
   case profileDefault = "ProfileImage-Default"
   case trash
   case checkmark
+  case noImage
   case pencil
   case daangni = "DaangnLogo-Noti-Daangni"
   case badge = "Badge"
