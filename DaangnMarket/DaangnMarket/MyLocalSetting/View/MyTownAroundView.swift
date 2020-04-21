@@ -9,6 +9,10 @@
 import UIKit
 
 class MyTownAroundView: UIView {
+  // MARK: Property
+  
+  let noti = NotificationCenter.default
+  
   // MARK: UIViews
   
   let townCountView = TownCountView().then {
@@ -42,15 +46,15 @@ class MyTownAroundView: UIView {
   }
   let firstStepTownImageView = UIImageView().then {
     $0.image = UIImage(named: "firstStep")
-    $0.alpha = 0.0
+    $0.alpha = 1.0
   }
   let secondStepTownImageView = UIImageView().then {
     $0.image = UIImage(named: "secondStep")
-    $0.alpha = 0.0
+    $0.alpha = 1.0
   }
   let thirdStepTownImageView = UIImageView().then {
     $0.image = UIImage(named: "thirdStep")
-    $0.alpha = 0.0
+    $0.alpha = 1.0
   }
 
   // MARK: Initialize
@@ -62,26 +66,31 @@ class MyTownAroundView: UIView {
   }
   
   deinit {
-    NotificationCenter.default.removeObserver(
+    noti.removeObserver(
       self,
       name: NSNotification.Name("AroundTownCountView"),
+      object: nil
+    )
+    noti.removeObserver(
+      self,
+      name: NSNotification.Name("AlphaValue"),
       object: nil
     )
   }
   
   private func setupConstraint() {
-    let viewSubUI = [townCountView, descriptionLabel, distanceSlider, sliderLeftLabel, sliderRightLabel]
-    let aroundTownImgaese = [zeroStepTownImageView, firstStepTownImageView, secondStepTownImageView, thirdStepTownImageView]
+    let viewSubUI = [townCountView, descriptionLabel, distanceSlider, sliderLeftLabel, sliderRightLabel,
+                     thirdStepTownImageView, secondStepTownImageView, firstStepTownImageView, zeroStepTownImageView]
     viewSubUI.forEach { self.addSubview($0) }
-    aroundTownImgaese.forEach { self.addSubview($0) }
     townCountView.snp.makeConstraints {
       $0.centerX.equalToSuperview()
       $0.top.equalToSuperview().offset(26)
       $0.height.equalTo(20)
     }
     descriptionLabel.snp.makeConstraints {
-      $0.top.equalTo(townCountView.snp.bottom).offset(9)
+      $0.top.equalTo(townCountView.snp.bottom).offset(8)
       $0.centerX.equalTo(self)
+      $0.height.equalTo(12)
     }
     distanceSlider.snp.makeConstraints {
       $0.top.equalTo(descriptionLabel.snp.bottom).offset(26)
@@ -124,24 +133,29 @@ class MyTownAroundView: UIView {
   // MARK: Notification
   
   private func thumbPositionNoti() {
-    NotificationCenter.default.addObserver(
+    noti.addObserver(
       self,
       selector: #selector(thumbPositionOnSlide(_:)),
       name: NSNotification.Name("AroundTownCountView"),
       object: nil
     )
+    noti.addObserver(
+      self,
+      selector: #selector(changeImgaesAlpha(_:)),
+      name: NSNotification.Name("AlphaValue"),
+      object: nil
+    )
   }
   
-  private func changeImgaesAlpha(_ sender: UISlider) {
-    if sender.value <= 1.0 {
-      zeroStepTownImageView.alpha = CGFloat(1.0 - sender.value)
-      firstStepTownImageView.alpha = CGFloat(sender.value)
-    } else if sender.value <= 2.0 {
-      firstStepTownImageView.alpha = CGFloat(2.0 - sender.value)
-      secondStepTownImageView.alpha = CGFloat(sender.value - 1.0)
-    } else if sender.value <= 3.0 {
-      secondStepTownImageView.alpha = CGFloat(3.0 - sender.value)
-      thirdStepTownImageView.alpha = CGFloat(sender.value - 2.0)
+  @objc private func changeImgaesAlpha(_ sender: Notification) {
+    guard let value = sender.userInfo,
+      let alpha = value["alpha"] as? CGFloat else { print("alpha error"); return }
+    if alpha <= 1.0 {
+      zeroStepTownImageView.alpha = 1.0 - alpha
+    } else if alpha <= 2.0 {
+      firstStepTownImageView.alpha = 2.0 - alpha
+    } else if alpha <= 3.0 {
+      secondStepTownImageView.alpha = 3.0 - alpha
     }
   }
   
@@ -149,13 +163,11 @@ class MyTownAroundView: UIView {
   
   @objc private func slideAction(_ sender: UISlider) {
     MyTownSettingViewController.calculateNumberOfAourndTown(MyTownSetting.shared.isFirstTown, sender.value)
-    changeImgaesAlpha(sender)
+//    changeImgaesAlpha(sender)
   }
   @objc private func thumbPositionOnSlide(_ sender: Notification) {
     guard let userInfo = sender.userInfo,
       let thumbPosition = userInfo["SingleTon"] as? MyTownSetting else { return }
-    print("first town thumb position", thumbPosition.numberOfAroundTownByFirst.1)
-    print("second town thumb position", thumbPosition.numberOfAroundTownBySecond.1)
     switch thumbPosition.isFirstTown {
     case true:
       distanceSlider.slider.value = Float(thumbPosition.numberOfAroundTownByFirst.1)

@@ -161,7 +161,7 @@ class HomeFeedViewController: UIViewController {
   }
 }
 
-// MARK: TableView DataSource
+// MARK: - TableView DataSource
 
 extension HomeFeedViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -199,7 +199,7 @@ extension HomeFeedViewController: UITableViewDataSource {
   }
 }
 
-// MARK: TableView Delegate
+// MARK: - TableView Delegate
 
 extension HomeFeedViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

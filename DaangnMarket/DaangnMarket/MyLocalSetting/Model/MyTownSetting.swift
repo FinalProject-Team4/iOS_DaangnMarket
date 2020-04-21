@@ -42,6 +42,9 @@ class MyTownSetting {
     }
   }
   
+  var firstAroundTownList = [Town]()
+  var secondAroundTownList = [Town]()
+  
   var slideValue = Float()
   var numberOfAroundTownByFirst = (Int(), Int())
   var numberOfAroundTownBySecond = (Int(), Int())
