@@ -85,7 +85,8 @@ class ViewControllerGenerator {
     let chatVC = UINavigationController(rootViewController: ChatViewController()).then {
       $0.tabBarItem = UITabBarItem(title: "채팅", image: UIImage(systemName: "bubble.left.and.bubble.right"), tag: 3)
     }
-    let mypageVC = MyPageViewController().then {
+    let mypageVC = TownAuthorizationViewController().then {
+//      MyPageViewController().then {
       $0.tabBarItem = UITabBarItem(title: "나의 당근", image: UIImage(systemName: "person"), tag: 4)
     }
     

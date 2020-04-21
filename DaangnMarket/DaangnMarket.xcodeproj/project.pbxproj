@@ -35,6 +35,7 @@
 		A63F37C0243596EF002C0D9B /* WriteKeywordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63F37BF243596EF002C0D9B /* WriteKeywordViewController.swift */; };
 		A63F37C224359B5D002C0D9B /* KeywordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63F37C124359B5D002C0D9B /* KeywordTableViewCell.swift */; };
 		A63F37C42435CB87002C0D9B /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63F37C32435CB87002C0D9B /* Extension.swift */; };
+		A6595AA0244EDCD300DDCAA5 /* TownAuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6595A9F244EDCD300DDCAA5 /* TownAuthorizationViewController.swift */; };
 		A6C1E369243B1AC800A6FF32 /* WriteTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C1E368243B1AC800A6FF32 /* WriteTypeViewController.swift */; };
 		A6C1E36B243B38AF00A6FF32 /* WriteTypeButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C1E36A243B38AF00A6FF32 /* WriteTypeButtonView.swift */; };
 		A6C1E36D243B51A100A6FF32 /* WriteClearViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C1E36C243B51A100A6FF32 /* WriteClearViewController.swift */; };
@@ -154,6 +155,7 @@
 		A63F37BF243596EF002C0D9B /* WriteKeywordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteKeywordViewController.swift; sourceTree = "<group>"; };
 		A63F37C124359B5D002C0D9B /* KeywordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordTableViewCell.swift; sourceTree = "<group>"; };
 		A63F37C32435CB87002C0D9B /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		A6595A9F244EDCD300DDCAA5 /* TownAuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownAuthorizationViewController.swift; sourceTree = "<group>"; };
 		A6C1E368243B1AC800A6FF32 /* WriteTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteTypeViewController.swift; sourceTree = "<group>"; };
 		A6C1E36A243B38AF00A6FF32 /* WriteTypeButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteTypeButtonView.swift; sourceTree = "<group>"; };
 		A6C1E36C243B51A100A6FF32 /* WriteClearViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteClearViewController.swift; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 				A62D96A92424A440006F1722 /* AppDelegate.swift */,
 				ACCD94E2242A19B900153545 /* InitialStart */,
 				ACB2B60124333742002FAF27 /* Authorization */,
+				A6595A9E244EDC9200DDCAA5 /* TownAuthorization */,
 				ACCD94D02429F5B900153545 /* Home */,
 				ACCD94D52429F60900153545 /* Category */,
 				ACCD94D12429F5C000153545 /* Product */,
@@ -366,6 +369,14 @@
 				A639494D2449CDA500832F4E /* FilterTableViewCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		A6595A9E244EDC9200DDCAA5 /* TownAuthorization */ = {
+			isa = PBXGroup;
+			children = (
+				A6595A9F244EDCD300DDCAA5 /* TownAuthorizationViewController.swift */,
+			);
+			path = TownAuthorization;
 			sourceTree = "<group>";
 		};
 		AC28CD22242A3FBF0031999B /* Reference */ = {
@@ -948,6 +959,7 @@
 				A63F37BA24344C39002C0D9B /* SelectedImageView.swift in Sources */,
 				ACCD94DD2429F87900153545 /* ChatViewController.swift in Sources */,
 				A62D97E0242B401B006F1722 /* WriteTableTitleCell.swift in Sources */,
+				A6595AA0244EDCD300DDCAA5 /* TownAuthorizationViewController.swift in Sources */,
 				A639493924486A8600832F4E /* SearchMainView.swift in Sources */,
 				A62D97E8242B5FDC006F1722 /* AddImageView.swift in Sources */,
 				ACCC9757242B509E008F95DE /* LocationManager.swift in Sources */,
