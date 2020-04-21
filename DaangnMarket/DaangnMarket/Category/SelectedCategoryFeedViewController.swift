@@ -203,7 +203,8 @@ class SelectedCategoryFeedViewController: UIViewController {
   }
   
   @objc private func didTabNaviSearchButton() {
-    print("검색 뷰컨트롤러 슝~")
+    guard let searchVC = ViewControllerGenerator.shared.make(.search) else { return }
+    self.navigationController?.pushViewController(searchVC, animated: true)
   }
 }
 

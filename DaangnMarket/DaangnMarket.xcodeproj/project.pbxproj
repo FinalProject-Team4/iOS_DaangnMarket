@@ -956,7 +956,6 @@
 				AC7AA0FF2445D62900691D5E /* KeywordNotificationCell.swift in Sources */,
 				A639494C2449933600832F4E /* KeywordNotiTableCell.swift in Sources */,
 				AC52A502243C495600DB4FB6 /* ImagesScrollView.swift in Sources */,
-				A639493B24486A9E00832F4E /* SearchResultsView.swift in Sources */,
 				AC8C0C88244C684700C1FB51 /* ChatModel.swift in Sources */,
 				ACCC975D242B75B7008F95DE /* TownInfo.swift in Sources */,
 				A621CB37244CA0D100BBFA4E /* SearchTownInfoView.swift in Sources */,

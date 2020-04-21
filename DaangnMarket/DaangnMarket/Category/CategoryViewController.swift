@@ -57,7 +57,6 @@ class CategoryViewController: UIViewController {
   private func setupAttributes() {
     view.backgroundColor = .white
     view.addSubview(scrollView)
-    scrollView.addSubview(headerView)
     scrollView.addSubview(categoryStackView)
     categoryStackView.addArrangedSubview(headerView)
     makeCategoryItems().forEach { categoryStackView.addArrangedSubview($0) }
@@ -65,8 +64,7 @@ class CategoryViewController: UIViewController {
   
   private func setupConstraints() {
     scrollView.snp.makeConstraints {
-      $0.edges.equalToSuperview()
-      $0.size.equalToSuperview()
+      $0.edges.size.equalTo(self.view.safeAreaLayoutGuide)
     }
     categoryStackView.snp.makeConstraints {
       $0.width.equalTo(UIScreen.main.bounds.width)
@@ -96,7 +94,8 @@ class CategoryViewController: UIViewController {
   @objc private func didTapNaviItem(_ sender: UIBarButtonItem) {
     switch sender.tag {
     case 0:
-      print("SearchViewController")
+      guard let searchVC = ViewControllerGenerator.shared.make(.search) else { return }
+      self.navigationController?.pushViewController(searchVC, animated: true)
     default:
       print("NotiViewController")
     }
