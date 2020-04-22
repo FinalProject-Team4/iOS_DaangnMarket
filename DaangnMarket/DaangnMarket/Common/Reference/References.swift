@@ -48,6 +48,7 @@ enum ColorReference: String {
   case mannerTemperature = "MannerTemperature"
   case notiBackground = "NotiBackground"
   case lightBackground = "LightBackground"
+  case warning = "Warning"
 }
 
 enum UserReference: String {

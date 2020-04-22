@@ -21,11 +21,11 @@ class TownAuthorizationViewController: UIViewController {
       .normal("이 맞나요?", fontSize: 15)
     $0.textColor = .white
     $0.textAlignment = .center
-    $0.backgroundColor = .red
+    $0.backgroundColor = UIColor(named: ColorReference.warning.rawValue)
   }
   private let currentLocateView = UIView()
   private let guideLine = UIView().then {
-    $0.backgroundColor = .gray
+    $0.backgroundColor = UIColor(named: ColorReference.borderLine.rawValue)
   }
   private let qnaView = UIView()
   
@@ -102,7 +102,8 @@ class TownAuthorizationViewController: UIViewController {
     }
     guideLine.snp.makeConstraints {
       $0.top.equalTo(currentLocateView.snp.bottom)
-      $0.width.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+      $0.leading.equalTo(view.safeAreaLayoutGuide).offset(16)
+      $0.trailing.equalTo(view.safeAreaLayoutGuide).offset(-16)
       $0.height.equalTo(1)
     }
     qnaView.snp.makeConstraints {
@@ -112,11 +113,6 @@ class TownAuthorizationViewController: UIViewController {
   }
   
   private func setupCurrentTownView() {
-    let locationImageView = UIImageView().then {
-      $0.image = UIImage(named: "MapMarker")
-      $0.contentMode = .scaleAspectFill
-      $0.tintColor = .lightGray
-    }
     let checkSelectedLocationLabel = UILabel().then {
       var list = ""
       currentTownList.forEach {
@@ -125,84 +121,76 @@ class TownAuthorizationViewController: UIViewController {
           list.append(", ")
         }
       }
-      $0.textColor = .red
+      let attrString = NSMutableAttributedString()
+      let paragraphStyle = NSMutableParagraphStyle().then {
+        $0.lineSpacing = 6
+        $0.alignment = .center
+      }
+      attrString.addAttribute(
+        NSAttributedString.Key.paragraphStyle,
+        value: paragraphStyle,
+        range: NSMakeRange(0, attrString.length)
+      )
+      $0.attributedText = attrString
+
       $0.attributedText = NSMutableAttributedString()
-        .normal("현재 위치 ", textColor: .red, fontSize: 17)
-        .bold("\(list)", fontSize: 17)
-      $0.numberOfLines = 0
-    }
-    let checkCurrentLocationLabel = UILabel().then {
-      $0.text = """
-      내 동네가 '\(selectedTown)'으로 설정되어 있습니다.
-      '\(selectedTown)'에서만 동네 인증을 할 수 있어요. 현재 위치를 확인해주세요!
-      """
-      $0.font = .systemFont(ofSize: 17)
+        .normal("현재 내 동네로 설정되어 있는 ", fontSize: 16)
+        .bold("\(list)", fontSize: 16)
+        .normal("에서만 동네인증을 할 수 있어요. 현재 위치를 확인해주세요.", fontSize: 16)
       $0.numberOfLines = 0
     }
     let changeLocationButton = UIButton().then {
-      $0.setTitle("현재 위치로 내 동네를 변경하고 싶으신가요?", for: .normal)
-      $0.titleLabel?.attributedText = NSMutableAttributedString()
-        .underline("현재 위치로 내 동네를 변경하고 싶으신가요?", fontSize: 17)
-      $0.setTitleColor(.gray, for: .normal)
-      $0.titleLabel?.font = .systemFont(ofSize: 15)
+      $0.setTitle("현재 위치로 동네 변경하기", for: .normal)
+      $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .bold)
+      $0.setTitleColor(.black, for: .normal)
+      $0.layer.borderWidth = 1
+      $0.layer.borderColor = UIColor(named: ColorReference.borderLine.rawValue)?.cgColor
+      $0.layer.cornerRadius = 4
+      $0.addTarget(self, action: #selector(didTapChangeTownButton), for: .touchUpInside)
     }
-    
-    [locationImageView, checkSelectedLocationLabel, checkCurrentLocationLabel, changeLocationButton].forEach {
+    [checkSelectedLocationLabel, changeLocationButton].forEach {
       currentLocateView.addSubview($0)
-    }
-    locationImageView.snp.makeConstraints {
-      $0.top.equalToSuperview().offset(24)
-      $0.leading.equalToSuperview().offset(16)
-      $0.width.height.equalTo(24)
     }
     checkSelectedLocationLabel.snp.makeConstraints {
       $0.top.equalToSuperview().offset(24)
-      $0.leading.equalTo(locationImageView.snp.trailing).offset(16)
+      $0.leading.equalToSuperview().offset(16)
       $0.trailing.equalToSuperview().offset(-20)
     }
-    checkCurrentLocationLabel.snp.makeConstraints {
-      $0.top.equalTo(checkSelectedLocationLabel.snp.bottom).offset(8)
-      $0.leading.trailing.equalTo(checkSelectedLocationLabel)
-    }
     changeLocationButton.snp.makeConstraints {
-      $0.top.equalTo(checkCurrentLocationLabel.snp.bottom).offset(8)
-      $0.leading.equalTo(checkCurrentLocationLabel.snp.leading)
+      $0.top.equalTo(checkSelectedLocationLabel.snp.bottom).offset(16)
+      $0.leading.trailing.equalTo(checkSelectedLocationLabel)
       $0.bottom.equalToSuperview().offset(-24)
+      $0.height.equalTo(36)
     }
   }
   
   private func setupQnAView() {
-    let qnaImageView = UIImageView().then {
-      $0.image = UIImage(named: "QMark")
-      $0.contentMode = .scaleAspectFill
-      $0.tintColor = .lightGray
-    }
     let qnaLable = UILabel().then {
       $0.text = "왜 동네 인증에 실패하나요?"
-      $0.font = .systemFont(ofSize: 17)
+      $0.font = .systemFont(ofSize: 16)
     }
     let qnaInfoButton = UIButton().then {
       $0.setImage(UIImage(systemName: "chevron.right"), for: .normal)
       $0.tintColor = .gray
     }
     
-    [qnaImageView, qnaLable, qnaInfoButton].forEach {
+    [qnaLable, qnaInfoButton].forEach {
       qnaView.addSubview($0)
-    }
-    qnaImageView.snp.makeConstraints {
-      $0.top.equalToSuperview().offset(26)
-      $0.leading.equalToSuperview().offset(18)
-      $0.bottom.equalTo(qnaLable.snp.bottom)
-      $0.width.height.equalTo(24)
     }
     qnaLable.snp.makeConstraints {
       $0.top.equalToSuperview().offset(26)
-      $0.leading.equalTo(qnaImageView.snp.trailing).offset(18)
+      $0.leading.equalToSuperview().offset(16)
     }
     qnaInfoButton.snp.makeConstraints {
       $0.top.equalToSuperview().offset(26)
-      $0.trailing.equalToSuperview().offset(-20)
+      $0.trailing.equalToSuperview().offset(-16)
     }
+  }
+  
+  @objc private func didTapChangeTownButton() {
+//    let alert =
+    // 현재 위치 찾아서
+    // 현재 위치가 내 동네로 설정한 '~'에 있습니다
   }
 }
 
