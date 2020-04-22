@@ -13,7 +13,6 @@ protocol OtherItemsTableViewCellDelegate: class {
 }
 
 class OtherItemsTableViewCell: UITableViewCell {
-  static let identifier = "OtherItemsTableCell"
   weak var delegate: OtherItemsTableViewCellDelegate?
   
   // MARK: Views
@@ -44,30 +43,12 @@ class OtherItemsTableViewCell: UITableViewCell {
     fatalError("init(coder:) has not been implemented")
   }
   
-  func configure(items: [[String]], sellerName: String) {
-    self.otherItems = items
-    sellerNameLabel.text = "\(sellerName)님의 판매 상품"
-  }
-  
   private func setupUI() {
-    setupAttributes()
+    setupCollectionView()
     setupConstraints()
   }
   
-  private func setupAttributes() {
-    setupCollectionView()
-  }
-  
-  private func setupFlowLayout() {
-//    let cellSize: CGFloat = (viewWidth - (spacing * 3)) / 2
-//    flowLayout.itemSize = CGSize(width: cellSize, height: cellSize)
-//    flowLayout.minimumLineSpacing = spacing
-//    flowLayout.minimumInteritemSpacing = spacing
-//    flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-  }
-  
   private func setupCollectionView() {
-    setupFlowLayout()
     collectionView.backgroundColor = .white
     collectionView.dataSource = self
     collectionView.delegate = self
@@ -92,6 +73,12 @@ class OtherItemsTableViewCell: UITableViewCell {
         $0.centerX.equalTo(self)
         $0.top.equalTo(self)
     }
+  }
+  
+  // MARK: Interface
+  func configure(items: [[String]], sellerName: String) {
+    self.otherItems = items
+    sellerNameLabel.text = "\(sellerName)님의 판매 상품"
   }
 }
 // MARK: - UICollectionViewDataSource

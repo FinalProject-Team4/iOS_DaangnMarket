@@ -42,18 +42,24 @@ class BottomButtonsView: UIView {
   }
   
   // MARK: Properties
+  
   var isNegociable = false
   private var isFullHeart = false
+  let numberFormatter = NumberFormatter()
   
   // MARK: Initializer
+  
   override init(frame: CGRect) {
     super.init(frame: frame)
     setupUI()
   }
   
-  convenience init(price: String, nego: Bool) {
+  convenience init(price: Int, nego: Bool) {
     self.init()
-    self.priceLabel.text = price
+    self.numberFormatter.numberStyle = .decimal
+    // what the...
+    self.priceLabel.text = "\(numberFormatter.string(from: NSNumber(value: price))!)원"
+    //self.priceLabel.text = "\(price)"
     self.negociableButton.isHidden = !nego
     self.noNegociableLabel.isHidden = nego
   }

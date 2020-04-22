@@ -14,15 +14,29 @@ class ProfilePageViewController: UIViewController {
   private let profileTableView = UITableView().then {
     $0.backgroundColor = .white
   }
+  
   // MARK: Properties
   
-  let titles = ["활동 뱃지", "판매상품", "동네생활", "받은 매너 평가", "받은 거래 후기"]
-  let dummyData = dummyItemsData
+  private var isUser = false
+  private var profileName = ""
+  private let titles = ["활동 뱃지", "판매상품", "동네생활", "받은 매너 평가", "받은 거래 후기"]
+  private var dummyData: [Post]
   private var refreshControl = UIRefreshControl().then {
     $0.tintColor = UIColor(named: ColorReference.daangnMain.rawValue)
   }
   
   // MARK: Initialize
+  
+  init(ownSelf: Bool, name: String, profileData: [Post]) {
+    self.isUser = ownSelf
+    self.profileName = name
+    self.dummyData = profileData
+    super.init(nibName: nil, bundle: nil)
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
@@ -34,7 +48,9 @@ class ProfilePageViewController: UIViewController {
     super.viewWillDisappear(animated)
     self.navigationController?.setNavigationBarHidden(false, animated: false)
     self.hidesBottomBarWhenPushed = false
-    tabBarController?.tabBar.isHidden = false
+    if isUser {
+      self.tabBarController?.tabBar.isHidden = false
+    }
   }
   
   override func viewDidLoad() {
@@ -43,6 +59,7 @@ class ProfilePageViewController: UIViewController {
   }
   
   private func setupUI() {
+    view.backgroundColor = .white
     setupNavigationBar()
     setupTableView()
     setupConstraints()
@@ -50,11 +67,11 @@ class ProfilePageViewController: UIViewController {
   
   private func setupNavigationBar() {
     self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-    navigationController?.navigationBar.backgroundColor = .white
-    navigationController?.navigationBar.isTranslucent = false
-    navigationController?.navigationBar.tintColor = .black
+    self.navigationController?.navigationBar.backgroundColor = .white
+    self.navigationController?.navigationBar.isTranslucent = false
+    self.navigationController?.navigationBar.tintColor = .black
     title = "프로필"
-
+    
     let shareOptionButton = UIButton().then {
       $0.setImage(UIImage(systemName: "square.and.arrow.up"), for: .normal)
       $0.imageView?.contentMode = .scaleAspectFit
@@ -122,6 +139,9 @@ extension ProfilePageViewController: UITableViewDataSource {
     switch indexPath.row {
     case 0:
       guard let cell = profileTableView.dequeueReusableCell(withIdentifier: ProfileUserInformTableViewCell.identifier, for: indexPath) as? ProfileUserInformTableViewCell else { return UITableViewCell() }
+      //let temp = UserInform.shared.username == dummyData[0].username
+      //let temp = false
+      cell.configure(isMyProfile: isUser, name: profileName)
       cell.selectionStyle = .none
       cell.separatorInset = UIEdgeInsets.zero
       return cell
@@ -165,7 +185,7 @@ extension ProfilePageViewController: UITableViewDelegate {
   }
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     if indexPath.row == 2 {
-      guard let sellingItemsVC = ViewControllerGenerator.shared.make(.sellingItems) else { return }
+      guard let sellingItemsVC = ViewControllerGenerator.shared.make(.sellingItems, parameters: ["sellingData": dummyData]) else { return }
       navigationController?.pushViewController(sellingItemsVC, animated: true)
     }
   }

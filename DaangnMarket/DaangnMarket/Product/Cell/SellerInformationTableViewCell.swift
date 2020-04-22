@@ -47,12 +47,6 @@ class SellerInformationTableViewCell: UITableViewCell {
     fatalError("init(coder:) has not been implemented")
   }
   
-  func configure(image: UIImage?, sellerId: String, addr: String) {
-    sellerImageView.image = image
-    idLabel.text = sellerId
-    addrLabel.text = addr
-  }
-  
   private func setupUI() {
     setupConstraints()
   }
@@ -89,5 +83,13 @@ class SellerInformationTableViewCell: UITableViewCell {
         $0.centerX.equalTo(self)
         $0.bottom.equalTo(self)
     }
+  }
+  
+  // MARK: Interface
+  
+  func configure(image: UIImage?, sellerId: String, addr: String) {
+    sellerImageView.image = image
+    idLabel.text = sellerId
+    addrLabel.text = addr
   }
 }

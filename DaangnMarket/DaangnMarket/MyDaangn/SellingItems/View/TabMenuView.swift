@@ -13,15 +13,15 @@ protocol TabMenuViewDelegate: class {
   func tabBarMenu(scrollTo index: Int)
 }
 
-class TabMenuView: UIView {  
+class TabMenuView: UIView {
   // MARK: Properties
   
   weak var delegate: TabMenuViewDelegate?
   private let viewWidth = UIScreen.main.bounds.width
-  private let tabMenuTitles = ["전체", "거래중", "거래완료"]
+  //private var tabMenuTitles = ["전체", "거래중", "거래완료"]
+  private var tabMenuTitles: [String] = []
   var indicatorViewLeadingConstraint: NSLayoutConstraint?
   var indicatorViewWidthConstraint: NSLayoutConstraint?
-  
   
   // MARK: Views
   
@@ -33,18 +33,26 @@ class TabMenuView: UIView {
     $0.backgroundColor = .white
     $0.isScrollEnabled = false
   }
-  
   private var indicatorView = UIView().then {
     $0.backgroundColor = .black
+  }
+  private let bottomLine = UIView().then {
+    $0.backgroundColor = UIColor(named: ColorReference.borderLine.rawValue)
   }
   
   // MARK: Initialize
   
  override init(frame: CGRect) {
     super.init(frame: frame)
+  }
+  
+  convenience init(menuTitles: [String]) {
+    self.init()
     self.backgroundColor = .white
+    tabMenuTitles = menuTitles
     setupUI()
   }
+  
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
@@ -63,18 +71,26 @@ class TabMenuView: UIView {
   }
   
   private func setupConstraints() {
-    let tabMenuHeight: CGFloat = 55
+    //let tabMenuHeight: CGFloat = 55
     let indicatorHeight: CGFloat = 3
     
     self.tabMenuCollectionView.then { self.addSubview($0) }
       .snp.makeConstraints {
         $0.top.leading.trailing.equalTo(self)
-        $0.height.equalTo(tabMenuHeight)
+        //$0.height.equalTo(tabMenuHeight)
     }
     self.indicatorView.then { self.addSubview($0) }
       .snp.makeConstraints {
         $0.height.equalTo(indicatorHeight)
         $0.top.equalTo(tabMenuCollectionView.snp.bottom)
+    }
+    self.bottomLine.then { self.addSubview($0) }
+      .snp.makeConstraints {
+        $0.width.leading.bottom.equalToSuperview()
+        //$0.width.equalTo(viewWidth)
+        $0.height.equalTo(0.5)
+        $0.top.equalTo(indicatorView.snp.bottom)
+        //$0.leading.bottom.equalToSuperview()
     }
     indicatorView.translatesAutoresizingMaskIntoConstraints = false
     self.indicatorViewLeadingConstraint = self.indicatorView.leadingAnchor.constraint(equalTo: self.leadingAnchor)
@@ -106,7 +122,8 @@ extension TabMenuView: UICollectionViewDataSource {
 
 extension TabMenuView: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    return CGSize(width: viewWidth / 3, height: 55)
+    //return CGSize(width: viewWidth / 3, height: 55)
+    return CGSize(width: collectionView.frame.size.width / 3, height: collectionView.frame.size.height)
   }
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
     return 0

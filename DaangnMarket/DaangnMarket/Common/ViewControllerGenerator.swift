@@ -61,20 +61,29 @@ class ViewControllerGenerator {
       return UINavigationController(rootViewController: ChooseTownToShowViewController())
     case .findTown:
       return UINavigationController(rootViewController: FindMyTownViewController())
+    
     case .productPost:
-      let productPostVC = ProductPostViewController()
+      guard let postVCData = parameters["postData"] as? Post else { return nil }
+      let productPostVC = ProductPostViewController(postData: postVCData)
       productPostVC.hidesBottomBarWhenPushed = true
       return productPostVC
+      
     case .notification:
       return NotificationViewController()
+    
     case .profilePage:
-      let profilePageVC = ProfilePageViewController()
-     //profilePageVC.hidesBottomBarWhenPushed = true
+      guard let ownSelfData = parameters["ownSelf"] as? Bool, let nameData = parameters["name"] as? String, let profileData = parameters["profileData"] as? [Post] else { return nil }
+      let profilePageVC = ProfilePageViewController(ownSelf: ownSelfData, name: nameData, profileData: profileData)
+      profilePageVC.hidesBottomBarWhenPushed = true
       return profilePageVC
-    case .sellingItems:
-      let sellingItemsVC = SellingItemsViewController()
-      //sellingItemsVC.hidesBottomBarWhenPushed = false
-      return sellingItemsVC
+      
+      
+     case .sellingItems:
+         guard let sellingItemsData = parameters["sellingData"] as? [Post] else { return nil }
+         let sellingItemsVC = SellingItemsViewController(sellingData: sellingItemsData)
+         return sellingItemsVC
+      
+      
     case .categoryFeed:
       guard let category = parameters["category"] as? String else { return nil }
       return SelectedCategoryFeedViewController(category: category)

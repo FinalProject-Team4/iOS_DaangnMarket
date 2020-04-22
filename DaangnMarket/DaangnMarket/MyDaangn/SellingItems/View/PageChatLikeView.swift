@@ -15,19 +15,19 @@ class PageChatLikeView: UIView {
     $0.image = UIImage(systemName: "bubble.left.and.bubble.right")
     $0.contentMode = .scaleAspectFit
     $0.clipsToBounds = true
-    $0.tintColor = UIColor(named: ColorReference.auth.rawValue)
+    $0.tintColor = UIColor(named: ColorReference.subText.rawValue)
   }
   private let numberOfChat = UILabel().then {
-    $0.textColor = UIColor(named: ColorReference.auth.rawValue)
+    $0.textColor = UIColor(named: ColorReference.subText.rawValue)
   }
   private let heartMark = UIImageView().then {
     $0.image = UIImage(systemName: "heart")
     $0.contentMode = .scaleAspectFit
     $0.clipsToBounds = true
-    $0.tintColor = UIColor(named: ColorReference.auth.rawValue)
+    $0.tintColor = UIColor(named: ColorReference.subText.rawValue)
   }
   private let numberOfLike = UILabel().then {
-    $0.textColor = UIColor(named: ColorReference.auth.rawValue)
+    $0.textColor = UIColor(named: ColorReference.subText.rawValue)
   }
   
   // MARK: Initialize
@@ -59,7 +59,7 @@ class PageChatLikeView: UIView {
       .snp.makeConstraints {
         $0.top.leading.equalToSuperview()
         $0.width.height.equalTo(markSize)
-        $0.bottom.equalToSuperview().offset(-spacing)
+        $0.bottom.equalToSuperview()
     }
     self.numberOfChat.then { self.addSubview($0) }
         .snp.makeConstraints {
@@ -76,7 +76,7 @@ class PageChatLikeView: UIView {
       .snp.makeConstraints {
         $0.top.equalTo(heartMark)
         $0.leading.equalTo(heartMark.snp.trailing).offset(spacing / 2)
-        $0.trailing.equalToSuperview().offset(-spacing)
+        $0.trailing.equalToSuperview()
     }
   }
 }
