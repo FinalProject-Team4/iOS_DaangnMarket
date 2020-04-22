@@ -80,6 +80,7 @@
 		AC8C0D12244F0F1900C1FB51 /* ChattingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0D11244F0F1900C1FB51 /* ChattingViewController.swift */; };
 		AC8C0D18244F2D9100C1FB51 /* ChattingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0D17244F2D9100C1FB51 /* ChattingCell.swift */; };
 		AC8C0D1A244F2E0B00C1FB51 /* MessageField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0D19244F2E0B00C1FB51 /* MessageField.swift */; };
+		AC8C0D1C2450AA2600C1FB51 /* ChattingTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0D1B2450AA2600C1FB51 /* ChattingTableView.swift */; };
 		ACB2B60324333763002FAF27 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B60224333763002FAF27 /* AuthViewController.swift */; };
 		ACB2B6072433472B002FAF27 /* AuthDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B6062433472B002FAF27 /* AuthDescriptionView.swift */; };
 		ACB2B60924334813002FAF27 /* NSMutableAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B60824334813002FAF27 /* NSMutableAttributedString+Extension.swift */; };
@@ -202,6 +203,7 @@
 		AC8C0D11244F0F1900C1FB51 /* ChattingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingViewController.swift; sourceTree = "<group>"; };
 		AC8C0D17244F2D9100C1FB51 /* ChattingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChattingCell.swift; sourceTree = "<group>"; };
 		AC8C0D19244F2E0B00C1FB51 /* MessageField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageField.swift; sourceTree = "<group>"; };
+		AC8C0D1B2450AA2600C1FB51 /* ChattingTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingTableView.swift; sourceTree = "<group>"; };
 		ACB2B60224333763002FAF27 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		ACB2B6062433472B002FAF27 /* AuthDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDescriptionView.swift; sourceTree = "<group>"; };
 		ACB2B60824334813002FAF27 /* NSMutableAttributedString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Extension.swift"; sourceTree = "<group>"; };
@@ -482,6 +484,7 @@
 				AC8C0D17244F2D9100C1FB51 /* ChattingCell.swift */,
 				AC8C0C84244B12C300C1FB51 /* ProfileThumbnailView.swift */,
 				AC8C0D19244F2E0B00C1FB51 /* MessageField.swift */,
+				AC8C0D1B2450AA2600C1FB51 /* ChattingTableView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -954,6 +957,7 @@
 				A639493B24486A9E00832F4E /* SearchResultsView.swift in Sources */,
 				AC8C0C88244C684700C1FB51 /* ChatModel.swift in Sources */,
 				ACCC975D242B75B7008F95DE /* TownInfo.swift in Sources */,
+				AC8C0D1C2450AA2600C1FB51 /* ChattingTableView.swift in Sources */,
 				A63F37C42435CB87002C0D9B /* Extension.swift in Sources */,
 				A6C1E369243B1AC800A6FF32 /* WriteTypeViewController.swift in Sources */,
 				A63F37BA24344C39002C0D9B /* SelectedImageView.swift in Sources */,

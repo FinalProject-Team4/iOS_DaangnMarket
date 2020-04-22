@@ -11,11 +11,10 @@ import UIKit
 class ChattingViewController: UIViewController {
   // MARK: Views
   
-  private lazy var chattingTableView = UITableView().then {
+  private lazy var chattingTableView = ChattingTableView().then {
     $0.register(ChattingCell.self, forCellReuseIdentifier: ChattingCell.identifier)
     $0.separatorStyle = .none
     $0.dataSource = self
-    $0.delegate = self
   }
   private let messageField = MessageField()
   
@@ -31,6 +30,11 @@ class ChattingViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.setupUI()
+  }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    self.chattingTableView.scrollToRow(at: IndexPath(row: self.messages.count - 1, section: 0), at: .bottom, animated: true)
   }
   
   private func setupUI() {
@@ -115,7 +119,8 @@ class ChattingViewController: UIViewController {
         .equalTo(self.view.safeAreaLayoutGuide)
         .offset(-frame.height + self.view.safeAreaInsets.bottom)
     }
-    self.chattingTableView.setContentOffset(CGPoint(x: 0, y: self.chattingTableView.contentOffset.y + frame.height), animated: false)
+    let newOffset = self.chattingTableView.contentOffset.y + frame.height
+    self.chattingTableView.contentOffset = CGPoint(x: 0, y: newOffset)
   }
   
   @objc func keyboardDidShow(_ noti: Notification) {
@@ -127,7 +132,9 @@ class ChattingViewController: UIViewController {
     self.messageField.snp.updateConstraints {
       $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
     }
-    self.chattingTableView.setContentOffset(CGPoint(x: 0, y: self.chattingTableView.contentOffset.y - frame.height), animated: false)
+    
+    let newOffset = max(0.0, self.chattingTableView.contentOffset.y - frame.height)
+    self.chattingTableView.contentOffset = CGPoint(x: 0, y: newOffset)
   }
 }
 
@@ -148,15 +155,5 @@ extension ChattingViewController: UITableViewDataSource {
     #endif
     
     return cell
-  }
-}
-
-// MARK: - UITableViewDelegate
-
-extension ChattingViewController: UITableViewDelegate {
-  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    UIView.setAnimationsEnabled(false)
-    self.view.endEditing(true)
-    UIView.setAnimationsEnabled(true)
   }
 }

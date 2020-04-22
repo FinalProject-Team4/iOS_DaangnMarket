@@ -21,14 +21,20 @@ class MessageField: UIView {
     $0.layer.borderWidth = 1
     $0.layer.borderColor = UIColor(named: ColorReference.borderLine.rawValue)?.cgColor
     $0.backgroundColor = .white
+    $0.clipsToBounds = true
   }
   private lazy var messageInputField = UITextView().then {
     $0.font = .systemFont(ofSize: 15)
     $0.delegate = self
-    $0.isScrollEnabled = false
-    $0.textContainerInset = .zero
-    $0.textContainer.lineFragmentPadding = 0
-    $0.backgroundColor = .white
+    $0.textContainerInset = .init(top: 8, left: 0, bottom: 8, right: 0)
+    $0.textContainer.lineFragmentPadding = 12
+    $0.autocapitalizationType = .none
+    $0.autocorrectionType = .no
+  }
+  private let placeholder = UILabel().then {
+    $0.text = "메시지를 입력하세요."
+    $0.textColor = .placeholderText
+    $0.font = .systemFont(ofSize: 15)
   }
   private lazy var emoticonButton = UIButton().then {
     $0.setBackgroundImage(UIImage(named: ImageReference.Chatting.emoticon.rawValue), for: .normal)
@@ -42,12 +48,18 @@ class MessageField: UIView {
     $0.addTarget(self, action: #selector(didTapSendButton(_:)), for: .touchUpInside)
   }
   
-  // MARK: Initialize
+  // MARK: Life Cycle
   
   override init(frame: CGRect) {
     super.init(frame: frame)
-    self.backgroundColor = UIColor(named: ColorReference.Chatting.inputFieldBackground.rawValue)
+    self.setupAttributes()
     self.setupConstraints()
+  }
+  
+  // MARK: Initialize
+  
+  private func setupAttributes() {
+    self.backgroundColor = UIColor(named: ColorReference.Chatting.inputFieldBackground.rawValue)
   }
   
   private func setupConstraints() {
@@ -99,8 +111,14 @@ class MessageField: UIView {
     
     self.messageInputField
       .then { self.messageInputArea.addSubview($0) }
+      .snp.makeConstraints { $0.edges.equalToSuperview() }
+    
+    self.placeholder
+      .then { self.messageInputArea.addSubview($0) }
       .snp.makeConstraints {
-        $0.edges.equalToSuperview().inset(UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12))
+        $0.edges
+          .equalToSuperview()
+          .inset(UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12))
     }
     
     self.emoticonButton
@@ -153,15 +171,19 @@ extension MessageField: UITextViewDelegate {
     return true
   }
   
+  
   func textViewDidChange(_ textView: UITextView) {
     // Update text view height
-    var height = textView.sizeThatFits(textView.frame.size).height + 16
-    height = height < 36 ? 36 : height
+    var height = textView.sizeThatFits(textView.frame.size).height
+    height = max(36, min(80, height))
     self.messageInputArea.snp.updateConstraints {
       $0.height.equalTo(height)
     }
     
     // Update send button state
     self.sendButton.isEnabled = !textView.text.isEmpty
+    
+    // Setup Placeholder
+    self.placeholder.isHidden = !textView.text.isEmpty
   }
 }
