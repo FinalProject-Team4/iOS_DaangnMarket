@@ -204,6 +204,12 @@ extension HomeFeedViewController: UITableViewDataSource {
 extension HomeFeedViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     print("\(posts[indexPath.row].postId)번 id")
+
+    guard let productPVC = ViewControllerGenerator.shared.make(.productPost) else { return }
+    PostData.shared.saveData(posts[indexPath.row])
+    navigationController?.pushViewController(productPVC, animated: true)
+    let addressTime = removeNotNeededTimeUnit(posts[indexPath.row].address, userUpdateTimes[indexPath.row])
+    PostData.shared.updated = addressTime.components(separatedBy: " • ")[1]
   }
 }
 

@@ -28,7 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     UNUserNotificationCenter.current().delegate = self
     Messaging.messaging().delegate = self
     UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound], completionHandler: { (_, _) in })
-    
     application.registerForRemoteNotifications()
     
     
@@ -72,7 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate: MessagingDelegate {
   func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
-    print("========== FCM TOKEN ==========\n", fcmToken)
+    print("==================== FCM TOKEN ====================\n", fcmToken)
     NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: ["token": fcmToken])
   }
 }

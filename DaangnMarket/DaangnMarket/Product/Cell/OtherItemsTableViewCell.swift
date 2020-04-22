@@ -8,14 +8,22 @@
 
 import UIKit
 
+protocol OtherItemsTableViewCellDelegate: class {
+  func moveToPage()
+}
+
 class OtherItemsTableViewCell: UITableViewCell {
   static let identifier = "OtherItemsTableCell"
+  weak var delegate: OtherItemsTableViewCellDelegate?
   
   // MARK: Views
   
   private let sellerIDLabel = UILabel().then {
     $0.textColor = .black
     $0.font = UIFont.boldSystemFont(ofSize: 17)
+  }
+  private let topLineView = UIView().then {
+    $0.backgroundColor = UIColor(named: ColorReference.borderLine.rawValue)
   }
   private let flowLayout = UICollectionViewFlowLayout()
   private lazy var collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: viewWidth, height: viewWidth), collectionViewLayout: flowLayout)
@@ -77,6 +85,13 @@ class OtherItemsTableViewCell: UITableViewCell {
         $0.leading.trailing.equalTo(self).inset(spacing)
         $0.bottom.equalTo(self)
     }
+    self.topLineView.then { self.addSubview($0) }
+      .snp.makeConstraints {
+        $0.height.equalTo(0.3)
+        $0.width.equalTo(self).offset(-spacing * 2)
+        $0.centerX.equalTo(self)
+        $0.top.equalTo(self)
+    }
   }
 }
 // MARK: - UICollectionViewDataSource
@@ -96,4 +111,7 @@ extension OtherItemsTableViewCell: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegateFlowLayout
 
 extension OtherItemsTableViewCell: UICollectionViewDelegateFlowLayout {
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    delegate?.moveToPage()
+  }
 }

@@ -176,16 +176,17 @@ extension AuthViewController: AuthInputFormDelegate {
   func authInputForm(_ authInputForm: AuthInputForm, didSelectAuthorizationButton button: UIButton, verificationCode: String) {
     self.authorizationManager.signIn(with: verificationCode) { (result) in
       switch result {
-      case .success(let token):
-        API.default.request(.login(idToken: token)) { (result) in
-          print("Token :", token)
+      case .success(let idToken):
+        API.default.request(.login(idToken: idToken)) { (result) in
+          print("==================== Firebase Auth ID TOKEN ====================\n", idToken)
           switch result {
           case .success(let userInfo):
+            print("=================== User Info ====================\n", userInfo)
             AuthorizationManager.shared.register(userInfo)
             self.dismiss(animated: true)
           case .failure(let error) where error.responseCode == 401:
             ViewControllerGenerator.shared
-              .make(.signUp, parameters: ["idToken": token])?
+              .make(.signUp, parameters: ["idToken": idToken])?
               .do {
                 $0.modalPresentationStyle = .fullScreen
                 self.present($0, animated: true)
