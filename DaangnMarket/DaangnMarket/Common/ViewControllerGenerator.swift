@@ -27,10 +27,13 @@ class ViewControllerGenerator {
     case townShow
     case popover
     case writeUsed
+    case findTown
     case productPost
     case profilePage
     case sellingItems
+    case notification
     case categoryFeed
+    case chatting
   }
   
   func make(_ type: ControllerType, parameters: [String: Any] = [:]) -> UIViewController? {
@@ -56,10 +59,14 @@ class ViewControllerGenerator {
       return UINavigationController(rootViewController: WriteUsedViewController())
     case .townShow:
       return UINavigationController(rootViewController: ChooseTownToShowViewController())
+    case .findTown:
+      return UINavigationController(rootViewController: FindMyTownViewController())
     case .productPost:
       let productPostVC = ProductPostViewController()
       productPostVC.hidesBottomBarWhenPushed = true
       return productPostVC
+    case .notification:
+      return NotificationViewController()
     case .profilePage:
       let profilePageVC = ProfilePageViewController()
      //profilePageVC.hidesBottomBarWhenPushed = true
@@ -71,6 +78,8 @@ class ViewControllerGenerator {
     case .categoryFeed:
       guard let category = parameters["category"] as? String else { return nil }
       return SelectedCategoryFeedViewController(category: category)
+    case .chatting:
+      return UINavigationController(rootViewController: ChatViewController())
     }
   }
   
@@ -86,7 +95,7 @@ class ViewControllerGenerator {
     let writeUseVC = WriteClearViewController().then {
       $0.tabBarItem = UITabBarItem(title: "글쓰기", image: UIImage(systemName: "pencil"), tag: 2)
     }
-    let chatVC = ChatViewController().then {
+    let chatVC = UINavigationController(rootViewController: ChatViewController()).then {
       $0.tabBarItem = UITabBarItem(title: "채팅", image: UIImage(systemName: "bubble.left.and.bubble.right"), tag: 3)
     }
     let mypageVC = MyPageViewController().then {
@@ -101,7 +110,7 @@ class ViewControllerGenerator {
   
   private func makePopoverController(_ homeVC: UIViewController, _ sender: UIView) -> UIViewController {
     let popover = PopoverViewController()
-    popover.preferredContentSize = CGSize(width: 300, height: 150)
+//    popover.preferredContentSize = CGSize(width: 300, height: 150)
     popover.modalPresentationStyle = .popover
     guard let presentationController = popover.popoverPresentationController else { fatalError("popOverPresent casting error") }
     
