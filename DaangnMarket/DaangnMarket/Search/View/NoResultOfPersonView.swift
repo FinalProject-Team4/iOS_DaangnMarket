@@ -39,5 +39,4 @@ class NoResultOfPersonView: UIView {
         $0.center.equalToSuperview()
       }
     }
-    
   }

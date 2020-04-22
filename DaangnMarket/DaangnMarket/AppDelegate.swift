@@ -24,7 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     self.window = UIWindow(frame: UIScreen.main.bounds)
     self.window?.rootViewController = ViewControllerGenerator.shared.make(.launch)
     self.window?.makeKeyAndVisible()
-    
     UNUserNotificationCenter.current().delegate = self
     Messaging.messaging().delegate = self
     UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound], completionHandler: { (_, _) in })
@@ -62,7 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
       }
     }
-
+    
     completionHandler(UIBackgroundFetchResult.newData)
   }
 }

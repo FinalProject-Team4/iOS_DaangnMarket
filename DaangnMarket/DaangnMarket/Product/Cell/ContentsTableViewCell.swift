@@ -45,13 +45,6 @@ class ContentsTableViewCell: UITableViewCell {
     fatalError("init(coder:) has not been implemented")
   }
   
-  func configure(contents: [String]) {
-    titleLabel.text = contents[0]
-    informLabel.text = "\(contents[1])﹒\(contents[2])"
-    contentsLabel.text = contents[3]
-    countLabel.text = "관심 2﹒조회 10"
-  }
-  
   private func setupUI() {
     setupConstraints()
   }
@@ -87,5 +80,14 @@ class ContentsTableViewCell: UITableViewCell {
         $0.centerX.equalTo(self)
         $0.bottom.equalTo(self)
     }
+  }
+  
+  // MARK: Interface
+  
+  func configure(contents: [String]) {
+    titleLabel.text = contents[0]
+    informLabel.text = "\(contents[1])﹒\(contents[2])"
+    contentsLabel.text = contents[3]
+    countLabel.text = "관심 2﹒조회 10"
   }
 }

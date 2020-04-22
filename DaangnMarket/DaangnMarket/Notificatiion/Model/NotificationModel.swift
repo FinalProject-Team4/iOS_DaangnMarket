@@ -20,7 +20,7 @@ class NotificationModel {
     .daangnLogo,
     .daangnLogo,
     .priceDown,
-    .daangni,
+    .daangni
   ]
   
   var keywordContents = [
