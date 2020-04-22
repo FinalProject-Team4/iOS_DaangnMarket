@@ -11,8 +11,10 @@ import UIKit
 class SellingItemsViewController: UIViewController {
   // MARK: Properties
   
-  var itemsData = dummyItemsData
-  var tabMenuView = TabMenuView()
+  var itemsData: [Post]
+  var onSaleData: [Post] = []
+  var completedData: [Post] = []
+  var tabMenuView = TabMenuView(menuTitles: ["전체", "거래중", "거래완료"])
   
   // MARK: Views
   
@@ -27,18 +29,40 @@ class SellingItemsViewController: UIViewController {
   
   // MARK: Initializes
   
+  init(sellingData: [Post]) {
+    self.itemsData = sellingData
+    super.init(nibName: nil, bundle: nil)
+    // 여기서 거래중과 거래완료 데이터 구분해주기!!!!
+    for idx in sellingData {
+      if idx.state == "sales" {
+        onSaleData.append(idx)
+      } else {
+        completedData.append(idx)
+      }
+    }
+    print("onSale", onSaleData.count)
+    print("completedData:", completedData.count)
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     self.hidesBottomBarWhenPushed = false
+    tabBarController?.tabBar.isHidden = false
     self.navigationController?.setNavigationBarHidden(false, animated: true)
     self.navigationController?.navigationBar.barStyle = .default
+    self.navigationController?.navigationBar.isTranslucent = false
+    //self.navigationController?.automaticallyAdjustsScrollViewInsets = false
   }
-
+  
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
-    self.hidesBottomBarWhenPushed = true
+    //self.hidesBottomBarWhenPushed = true
     tabBarController?.tabBar.isHidden = true
-     navigationController?.navigationBar.shadowImage = .none
+    navigationController?.navigationBar.shadowImage = .none
   }
   
   override func viewDidLoad() {
@@ -48,18 +72,22 @@ class SellingItemsViewController: UIViewController {
   
   private func setupUI() {
     tabMenuView.delegate = self
+    view.backgroundColor = .white
     setupNavigationBar()
     setupCollectionView()
     setupConstraints()
   }
   
   private func setupNavigationBar() {
+    self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
     UITabBar.appearance().backgroundColor = .white
     navigationController?.navigationBar.shadowImage = UIImage()
     title = "판매 상품 보기"
   }
   
   private func setupCollectionView() {
+    itemsCollectionView.contentInsetAdjustmentBehavior = .never
+    itemsCollectionView.backgroundColor = .red
     itemsCollectionView.delegate = self
     itemsCollectionView.dataSource = self
     itemsCollectionView.register(PageCollectionViewCell.self, forCellWithReuseIdentifier: PageCollectionViewCell.identifier)
@@ -89,9 +117,25 @@ extension SellingItemsViewController: UICollectionViewDataSource {
     return 3
   }
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PageCollectionViewCell.identifier, for: indexPath) as? PageCollectionViewCell else { return UICollectionViewCell() }
-    
-    return cell
+    switch indexPath.item {
+    case 0:
+      guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PageCollectionViewCell.identifier, for: indexPath) as? PageCollectionViewCell else { return UICollectionViewCell() }
+      cell.configure(pageData: itemsData)
+      cell.delegate = self
+      return cell
+    case 1:
+      guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PageCollectionViewCell.identifier, for: indexPath) as? PageCollectionViewCell else { return UICollectionViewCell() }
+      cell.configure(pageData: onSaleData)
+      cell.delegate = self
+      return cell
+    case 2:
+      guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PageCollectionViewCell.identifier, for: indexPath) as? PageCollectionViewCell else { return UICollectionViewCell() }
+      cell.configure(pageData: completedData)
+      cell.delegate = self
+      return cell
+    default:
+      return UICollectionViewCell()
+    }
   }
 }
 // MARK: - UICollectionViewDelegateFlowLayout
@@ -108,7 +152,7 @@ extension SellingItemsViewController: UICollectionViewDelegateFlowLayout {
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    collectionView.frame.size
+    return collectionView.frame.size
   }
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
     return 0
@@ -128,3 +172,10 @@ extension SellingItemsViewController: TabMenuViewDelegate {
     self.itemsCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
   }
 }
+
+extension SellingItemsViewController: PageCollectionVCDelegate {
+  func moveToPage(itemData: Post) {
+    guard let productPostVC = ViewControllerGenerator.shared.make(.productPost, parameters: ["postData": itemData]) else { return }
+    navigationController?.pushViewController(productPostVC, animated: true)
+  }
+}         

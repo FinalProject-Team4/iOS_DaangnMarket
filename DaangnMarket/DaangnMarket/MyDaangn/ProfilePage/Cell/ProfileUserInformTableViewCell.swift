@@ -14,12 +14,12 @@ class ProfileUserInformTableViewCell: UITableViewCell {
   static let identifier = "ProfileUserInformTableCell"
   private let userMannerTemp = 47.2
   private let viewWidth = UIScreen.main.bounds.width
+  var isSamePerson = Bool()
   
   // MARK: Views
-  private let nameImageView = UserProfileImageNameView()
+  private var nameImageView = UserProfileImageNameView()
   private let mannerTemperView = UserProfileMannerTemperView()
   private let percentageView = UserProfilePercentageView()
-  
   
   // MARK: Initialize
   
@@ -53,4 +53,11 @@ class ProfileUserInformTableViewCell: UITableViewCell {
         $0.bottom.equalToSuperview()
     }
   }
+  
+  // MARK: Interface
+  
+  func configure(isMyProfile: Bool, name: String) {
+    nameImageView.configure(isItMyProfile: isMyProfile, profileName: name)
+  }
 }
+

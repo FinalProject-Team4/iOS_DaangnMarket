@@ -61,7 +61,7 @@ class PageTableViewCell: UITableViewCell {
   }
   
   private let chatLikeView = PageChatLikeView()
- 
+  
   
   // MARK: Initialize
   
@@ -70,10 +70,10 @@ class PageTableViewCell: UITableViewCell {
     setupUI()
   }
   
-  override func prepareForReuse() {
-    super.prepareForReuse()
-  }
-  
+//  override func prepareForReuse() {
+//    super.prepareForReuse()
+//  }
+//  
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
@@ -127,13 +127,14 @@ class PageTableViewCell: UITableViewCell {
     }
     self.chatLikeView.then { self.backView.addSubview($0) }
       .snp.makeConstraints {
-        $0.trailing.bottom.equalToSuperview()
+        $0.trailing.equalToSuperview().offset(-spacing)
+        $0.bottom.equalToSuperview()
     }
   }
   
   // MARK: Interface
   
-  func configure(itemsData: DummyItemsData) {
+  func configure(itemsData: Post) {
     let numberFormatter = NumberFormatter()
     numberFormatter.numberStyle = .decimal
     
@@ -141,13 +142,20 @@ class PageTableViewCell: UITableViewCell {
     contentsLabel.text = itemsData.content
     priceLabel.text = "\(numberFormatter.string(from: NSNumber(value: itemsData.price))!)원"
     addrTimeLabel.text = "\(itemsData.address) ・ \(itemsData.updated)"
-    itemImageView.image = UIImage(named: itemsData.postImageSet[0])
-    if itemsData.state == "sales" {
+    //itemImageView.image = UIImage(named: itemsData.postImageSet[0])
+    itemImageView.image = UIImage(named: "others2")
+    if itemsData.state == "done" {
       addCloseDealingLabel()
+    } else {
+      stackView.removeArrangedSubview(closeDealingLabel)
+      closeDealingLabel.isHidden = true
     }
   }
   
-  func addCloseDealingLabel() {
+  // MARK: Action
+  
+  private func addCloseDealingLabel() {
     stackView.insertArrangedSubview(closeDealingLabel, at: 0)
+    closeDealingLabel.isHidden = false
   }
 }

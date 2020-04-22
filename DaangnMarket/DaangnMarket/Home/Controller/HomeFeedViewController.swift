@@ -32,13 +32,13 @@ class HomeFeedViewController: UIViewController {
     $0.layer.borderWidth = 0.3
     $0.selectedTownButton.setTitle(AuthorizationManager.shared.selectedTown?.dong ?? "unknown", for: .normal)
   }
-
+  
   private lazy var homeTableView = UITableView().then {
-     $0.sectionHeaderHeight = 4
-     $0.separatorStyle = .none
-     $0.rowHeight = 136
-     $0.register(HomeFeedTableViewCell.self, forCellReuseIdentifier: "GoodsCell")
-   }
+    $0.sectionHeaderHeight = 4
+    $0.separatorStyle = .none
+    $0.rowHeight = 136
+    $0.register(HomeFeedTableViewCell.self, forCellReuseIdentifier: "GoodsCell")
+  }
   
   // MARK: Life Cycle
   
@@ -47,7 +47,7 @@ class HomeFeedViewController: UIViewController {
     self.view.backgroundColor = .white
     self.tabBarController?.tabBar.isHidden = false
     self.parameters = ["locate": 8_725]
-//    requestPostData(url)
+    //    requestPostData(url)
     requestPostData(url, self.parameters)
     callDelegate()
     setupUI()
@@ -63,7 +63,7 @@ class HomeFeedViewController: UIViewController {
     super.viewDidAppear(animated)
     if AuthorizationManager.shared.userInfo == nil {
       if isFirstAlert {
-      doFirstViewPresent()
+        doFirstViewPresent()
       }
     }
   }
@@ -97,9 +97,9 @@ class HomeFeedViewController: UIViewController {
   // MARK: Request PostData
   
   func requestPostData(_ url: String, _ parameters: Parameters) {
-//    func requestPostData(_ url: String) {
-//    service.requestPostData(URL(string: url)!) { [weak self] result in
-      service.requestPostData(URL(string: url)!, parameters) { [weak self] result in
+    //    func requestPostData(_ url: String) {
+    //    service.requestPostData(URL(string: url)!) { [weak self] result in
+    service.requestPostData(URL(string: url)!, parameters) { [weak self] result in
       guard let self = self else { return }
       switch result {
       case .success(let postInfoData):
@@ -124,7 +124,7 @@ class HomeFeedViewController: UIViewController {
       cell.goodsImageView.kf.setImage(with: URL(string: posts[indexPath.row].postImageSet[0].photo))
     }
   }
-    
+  
   func removeNotNeededTimeUnit(_ address: String, _ userUpdateTimes: DateComponents) -> String {
     var updateTime = String()
     if userUpdateTimes.day != 0 {
@@ -152,7 +152,7 @@ class HomeFeedViewController: UIViewController {
       let updatedTime: Date = dateFormatter.date(from: tempTime) ?? currentTime
       let calculrate = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)
       guard let compareTime = calculrate?.components([.day, .hour, .minute, .second], from: updatedTime, to: currentTime, options: [])
-      else { fatalError("castin error") }
+        else { fatalError("castin error") }
       userUpdateTimes.append(compareTime)
     }
   }
@@ -194,7 +194,7 @@ extension HomeFeedViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
     if indexPath.row == (posts.count - 2) {
       guard let pageURL = nextPageURL else { return }
-//      requestPostData(pageURL)
+      //      requestPostData(pageURL)
       requestPostData(pageURL, self.parameters)
       self.perform(#selector(loadTable), with: nil, afterDelay: 1.0)
     }
@@ -209,13 +209,11 @@ extension HomeFeedViewController: UITableViewDataSource {
 
 extension HomeFeedViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    print("\(posts[indexPath.row].postId)번 id")
-
-    guard let productPVC = ViewControllerGenerator.shared.make(.productPost) else { return }
-    PostData.shared.saveData(posts[indexPath.row])
-    navigationController?.pushViewController(productPVC, animated: true)
-    let addressTime = removeNotNeededTimeUnit(posts[indexPath.row].address, userUpdateTimes[indexPath.row])
-    PostData.shared.updated = addressTime.components(separatedBy: " • ")[1]
+    //print("\(posts[indexPath.row].postId)번 id")
+    tabBarController?.tabBar.isHidden = true
+    navigationController?.navigationBar.shadowImage = .none
+    guard let productPostVC = ViewControllerGenerator.shared.make(.productPost, parameters: ["postData": posts[indexPath.row]]) else { return }
+    navigationController?.pushViewController(productPostVC, animated: true)
   }
 }
 

@@ -8,11 +8,17 @@
 
 import UIKit
 
-class PageCollectionViewCell: UICollectionViewCell { 
+protocol PageCollectionVCDelegate: class {
+  func moveToPage(itemData: Post)
+}
+
+class PageCollectionViewCell: UICollectionViewCell {
   // MARK: Property
   
+  weak var delegate: PageCollectionVCDelegate?
+  
   static let identifier = "pageCollectionCell"
-  var dummyData = dummyItemsData
+  var dummyData: [Post] = []
   private var refreshControl = UIRefreshControl().then {
     $0.tintColor = UIColor(named: ColorReference.daangnMain.rawValue)
   }
@@ -32,12 +38,19 @@ class PageCollectionViewCell: UICollectionViewCell {
     fatalError("init(coder:) has not been implemented")
   }
   
+  func configure(pageData: [Post]) {
+    self.dummyData = pageData
+  }
+  
   private func setupUI() {
+    self.insetsLayoutMarginsFromSafeArea = false
+    self.backgroundColor = .yellow
     setupTableView()
     setupConstraints()
   }
   
   private func setupTableView() {
+    pageTableView.contentInsetAdjustmentBehavior = .never
     pageTableView.backgroundColor = UIColor(named: ColorReference.backGray.rawValue)
     pageTableView.delegate = self
     pageTableView.dataSource = self
@@ -48,9 +61,9 @@ class PageCollectionViewCell: UICollectionViewCell {
   }
   
   private func setupConstraints() {
-    self.pageTableView.then { self.addSubview($0) }
+    self.pageTableView.then { self.contentView.addSubview($0) }
       .snp.makeConstraints {
-        $0.top.leading.trailing.bottom.equalTo(self)
+        $0.top.leading.trailing.bottom.equalToSuperview()
     }
   }
   
@@ -77,5 +90,8 @@ extension PageCollectionViewCell: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 
-extension PageCollectionViewCell: UITableViewDelegate {  
+extension PageCollectionViewCell: UITableViewDelegate {
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    delegate?.moveToPage(itemData: dummyData[indexPath.row])
+  }
 }

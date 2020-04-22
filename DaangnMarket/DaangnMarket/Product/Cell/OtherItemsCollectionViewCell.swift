@@ -42,11 +42,6 @@ class OtherItemsCollectionViewCell: UICollectionViewCell {
     fatalError("init(coder:) has not been implemented")
   }
   
-  func configure(image: UIImage?, title: String, price: String) {
-    imageView.image = image
-    titleLabel.text = title
-    priceLabel.text = price
-  }
   
   private func setupUI() {
     setupAttributes()
@@ -76,5 +71,13 @@ class OtherItemsCollectionViewCell: UICollectionViewCell {
         $0.bottom.equalTo(titleLabel.snp.top).offset(-spacing)
         $0.top.leading.trailing.equalToSuperview()
     }
+  }
+  
+  // MARK: Interface
+  
+  func configure(image: UIImage?, title: String, price: String) {
+    imageView.image = image
+    titleLabel.text = title
+    priceLabel.text = price
   }
 }
