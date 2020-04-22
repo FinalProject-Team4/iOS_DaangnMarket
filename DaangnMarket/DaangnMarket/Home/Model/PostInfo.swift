@@ -35,7 +35,7 @@ struct Post: Codable {
   let updated: String
   let address: String
   let price: Int
-  let state: String
+  var state: String
   let postImageSet: [PostImage]
 }
 

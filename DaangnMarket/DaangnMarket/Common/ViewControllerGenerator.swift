@@ -34,7 +34,7 @@ class ViewControllerGenerator {
     case notification
     case categoryFeed
     case chatting
-//    case salesList
+    case salesList
     case likeList
   }
   
@@ -88,10 +88,10 @@ class ViewControllerGenerator {
       guard let likeListData = parameters["likeListData"] as? [Post] else { return nil }
       let likeListVC = LikeListViewController(likeListData: likeListData)
       return likeListVC
-//    case .salesList:
-//      guard let salesListData = parameters["salesListData"] as? [Post] else { return nil }
-//      let salesListVC = SalesListViewController(salesListData: salesListData)
-//      return salesListVC
+    case .salesList:
+      guard let salesListData = parameters["salesListData"] as? [Post] else { return nil }
+      let salesListVC = SalesListViewController(salesListData: salesListData)
+      return salesListVC
     }
   }
   

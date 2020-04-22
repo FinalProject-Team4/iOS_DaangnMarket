@@ -144,10 +144,10 @@ extension MyPageViewController: MyPageUserInformDelegate {
 extension MyPageViewController: MyPageListButtonDelegate {
   func moveToPage(tag: String) {
     switch tag {
-//    case "salesListButton":
-//      //let salesListVC = SalesListViewController()
-//      guard let salesListVC = ViewControllerGenerator.shared.make(.salesList, parameters: ["salesListData": sellerItemsData1]) else { return }
-//      self.navigationController?.pushViewController(salesListVC, animated: true)
+    case "salesListButton":
+      //let salesListVC = SalesListViewController()
+      guard let salesListVC = ViewControllerGenerator.shared.make(.salesList, parameters: ["salesListData": sellerItemsData1]) else { return }
+      self.navigationController?.pushViewController(salesListVC, animated: true)
     case "likeListButton":
       let dummyData = PostData.shared.dummyData
       guard let likeListVC = ViewControllerGenerator.shared.make(.likeList, parameters: ["likeListData": dummyData]) else { return }
