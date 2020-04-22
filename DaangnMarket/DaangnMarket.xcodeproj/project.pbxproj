@@ -141,6 +141,27 @@
 		DE4B708224449981001BC5D8 /* PageChatLikeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4B708124449981001BC5D8 /* PageChatLikeView.swift */; };
 		DEA48F5924507BD00012317E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DEA48F5824507BD00012317E /* GoogleService-Info.plist */; };
 		DEB8887A24508CA900EAE363 /* profileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB8887924508CA900EAE363 /* profileData.swift */; };
+		DEE5BBCA2450B0BB009410CA /* MyPageListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5BBC92450B0BB009410CA /* MyPageListButton.swift */; };
+		DEE5BBCC2450B0D8009410CA /* MyPageSettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5BBCB2450B0D8009410CA /* MyPageSettingButton.swift */; };
+		DEE5BBCE2450B102009410CA /* MyProfileImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5BBCD2450B102009410CA /* MyProfileImageButton.swift */; };
+		DEE5BBD02450B19D009410CA /* MyPageListButtonsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5BBCF2450B19D009410CA /* MyPageListButtonsTableViewCell.swift */; };
+		DEE5BBD42450B218009410CA /* MyPageOptionButtonsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5BBD32450B218009410CA /* MyPageOptionButtonsTableViewCell.swift */; };
+		DEE5BBD62450B256009410CA /* MyPageSettingButtonsTableViewCel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5BBD52450B256009410CA /* MyPageSettingButtonsTableViewCel.swift */; };
+		DEE5BBD82450B296009410CA /* MyPageUserInformTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5BBD72450B296009410CA /* MyPageUserInformTableViewCell.swift */; };
+		DEE5BBDA2450B781009410CA /* SalesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5BBD92450B781009410CA /* SalesListViewController.swift */; };
+		DEE5BBE52450B811009410CA /* LikeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5BBE42450B811009410CA /* LikeListViewController.swift */; };
+		DEE5BBE72450BCE1009410CA /* LikeListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5BBE62450BCE1009410CA /* LikeListTableViewCell.swift */; };
+		DEE5BBEA2450C043009410CA /* SalesListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5BBE92450C043009410CA /* SalesListContentView.swift */; };
+		DEE5BBEC2450C193009410CA /* SalesListEmptyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5BBEB2450C193009410CA /* SalesListEmptyCollectionViewCell.swift */; };
+		DEE5BBEE2450C1D3009410CA /* SalesListEndOfSalesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5BBED2450C1D3009410CA /* SalesListEndOfSalesCollectionViewCell.swift */; };
+		DEE5BBF02450C250009410CA /* SalesListHiddenCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5BBEF2450C250009410CA /* SalesListHiddenCollectionViewCell.swift */; };
+		DEE5BBF22450C2DA009410CA /* SalesListOnSaleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5BBF12450C2DA009410CA /* SalesListOnSaleCollectionViewCell.swift */; };
+		DEE5BBF42450C36A009410CA /* SalesListEndOfSalesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5BBF32450C36A009410CA /* SalesListEndOfSalesTableViewCell.swift */; };
+		DEE5BBF62450C3B5009410CA /* SalesListHiddenTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5BBF52450C3B5009410CA /* SalesListHiddenTableViewCell.swift */; };
+		DEE5BBF82450C3FB009410CA /* SalesListOnSaleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5BBF72450C3FB009410CA /* SalesListOnSaleTableViewCell.swift */; };
+		DEE5BBFB2450C5A1009410CA /* SalesListData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5BBFA2450C5A1009410CA /* SalesListData.swift */; };
+		DEE5BC002450C5F7009410CA /* BackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5BBFF2450C5F7009410CA /* BackView.swift */; };
+		DEE5BC022450C62B009410CA /* EndOfSaleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5BC012450C62B009410CA /* EndOfSaleViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -284,6 +305,27 @@
 		DE4B708124449981001BC5D8 /* PageChatLikeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageChatLikeView.swift; sourceTree = "<group>"; };
 		DEA48F5824507BD00012317E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/finalProject/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DEB8887924508CA900EAE363 /* profileData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileData.swift; sourceTree = "<group>"; };
+		DEE5BBC92450B0BB009410CA /* MyPageListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageListButton.swift; sourceTree = "<group>"; };
+		DEE5BBCB2450B0D8009410CA /* MyPageSettingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageSettingButton.swift; sourceTree = "<group>"; };
+		DEE5BBCD2450B102009410CA /* MyProfileImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileImageButton.swift; sourceTree = "<group>"; };
+		DEE5BBCF2450B19D009410CA /* MyPageListButtonsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageListButtonsTableViewCell.swift; sourceTree = "<group>"; };
+		DEE5BBD32450B218009410CA /* MyPageOptionButtonsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageOptionButtonsTableViewCell.swift; sourceTree = "<group>"; };
+		DEE5BBD52450B256009410CA /* MyPageSettingButtonsTableViewCel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageSettingButtonsTableViewCel.swift; sourceTree = "<group>"; };
+		DEE5BBD72450B296009410CA /* MyPageUserInformTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageUserInformTableViewCell.swift; sourceTree = "<group>"; };
+		DEE5BBD92450B781009410CA /* SalesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesListViewController.swift; sourceTree = "<group>"; };
+		DEE5BBE42450B811009410CA /* LikeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeListViewController.swift; sourceTree = "<group>"; };
+		DEE5BBE62450BCE1009410CA /* LikeListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeListTableViewCell.swift; sourceTree = "<group>"; };
+		DEE5BBE92450C043009410CA /* SalesListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesListContentView.swift; sourceTree = "<group>"; };
+		DEE5BBEB2450C193009410CA /* SalesListEmptyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesListEmptyCollectionViewCell.swift; sourceTree = "<group>"; };
+		DEE5BBED2450C1D3009410CA /* SalesListEndOfSalesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesListEndOfSalesCollectionViewCell.swift; sourceTree = "<group>"; };
+		DEE5BBEF2450C250009410CA /* SalesListHiddenCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesListHiddenCollectionViewCell.swift; sourceTree = "<group>"; };
+		DEE5BBF12450C2DA009410CA /* SalesListOnSaleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesListOnSaleCollectionViewCell.swift; sourceTree = "<group>"; };
+		DEE5BBF32450C36A009410CA /* SalesListEndOfSalesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesListEndOfSalesTableViewCell.swift; sourceTree = "<group>"; };
+		DEE5BBF52450C3B5009410CA /* SalesListHiddenTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesListHiddenTableViewCell.swift; sourceTree = "<group>"; };
+		DEE5BBF72450C3FB009410CA /* SalesListOnSaleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesListOnSaleTableViewCell.swift; sourceTree = "<group>"; };
+		DEE5BBFA2450C5A1009410CA /* SalesListData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesListData.swift; sourceTree = "<group>"; };
+		DEE5BBFF2450C5F7009410CA /* BackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackView.swift; sourceTree = "<group>"; };
+		DEE5BC012450C62B009410CA /* EndOfSaleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndOfSaleViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -654,7 +696,9 @@
 		ACCD94D42429F5E600153545 /* MyDaangn */ = {
 			isa = PBXGroup;
 			children = (
-				ACCD94DE2429F89200153545 /* MyPageViewController.swift */,
+				DEE5BBC52450B048009410CA /* MyDaangnHome */,
+				DEE5BBDB2450B794009410CA /* SalesList */,
+				DEE5BBDC2450B79A009410CA /* LikeList */,
 				9A935DBF244387C20043298E /* Model */,
 				DEA48F5A24507D090012317E /* ProfilePage */,
 				DEB8886E24507E7E00EAE363 /* SellingItems */,
@@ -924,6 +968,145 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		DEE5BBC52450B048009410CA /* MyDaangnHome */ = {
+			isa = PBXGroup;
+			children = (
+				DEE5BBC82450B05C009410CA /* Controller */,
+				DEE5BBC72450B058009410CA /* View */,
+				DEE5BBC62450B053009410CA /* Cell */,
+			);
+			path = MyDaangnHome;
+			sourceTree = "<group>";
+		};
+		DEE5BBC62450B053009410CA /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				DEE5BBCF2450B19D009410CA /* MyPageListButtonsTableViewCell.swift */,
+				DEE5BBD52450B256009410CA /* MyPageSettingButtonsTableViewCel.swift */,
+				DEE5BBD32450B218009410CA /* MyPageOptionButtonsTableViewCell.swift */,
+				DEE5BBD72450B296009410CA /* MyPageUserInformTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		DEE5BBC72450B058009410CA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DEE5BBC92450B0BB009410CA /* MyPageListButton.swift */,
+				DEE5BBCD2450B102009410CA /* MyProfileImageButton.swift */,
+				DEE5BBCB2450B0D8009410CA /* MyPageSettingButton.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DEE5BBC82450B05C009410CA /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				ACCD94DE2429F89200153545 /* MyPageViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		DEE5BBDB2450B794009410CA /* SalesList */ = {
+			isa = PBXGroup;
+			children = (
+				DEE5BBE82450C01E009410CA /* EndOfSalePage */,
+				DEE5BBF92450C591009410CA /* Model */,
+				DEE5BBE02450B7C0009410CA /* Controller */,
+				DEE5BBDF2450B7BC009410CA /* Cell */,
+				DEE5BBDE2450B7B4009410CA /* View */,
+			);
+			path = SalesList;
+			sourceTree = "<group>";
+		};
+		DEE5BBDC2450B79A009410CA /* LikeList */ = {
+			isa = PBXGroup;
+			children = (
+				DEE5BBE12450B7E5009410CA /* Controller */,
+				DEE5BBE22450B7EB009410CA /* Cell */,
+			);
+			path = LikeList;
+			sourceTree = "<group>";
+		};
+		DEE5BBDE2450B7B4009410CA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DEE5BBE92450C043009410CA /* SalesListContentView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DEE5BBDF2450B7BC009410CA /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				DEE5BBEB2450C193009410CA /* SalesListEmptyCollectionViewCell.swift */,
+				DEE5BBF32450C36A009410CA /* SalesListEndOfSalesTableViewCell.swift */,
+				DEE5BBF52450C3B5009410CA /* SalesListHiddenTableViewCell.swift */,
+				DEE5BBF72450C3FB009410CA /* SalesListOnSaleTableViewCell.swift */,
+				DEE5BBED2450C1D3009410CA /* SalesListEndOfSalesCollectionViewCell.swift */,
+				DEE5BBEF2450C250009410CA /* SalesListHiddenCollectionViewCell.swift */,
+				DEE5BBF12450C2DA009410CA /* SalesListOnSaleCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		DEE5BBE02450B7C0009410CA /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				DEE5BBD92450B781009410CA /* SalesListViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		DEE5BBE12450B7E5009410CA /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				DEE5BBE42450B811009410CA /* LikeListViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		DEE5BBE22450B7EB009410CA /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				DEE5BBE62450BCE1009410CA /* LikeListTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		DEE5BBE82450C01E009410CA /* EndOfSalePage */ = {
+			isa = PBXGroup;
+			children = (
+				DEE5BBFD2450C5D2009410CA /* Controller */,
+				DEE5BBFC2450C5C7009410CA /* View */,
+			);
+			path = EndOfSalePage;
+			sourceTree = "<group>";
+		};
+		DEE5BBF92450C591009410CA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DEE5BBFA2450C5A1009410CA /* SalesListData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		DEE5BBFC2450C5C7009410CA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DEE5BBFF2450C5F7009410CA /* BackView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DEE5BBFD2450C5D2009410CA /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				DEE5BC012450C62B009410CA /* EndOfSaleViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1060,11 +1243,15 @@
 			files = (
 				DE4B7080244490EE001BC5D8 /* MannerTemperatureView.swift in Sources */,
 				A6C1E395243D6B0E00A6FF32 /* CategoryItemView.swift in Sources */,
+				DEE5BBD62450B256009410CA /* MyPageSettingButtonsTableViewCel.swift in Sources */,
 				AC7AA1002445D62900691D5E /* ActivityNotificationCell.swift in Sources */,
+				DEE5BBFB2450C5A1009410CA /* SalesListData.swift in Sources */,
+				DEE5BBCE2450B102009410CA /* MyProfileImageButton.swift in Sources */,
 				ACCC9755242B490E008F95DE /* Identifiable.swift in Sources */,
 				ACFB7D3A242CCE9200E47F97 /* UIDevice+Extension.swift in Sources */,
 				A62D97E4242B403E006F1722 /* WriteTablePriceCell.swift in Sources */,
 				A6FB7195243755770092A5F1 /* DGAlertAction.swift in Sources */,
+				DEE5BBD02450B19D009410CA /* MyPageListButtonsTableViewCell.swift in Sources */,
 				AD7ABAB42443FFB000520C28 /* AroundTownsViewController.swift in Sources */,
 				A6C1E36B243B38AF00A6FF32 /* WriteTypeButtonView.swift in Sources */,
 				ACB2B60924334813002FAF27 /* NSMutableAttributedString+Extension.swift in Sources */,
@@ -1078,6 +1265,7 @@
 				A63F37C224359B5D002C0D9B /* KeywordTableViewCell.swift in Sources */,
 				9A6536C12441AC4B00301D01 /* PageTableViewCell.swift in Sources */,
 				AC52A4FF243C495600DB4FB6 /* PostData.swift in Sources */,
+				DEE5BC002450C5F7009410CA /* BackView.swift in Sources */,
 				A62D97EC242DC449006F1722 /* SelectCategoryViewController.swift in Sources */,
 				AC28CD24242A3FCA0031999B /* References.swift in Sources */,
 				AC52A4DB24385EDB00DB4FB6 /* PhoneAuthorizationManager.swift in Sources */,
@@ -1086,11 +1274,14 @@
 				A62D96AE2424A440006F1722 /* HomeFeedViewController.swift in Sources */,
 				AC52A4FB243C495600DB4FB6 /* SellerInformationTableViewCell.swift in Sources */,
 				AD37AA13244F21B100D24EDD /* PopoverSecondTownButton.swift in Sources */,
+				DEE5BBF22450C2DA009410CA /* SalesListOnSaleCollectionViewCell.swift in Sources */,
 				A6FB7193243731560092A5F1 /* DGAlertController.swift in Sources */,
 				AC7AA10B2446D72800691D5E /* NotificationTableView.swift in Sources */,
 				A63F37C0243596EF002C0D9B /* WriteKeywordViewController.swift in Sources */,
 				AC52A50C243D90D000DB4FB6 /* LaunchViewController.swift in Sources */,
+				DEE5BC022450C62B009410CA /* EndOfSaleViewController.swift in Sources */,
 				ACB600A424486A0700315DEA /* KeywordNotificationHeader.swift in Sources */,
+				DEE5BBDA2450B781009410CA /* SalesListViewController.swift in Sources */,
 				A62D97DE242B3F57006F1722 /* WriteTableAlbumCell.swift in Sources */,
 				A62D97E6242B40AE006F1722 /* WriteTableDescriptionCell.swift in Sources */,
 				AD6208AA243CB386007818C6 /* ChooseTownToShowViewController.swift in Sources */,
@@ -1108,6 +1299,7 @@
 				AD5DC679243F5DF200A4A5A4 /* CustomNavigationBar.swift in Sources */,
 				A6C1E369243B1AC800A6FF32 /* WriteTypeViewController.swift in Sources */,
 				A63F37BA24344C39002C0D9B /* SelectedImageView.swift in Sources */,
+				DEE5BBCC2450B0D8009410CA /* MyPageSettingButton.swift in Sources */,
 				AD7BEF772444811300F72831 /* CustomSlider.swift in Sources */,
 				9A6536C72442738A00301D01 /* SellingItemsViewController.swift in Sources */,
 				ACCD94DD2429F87900153545 /* ChatViewController.swift in Sources */,
@@ -1124,13 +1316,18 @@
 				A639494224486AFD00832F4E /* KeywordCollectionViewCell.swift in Sources */,
 				AD6EBFAC2438E83C003F01CA /* SecondTownSelectButton.swift in Sources */,
 				ACCD94EA242A238300153545 /* FindMyTownViewController.swift in Sources */,
+				DEE5BBD82450B296009410CA /* MyPageUserInformTableViewCell.swift in Sources */,
+				DEE5BBCA2450B0BB009410CA /* MyPageListButton.swift in Sources */,
 				DEB8887A24508CA900EAE363 /* profileData.swift in Sources */,
 				A639493D24486AB300832F4E /* HistoryKeywordsView.swift in Sources */,
 				ADAA12BF2433214000A692A0 /* PopoverViewController.swift in Sources */,
 				AC52A4E12439A53000DB4FB6 /* ConfigProfileViewController.swift in Sources */,
 				AC52A4EF243B426A00DB4FB6 /* UserDefaults+Extension.swift in Sources */,
 				AD677861242A21ED00CFEB86 /* FirstAlertViewController.swift in Sources */,
+				DEE5BBEA2450C043009410CA /* SalesListContentView.swift in Sources */,
 				9A6536BB2441ABF200301D01 /* ProfileUserInformTableViewCell.swift in Sources */,
+				DEE5BBEE2450C1D3009410CA /* SalesListEndOfSalesCollectionViewCell.swift in Sources */,
+				DEE5BBD42450B218009410CA /* MyPageOptionButtonsTableViewCell.swift in Sources */,
 				AC52A501243C495600DB4FB6 /* BottomButtonsView.swift in Sources */,
 				AC52A4DF2438BA5100DB4FB6 /* APIRequest.swift in Sources */,
 				9A6536C52441AC8100301D01 /* TabMenuCollectionViewCell.swift in Sources */,
@@ -1141,6 +1338,7 @@
 				AC52A4FE243C495600DB4FB6 /* OtherItemsCollectionViewCell.swift in Sources */,
 				A62D96AA2424A440006F1722 /* AppDelegate.swift in Sources */,
 				A6C1E393243C5CE400A6FF32 /* MainTabBarController.swift in Sources */,
+				DEE5BBF82450C3FB009410CA /* SalesListOnSaleTableViewCell.swift in Sources */,
 				A639494424486B7500832F4E /* SearchHistoryModel.swift in Sources */,
 				9A935DC1244387D10043298E /* ItemsData.swift in Sources */,
 				9A6536B92441A7FB00301D01 /* ProfilePageViewController.swift in Sources */,
@@ -1149,6 +1347,7 @@
 				AD6EBFA8243773BB003F01CA /* TownSelectView.swift in Sources */,
 				ADB599202449846900E4322D /* SecondTownSetButton.swift in Sources */,
 				A63949342448525700832F4E /* SearchViewController.swift in Sources */,
+				DEE5BBE52450B811009410CA /* LikeListViewController.swift in Sources */,
 				ACB2B6072433472B002FAF27 /* AuthDescriptionView.swift in Sources */,
 				A6FB71992439A7AE0092A5F1 /* CategoryModel.swift in Sources */,
 				ACFB7D3E242CD94E00E47F97 /* UINavigationController+Extension.swift in Sources */,
@@ -1163,6 +1362,7 @@
 				AD37AA14244F21B100D24EDD /* PopoverTownSettingButton.swift in Sources */,
 				AC7AA10E2446DEAC00691D5E /* NotificationCell.swift in Sources */,
 				ACCD94EE242A23B800153545 /* DaangnAnimationView.swift in Sources */,
+				DEE5BBF42450C36A009410CA /* SalesListEndOfSalesTableViewCell.swift in Sources */,
 				ADD05135242C4FC000312DF1 /* Service.swift in Sources */,
 				ACCD94DB2429F86B00153545 /* WriteUsedViewController.swift in Sources */,
 				ACCC975B242B6DB0008F95DE /* API.swift in Sources */,
@@ -1177,13 +1377,17 @@
 				ACB2B60324333763002FAF27 /* AuthViewController.swift in Sources */,
 				AC52A4ED243B116F00DB4FB6 /* ViewControllerGenerator.swift in Sources */,
 				ACEE24CC2435CA1B0044D573 /* DGUpperAlert.swift in Sources */,
+				DEE5BBF02450C250009410CA /* SalesListHiddenCollectionViewCell.swift in Sources */,
+				DEE5BBE72450BCE1009410CA /* LikeListTableViewCell.swift in Sources */,
 				9A6536C32441AC6600301D01 /* TabMenuView.swift in Sources */,
 				ACFB7D38242CA45600E47F97 /* TownNoResultView.swift in Sources */,
 				AC7AA0FB2445D61E00691D5E /* NotificationViewController.swift in Sources */,
 				DE4B705A24447EC1001BC5D8 /* UserProfileImageNameView.swift in Sources */,
 				9A6536BF2441AC3700301D01 /* PageCollectionViewCell.swift in Sources */,
 				ACFB7D36242C9A0C00E47F97 /* InitialStartView.swift in Sources */,
+				DEE5BBF62450C3B5009410CA /* SalesListHiddenTableViewCell.swift in Sources */,
 				A62D97EA242CAD7E006F1722 /* SelectLocationView.swift in Sources */,
+				DEE5BBEC2450C193009410CA /* SalesListEmptyCollectionViewCell.swift in Sources */,
 				A639494E2449CDA500832F4E /* FilterTableViewCell.swift in Sources */,
 				ACCD94DF2429F89200153545 /* MyPageViewController.swift in Sources */,
 				ADD05137242C62CF00312DF1 /* PostInfo.swift in Sources */,
