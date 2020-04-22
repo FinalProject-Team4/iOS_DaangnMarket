@@ -19,6 +19,12 @@ struct ChatInfo {
   var isBookmarked: Bool
 }
 
+struct Message: Codable {
+  let user: String
+  let message: String
+  let date: String
+}
+
 class ChatModel {
   var chatList = [
     ChatInfo(

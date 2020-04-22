@@ -31,6 +31,15 @@ enum ImageReference: String {
     case daangni = "DaangnLogo-Noti-Daangni"
     case priceDown = "DaangnLogo-Noti-Down"
   }
+  
+  enum Chatting: String {
+    case more = "plus"
+    case menu = "menu"
+    case calendar = "calendar"
+    case enabledSend = "send_enabled"
+    case disabledSend = "send_disabled"
+    case emoticon = "emoticon"
+  }
 }
 
 enum ColorReference: String {
@@ -47,6 +56,10 @@ enum ColorReference: String {
   case mannerTemperature = "MannerTemperature"
   case notiBackground = "NotiBackground"
   case lightBackground = "LightBackground"
+  
+  enum Chatting: String {
+    case inputFieldBackground = "InputFieldBackground"
+  }
 }
 
 enum UserReference: String {

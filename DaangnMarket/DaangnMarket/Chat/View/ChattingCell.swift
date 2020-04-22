@@ -1,176 +1,92 @@
 //
-//  ChattingCell.swift
-//  DaangnMarket
+//  ChatCell.swift
+//  FirebaseChatSample
 //
-//  Created by cskim on 2020/04/18.
-//  Copyright © 2020 Jisng. All rights reserved.
+//  Created by cskim on 2020/04/20.
+//  Copyright © 2020 cskim. All rights reserved.
 //
 
 import UIKit
 
 class ChattingCell: UITableViewCell {
-  // MARK: Interface
   
-  func configure(chatInfo chat: ChatInfo) {
-    // Config Profile
-    self.profileView.profileImage = UIImage(named: chat.profileImage ?? "")
-    self.profileView.badgeImage = chat.username.contains("당근이") ? UIImage(named: ImageReference.badge.rawValue) : nil
-    self.usernameLabel.text = chat.username
-    
-    // Config Content
-    self.chatInfoLabel.text = chat.address + " ・ " + chat.updated
-    self.previewLabel.text = chat.content
-    
-    if let thumbnail = chat.productImage {
-      self.thumbnailImageView.image = UIImage(named: thumbnail)
-      self.thumbnailImageView.snp.updateConstraints {
-        $0.leading
-          .equalTo(self.badgeLabel.snp.trailing)
-          .offset(10)
-        $0.width.equalTo(40)
-      }
-    }
-    
-    // Config ChatInfo
-    if chat.badge > 0 {
-      self.badgeLabel.text = chat.badge.description
-      self.badgeLabel.snp.updateConstraints {
-        $0.leading
-          .equalTo(self.chatInfoLabel.snp.trailing)   // offset 8
-          .offset(8)
-        $0.width.equalTo(30)
-      }
-    }
-    self.bookmarkView.isHidden = !chat.isBookmarked
+  func configure(message: String, isMe: Bool) {
+    self.myChatView.isHidden = !isMe
+    self.otherChatView.isHidden = isMe
+    self.myChat.text = isMe ? message : ""
+    self.otherChat.text = isMe ? "" : message
   }
   
-  // MARK: Views
+  let myChatView: UIView = {
+    let view = UIView()
+    view.layer.cornerRadius = 12
+    view.backgroundColor = UIColor.orange.withAlphaComponent(0.7)
+    view.isHidden = true
+    return view
+  }()
   
-  private let profileView = ProfileView().then {
-    $0.profileImage = UIImage(named: ImageReference.daangni.rawValue)
-    $0.badgeImage = UIImage(named: ImageReference.badge.rawValue)
-  }
-  private let usernameLabel = UILabel().then {
-    $0.font = .systemFont(ofSize: 15, weight: .bold)
-  }
-  private let previewLabel = UILabel().then {
-    $0.font = .systemFont(ofSize: 15)
-  }
-  private let chatInfoLabel = UILabel().then {
-    $0.font = .systemFont(ofSize: 13)
-    $0.textColor = UIColor(named: ColorReference.item.rawValue)
-  }
-  private let badgeLabel = UILabel().then {
-    $0.layer.cornerRadius = 12
-    $0.clipsToBounds = true
-    $0.backgroundColor = UIColor(named: ColorReference.daangnMain.rawValue)
-    $0.textColor = .white
-    $0.font = .systemFont(ofSize: 13, weight: .bold)
-    $0.textAlignment = .center
-  }
-  private let thumbnailImageView = UIImageView().then {
-    $0.layer.cornerRadius = 2
-    $0.clipsToBounds = true
-    $0.backgroundColor = .brown
-  }
-  private let bookmarkView = UIView().then {
-    $0.backgroundColor = UIColor(named: ColorReference.daangnMain.rawValue)
-  }
+  let otherChatView: UIView = {
+    let view = UIView()
+    view.layer.cornerRadius = 12
+    view.backgroundColor = UIColor.gray.withAlphaComponent(0.7)
+    view.isHidden = true
+    return view
+  }()
   
-  // MARK: Initialize
+  let myChat: UILabel = {
+    let label = UILabel()
+    label.numberOfLines = 0
+    return label
+  }()
+  let otherChat: UILabel = {
+    let label = UILabel()
+    label.numberOfLines = 0
+    return label
+  }()
   
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
-    self.setupAttributes()
-    self.setupConstraints()
-  }
-  
-  private func setupAttributes() {
     self.selectionStyle = .none
-  }
-  
-  private func setupConstraints() {
-    let padding: (x: CGFloat, y: CGFloat) = (16, 16)
-    let profileSize: CGFloat = 52
-    let thumbnailSize: CGFloat = 40
     
-    self.setupProfileConstraint(padding: padding, profileSize: profileSize)
-    self.setupChatConstraint(padding: padding, thumbnailSize: thumbnailSize)
-    self.setupBookmarkConstraint()
-  }
-  
-  private func setupProfileConstraint(padding: (x: CGFloat, y: CGFloat), profileSize: CGFloat) {
-    self.profileView
-      .then { self.contentView.addSubview($0) }
-      .snp.makeConstraints {
-        $0.top.leading.bottom
-          .equalToSuperview()
-          .inset(UIEdgeInsets(top: padding.y, left: padding.x, bottom: padding.y, right: 0))
-        $0.size.equalTo(profileSize)
-    }
+    self.contentView.addSubview(self.otherChatView)
+    self.otherChatView.translatesAutoresizingMaskIntoConstraints = false
+    NSLayoutConstraint.activate([
+      self.otherChatView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 8),
+      self.otherChatView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 12),
+      self.otherChatView.trailingAnchor.constraint(lessThanOrEqualTo: self.contentView.trailingAnchor, constant: -32),
+      self.otherChatView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -8)
+    ])
     
-    self.usernameLabel
-      .then { self.contentView.addSubview($0) }
-      .snp.makeConstraints {
-        $0.top.equalTo(self.profileView)
-        $0.leading
-          .equalTo(self.profileView.snp.trailing)
-          .offset(12)
-    }
-    self.usernameLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-  }
-  
-  private func setupChatConstraint(padding: (x: CGFloat, y: CGFloat), thumbnailSize: CGFloat) {
-    self.chatInfoLabel
-      .then { self.contentView.addSubview($0) }
-      .snp.makeConstraints {
-        $0.centerY.equalTo(self.usernameLabel)
-        $0.leading
-          .equalTo(self.usernameLabel.snp.trailing)
-          .offset(8)
-    }
-    self.chatInfoLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+    self.otherChatView.addSubview(self.otherChat)
+    self.otherChat.translatesAutoresizingMaskIntoConstraints = false
+    NSLayoutConstraint.activate([
+      self.otherChat.topAnchor.constraint(equalTo: self.otherChatView.topAnchor, constant: 4),
+      self.otherChat.leadingAnchor.constraint(equalTo: self.otherChatView.leadingAnchor, constant: 4),
+      self.otherChat.trailingAnchor.constraint(lessThanOrEqualTo: self.otherChatView.trailingAnchor, constant: -4),
+      self.otherChat.bottomAnchor.constraint(equalTo: self.otherChatView.bottomAnchor, constant: -4)
+    ])
     
-    self.badgeLabel
-      .then { self.contentView.addSubview($0) }
-      .snp.makeConstraints {
-        $0.top.equalTo(self.usernameLabel)
-        $0.leading.equalTo(self.chatInfoLabel.snp.trailing)   // offset 8
-        $0.size.equalTo(CGSize(width: 0, height: 24))
-    }
+    self.contentView.addSubview(self.myChatView)
+    self.myChatView.translatesAutoresizingMaskIntoConstraints = false
+    NSLayoutConstraint.activate([
+      self.myChatView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 8),
+      self.myChatView.leadingAnchor.constraint(greaterThanOrEqualTo: self.contentView.leadingAnchor, constant: 32),
+      self.myChatView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -12),
+      self.myChatView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -8)
+    ])
     
-    self.thumbnailImageView
-      .then { self.contentView.addSubview($0) }
-      .snp.makeConstraints {
-        $0.centerY.equalTo(self.badgeLabel.snp.bottom)
-        $0.leading.equalTo(self.badgeLabel.snp.trailing)      // offset 10
-        $0.trailing
-          .equalToSuperview()
-          .offset(-padding.x)
-        $0.size.equalTo(CGSize(width: 0, height: thumbnailSize))
-    }
-    
-    self.previewLabel
-      .then { self.contentView.addSubview($0) }
-      .snp.makeConstraints {
-        $0.top
-          .equalTo(self.usernameLabel.snp.bottom)
-          .offset(16)
-        $0.leading.equalTo(self.usernameLabel)
-        $0.trailing.equalTo(self.chatInfoLabel)
-    }
-  }
-  
-  private func setupBookmarkConstraint() {
-    self.bookmarkView
-      .then { self.contentView.addSubview($0) }
-      .snp.makeConstraints {
-        $0.width.equalTo(8)
-        $0.top.leading.bottom.equalToSuperview()
-    }
+    self.myChatView.addSubview(self.myChat)
+    self.myChat.translatesAutoresizingMaskIntoConstraints = false
+    NSLayoutConstraint.activate([
+      self.myChat.topAnchor.constraint(equalTo: self.myChatView.topAnchor, constant: 4),
+      self.myChat.leadingAnchor.constraint(equalTo: self.myChatView.leadingAnchor, constant: 4),
+      self.myChat.trailingAnchor.constraint(lessThanOrEqualTo: self.myChatView.trailingAnchor, constant: -4),
+      self.myChat.bottomAnchor.constraint(equalTo: self.myChatView.bottomAnchor, constant: -4)
+    ])
   }
   
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 }
+
