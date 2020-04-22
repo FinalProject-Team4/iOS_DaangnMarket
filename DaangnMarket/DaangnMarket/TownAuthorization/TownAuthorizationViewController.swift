@@ -24,6 +24,28 @@ class TownAuthorizationViewController: UIViewController {
     $0.backgroundColor = UIColor(named: ColorReference.warning.rawValue)
   }
   private let currentLocateView = UIView()
+  private lazy var checkSelectedLocationLabel = UILabel().then {
+    currentTownList.forEach {
+      currentTownListToString.append($0)
+      if currentTownList.lastIndex(of: $0) != 2 {
+        currentTownListToString.append(", ")
+      }
+    }
+    $0.attributedText = NSMutableAttributedString()
+      .normal("현재 내 동네로 설정되어 있는 ", fontSize: 16)
+      .bold("\(currentTownListToString)", fontSize: 16)
+      .normal("에서만 동네인증을 할 수 있어요. 현재 위치를 확인해주세요.", fontSize: 16)
+    $0.numberOfLines = 0
+  }
+  private let changeLocationButton = UIButton().then {
+    $0.setTitle("현재 위치로 동네 변경하기", for: .normal)
+    $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .bold)
+    $0.setTitleColor(.black, for: .normal)
+    $0.layer.borderWidth = 1
+    $0.layer.borderColor = UIColor(named: ColorReference.borderLine.rawValue)?.cgColor
+    $0.layer.cornerRadius = 4
+    $0.addTarget(self, action: #selector(didTapChangeTownButton), for: .touchUpInside)
+  }
   private let guideLine = UIView().then {
     $0.backgroundColor = UIColor(named: ColorReference.borderLine.rawValue)
   }
@@ -36,7 +58,8 @@ class TownAuthorizationViewController: UIViewController {
   // MARK: Properties
   private let selectedTown = "청담동"
   private var currentTownList = ["성수2가제3동", "성수동2가", "성수동2가제1동"]
-  private let currentTown = "성수동"
+  private var userSelectedCurrentTown = ""
+  var currentTownListToString = ""
   
   // MARK: Initialize
   override func viewDidLoad() {
@@ -48,33 +71,6 @@ class TownAuthorizationViewController: UIViewController {
     myCheckAuthorizationStatus()
     setupAttributes()
     setupConstraints()
-  }
-  
-  private func myCheckAuthorizationStatus() {
-    switch CLLocationManager.authorizationStatus() {
-    case .notDetermined: // 이 응용 프로그램과 관련하여 사용자가 아직 선택하지 않았습니다
-      locationManager.requestWhenInUseAuthorization() // 위치 사용하게 할꺼냐고 사용자에게 물어봄
-    case .restricted, // 비행기 모드와 같은 상태
-    .denied: // 사용자가 거부
-      break
-    case .authorizedWhenInUse:
-      fallthrough
-    case .authorizedAlways:
-      myStartUpdatingLocation()
-    @unknown default: break
-    }
-  }
-  
-  func myStartUpdatingLocation() {
-    let status = CLLocationManager.authorizationStatus() // 사용자의 설정 상태 확인
-    guard status == .authorizedWhenInUse || status == .authorizedAlways else { return }
-    guard CLLocationManager.locationServicesEnabled() else { return } // 기기에서 위치 서비스를 사용할 수 있는 상태 확인
-    // 10m 면 정확도 낮춘거, 안해도 됨
-    locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-    locationManager.distanceFilter = 10.0
-    
-    // 사용자 위치 확인하라는 내장 메소드 호출
-    locationManager.startUpdatingLocation()
   }
   
   private func setupAttributes() {
@@ -108,46 +104,12 @@ class TownAuthorizationViewController: UIViewController {
     }
     qnaView.snp.makeConstraints {
       $0.top.equalTo(guideLine.snp.bottom)
-      $0.width.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+      $0.width.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+      $0.height.equalTo(60)
     }
   }
   
   private func setupCurrentTownView() {
-    let checkSelectedLocationLabel = UILabel().then {
-      var list = ""
-      currentTownList.forEach {
-        list.append($0)
-        if currentTownList.lastIndex(of: $0) != 2 {
-          list.append(", ")
-        }
-      }
-      let attrString = NSMutableAttributedString()
-      let paragraphStyle = NSMutableParagraphStyle().then {
-        $0.lineSpacing = 6
-        $0.alignment = .center
-      }
-      attrString.addAttribute(
-        NSAttributedString.Key.paragraphStyle,
-        value: paragraphStyle,
-        range: NSMakeRange(0, attrString.length)
-      )
-      $0.attributedText = attrString
-
-      $0.attributedText = NSMutableAttributedString()
-        .normal("현재 내 동네로 설정되어 있는 ", fontSize: 16)
-        .bold("\(list)", fontSize: 16)
-        .normal("에서만 동네인증을 할 수 있어요. 현재 위치를 확인해주세요.", fontSize: 16)
-      $0.numberOfLines = 0
-    }
-    let changeLocationButton = UIButton().then {
-      $0.setTitle("현재 위치로 동네 변경하기", for: .normal)
-      $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .bold)
-      $0.setTitleColor(.black, for: .normal)
-      $0.layer.borderWidth = 1
-      $0.layer.borderColor = UIColor(named: ColorReference.borderLine.rawValue)?.cgColor
-      $0.layer.cornerRadius = 4
-      $0.addTarget(self, action: #selector(didTapChangeTownButton), for: .touchUpInside)
-    }
     [checkSelectedLocationLabel, changeLocationButton].forEach {
       currentLocateView.addSubview($0)
     }
@@ -155,6 +117,7 @@ class TownAuthorizationViewController: UIViewController {
       $0.top.equalToSuperview().offset(24)
       $0.leading.equalToSuperview().offset(16)
       $0.trailing.equalToSuperview().offset(-20)
+      $0.bottom.equalToSuperview().offset(-76)
     }
     changeLocationButton.snp.makeConstraints {
       $0.top.equalTo(checkSelectedLocationLabel.snp.bottom).offset(16)
@@ -187,17 +150,78 @@ class TownAuthorizationViewController: UIViewController {
     }
   }
   
+  // MARK: Actions
   @objc private func didTapChangeTownButton(_ sender: UIButton) {
-    let alert = DGAlertController(title: "현재 위치에 있는 동네는 아래와 같아요. 변경하려는 동네를 선택해주세요.")
-    let okButton = DGAlertAction(title: "동네 변경", style: .orange, handler: nil)
+    let listView = CurrentTownListView(list: currentTownList)
+    listView.viewDelegate = self
+    let alert = DGAlertController(title: "현재 위치에 있는 동네는 아래와 같아요. 변경하려는 동네를 선택해주세요.", view: listView)
+    let okButton = DGAlertAction(title: "동네 변경", style: .orange) {
+      self.changeTown()
+      self.dismiss(animated: false)
+    }
     let cancelButton = DGAlertAction(title: "취소", style: .white) {
-      self.dismiss(animated: false, completion: nil)
+      self.dismiss(animated: false)
     }
     alert.addAction(okButton)
     alert.addAction(cancelButton)
     self.present(alert, animated: false)
-    // 현재 위치 찾아서
-    // 현재 위치가 내 동네로 설정한 '~'에 있습니다
+  }
+  
+  @objc private func didTapAuthSuccessButton() {
+    print("선택한 동네가 유저의 첫번째 동네와 동일하면 따로 추가 X, 다르면 유저의 두번째 동네로 추가하면서 dismiss -> toast alert -> HomeFeedVC")
+  }
+  
+  // MARK: Methods
+  private func changeTown() {
+    self.checkSelectedLocationLabel.attributedText = NSMutableAttributedString()
+      .normal("현재 위치가 내 동네로 설정한 ", fontSize: 16)
+      .bold("\(self.userSelectedCurrentTown)", fontSize: 16)
+      .normal("에 있습니다.", fontSize: 16)
+    self.changeLocationButton.removeFromSuperview()
+    self.checkSelectedLocationLabel.snp.updateConstraints {
+      $0.bottom.equalToSuperview().offset(-24)
+    }
+    setupSuccessButton()
+  }
+  
+  private func setupSuccessButton() {
+    let successButton = UIButton().then {
+      $0.backgroundColor = UIColor(named: ColorReference.daangnMain.rawValue)
+      $0.setTitle("동네 인증 완료하기", for: .normal)
+      $0.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
+      $0.layer.cornerRadius = 8
+      $0.addTarget(self, action: #selector(didTapAuthSuccessButton), for: .touchUpInside)
+    }
+    view.addSubview(successButton)
+    successButton.snp.makeConstraints {
+      $0.top.equalTo(qnaView.snp.bottom).offset(16)
+      $0.leading.equalToSuperview().offset(16)
+      $0.trailing.equalToSuperview().offset(-16)
+      $0.height.equalTo(44)
+    }
+  }
+  
+  private func myCheckAuthorizationStatus() {
+    switch CLLocationManager.authorizationStatus() {
+    case .notDetermined:
+      locationManager.requestWhenInUseAuthorization()
+    case .restricted, .denied:
+      break
+    case .authorizedWhenInUse:
+      fallthrough
+    case .authorizedAlways:
+      myStartUpdatingLocation()
+    @unknown default: break
+    }
+  }
+  
+  private func myStartUpdatingLocation() {
+    let status = CLLocationManager.authorizationStatus()
+    guard status == .authorizedWhenInUse || status == .authorizedAlways else { return }
+    guard CLLocationManager.locationServicesEnabled() else { return }
+    locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+    locationManager.distanceFilter = 10.0
+    locationManager.startUpdatingLocation()
   }
 }
 
@@ -209,5 +233,11 @@ extension TownAuthorizationViewController: CLLocationManagerDelegate {
     let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
     let region = MKCoordinateRegion(center: coordinate, span: span)
     mapView.setRegion(region, animated: true)
+  }
+}
+
+extension TownAuthorizationViewController: CurrentTownListViewDelegate {
+  func selectedTag(_ tag: Int) {
+    userSelectedCurrentTown = currentTownList[tag]
   }
 }

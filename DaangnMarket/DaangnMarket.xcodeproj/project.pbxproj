@@ -30,12 +30,14 @@
 		A639494824486BB600832F4E /* NoResultOfPersonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A639494724486BB600832F4E /* NoResultOfPersonView.swift */; };
 		A639494C2449933600832F4E /* KeywordNotiTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A639494B2449933600832F4E /* KeywordNotiTableCell.swift */; };
 		A639494E2449CDA500832F4E /* FilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A639494D2449CDA500832F4E /* FilterTableViewCell.swift */; };
-		A6394950244AD53B00832F4E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A639494F244AD53B00832F4E /* GoogleService-Info.plist */; };
 		A63F37BA24344C39002C0D9B /* SelectedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63F37B924344C39002C0D9B /* SelectedImageView.swift */; };
 		A63F37C0243596EF002C0D9B /* WriteKeywordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63F37BF243596EF002C0D9B /* WriteKeywordViewController.swift */; };
 		A63F37C224359B5D002C0D9B /* KeywordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63F37C124359B5D002C0D9B /* KeywordTableViewCell.swift */; };
 		A63F37C42435CB87002C0D9B /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63F37C32435CB87002C0D9B /* Extension.swift */; };
 		A6595AA0244EDCD300DDCAA5 /* TownAuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6595A9F244EDCD300DDCAA5 /* TownAuthorizationViewController.swift */; };
+		A6595AA524507C5800DDCAA5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A6595AA424507C5800DDCAA5 /* GoogleService-Info.plist */; };
+		A6595AA7245094A600DDCAA5 /* CurrentTownListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6595AA6245094A600DDCAA5 /* CurrentTownListView.swift */; };
+		A6595AAB2450BD1900DDCAA5 /* CurrentTownListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6595AAA2450BD1900DDCAA5 /* CurrentTownListItemView.swift */; };
 		A6C1E369243B1AC800A6FF32 /* WriteTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C1E368243B1AC800A6FF32 /* WriteTypeViewController.swift */; };
 		A6C1E36B243B38AF00A6FF32 /* WriteTypeButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C1E36A243B38AF00A6FF32 /* WriteTypeButtonView.swift */; };
 		A6C1E36D243B51A100A6FF32 /* WriteClearViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C1E36C243B51A100A6FF32 /* WriteClearViewController.swift */; };
@@ -120,7 +122,6 @@
 		AD6EBFAE2438EF4C003F01CA /* MyTownSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6EBFAD2438EF4C003F01CA /* MyTownSetting.swift */; };
 		AD6EBFB3243AF07C003F01CA /* MyTownAroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6EBFB2243AF07C003F01CA /* MyTownAroundView.swift */; };
 		AD6EBFB5243B1D70003F01CA /* TownCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6EBFB4243B1D70003F01CA /* TownCountView.swift */; };
-		AD7ABAB22440601E00520C28 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD7ABAB12440601E00520C28 /* GoogleService-Info.plist */; };
 		AD7ABAB42443FFB000520C28 /* AroundTownsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7ABAB32443FFB000520C28 /* AroundTownsViewController.swift */; };
 		AD7BEF772444811300F72831 /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7BEF762444811300F72831 /* CustomSlider.swift */; };
 		ADAA12BF2433214000A692A0 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAA12BE2433214000A692A0 /* PopoverViewController.swift */; };
@@ -159,12 +160,14 @@
 		A639494724486BB600832F4E /* NoResultOfPersonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoResultOfPersonView.swift; sourceTree = "<group>"; };
 		A639494B2449933600832F4E /* KeywordNotiTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordNotiTableCell.swift; sourceTree = "<group>"; };
 		A639494D2449CDA500832F4E /* FilterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableViewCell.swift; sourceTree = "<group>"; };
-		A639494F244AD53B00832F4E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A63F37B924344C39002C0D9B /* SelectedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedImageView.swift; sourceTree = "<group>"; };
 		A63F37BF243596EF002C0D9B /* WriteKeywordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteKeywordViewController.swift; sourceTree = "<group>"; };
 		A63F37C124359B5D002C0D9B /* KeywordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordTableViewCell.swift; sourceTree = "<group>"; };
 		A63F37C32435CB87002C0D9B /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		A6595A9F244EDCD300DDCAA5 /* TownAuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownAuthorizationViewController.swift; sourceTree = "<group>"; };
+		A6595AA424507C5800DDCAA5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
+		A6595AA6245094A600DDCAA5 /* CurrentTownListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentTownListView.swift; sourceTree = "<group>"; };
+		A6595AAA2450BD1900DDCAA5 /* CurrentTownListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentTownListItemView.swift; sourceTree = "<group>"; };
 		A6C1E368243B1AC800A6FF32 /* WriteTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteTypeViewController.swift; sourceTree = "<group>"; };
 		A6C1E36A243B38AF00A6FF32 /* WriteTypeButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteTypeButtonView.swift; sourceTree = "<group>"; };
 		A6C1E36C243B51A100A6FF32 /* WriteClearViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteClearViewController.swift; sourceTree = "<group>"; };
@@ -251,7 +254,6 @@
 		AD6EBFAD2438EF4C003F01CA /* MyTownSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTownSetting.swift; sourceTree = "<group>"; };
 		AD6EBFB2243AF07C003F01CA /* MyTownAroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTownAroundView.swift; sourceTree = "<group>"; };
 		AD6EBFB4243B1D70003F01CA /* TownCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownCountView.swift; sourceTree = "<group>"; };
-		AD7ABAB12440601E00520C28 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AD7ABAB32443FFB000520C28 /* AroundTownsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AroundTownsViewController.swift; sourceTree = "<group>"; };
 		AD7BEF762444811300F72831 /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
 		ADAA12BE2433214000A692A0 /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
@@ -333,8 +335,8 @@
 				A62D96B22424A442006F1722 /* Assets.xcassets */,
 				A62D96B42424A442006F1722 /* LaunchScreen.storyboard */,
 				A62D96B72424A442006F1722 /* Info.plist */,
+				A6595AA424507C5800DDCAA5 /* GoogleService-Info.plist */,
 				AC52A50B243D90D000DB4FB6 /* LaunchViewController.swift */,
-				AD7ABAB12440601E00520C28 /* GoogleService-Info.plist */,
 			);
 			path = DaangnMarket;
 			sourceTree = "<group>";
@@ -393,6 +395,8 @@
 			isa = PBXGroup;
 			children = (
 				A6595A9F244EDCD300DDCAA5 /* TownAuthorizationViewController.swift */,
+				A6595AA6245094A600DDCAA5 /* CurrentTownListView.swift */,
+				A6595AAA2450BD1900DDCAA5 /* CurrentTownListItemView.swift */,
 			);
 			path = TownAuthorization;
 			sourceTree = "<group>";
@@ -869,6 +873,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ACCD94CE2429E59500153545 /* .swiftlint.yml in Resources */,
+				A6595AA524507C5800DDCAA5 /* GoogleService-Info.plist in Resources */,
 				A62D96B62424A442006F1722 /* LaunchScreen.storyboard in Resources */,
 				A62D96B32424A442006F1722 /* Assets.xcassets in Resources */,
 			);
@@ -1028,6 +1033,7 @@
 				ACFB7D32242C5C3200E47F97 /* TownHeaderView.swift in Sources */,
 				ACCD94E4242A19DD00153545 /* InitialStartViewController.swift in Sources */,
 				AC7AA1032445D63400691D5E /* NotificationModel.swift in Sources */,
+				A6595AA7245094A600DDCAA5 /* CurrentTownListView.swift in Sources */,
 				A639494624486B9F00832F4E /* NoResultView.swift in Sources */,
 				ACCD94F2242A250500153545 /* DGButton.swift in Sources */,
 				AD6EBFB3243AF07C003F01CA /* MyTownAroundView.swift in Sources */,
@@ -1048,6 +1054,7 @@
 				AC52A4D624384C1F00DB4FB6 /* AuthInputForm.swift in Sources */,
 				ACB2B60324333763002FAF27 /* AuthViewController.swift in Sources */,
 				AC52A4ED243B116F00DB4FB6 /* ViewControllerGenerator.swift in Sources */,
+				A6595AAB2450BD1900DDCAA5 /* CurrentTownListItemView.swift in Sources */,
 				ACEE24CC2435CA1B0044D573 /* DGUpperAlert.swift in Sources */,
 				ACFB7D38242CA45600E47F97 /* TownNoResultView.swift in Sources */,
 				AC7AA0FB2445D61E00691D5E /* NotificationViewController.swift in Sources */,
