@@ -40,4 +40,6 @@ enum UserReference: String {
   case userInfo
   case selectedTown
   case anotherTown
+  case firstTownByDistance
+  case secondTownByDistance
 }

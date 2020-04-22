@@ -15,12 +15,47 @@ class MyTownSetting {
   
   // MARK: TownSelectView Property
   
-//  static var findTownAddres: Address?
+  var isFirstTown = Bool()
+
+  var firstSelectTown = String()
+  var secondSelectTown = String()
+
   var towns = [String: String]()
   
   // MARK: MyTownAroundView Property
   
-  var distance = Double()
-  var numberOfAroundTown: Int?
-  var selectTownName: String?
+  var firstTownByDistance: [Town]? {
+    return UserDefaults.standard.object([Town].self, forKey: .firstTownByDistance)
+  }
+  
+  var secondTownByDistance: [Town]? {
+    return UserDefaults.standard.object([Town].self, forKey: .secondTownByDistance)
+  }
+  
+  func register(townInfo: [Town]) {
+    if self.firstTownByDistance == nil {
+      UserDefaults.standard.set(townInfo, forKey: .firstTownByDistance)
+    } else if self.secondTownByDistance == nil {
+      UserDefaults.standard.set(townInfo, forKey: .secondTownByDistance)
+    } else {
+      return
+    }
+  }
+  
+  var firstAroundTownList = [Town]()
+  var secondAroundTownList = [Town]()
+  
+  var slideValue = Float()
+  var numberOfAroundTownByFirst = (Int(), Int())
+  var numberOfAroundTownBySecond = (Int(), Int())
+  
+  enum DeleteTown {
+    case oneTown
+    case towTown
+  }
+  
+  enum UpperAlerCallBtn {
+    case firstBtn
+    case secondBtn
+  }
 }

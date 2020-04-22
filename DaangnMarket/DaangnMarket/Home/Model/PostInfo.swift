@@ -47,7 +47,7 @@ extension Post {
     case username, title, content, category
     case viewCount = "view_count"
     case updated, address, price, state
-    case postImageSet = "postimage_set"
+    case postImageSet = "post_images"
   }
 }
 

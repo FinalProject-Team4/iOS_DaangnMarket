@@ -16,7 +16,7 @@ class ChooseTownToShowViewController: UIViewController {
   }
   var naviTitle = UILabel().then {
     $0.text = "게시글 보여줄 동네 고르기"
-    $0.font = .systemFont(ofSize: 17, weight: .light)
+    $0.font = .systemFont(ofSize: 17, weight: .semibold)
   }
   
   // MARK: Life Cycle
@@ -24,7 +24,7 @@ class ChooseTownToShowViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.view.backgroundColor = .white
-    MyTownSetting.shared.towns["first"] = AuthorizationManager.shared.selectedTown?.dong ?? "unknown"
+//    MyTownSetting.shared.towns["first"] = AuthorizationManager.shared.selectedTown?.dong ?? "unknown"
     setupConstraint()
     setupNaviBar()
   }

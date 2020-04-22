@@ -13,11 +13,11 @@ class HomeFeedViewController: UIViewController {
   // MARK: Property
   
   let service = ServiceManager.shared
-  private var url = "http://13.125.217.34/post/list/"
+  private let url = "http://13.125.217.34/post/list/"
+  var parameters: Parameters = [String: Any]()
   var nextPageURL: String?
   var posts = [Post]() {
     didSet {
-      print("output")
       self.homeTableView.reloadData()
     }
   }
@@ -44,11 +44,12 @@ class HomeFeedViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    homeTableView.dataSource = self
-    homeTableView.delegate = self
     self.view.backgroundColor = .white
     self.tabBarController?.tabBar.isHidden = false
-    requestPostData(url)
+    self.parameters = ["locate": 8_725]
+//    requestPostData(url)
+    requestPostData(url, self.parameters)
+    callDelegate()
     setupUI()
   }
   
@@ -59,6 +60,12 @@ class HomeFeedViewController: UIViewController {
       doFirstViewPresent()
       }
     }
+  }
+  
+  private func callDelegate() {
+    homeTableView.dataSource = self
+    homeTableView.delegate = self
+    self.customNaviBar.delegate = self
   }
   
   // MARK: Initialize
@@ -73,7 +80,7 @@ class HomeFeedViewController: UIViewController {
   private func setupConstraints() {
     customNaviBar.snp.makeConstraints {
       $0.top.leading.trailing.equalToSuperview()
-      $0.height.equalTo(98)
+      $0.height.equalTo(80)
     }
     homeTableView.snp.makeConstraints {
       $0.top.equalTo(customNaviBar.snp.bottom)
@@ -83,8 +90,10 @@ class HomeFeedViewController: UIViewController {
   
   // MARK: Request PostData
   
-  func requestPostData(_ url: String) {
-    service.requestPostData(URL(string: url)!) { [weak self] result in
+  func requestPostData(_ url: String, _ parameters: Parameters) {
+//    func requestPostData(_ url: String) {
+//    service.requestPostData(URL(string: url)!) { [weak self] result in
+      service.requestPostData(URL(string: url)!, parameters) { [weak self] result in
       guard let self = self else { return }
       switch result {
       case .success(let postInfoData):
@@ -150,20 +159,9 @@ class HomeFeedViewController: UIViewController {
     firstVC.modalPresentationStyle = .overFullScreen
     present(firstVC, animated: false)
   }
-  
-  static func popoverPresent(_ delegateVC: UIViewController, _ controller: UIViewController, _ sender: UIView) -> UIViewController {
-    controller.preferredContentSize = CGSize(width: 300, height: 150)
-    controller.modalPresentationStyle = .popover
-    guard let presentationController = controller.popoverPresentationController else { fatalError("popOverPresent casting error") }
-    presentationController.delegate = delegateVC as? UIPopoverPresentationControllerDelegate
-    presentationController.sourceRect = sender.bounds
-    presentationController.sourceView = sender
-    presentationController.permittedArrowDirections = .up
-    return controller
-  }
 }
 
-// MARK: TableView DataSource
+// MARK: - TableView DataSource
 
 extension HomeFeedViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -182,7 +180,6 @@ extension HomeFeedViewController: UITableViewDataSource {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: "GoodsCell", for: indexPath) as? HomeFeedTableViewCell else { fatalError("faile type casting") }
     cellPostGoodsImage(cell, indexPath)
     cell.goodsName.text = "\(posts[indexPath.row].title)"
-//    cell.goodsName.text = "Post ID \(posts[indexPath.row].postId)"
     cell.goodsPrice.text = "\(posts[indexPath.row].price)"
     cell.sellerLoctionAndTime.text = removeNotNeededTimeUnit(posts[indexPath.row].address, userUpdateTimes[indexPath.row])
     return cell
@@ -191,7 +188,8 @@ extension HomeFeedViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
     if indexPath.row == (posts.count - 2) {
       guard let pageURL = nextPageURL else { return }
-      requestPostData(pageURL)
+//      requestPostData(pageURL)
+      requestPostData(pageURL, self.parameters)
       self.perform(#selector(loadTable), with: nil, afterDelay: 1.0)
     }
   }
@@ -201,7 +199,7 @@ extension HomeFeedViewController: UITableViewDataSource {
   }
 }
 
-// MARK: TableView Delegate
+// MARK: - TableView Delegate
 
 extension HomeFeedViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -221,11 +219,11 @@ extension HomeFeedViewController: UIPopoverPresentationControllerDelegate {
 
 extension HomeFeedViewController: NavigationBarButtonDelegate {
   func navigationBarButton(_ naviBarButton: UIButton) {
-    let popoverVC = PopoverViewController()
+    guard let popoverVC = ViewControllerGenerator.shared.make(.popover, parameters: ["target": self, "sender": naviBarButton]) else { print("return"); return }
     switch naviBarButton {
     case customNaviBar.selectedTownButton:
-      let popPresent = HomeFeedViewController.popoverPresent(self, popoverVC, naviBarButton)
-      present(popPresent, animated: true)
+      popoverVC.modalPresentationStyle = .popover
+      present(popoverVC, animated: true)
     case customNaviBar.searchButton:
       print("검색하기")
     case customNaviBar.categoryFilterButton:

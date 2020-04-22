@@ -9,17 +9,23 @@
 import UIKit
 
 class MyTownSettingViewController: UIViewController {
+  // MARK: Property
+  
+  let noti = NotificationCenter.default
+  weak var showDelegate: ShowAroundTownsNameDelegate?
+  weak var deleteDelegate: DeleteButtonDelegate?
+  
   // MARK: Views
   
-  lazy var townSelectView = TownSelectView().then {
+  var townSelectView = TownSelectView().then {
     $0.backgroundColor = .white
   }
-  lazy var townAroundView = MyTownAroundView().then {
+  var townAroundView = MyTownAroundView().then {
     $0.backgroundColor = .white
   }
   var naviTitle = UILabel().then {
     $0.text = "내 동네 설정하기"
-    $0.font = .systemFont(ofSize: 17, weight: .light)
+    $0.font = .systemFont(ofSize: 17, weight: .semibold)
   }
   
   // MARK: Life Cycle
@@ -27,12 +33,25 @@ class MyTownSettingViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.view.backgroundColor = .white
-    if let selectedTown = AuthorizationManager.shared.selectedTown {
-      MyTownSetting.shared.towns["first"] = selectedTown.dong
-      MyTownSetting.shared.selectTownName = selectedTown.dong
-    }
+    callDelegate()
     setupConstraint()
     setupNaviBar()
+    postNotification()
+    willDisappearSeoncondTownBtn()
+  }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    MyTownSetting.shared.register(townInfo: AuthorizationManager.shared.aroundTown)
+    postNotification()
+    willDisappearSeoncondTownBtn()
+  }
+  
+  private func callDelegate() {
+    townSelectView.delegate = self
+    townAroundView.townCountView.delegate = self
+    townSelectView.firstTownSelectBtn.delegate = self
+    townSelectView.secondTownSelectBtn.delegate = self
   }
   
   // MARK: Initialize
@@ -54,13 +73,167 @@ class MyTownSettingViewController: UIViewController {
     }
     townAroundView.snp.makeConstraints {
       $0.top.equalTo(townSelectView.snp.bottom)
-      $0.leading.trailing.bottom.equalToSuperview()
+      $0.leading.trailing.equalToSuperview()
+      $0.bottom.equalToSuperview().offset(-128)
     }
   }
   
+  // MARK: Method
+  
+  private func willDisappearSeoncondTownBtn() {
+    let secondTownIsSet = MyTownSetting.shared.secondSelectTown.isEmpty
+    if secondTownIsSet {
+      townSelectView.secondTownSelectBtn.isHidden = secondTownIsSet
+      townSelectView.secondTownSetBtn.isHidden = !secondTownIsSet
+    } else {
+      townSelectView.secondTownSelectBtn.isHidden = secondTownIsSet
+      townSelectView.secondTownSetBtn.isHidden = !secondTownIsSet
+    }
+  }
+  
+  private func postNotification() {
+    guard let firstTown = AuthorizationManager.shared.selectedTown else { print("MyTownSettingVC Line 95"); return }
+      MyTownSetting.shared.isFirstTown = true
+      MyTownSetting.shared.firstSelectTown = firstTown.dong
+      noti.post(name: NSNotification.Name("FirstSelectTownCountView"), object: nil)
+    
+    guard let secondTown = AuthorizationManager.shared.anotherTown else { print("MyTownSettingVC Line 100"); return }
+      MyTownSetting.shared.isFirstTown = false
+      MyTownSetting.shared.secondSelectTown = secondTown.dong
+      noti.post(name: NSNotification.Name("anotherTownSecondTownBtn"), object: nil)
+      noti.post(name: NSNotification.Name("SecondSelectTownCountView"), object: nil)
+
+    setupSelectedTownBGColor(MyTownSetting.shared.isFirstTown)
+  }
+  
+  private func setupSelectedTownBGColor(_ isFirstButton: Bool) {
+    if isFirstButton {
+      townSelectView.changeBtnBGColor(townSelectView.firstTownSelectBtn)
+    } else {
+      townSelectView.changeBtnBGColor(townSelectView.secondTownSelectBtn)
+    }
+  }
+  
+  private func willDisplayDeleteAlert(_ numberOfTownsSet: MyTownSetting.DeleteTown) {
+    switch numberOfTownsSet {
+    case .oneTown:
+      let title = "동네가 1개만 선택된 상태에서는 삭제를 할 수 없습니당. 현재 설정된 동네를 변경하시겠어요?"
+      let alertController = UIAlertController(title: title, message: "", preferredStyle: .alert)
+      let changeAction = UIAlertAction(title: "변경", style: .default) { _ in
+        self.didDeleteTownAction(.oneTown)
+      }
+      let cancelAction = UIAlertAction(title: "취소", style: .default)
+      alertController.addAction(cancelAction)
+      alertController.addAction(changeAction)
+      self.present(alertController, animated: false, completion: nil)
+    case .towTown:
+      let title = "선택한 지역을 삭제하시겠습니까?"
+      let alertController = UIAlertController(title: title, message: "", preferredStyle: .alert)
+      let changeAction = UIAlertAction(title: "확인", style: .default) { _ in
+        self.didDeleteTownAction(.towTown)
+      }
+      let cancelAction = UIAlertAction(title: "취소", style: .default)
+      alertController.addAction(cancelAction)
+      alertController.addAction(changeAction)
+      self.present(alertController, animated: false, completion: nil)
+    }
+  }
+  
+  private func didDeleteTownAction(_ numberOfTown: MyTownSetting.DeleteTown) {
+    switch numberOfTown {
+    case .oneTown:
+      let findVC = FindMyTownViewController()
+      self.navigationController?.pushViewController(findVC, animated: true)
+//      AuthorizationManager.shared.removeTown(forKey: .selectedTown)
+      MyTownSetting.shared.firstSelectTown = ""
+      townSelectView.didTapSelectTownButton(townSelectView.firstTownSelectBtn)
+    case .towTown:
+      AuthorizationManager.shared.removeTown(forKey: .anotherTown)
+      UserDefaults.standard.remove(forKey: .secondTownByDistance)
+      MyTownSetting.shared.secondAroundTownList = [Town]()
+      MyTownSetting.shared.secondSelectTown = ""
+      MyTownSetting.shared.towns.removeValue(forKey: "second")
+      MyTownSetting.shared.isFirstTown = true
+      self.townSelectView.secondTownSelectBtn.isHidden = MyTownSetting.shared.isFirstTown
+      self.townSelectView.secondTownSetBtn.isHidden = !MyTownSetting.shared.isFirstTown
+      self.setupSelectedTownBGColor(MyTownSetting.shared.isFirstTown)
+      townSelectView.didTapSelectTownButton(townSelectView.secondTownSelectBtn)
+    }
+  }
+  
+  static func calculateNumberOfAourndTown(_ isFirstTown: Bool, _ distanceValue: Float) {
+    defer {
+      NotificationCenter.default.post(
+        name: NSNotification.Name("AroundTownCountView"),
+        object: nil,
+        userInfo: [
+          "SingleTon": MyTownSetting.shared
+        ]
+      )
+    }
+    switch isFirstTown {
+    case true:
+      guard let firstTownByDistance = MyTownSetting.shared.firstTownByDistance else { return }
+      let firstAroundTownCount = firstTownByDistance.filter {
+        Float($0.distance!/1_200) <= (distanceValue.rounded() + 1)
+      }
+      MyTownSetting.shared.firstAroundTownList = firstAroundTownCount
+      MyTownSetting.shared.numberOfAroundTownByFirst = (firstAroundTownCount.count, Int(distanceValue))
+    case false:
+      guard let secondTownByDistance = MyTownSetting.shared.secondTownByDistance else { return }
+      if !secondTownByDistance.isEmpty {
+        let secondAroundTownCount = secondTownByDistance.filter {
+          Float($0.distance!/1_200) <= (distanceValue.rounded() + 1)
+        }
+        MyTownSetting.shared.secondAroundTownList = secondAroundTownCount
+        MyTownSetting.shared.numberOfAroundTownBySecond = (secondAroundTownCount.count, Int(distanceValue))
+      } else {
+        MyTownSetting.shared.numberOfAroundTownBySecond = (0, 0)
+      }
+    }
+  }
+   
   // MARK: Action
   
   @objc private func didTapLeftBarButton() {
     dismiss(animated: true)
+  }
+}
+
+// MARK: - SecondTownSelectButton Delegate
+extension MyTownSettingViewController: SecondTownButtonDelegate {
+  func secondTownSetBtn(_ secondButton: UIButton) {
+    let findTownVC = FindMyTownViewController()
+    self.navigationController?.pushViewController(findTownVC, animated: true)
+  }
+}
+
+// MARK: - ShowAroundTownsName ViewController Delegte
+extension MyTownSettingViewController: ShowAroundTownsNameDelegate {
+  func showAroundTownsName() {
+    let aroundTownsVC = AroundTownsViewController()
+    self.navigationController?.pushViewController(aroundTownsVC, animated: true)
+  }
+}
+
+// MARK: - DeleteButton Delegate
+extension MyTownSettingViewController: DeleteButtonDelegate {
+  func didTapDeleteButton(_ button: UIButton) {
+    let mySetting = MyTownSetting.shared
+    switch button {
+    case townSelectView
+      .firstTownSelectBtn
+      .deleteSelectedFirstTownButton:
+      if !mySetting.firstSelectTown.isEmpty && !mySetting.secondSelectTown.isEmpty {
+        willDisplayDeleteAlert(.towTown)
+      } else {
+        willDisplayDeleteAlert(.oneTown)
+      }
+    case townSelectView
+      .secondTownSelectBtn
+      .deleteSelectedSecondTownButton:
+      willDisplayDeleteAlert(.towTown)
+    default: break
+    }
   }
 }

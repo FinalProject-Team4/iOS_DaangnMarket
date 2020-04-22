@@ -27,6 +27,7 @@ class ViewControllerGenerator {
     case townShow
     case popover
     case writeUsed
+    case findTown
   }
   
   func make(_ type: ControllerType, parameters: [String: Any] = [:]) -> UIViewController? {
@@ -52,6 +53,8 @@ class ViewControllerGenerator {
       return UINavigationController(rootViewController: WriteUsedViewController())
     case .townShow:
       return UINavigationController(rootViewController: ChooseTownToShowViewController())
+    case .findTown:
+      return UINavigationController(rootViewController: FindMyTownViewController())
     }
   }
   
@@ -82,7 +85,7 @@ class ViewControllerGenerator {
   
   private func makePopoverController(_ homeVC: UIViewController, _ sender: UIView) -> UIViewController {
     let popover = PopoverViewController()
-    popover.preferredContentSize = CGSize(width: 300, height: 150)
+//    popover.preferredContentSize = CGSize(width: 300, height: 150)
     popover.modalPresentationStyle = .popover
     guard let presentationController = popover.popoverPresentationController else { fatalError("popOverPresent casting error") }
     

@@ -9,69 +9,73 @@
 import UIKit
 
 class SecondTownSelectButton: UIButton {
+  // MARK: Property
+  
+  weak var delegate: DeleteButtonDelegate?
+  let noti = NotificationCenter.default
+  
   // MARK: Views
   
-  lazy var selectedMySecondTownLabel = UILabel().then {
-    if MyTownSetting.shared.towns["second"] == nil {
-      $0.isHidden = true
-    } else {
-      $0.isHidden = false
-      $0.text = MyTownSetting.shared.towns["second"]
-      $0.textColor = .black
-      $0.font = .systemFont(ofSize: 16, weight: .bold)
-    }
+  lazy var selectedSecondTownLabel = UILabel().then {
+    $0.textColor = .black
+    $0.font = .systemFont(ofSize: 16, weight: .bold)
   }
-  lazy var deleteSelectedMySecondTownButton = UIButton().then {
-    if MyTownSetting.shared.towns["second"] == nil {
-      $0.isHidden = true
-    } else {
-      $0.isHidden = false
-      $0.tintColor = UIColor(named: ColorReference.noResultImage.rawValue)
-      $0.setImage(UIImage(systemName: "xmark.circle"), for: .normal)
-      $0.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
-    }
-  }
-  private let findAndAddButton = UIButton().then {
-    if MyTownSetting.shared.towns["second"] == nil {
-      $0.isHidden = false
-      $0.setImage(UIImage(systemName: "plus"), for: .normal)
-      $0.transform = .init(scaleX: 1.2, y: 1.2)
-      $0.tintColor = UIColor(named: ColorReference.noResultImage.rawValue)
-      $0.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
-    } else {
-      $0.isHidden = true
-    }
+  lazy var deleteSelectedSecondTownButton = UIButton().then {
+    $0.transform = .init(scaleX: 1.2, y: 1.2)
+    $0.tintColor = UIColor(named: ColorReference.noResultImage.rawValue)
+    $0.setImage(UIImage(systemName: "xmark.circle"), for: .normal)
+    $0.addTarget(self, action: #selector(didTapSecondTownDeleteButton(_:)), for: .touchUpInside)
   }
   
   // MARK: Initialize
   
   override init(frame: CGRect) {
     super.init(frame: frame)
-    inButtonSetupConstraints()
+    setupSecondBtnConstraints()
+    observeAnotherTownNameNoti()
   }
   
-  private func inButtonSetupConstraints() {
-    let inButtonSubUI = [selectedMySecondTownLabel, deleteSelectedMySecondTownButton, findAndAddButton]
+  deinit {
+    noti.removeObserver(
+      self,
+      name: NSNotification.Name("anotherTownSecondTownBtn"),
+      object: nil
+    )
+  }
+  
+  func setupSecondBtnConstraints() {
+    let inButtonSubUI = [selectedSecondTownLabel, deleteSelectedSecondTownButton]
     inButtonSubUI.forEach { self.addSubview($0) }
-    selectedMySecondTownLabel.snp.makeConstraints {
-      $0.centerY.equalToSuperview()
+    selectedSecondTownLabel.snp.makeConstraints {
+      $0.top.equalToSuperview().offset(16)
+      $0.bottom.equalToSuperview().offset(-16)
       $0.leading.equalToSuperview().offset(16)
     }
-    deleteSelectedMySecondTownButton.snp.makeConstraints {
+    deleteSelectedSecondTownButton.snp.makeConstraints {
       $0.centerY.equalToSuperview()
       $0.trailing.equalToSuperview().offset(-14)
       $0.width.equalTo(25)
       $0.height.equalTo(25)
     }
-    findAndAddButton.snp.makeConstraints {
-      $0.center.equalToSuperview()
-    }
+  }
+  
+  private func observeAnotherTownNameNoti() {
+    noti.addObserver(
+      self,
+      selector: #selector(addAnotherTownNameToButton),
+      name: NSNotification.Name("anotherTownSecondTownBtn"),
+      object: nil
+    )
   }
   
   // MARK: Action
   
-  @objc private func didTapButton() {
-    print("Delete Second Town")
+  @objc func didTapSecondTownDeleteButton(_ sender: UIButton) {
+    self.delegate?.didTapDeleteButton(sender)
+  }
+  @objc func addAnotherTownNameToButton() {
+    selectedSecondTownLabel.text = MyTownSetting.shared.secondSelectTown
+//    deleteSelectedSecondTownButton.isHidden = false
   }
   
   required init?(coder: NSCoder) {

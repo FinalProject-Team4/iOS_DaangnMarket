@@ -18,29 +18,30 @@ class CutomNavigationBar: UIView {
   
   let selectedTownButton = UIButton().then {
     $0.setTitleColor(.black, for: .normal)
-    $0.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
+    $0.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
     $0.addTarget(self, action: #selector(didTapButtonsInNaviBar(_:)), for: .touchUpInside)
   }
   let selectedTownArrowImage = UIImageView().then {
     $0.frame.size = CGSize(width: 5, height: 5)
     $0.image = UIImage(systemName: "chevron.down")
+    $0.transform = .init(scaleX: 0.7, y: 0.7)
     $0.tintColor = .black
   }
   let searchButton = UIButton(type: .system).then {
-    $0.frame.size = CGSize(width: 32, height: 32)
+    $0.frame.size = CGSize(width: 22, height: 22)
     $0.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
     $0.tintColor = .black
     $0.restorationIdentifier = "magnifyingglass"
     $0.addTarget(self, action: #selector(didTapButtonsInNaviBar(_:)), for: .touchUpInside)
   }
   let categoryFilterButton = UIButton(type: .system).then {
-    $0.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
+    $0.frame = CGRect(x: 0, y: 0, width: 22, height: 22)
     $0.setImage(UIImage(systemName: "slider.horizontal.3"), for: .normal)
     $0.tintColor = .black
     $0.addTarget(self, action: #selector(didTapButtonsInNaviBar(_:)), for: .touchUpInside)
   }
   let notificationButton = UIButton(type: .system).then {
-    $0.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
+    $0.frame = CGRect(x: 0, y: 0, width: 22, height: 22)
     $0.setImage(UIImage(systemName: "bell"), for: .normal)
     $0.tintColor = .black
     $0.addTarget(self, action: #selector(didTapButtonsInNaviBar(_:)), for: .touchUpInside)
@@ -58,11 +59,11 @@ class CutomNavigationBar: UIView {
     naviBarItems.forEach { self.addSubview($0) }
     selectedTownButton.snp.makeConstraints {
       $0.leading.equalTo(self).offset(15)
-      $0.bottom.equalTo(self).offset(-15)
+      $0.bottom.equalTo(self).offset(-5)
     }
     selectedTownArrowImage.snp.makeConstraints {
       $0.centerY.equalTo(selectedTownButton)
-      $0.leading.equalTo(selectedTownButton.snp.trailing).offset(7)
+      $0.leading.equalTo(selectedTownButton.snp.trailing).offset(5)
     }
     notificationButton.snp.makeConstraints {
       $0.centerY.equalTo(selectedTownButton)
