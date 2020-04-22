@@ -42,11 +42,6 @@ class OtherItemsCollectionViewCell: UICollectionViewCell {
     fatalError("init(coder:) has not been implemented")
   }
   
-  func configure(image: UIImage?, title: String, price: String) {
-    imageView.image = image
-    titleLabel.text = title
-    priceLabel.text = price
-  }
   
   private func setupUI() {
     setupAttributes()
@@ -61,21 +56,28 @@ class OtherItemsCollectionViewCell: UICollectionViewCell {
   
   private func setupConstraints() {
     let spacing: CGFloat = 10
-    self.imageView.then { self.addSubview($0) }
+    
+    self.priceLabel.then { self.contentView.addSubview($0) }
       .snp.makeConstraints {
-        $0.top.leading.trailing.equalTo(self)
-        $0.height.equalTo(viewWidth / 3)
+        $0.bottom.leading.trailing.equalToSuperview()
     }
-    self.titleLabel.then { self.addSubview($0) }
+    self.titleLabel.then { self.contentView.addSubview($0) }
       .snp.makeConstraints {
-        $0.top.equalTo(imageView.snp.bottom).offset(spacing)
-        $0.leading.equalTo(imageView)
+        $0.bottom.equalTo(priceLabel.snp.top).offset(-spacing)
+        $0.leading.equalTo(priceLabel)
     }
-    self.priceLabel.then { self.addSubview($0) }
+    self.imageView.then { self.contentView.addSubview($0) }
       .snp.makeConstraints {
-        $0.top.equalTo(titleLabel.snp.bottom).offset(spacing)
-        $0.leading.equalTo(imageView)
-        $0.bottom.equalTo(self)
+        $0.bottom.equalTo(titleLabel.snp.top).offset(-spacing)
+        $0.top.leading.trailing.equalToSuperview()
     }
+  }
+  
+  // MARK: Interface
+  
+  func configure(image: UIImage?, title: String, price: String) {
+    imageView.image = image
+    titleLabel.text = title
+    priceLabel.text = price
   }
 }
