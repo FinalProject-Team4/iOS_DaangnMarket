@@ -17,6 +17,7 @@ class ChattingViewController: UIViewController {
     $0.dataSource = self
   }
   private let messageField = MessageField()
+  private let productPreview = ProductPreview()
   
   // MARK: Model
   
@@ -24,6 +25,20 @@ class ChattingViewController: UIViewController {
     .init(user: "hey", message: "hi", date: ""),
     .init(user: "hey", message: "hi", date: "")
   ]
+  
+  private let product = Post(
+    postId: 1,
+    username: "you",
+    title: "펜탁스-A 50mm F1.2팔아요",
+    content: "팝니다팔아요",
+    category: "digital",
+    viewCount: 10,
+    updated: "",
+    address: "성수",
+    price: 450_000,
+    state: "sales",
+    postImageSet: [PostImage(imageId: 1, photo: "image1", postId: 1)]
+  )
   
   // MARK: Life Cycle
   
@@ -45,6 +60,13 @@ class ChattingViewController: UIViewController {
   
   private func setupAttributes() {
     self.view.backgroundColor = .systemBackground
+    self.productPreview.configure(
+      title: self.product.title,
+      price: self.product.price,
+      thumbnail: UIImage(named: self.product.postImageSet.first?.photo ?? "")
+    )
+    
+    // Add Observers
     NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow(_:)), name: UIResponder.keyboardDidShowNotification, object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -52,7 +74,7 @@ class ChattingViewController: UIViewController {
   
   private func setupNavigationBar() {
     self.navigationController?.navigationBar.tintColor = .black
-    self.navigationItem.title = "당근이"
+    self.navigationItem.title = self.product.username
     self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
     self.navigationItem.leftBarButtonItem = UIBarButtonItem(
       image: UIImage(systemName: ImageReference.arrowLeft.rawValue),
@@ -84,10 +106,17 @@ class ChattingViewController: UIViewController {
   }
   
   private func setupConstraints() {
-    self.chattingTableView
+    self.productPreview
       .then { self.view.addSubview($0) }
       .snp.makeConstraints {
         $0.top.leading.trailing.equalTo(self.view.safeAreaLayoutGuide)
+    }
+    
+    self.chattingTableView
+      .then { self.view.addSubview($0) }
+      .snp.makeConstraints {
+        $0.top.equalTo(self.productPreview.snp.bottom)
+        $0.leading.trailing.equalTo(self.view.safeAreaLayoutGuide)
     }
     
     self.messageField
