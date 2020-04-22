@@ -85,7 +85,7 @@ class ViewControllerGenerator {
   
   private func makePopoverController(_ homeVC: UIViewController, _ sender: UIView) -> UIViewController {
     let popover = PopoverViewController()
-    popover.preferredContentSize = CGSize(width: 300, height: 150)
+//    popover.preferredContentSize = CGSize(width: 300, height: 150)
     popover.modalPresentationStyle = .popover
     guard let presentationController = popover.popoverPresentationController else { fatalError("popOverPresent casting error") }
     

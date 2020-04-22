@@ -9,7 +9,6 @@
 import UIKit
 
 class SliderView: UIView {
-  
   // MARK: Views
   var slider = CustomSlider().then {
     $0.minimumValue = 0.0

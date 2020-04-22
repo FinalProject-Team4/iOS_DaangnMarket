@@ -152,6 +152,7 @@ class MyTownSettingViewController: UIViewController {
       UserDefaults.standard.remove(forKey: .secondTownByDistance)
       MyTownSetting.shared.secondAroundTownList = [Town]()
       MyTownSetting.shared.secondSelectTown = ""
+      MyTownSetting.shared.towns.removeValue(forKey: "second")
       MyTownSetting.shared.isFirstTown = true
       self.townSelectView.secondTownSelectBtn.isHidden = MyTownSetting.shared.isFirstTown
       self.townSelectView.secondTownSetBtn.isHidden = !MyTownSetting.shared.isFirstTown

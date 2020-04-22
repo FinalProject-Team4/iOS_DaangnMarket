@@ -21,6 +21,7 @@ class PopoverTownSettingButton: UIButton {
   
   override init(frame: CGRect) {
     super.init(frame: frame)
+    setupUI()
   }
   
   private func setupUI() {

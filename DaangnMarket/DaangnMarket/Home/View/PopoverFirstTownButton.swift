@@ -15,11 +15,15 @@ class PopoverFirstTownButton: UIButton {
     $0.font = .systemFont(ofSize: 16)
     $0.textColor = UIColor(named: ColorReference.noResultImage.rawValue)
   }
+  let partitionLine = UIView().then {
+    $0.backgroundColor = UIColor(named: ColorReference.noResultImage.rawValue)
+  }
   
   // MARK: Initialize
   
   override init(frame: CGRect) {
     super.init(frame: frame)
+    setupUI()
   }
   
   private func setupUI() {
@@ -27,6 +31,12 @@ class PopoverFirstTownButton: UIButton {
     townLabel.snp.makeConstraints {
       $0.centerY.equalToSuperview()
       $0.leading.equalToSuperview().offset(24)
+    }
+    self.addSubview(partitionLine)
+    partitionLine.snp.makeConstraints {
+      $0.height.equalTo(0.5)
+      $0.bottom.equalToSuperview()
+      $0.leading.trailing.equalToSuperview()
     }
   }
   
