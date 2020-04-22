@@ -9,13 +9,17 @@
 import UIKit
 
 class MyPageSettingButton: UIButton {
-  let buttonImageView = UIImageView().then {
+  // MARK: Views
+  
+  private let buttonImageView = UIImageView().then {
     $0.contentMode = .scaleAspectFit
   }
-  let buttonTitleLabel = UILabel().then {
+  private let buttonTitleLabel = UILabel().then {
     $0.textColor = .black
     $0.font = UIFont.systemFont(ofSize: 16)
   }
+  
+  // MARK: Initialize
   
   override init(frame: CGRect) {
     super.init(frame: frame)

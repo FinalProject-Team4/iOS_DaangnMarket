@@ -77,9 +77,7 @@ class MyPageListButtonsTableViewCell: UITableViewCell {
     switch sender {
     case salesListbutton:
       delegate?.moveToPage(tag: "salesListButton")
-      print("판매목록")
     case likeListButton:
-      //print("관심목록")
       delegate?.moveToPage(tag: "likeListButton")
     default:
       print("nothing")

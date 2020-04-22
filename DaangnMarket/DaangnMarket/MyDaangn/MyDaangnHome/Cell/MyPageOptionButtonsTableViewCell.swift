@@ -9,12 +9,16 @@
 import UIKit
 
 class MyPageOptionButtonsTableViewCell: UITableViewCell {
-  let backView = UIView().then {
+  // MARK: Views
+  
+  private let backView = UIView().then {
     $0.backgroundColor = .white
   }
-  let myTownSettingButton = MyPageSettingButton(image: "placeholder", title: "내 동네 설정")
-  let confirmMyTownButton = MyPageSettingButton(image: "target", title: "동네 인증하기")
-  let gatheringButton = MyPageSettingButton(image: "apps", title: "모아보기")
+  private let myTownSettingButton = MyPageSettingButton(image: "placeholder", title: "내 동네 설정")
+  private let confirmMyTownButton = MyPageSettingButton(image: "target", title: "동네 인증하기")
+  private let gatheringButton = MyPageSettingButton(image: "apps", title: "모아보기")
+  
+  // MARK: Initialize
   
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -62,6 +66,8 @@ class MyPageOptionButtonsTableViewCell: UITableViewCell {
         $0.bottom.equalTo(backView).offset(-spacing)
     }
   }
+  
+  // MARK: Action
   
   @objc func didTapButton(_ sender: UIButton) {
     switch sender {

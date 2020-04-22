@@ -35,7 +35,7 @@ class ViewControllerGenerator {
     case categoryFeed
     case chatting
 //    case salesList
-//    case likeList
+    case likeList
   }
   
   func make(_ type: ControllerType, parameters: [String: Any] = [:]) -> UIViewController? {
@@ -84,10 +84,10 @@ class ViewControllerGenerator {
       return SelectedCategoryFeedViewController(category: category)
     case .chatting:
       return UINavigationController(rootViewController: ChatViewController())
-//    case .likeList:
-//      guard let likeListData = parameters["likeListData"] as? [Post] else { return nil }
-//      let likeListVC = LikeListViewController(likeListData: likeListData)
-//      return likeListVC
+    case .likeList:
+      guard let likeListData = parameters["likeListData"] as? [Post] else { return nil }
+      let likeListVC = LikeListViewController(likeListData: likeListData)
+      return likeListVC
 //    case .salesList:
 //      guard let salesListData = parameters["salesListData"] as? [Post] else { return nil }
 //      let salesListVC = SalesListViewController(salesListData: salesListData)

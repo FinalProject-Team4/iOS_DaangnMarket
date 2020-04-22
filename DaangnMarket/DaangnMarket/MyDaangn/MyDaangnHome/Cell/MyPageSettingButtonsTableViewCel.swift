@@ -9,13 +9,16 @@
 import UIKit
 
 class MyPageSettingButtonsTableViewCell: UITableViewCell {
-  let backView = UIView().then {
+  // MARK: Views
+  
+  private let backView = UIView().then {
     $0.backgroundColor = .white
   }
-  let shareButton = MyPageSettingButton(image: "share", title: "당근마켓 공유")
-  let noticeButton = MyPageSettingButton(image: "megaphone", title: "공지사항")
-  let settingButton = MyPageSettingButton(image: "settings", title: "설정")
+  private let shareButton = MyPageSettingButton(image: "share", title: "당근마켓 공유")
+  private let noticeButton = MyPageSettingButton(image: "megaphone", title: "공지사항")
+  private let settingButton = MyPageSettingButton(image: "settings", title: "설정")
   
+  // MARK: Initialize
   
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -27,12 +30,12 @@ class MyPageSettingButtonsTableViewCell: UITableViewCell {
     fatalError("init(coder:) has not been implemented")
   }
   
-  func setupUI() {
+  private func setupUI() {
     setupAttributes()
     setupConstraints()
   }
   
-  func setupAttributes() {
+  private func setupAttributes() {
     [shareButton, noticeButton, settingButton].forEach {
       $0.addTarget(self, action: #selector(didTapButton(_:)), for: .touchUpInside)
     }
@@ -63,6 +66,8 @@ class MyPageSettingButtonsTableViewCell: UITableViewCell {
         $0.bottom.equalTo(backView).offset(-spacing)
     }
   }
+  
+  // MARK: Action
   
   @objc func didTapButton(_ sender: UIButton) {
     switch sender {

@@ -9,12 +9,18 @@
 import UIKit
 
 class MyPageViewController: UIViewController {
+  // MARK: View
+  
   private var myPageTableView = UITableView()
+  
+  // MARK: Life Cycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
     setupUI()
   }
+  
+  // MARK: Initialize
   
   private func setupUI() {
     setupNavigationBar()
@@ -70,21 +76,18 @@ class MyPageViewController: UIViewController {
     }
   }
   
+  // MARK: Action
+  
   @objc func didTapNaviSettingButton(_ sender: UIButton) {
     print("설정화면")
   }
 }
+// MARK: - UITableViewDataSource
+
 extension MyPageViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     4
   }
-  
-  //  func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-  //    let clearView = UIView()
-  //    clearView.backgroundColor = .clear
-  //    clearView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 10)
-  //    return clearView
-  //  }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     switch indexPath.row {
@@ -116,8 +119,12 @@ extension MyPageViewController: UITableViewDataSource {
   }
 }
 
+// MARK: - UITableViewDelegate
+
 extension MyPageViewController: UITableViewDelegate {
 }
+
+// MARK: - MyPageUserInformDelegate
 
 extension MyPageViewController: MyPageUserInformDelegate {
   func goToPage(tag: String) {
@@ -132,19 +139,21 @@ extension MyPageViewController: MyPageUserInformDelegate {
   }
 }
 
+// MARK: - MyPageListButtonDelegate
+
 extension MyPageViewController: MyPageListButtonDelegate {
   func moveToPage(tag: String) {
-//    switch tag {
+    switch tag {
 //    case "salesListButton":
 //      //let salesListVC = SalesListViewController()
 //      guard let salesListVC = ViewControllerGenerator.shared.make(.salesList, parameters: ["salesListData": sellerItemsData1]) else { return }
 //      self.navigationController?.pushViewController(salesListVC, animated: true)
-//    case "likeListButton":
-//      let dummyData = PostData.shared.dummyData
-//      guard let likeListVC = ViewControllerGenerator.shared.make(.likeList, parameters: ["likeListData": dummyData]) else { return }
-//      self.navigationController?.pushViewController(likeListVC, animated: true)
-//    default:
-//      break
-//    }
+    case "likeListButton":
+      let dummyData = PostData.shared.dummyData
+      guard let likeListVC = ViewControllerGenerator.shared.make(.likeList, parameters: ["likeListData": dummyData]) else { return }
+      self.navigationController?.pushViewController(likeListVC, animated: true)
+    default:
+      break
+    }
   }
 }

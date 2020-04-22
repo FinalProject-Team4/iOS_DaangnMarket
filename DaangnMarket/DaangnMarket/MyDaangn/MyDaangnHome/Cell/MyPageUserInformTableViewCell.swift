@@ -17,7 +17,6 @@ class MyPageUserInformTableViewCell: UITableViewCell {
   
   // MARK: Views
   
-//  private let profileImageButton = MyProfileImageView()
   private let profileImageButton = MyProfileImageButton()
   private let userNameLabel = UILabel().then {
     $0.textColor = .black
@@ -41,6 +40,7 @@ class MyPageUserInformTableViewCell: UITableViewCell {
   }
   
   // MARK: Initialize
+  
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     setupUI()
@@ -89,14 +89,14 @@ class MyPageUserInformTableViewCell: UITableViewCell {
     }
   }
   
+  // MARK: Action
+  
   @objc func didTapButton(_ sender: UIButton) {
     switch sender {
     case profileImageButton:
       print("profile사진 수정 페이지 띄우기")
     case showProfileButton:
-//      sender.currentAttributedTitle
       delegate?.goToPage(tag: "showProfileButton")
-      print("프로필보기 click!")
     default:
       print("default")
     }

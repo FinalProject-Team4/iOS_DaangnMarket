@@ -150,6 +150,7 @@
 		DEE5BBD82450B296009410CA /* MyPageUserInformTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5BBD72450B296009410CA /* MyPageUserInformTableViewCell.swift */; };
 		DEE5BBDA2450B781009410CA /* SalesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5BBD92450B781009410CA /* SalesListViewController.swift */; };
 		DEE5BBE52450B811009410CA /* LikeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5BBE42450B811009410CA /* LikeListViewController.swift */; };
+		DEE5BBE72450BCE1009410CA /* LikeListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5BBE62450BCE1009410CA /* LikeListTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -302,6 +303,7 @@
 		DEE5BBD72450B296009410CA /* MyPageUserInformTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageUserInformTableViewCell.swift; sourceTree = "<group>"; };
 		DEE5BBD92450B781009410CA /* SalesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesListViewController.swift; sourceTree = "<group>"; };
 		DEE5BBE42450B811009410CA /* LikeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeListViewController.swift; sourceTree = "<group>"; };
+		DEE5BBE62450BCE1009410CA /* LikeListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeListTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -997,7 +999,6 @@
 			isa = PBXGroup;
 			children = (
 				DEE5BBE12450B7E5009410CA /* Controller */,
-				DEE5BBE32450B7EF009410CA /* View */,
 				DEE5BBE22450B7EB009410CA /* Cell */,
 			);
 			path = LikeList;
@@ -1036,15 +1037,9 @@
 		DEE5BBE22450B7EB009410CA /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				DEE5BBE62450BCE1009410CA /* LikeListTableViewCell.swift */,
 			);
 			path = Cell;
-			sourceTree = "<group>";
-		};
-		DEE5BBE32450B7EF009410CA /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1309,6 +1304,7 @@
 				ACB2B60324333763002FAF27 /* AuthViewController.swift in Sources */,
 				AC52A4ED243B116F00DB4FB6 /* ViewControllerGenerator.swift in Sources */,
 				ACEE24CC2435CA1B0044D573 /* DGUpperAlert.swift in Sources */,
+				DEE5BBE72450BCE1009410CA /* LikeListTableViewCell.swift in Sources */,
 				9A6536C32441AC6600301D01 /* TabMenuView.swift in Sources */,
 				ACFB7D38242CA45600E47F97 /* TownNoResultView.swift in Sources */,
 				AC7AA0FB2445D61E00691D5E /* NotificationViewController.swift in Sources */,

@@ -11,12 +11,12 @@ import UIKit
 class MyPageListButton: UIButton {
   // MARK: Views
   
-  let buttonImageView = UIImageView().then {
+  private let buttonImageView = UIImageView().then {
     $0.layer.cornerRadius = 30
     $0.contentMode = .scaleAspectFit
     $0.clipsToBounds = true
   }
-  let buttonTitleLabel = UILabel().then {
+  private let buttonTitleLabel = UILabel().then {
     $0.textColor = .black
     $0.font = UIFont.systemFont(ofSize: 14)
   }
@@ -38,7 +38,7 @@ class MyPageListButton: UIButton {
     fatalError("init(coder:) has not been implemented")
   }
   
-  func setupConstraints() {
+  private func setupConstraints() {
     let buttonSize: CGFloat = 60
     let spacing: CGFloat = 6
     
