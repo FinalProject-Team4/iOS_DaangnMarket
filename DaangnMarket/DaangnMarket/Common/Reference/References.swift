@@ -26,6 +26,7 @@ enum ImageReference: String {
   case pencil
   case daangni = "DaangnLogo-Noti-Daangni"
   case badge = "Badge"
+  case scope = "Scope-1"
   
   enum Notification: String {
     case daangnLogo = "DaangnLogo-Noti"

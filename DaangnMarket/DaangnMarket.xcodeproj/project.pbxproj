@@ -38,6 +38,7 @@
 		A6595AA524507C5800DDCAA5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A6595AA424507C5800DDCAA5 /* GoogleService-Info.plist */; };
 		A6595AA7245094A600DDCAA5 /* CurrentTownListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6595AA6245094A600DDCAA5 /* CurrentTownListView.swift */; };
 		A6595AAB2450BD1900DDCAA5 /* CurrentTownListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6595AAA2450BD1900DDCAA5 /* CurrentTownListItemView.swift */; };
+		A6595AAF2450EBBA00DDCAA5 /* FindMyLocationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6595AAE2450EBBA00DDCAA5 /* FindMyLocationButton.swift */; };
 		A6C1E369243B1AC800A6FF32 /* WriteTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C1E368243B1AC800A6FF32 /* WriteTypeViewController.swift */; };
 		A6C1E36B243B38AF00A6FF32 /* WriteTypeButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C1E36A243B38AF00A6FF32 /* WriteTypeButtonView.swift */; };
 		A6C1E36D243B51A100A6FF32 /* WriteClearViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C1E36C243B51A100A6FF32 /* WriteClearViewController.swift */; };
@@ -168,6 +169,7 @@
 		A6595AA424507C5800DDCAA5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A6595AA6245094A600DDCAA5 /* CurrentTownListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentTownListView.swift; sourceTree = "<group>"; };
 		A6595AAA2450BD1900DDCAA5 /* CurrentTownListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentTownListItemView.swift; sourceTree = "<group>"; };
+		A6595AAE2450EBBA00DDCAA5 /* FindMyLocationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindMyLocationButton.swift; sourceTree = "<group>"; };
 		A6C1E368243B1AC800A6FF32 /* WriteTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteTypeViewController.swift; sourceTree = "<group>"; };
 		A6C1E36A243B38AF00A6FF32 /* WriteTypeButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteTypeButtonView.swift; sourceTree = "<group>"; };
 		A6C1E36C243B51A100A6FF32 /* WriteClearViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteClearViewController.swift; sourceTree = "<group>"; };
@@ -394,11 +396,28 @@
 		A6595A9E244EDC9200DDCAA5 /* TownAuthorization */ = {
 			isa = PBXGroup;
 			children = (
-				A6595A9F244EDCD300DDCAA5 /* TownAuthorizationViewController.swift */,
-				A6595AA6245094A600DDCAA5 /* CurrentTownListView.swift */,
-				A6595AAA2450BD1900DDCAA5 /* CurrentTownListItemView.swift */,
+				A6595AAD2450EB8200DDCAA5 /* Controller */,
+				A6595AAC2450EB7700DDCAA5 /* View */,
 			);
 			path = TownAuthorization;
+			sourceTree = "<group>";
+		};
+		A6595AAC2450EB7700DDCAA5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A6595AA6245094A600DDCAA5 /* CurrentTownListView.swift */,
+				A6595AAA2450BD1900DDCAA5 /* CurrentTownListItemView.swift */,
+				A6595AAE2450EBBA00DDCAA5 /* FindMyLocationButton.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A6595AAD2450EB8200DDCAA5 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				A6595A9F244EDCD300DDCAA5 /* TownAuthorizationViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		AC28CD22242A3FBF0031999B /* Reference */ = {
@@ -1002,6 +1021,7 @@
 				AC52A4E7243AED3900DB4FB6 /* UIApplication+Extension.swift in Sources */,
 				AC52A4E32439AF4300DB4FB6 /* ProfileImageView.swift in Sources */,
 				AC5052DB242DA1B40045B9BC /* TownBackgroundView.swift in Sources */,
+				A6595AAF2450EBBA00DDCAA5 /* FindMyLocationButton.swift in Sources */,
 				AD6EBFAE2438EF4C003F01CA /* MyTownSetting.swift in Sources */,
 				A639494224486AFD00832F4E /* KeywordCollectionViewCell.swift in Sources */,
 				AD6EBFAC2438E83C003F01CA /* SecondTownSelectButton.swift in Sources */,

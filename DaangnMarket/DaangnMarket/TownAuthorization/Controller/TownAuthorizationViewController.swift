@@ -14,6 +14,9 @@ class TownAuthorizationViewController: UIViewController {
   private let mapView = MKMapView().then {
     $0.setUserTrackingMode(.follow, animated: true)
   }
+  private let findScopeButton = FindMyLocationButton().then {
+    $0.layer.cornerRadius = 28
+  }
   private lazy var checkTownLabel = UILabel().then {
     $0.attributedText = NSMutableAttributedString()
       .normal("잠깐만요! 현재 위치가 ", fontSize: 15)
@@ -56,8 +59,8 @@ class TownAuthorizationViewController: UIViewController {
   }
   
   // MARK: Properties
-  private let selectedTown = "청담동"
-  private var currentTownList = ["성수2가제3동", "성수동2가", "성수동2가제1동"]
+  private let selectedTown = "두번째동네선택"
+  private var currentTownList = ["현재동네1", "현재동네2", "현재동네3"]
   private var userSelectedCurrentTown = ""
   var currentTownListToString = ""
   
@@ -75,7 +78,7 @@ class TownAuthorizationViewController: UIViewController {
   
   private func setupAttributes() {
     view.backgroundColor = .white
-    [mapView, checkTownLabel, currentLocateView, guideLine, qnaView].forEach {
+    [mapView, findScopeButton, checkTownLabel, currentLocateView, guideLine, qnaView].forEach {
       view.addSubview($0)
     }
     setupCurrentTownView()
@@ -86,6 +89,11 @@ class TownAuthorizationViewController: UIViewController {
     mapView.snp.makeConstraints {
       $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
       $0.height.equalTo(view.safeAreaLayoutGuide).multipliedBy(0.5)
+    }
+    findScopeButton.snp.makeConstraints {
+      $0.size.equalTo(56)
+      $0.trailing.equalTo(mapView.snp.trailing).offset(-24)
+      $0.bottom.equalTo(checkTownLabel.snp.top).offset(-26)
     }
     checkTownLabel.snp.makeConstraints {
       $0.top.equalTo(mapView.snp.bottom)
@@ -136,7 +144,6 @@ class TownAuthorizationViewController: UIViewController {
       $0.setImage(UIImage(systemName: "chevron.right"), for: .normal)
       $0.tintColor = .gray
     }
-    
     [qnaLable, qnaInfoButton].forEach {
       qnaView.addSubview($0)
     }
@@ -152,6 +159,11 @@ class TownAuthorizationViewController: UIViewController {
   
   // MARK: Actions
   @objc private func didTapChangeTownButton(_ sender: UIButton) {
+    UIView.animate(withDuration: 0.3) {
+      sender.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+      self.view.setNeedsDisplay()
+    }
+    
     let listView = CurrentTownListView(list: currentTownList)
     listView.viewDelegate = self
     let alert = DGAlertController(title: "현재 위치에 있는 동네는 아래와 같아요. 변경하려는 동네를 선택해주세요.", view: listView)
@@ -164,7 +176,11 @@ class TownAuthorizationViewController: UIViewController {
     }
     alert.addAction(okButton)
     alert.addAction(cancelButton)
-    self.present(alert, animated: false)
+    self.present(alert, animated: false) {
+      UIView.animate(withDuration: 0.3) {
+        sender.transform = .identity
+      }
+    }
   }
   
   @objc private func didTapAuthSuccessButton() {
