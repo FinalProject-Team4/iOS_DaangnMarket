@@ -30,6 +30,11 @@ class CategoryViewController: UIViewController {
     setupUI()
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    self.tabBarController?.tabBar.isHidden = false
+  }
+  
   // MARK: Initialize
   private func setupUI() {
     setNavigation()

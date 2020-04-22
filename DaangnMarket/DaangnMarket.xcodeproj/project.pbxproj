@@ -47,6 +47,7 @@
 		A63F37C0243596EF002C0D9B /* WriteKeywordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63F37BF243596EF002C0D9B /* WriteKeywordViewController.swift */; };
 		A63F37C224359B5D002C0D9B /* KeywordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63F37C124359B5D002C0D9B /* KeywordTableViewCell.swift */; };
 		A63F37C42435CB87002C0D9B /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63F37C32435CB87002C0D9B /* Extension.swift */; };
+		A6595AB324510C3D00DDCAA5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A6595AB224510C3D00DDCAA5 /* GoogleService-Info.plist */; };
 		A6C1E369243B1AC800A6FF32 /* WriteTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C1E368243B1AC800A6FF32 /* WriteTypeViewController.swift */; };
 		A6C1E36B243B38AF00A6FF32 /* WriteTypeButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C1E36A243B38AF00A6FF32 /* WriteTypeButtonView.swift */; };
 		A6C1E36D243B51A100A6FF32 /* WriteClearViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C1E36C243B51A100A6FF32 /* WriteClearViewController.swift */; };
@@ -144,7 +145,6 @@
 		DE4B705E24447EF0001BC5D8 /* UserProfilePercentageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4B705D24447EF0001BC5D8 /* UserProfilePercentageView.swift */; };
 		DE4B7080244490EE001BC5D8 /* MannerTemperatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4B707F244490EE001BC5D8 /* MannerTemperatureView.swift */; };
 		DE4B708224449981001BC5D8 /* PageChatLikeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4B708124449981001BC5D8 /* PageChatLikeView.swift */; };
-		DEA48F5924507BD00012317E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DEA48F5824507BD00012317E /* GoogleService-Info.plist */; };
 		DEB8887A24508CA900EAE363 /* profileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB8887924508CA900EAE363 /* profileData.swift */; };
 		DEE5BBCA2450B0BB009410CA /* MyPageListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5BBC92450B0BB009410CA /* MyPageListButton.swift */; };
 		DEE5BBCC2450B0D8009410CA /* MyPageSettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5BBCB2450B0D8009410CA /* MyPageSettingButton.swift */; };
@@ -214,6 +214,7 @@
 		A63F37BF243596EF002C0D9B /* WriteKeywordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteKeywordViewController.swift; sourceTree = "<group>"; };
 		A63F37C124359B5D002C0D9B /* KeywordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordTableViewCell.swift; sourceTree = "<group>"; };
 		A63F37C32435CB87002C0D9B /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		A6595AB224510C3D00DDCAA5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A6C1E368243B1AC800A6FF32 /* WriteTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteTypeViewController.swift; sourceTree = "<group>"; };
 		A6C1E36A243B38AF00A6FF32 /* WriteTypeButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteTypeButtonView.swift; sourceTree = "<group>"; };
 		A6C1E36C243B51A100A6FF32 /* WriteClearViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteClearViewController.swift; sourceTree = "<group>"; };
@@ -313,7 +314,6 @@
 		DE4B705D24447EF0001BC5D8 /* UserProfilePercentageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePercentageView.swift; sourceTree = "<group>"; };
 		DE4B707F244490EE001BC5D8 /* MannerTemperatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MannerTemperatureView.swift; sourceTree = "<group>"; };
 		DE4B708124449981001BC5D8 /* PageChatLikeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageChatLikeView.swift; sourceTree = "<group>"; };
-		DEA48F5824507BD00012317E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/finalProject/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DEB8887924508CA900EAE363 /* profileData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileData.swift; sourceTree = "<group>"; };
 		DEE5BBC92450B0BB009410CA /* MyPageListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageListButton.swift; sourceTree = "<group>"; };
 		DEE5BBCB2450B0D8009410CA /* MyPageSettingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageSettingButton.swift; sourceTree = "<group>"; };
@@ -415,8 +415,8 @@
 				ACFB7D2F242C415F00E47F97 /* Test */,
 				A62D96B22424A442006F1722 /* Assets.xcassets */,
 				A62D96B42424A442006F1722 /* LaunchScreen.storyboard */,
-				DEA48F5824507BD00012317E /* GoogleService-Info.plist */,
 				A62D96B72424A442006F1722 /* Info.plist */,
+				A6595AB224510C3D00DDCAA5 /* GoogleService-Info.plist */,
 				AC52A50B243D90D000DB4FB6 /* LaunchViewController.swift */,
 			);
 			path = DaangnMarket;
@@ -1184,7 +1184,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ACCD94CE2429E59500153545 /* .swiftlint.yml in Resources */,
-				DEA48F5924507BD00012317E /* GoogleService-Info.plist in Resources */,
+				A6595AB324510C3D00DDCAA5 /* GoogleService-Info.plist in Resources */,
 				A62D96B62424A442006F1722 /* LaunchScreen.storyboard in Resources */,
 				A62D96B32424A442006F1722 /* Assets.xcassets in Resources */,
 			);

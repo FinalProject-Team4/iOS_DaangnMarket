@@ -235,7 +235,8 @@ extension HomeFeedViewController: NavigationBarButtonDelegate {
       popoverVC.modalPresentationStyle = .popover
       present(popoverVC, animated: true)
     case customNaviBar.searchButton:
-      print("검색하기")
+      guard let searchVC = ViewControllerGenerator.shared.make(.search) else { return }
+      self.navigationController?.pushViewController(searchVC, animated: true)
     case customNaviBar.categoryFilterButton:
       print("카테고리선택")
     case customNaviBar.notificationButton:
