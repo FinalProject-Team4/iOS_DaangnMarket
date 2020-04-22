@@ -27,6 +27,7 @@ class ViewControllerGenerator {
     case townShow
     case popover
     case writeUsed
+    case findTown
     case productPost
     case notification
     case categoryFeed
@@ -56,6 +57,8 @@ class ViewControllerGenerator {
       return UINavigationController(rootViewController: WriteUsedViewController())
     case .townShow:
       return UINavigationController(rootViewController: ChooseTownToShowViewController())
+    case .findTown:
+      return UINavigationController(rootViewController: FindMyTownViewController())
     case .productPost:
       let productPostVC = ProductPostViewController()
       productPostVC.hidesBottomBarWhenPushed = true
@@ -98,7 +101,7 @@ class ViewControllerGenerator {
   
   private func makePopoverController(_ homeVC: UIViewController, _ sender: UIView) -> UIViewController {
     let popover = PopoverViewController()
-    popover.preferredContentSize = CGSize(width: 300, height: 150)
+//    popover.preferredContentSize = CGSize(width: 300, height: 150)
     popover.modalPresentationStyle = .popover
     guard let presentationController = popover.popoverPresentationController else { fatalError("popOverPresent casting error") }
     
