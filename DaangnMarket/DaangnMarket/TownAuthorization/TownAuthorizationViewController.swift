@@ -187,8 +187,15 @@ class TownAuthorizationViewController: UIViewController {
     }
   }
   
-  @objc private func didTapChangeTownButton() {
-//    let alert =
+  @objc private func didTapChangeTownButton(_ sender: UIButton) {
+    let alert = DGAlertController(title: "현재 위치에 있는 동네는 아래와 같아요. 변경하려는 동네를 선택해주세요.")
+    let okButton = DGAlertAction(title: "동네 변경", style: .orange, handler: nil)
+    let cancelButton = DGAlertAction(title: "취소", style: .white) {
+      self.dismiss(animated: false, completion: nil)
+    }
+    alert.addAction(okButton)
+    alert.addAction(cancelButton)
+    self.present(alert, animated: false)
     // 현재 위치 찾아서
     // 현재 위치가 내 동네로 설정한 '~'에 있습니다
   }
