@@ -9,26 +9,24 @@
 import UIKit
 
 class HomeFeedTableViewCell: UITableViewCell {
+  // MARK: Views
+  
   var goodsImageView = UIImageView().then {
     $0.clipsToBounds = true
     $0.layer.cornerRadius = 5
-    $0.kf.setImage(with: URL(string: "http://13.125.217.34/media/images/fabinho2.jpg"))
     $0.contentMode = .scaleToFill
   }
   let goodsName = UILabel().then {
-//    $0.text = "소나무 원목"
     $0.font = .systemFont(ofSize: 16)
     $0.textAlignment = .center
   }
   let sellerLoctionAndTime = UILabel().then {
-//    $0.text = "화양동" + " • " + "4분전"
     $0.font = .systemFont(ofSize: 12)
     $0.textAlignment = .center
     $0.textColor = .lightGray
   }
   let goodsPrice = UILabel().then {
-    $0.text = "20,000원"
-    $0.font = .systemFont(ofSize: 15, weight: .bold)
+    $0.font = .systemFont(ofSize: 15)
     $0.textAlignment = .center
   }
   let favoriteMark = UIImageView().then {
@@ -47,14 +45,12 @@ class HomeFeedTableViewCell: UITableViewCell {
     $0.backgroundColor = .lightGray
   }
   
+  // MARK: Initialize
+  
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     self.selectionStyle = .none
     setupContentUI()
-  }
-  
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
   }
   
   private func setupContentUI() {
@@ -95,5 +91,9 @@ class HomeFeedTableViewCell: UITableViewCell {
       $0.height.equalTo(0.3)
       $0.centerX.equalToSuperview()
     }
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
   }
 }
