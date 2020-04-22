@@ -27,11 +27,16 @@ class ViewControllerGenerator {
     case townShow
     case popover
     case writeUsed
+    case findTown
     case productPost
+    case profilePage
+    case sellingItems
     case notification
     case categoryFeed
     case chatting
     case search
+    case salesList
+    case likeList
   }
   
   func make(_ type: ControllerType, parameters: [String: Any] = [:]) -> UIViewController? {
@@ -57,17 +62,37 @@ class ViewControllerGenerator {
       return UINavigationController(rootViewController: WriteUsedViewController())
     case .townShow:
       return UINavigationController(rootViewController: ChooseTownToShowViewController())
+    case .findTown:
+      return UINavigationController(rootViewController: FindMyTownViewController())
     case .productPost:
-      let productPostVC = ProductPostViewController()
+      guard let postVCData = parameters["postData"] as? Post else { return nil }
+      let productPostVC = ProductPostViewController(postData: postVCData)
       productPostVC.hidesBottomBarWhenPushed = true
       return productPostVC
     case .notification:
       return NotificationViewController()
+    case .profilePage:
+      guard let ownSelfData = parameters["ownSelf"] as? Bool, let nameData = parameters["name"] as? String, let profileData = parameters["profileData"] as? [Post] else { return nil }
+      let profilePageVC = ProfilePageViewController(ownSelf: ownSelfData, name: nameData, profileData: profileData)
+      profilePageVC.hidesBottomBarWhenPushed = true
+      return profilePageVC
+    case .sellingItems:
+      guard let sellingItemsData = parameters["sellingData"] as? [Post] else { return nil }
+      let sellingItemsVC = SellingItemsViewController(sellingData: sellingItemsData)
+      return sellingItemsVC
     case .categoryFeed:
       guard let category = parameters["category"] as? String else { return nil }
       return SelectedCategoryFeedViewController(category: category)
     case .chatting:
       return UINavigationController(rootViewController: ChatViewController())
+    case .likeList:
+      guard let likeListData = parameters["likeListData"] as? [Post] else { return nil }
+      let likeListVC = LikeListViewController(likeListData: likeListData)
+      return likeListVC
+    case .salesList:
+      guard let salesListData = parameters["salesListData"] as? [Post] else { return nil }
+      let salesListVC = SalesListViewController(salesListData: salesListData)
+      return salesListVC
     case .search:
       return SearchViewController()
     }
@@ -88,7 +113,7 @@ class ViewControllerGenerator {
     let chatVC = UINavigationController(rootViewController: ChatViewController()).then {
       $0.tabBarItem = UITabBarItem(title: "채팅", image: UIImage(systemName: "bubble.left.and.bubble.right"), tag: 3)
     }
-    let mypageVC = MyPageViewController().then {
+    let mypageVC = UINavigationController(rootViewController: MyPageViewController()).then {
       $0.tabBarItem = UITabBarItem(title: "나의 당근", image: UIImage(systemName: "person"), tag: 4)
     }
     
@@ -100,7 +125,7 @@ class ViewControllerGenerator {
   
   private func makePopoverController(_ homeVC: UIViewController, _ sender: UIView) -> UIViewController {
     let popover = PopoverViewController()
-    popover.preferredContentSize = CGSize(width: 300, height: 150)
+    //    popover.preferredContentSize = CGSize(width: 300, height: 150)
     popover.modalPresentationStyle = .popover
     guard let presentationController = popover.popoverPresentationController else { fatalError("popOverPresent casting error") }
     

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+// MARK: PostInfo
 
 struct PostInfo: Codable {
   let count: Int
@@ -22,6 +23,8 @@ struct PostInfo: Codable {
   }
 }
 
+// MARK: Post
+
 struct Post: Codable {
   let postId: Int
   let username: String
@@ -32,9 +35,11 @@ struct Post: Codable {
   let updated: String
   let address: String
   let price: Int
-  let state: String
+  var state: String
   let postImageSet: [PostImage]
 }
+
+// MARK: Extention Post
 
 extension Post {
   enum CodingKeys: String, CodingKey {
@@ -46,11 +51,15 @@ extension Post {
   }
 }
 
+// MARK: PostImage
+
 struct PostImage: Codable {
   let imageId: Int
   let photo: String
   let postId: Int
 }
+
+// MARK: Extention Post
 
 extension PostImage {
   enum CodingKeys: String, CodingKey {
