@@ -68,6 +68,7 @@ class DGAlertController: UIViewController {
   }
   
   private func setUI() {
+    self.modalPresentationStyle = .overFullScreen
     view.backgroundColor = UIColor.gray.withAlphaComponent(0.6)
     view.addSubview(alertView)
     alertView.snp.makeConstraints {
