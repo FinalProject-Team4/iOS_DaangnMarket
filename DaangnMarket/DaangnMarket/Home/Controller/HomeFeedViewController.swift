@@ -239,7 +239,21 @@ extension HomeFeedViewController: NavigationBarButtonDelegate {
     case customNaviBar.categoryFilterButton:
       print("카테고리선택")
     case customNaviBar.notificationButton:
-      guard let notiVC = ViewControllerGenerator.shared.make(.notification) else { return }
+      guard
+        let userInfo = AuthorizationManager.shared.userInfo,
+        let notiVC = ViewControllerGenerator.shared.make(.notification, parameters: ["userInfo": userInfo])
+        else {
+          let alert = DGAlertController(title: "회원가입 또는 로그인후 이용할 수 있습니다.")
+          let login = DGAlertAction(title: "로그인/가입", style: .orange) {
+            guard let loginVC = ViewControllerGenerator.shared.make(.phoneAuth) else { return }
+            loginVC.modalPresentationStyle = .fullScreen
+            self.present(loginVC, animated: true)
+          }
+          let cancel = DGAlertAction(title: "취소", style: .cancel)
+          [login, cancel].forEach { alert.addAction($0) }
+          self.present(alert, animated: false)
+          return
+      }
       self.navigationController?.pushViewController(notiVC, animated: true)
     default: break
     }
