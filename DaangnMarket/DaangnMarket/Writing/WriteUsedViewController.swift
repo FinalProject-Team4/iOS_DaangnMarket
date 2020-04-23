@@ -21,17 +21,22 @@ protocol WriteUsedViewControllerDelegate: class {
   func selectImage(image: UIImage)
 }
 
-struct WriteData: Then, Encodable {
+struct WriteData: Encodable, Then {
   let title: String
   let content: String
   let category: String
   let price: Int
-  let locate: Int
-  let showedLocate: [Int]
+  let photos: URL?
+  let dongID: Int
+  let distance: Int
+  //  let locate: Int
+  //  let showedLocate: [Int]
   
   enum CodingKeys: String, CodingKey {
-    case title, content, category, price, locate
-    case showedLocate = "showed_locate"
+    case title, content, category, price, photos, distance
+    case dongID = "dong_id"
+    //    locate
+    //    case showedLocate = "showed_locate"
   }
 }
 
@@ -108,11 +113,11 @@ class WriteUsedViewController: UIViewController {
   }
   
   private func setupNavigation() {
-    self.title = "중고거래 글쓰기"
+    self.navigationController?.title = "중고거래 글쓰기"
     self.navigationController?.navigationBar.barTintColor = .white
     self.navigationController?.navigationBar.tintColor = .black
     self.navigationItem.rightBarButtonItem =
-      UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(requestCreate))
+      UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(create))
     self.navigationItem.leftBarButtonItem =
       UIBarButtonItem(title: "닫기", style: .plain, target: self, action: #selector(dismissVC))
   }
@@ -186,6 +191,84 @@ class WriteUsedViewController: UIViewController {
     }
   }
   
+  @objc private func dismissVC() {
+    dismiss(animated: true, completion: nil)
+  }
+
+  @objc private func create() {
+    guard let titleCell = self.writeTableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? WriteTableTitleCell else { return }
+    let title = titleCell.cellData
+    guard let priceCell = self.writeTableView.cellForRow(at: IndexPath(row: 3, section: 0)) as? WriteTablePriceCell else { return }
+    let price = Int(priceCell.cellData) ?? 0
+    guard let bodyCell = self.writeTableView.cellForRow(at: IndexPath(row: 4, section: 0)) as? WriteTableDescriptionCell else { return }
+    let content = bodyCell.cellData
+    
+    if title.isEmpty || currentCategory == "카테고리 선택" || content.isEmpty {
+      alert(title: title, body: content, category: currentCategory)
+    } else {
+      let params = WriteData(
+        title: title,
+        content: content,
+        category: categoryFilter(currentCategory),
+        price: price,
+        photos: nil,
+        dongID: 8_790,
+        distance: 2_000
+      )
+      request(params: params)
+    }
+  }
+  
+  private func request(params: WriteData) {
+    AF.request(
+      "http://13.125.217.34/post/create/",
+      method: .post,
+      parameters: params,
+      encoder: JSONParameterEncoder.default
+    )
+      .validate()
+      .responseJSON { (response) in
+        switch response.result {
+        case .success(let data):
+          print(data)
+        case .failure(let err):
+          print(err)
+        }
+//      .responseJSON { (response) in
+//        switch response.result {
+//        case .success:
+//          guard let responseData = response.data else { return }
+//          if var decodedID = try? JSONDecoder().decode(WriteResponse.self, from: responseData) {
+//            let image = UIImage.init(named: "DaanggnMascot")
+//            let imgData = image!.jpegData(compressionQuality: 0.2)!
+//            AF.upload(
+//              multipartFormData: { (multiPartFormData) in
+//                multiPartFormData.append(imgData, withName: "test.jpeg")
+//                multiPartFormData.append(
+//                  Data(bytes: &decodedID.postID, count: MemoryLayout.size(ofValue: decodedID.postID)),
+//                  withName: "post_id"
+//                )
+//            },
+//              to: "http://13.125.217.34/post/image/upload/"
+//            )
+//              .validate()
+//              .responseJSON { (response) in
+//                switch response.result {
+//                case .success(let data):
+//                  print(data)
+//                case .failure(let error):
+//                  print(error.localizedDescription)
+//                }
+//            }
+//          } else {
+//            print("WriteResponseResult Decode Fail")
+//          }
+//        case .failure(let error):
+//          print(error.localizedDescription)
+//        }
+    }
+  }
+  
   private func alert(title: String, body: String, category: String) {
     var message: String = ""
     if title.isEmpty {
@@ -205,80 +288,13 @@ class WriteUsedViewController: UIViewController {
     alert.modalPresentationStyle = .overFullScreen
     present(alert, animated: false)
   }
-  
-  @objc private func dismissVC() {
-    dismiss(animated: true, completion: nil)
-  }
-  
-  @objc private func requestCreate() {
-    // 글쓰기에 필요한 데이터 모으기
-    // parameters
-    // reqeust
-    // response
-    // success -> finish(dismiss)
-    // success -> nil -> alert
-    // failure -> alert
-    
-    guard let titleCell = self.writeTableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? WriteTableTitleCell else { return }
-    let title = titleCell.cellData
-    guard let priceCell = self.writeTableView.cellForRow(at: IndexPath(row: 3, section: 0)) as? WriteTablePriceCell else { return }
-    let price = Int(priceCell.cellData) ?? 0
-    guard let bodyCell = self.writeTableView.cellForRow(at: IndexPath(row: 4, section: 0)) as? WriteTableDescriptionCell else { return }
-    let content = bodyCell.cellData
-    
-    alert(title: title, body: content, category: currentCategory)
-             
-    let params = WriteData(
-      title: title.isEmpty ? "알림" : title,
-      content: content.isEmpty ? "알림" : content,
-      category: currentCategory == "카테고리 선택" ?
-        "알림" : DGCategory.allCases.filter{ $0.korean == currentCategory }.map{ $0.rawValue }.first ?? "other",
-      price: price == 0 ? 0 : price,
-      locate: 6_971,
-      showedLocate: [6_971, 8_730, 8_725, 6_921]
-    )
-    
-    AF.request(
-      "http://13.125.217.34/post/create/",
-      method: .post,
-      parameters: params,
-      encoder: JSONParameterEncoder.default
-    )
-      .validate()
-      .responseJSON { (response) in
-        switch response.result {
-        case .success:
-          guard let responseData = response.data else { return }
-          if var decodedID = try? JSONDecoder().decode(WriteResponse.self, from: responseData) {
-            let image = UIImage.init(named: "DaanggnMascot")
-            let imgData = image!.jpegData(compressionQuality: 0.2)!
-            AF.upload(
-              multipartFormData: { (multiPartFormData) in
-                multiPartFormData.append(imgData, withName: "test.jpeg")
-                multiPartFormData.append(
-                  Data(bytes: &decodedID.postID, count: MemoryLayout.size(ofValue: decodedID.postID)),
-                  withName: "post_id"
-                )
-            },
-              to: "http://13.125.217.34/post/image/upload/"
-            )
-              .validate()
-              .responseJSON { (response) in
-                switch response.result {
-                case .success(let data):
-                  print(data)
-                case .failure(let error):
-                  print(error.localizedDescription)
-                }
-            }
-          } else {
-            print("WriteResponseResult Decode Fail")
-          }
-        case .failure(let error):
-          print(error.localizedDescription)
-        }
-    }
-  }
+
+   private func categoryFilter(_ currrentCategory: String) -> String {
+     DGCategory.allCases
+       .filter { $0.korean == currentCategory }
+       .map { $0.rawValue }
+       .first ?? "other"
+   }
 }
 
 // MARK: - Extension Level

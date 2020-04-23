@@ -27,7 +27,12 @@ class WriteTableDescriptionCell: UITableViewCell {
     let attrString = NSMutableAttributedString(string: $0.text!)
     let paragraphStyle = NSMutableParagraphStyle()
     paragraphStyle.lineSpacing = 6
-    attrString.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attrString.length))
+    attrString.addAttribute(
+      NSAttributedString.Key.paragraphStyle,
+      value: paragraphStyle,
+      range: NSRange(location: 0, length: attrString.length)
+//      NSMakeRange(_: 0, _: attrString.length)
+    )
     $0.attributedText = attrString
     $0.font = .systemFont(ofSize: 16)
     $0.textColor = .lightGray
@@ -36,7 +41,7 @@ class WriteTableDescriptionCell: UITableViewCell {
   // MARK: Properties
   
   var keyboardHeight: CGFloat = 0
-  private var location = "동네 어떻게 받아올까~~~"
+  private var location = AuthorizationManager.shared.selectedTown?.dong ?? "unknown"
   
   // MARK: Initialize
   
