@@ -81,6 +81,10 @@
 		AC8C0D18244F2D9100C1FB51 /* ChattingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0D17244F2D9100C1FB51 /* ChattingCell.swift */; };
 		AC8C0D1A244F2E0B00C1FB51 /* MessageField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0D19244F2E0B00C1FB51 /* MessageField.swift */; };
 		AC8C0D1C2450AA2600C1FB51 /* ChattingTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0D1B2450AA2600C1FB51 /* ChattingTableView.swift */; };
+		AC8C0D1E2450BCCA00C1FB51 /* ProductPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0D1D2450BCCA00C1FB51 /* ProductPreview.swift */; };
+		AC8C0D232450DAD700C1FB51 /* MyMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0D222450DAD700C1FB51 /* MyMessageView.swift */; };
+		AC8C0D252450DEE800C1FB51 /* OtherMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0D242450DEE800C1FB51 /* OtherMessageView.swift */; };
+		AC8C0D272451685300C1FB51 /* ChattingDateIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0D262451685300C1FB51 /* ChattingDateIndicator.swift */; };
 		ACB2B60324333763002FAF27 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B60224333763002FAF27 /* AuthViewController.swift */; };
 		ACB2B6072433472B002FAF27 /* AuthDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B6062433472B002FAF27 /* AuthDescriptionView.swift */; };
 		ACB2B60924334813002FAF27 /* NSMutableAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B60824334813002FAF27 /* NSMutableAttributedString+Extension.swift */; };
@@ -204,6 +208,10 @@
 		AC8C0D17244F2D9100C1FB51 /* ChattingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChattingCell.swift; sourceTree = "<group>"; };
 		AC8C0D19244F2E0B00C1FB51 /* MessageField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageField.swift; sourceTree = "<group>"; };
 		AC8C0D1B2450AA2600C1FB51 /* ChattingTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingTableView.swift; sourceTree = "<group>"; };
+		AC8C0D1D2450BCCA00C1FB51 /* ProductPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductPreview.swift; sourceTree = "<group>"; };
+		AC8C0D222450DAD700C1FB51 /* MyMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMessageView.swift; sourceTree = "<group>"; };
+		AC8C0D242450DEE800C1FB51 /* OtherMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherMessageView.swift; sourceTree = "<group>"; };
+		AC8C0D262451685300C1FB51 /* ChattingDateIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChattingDateIndicator.swift; sourceTree = "<group>"; };
 		ACB2B60224333763002FAF27 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		ACB2B6062433472B002FAF27 /* AuthDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDescriptionView.swift; sourceTree = "<group>"; };
 		ACB2B60824334813002FAF27 /* NSMutableAttributedString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Extension.swift"; sourceTree = "<group>"; };
@@ -480,11 +488,13 @@
 		AC8C0C80244AF32600C1FB51 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				AC8C0C82244AF37E00C1FB51 /* ChattingHistoryCell.swift */,
-				AC8C0D17244F2D9100C1FB51 /* ChattingCell.swift */,
 				AC8C0C84244B12C300C1FB51 /* ProfileThumbnailView.swift */,
 				AC8C0D19244F2E0B00C1FB51 /* MessageField.swift */,
 				AC8C0D1B2450AA2600C1FB51 /* ChattingTableView.swift */,
+				AC8C0D1D2450BCCA00C1FB51 /* ProductPreview.swift */,
+				AC8C0D222450DAD700C1FB51 /* MyMessageView.swift */,
+				AC8C0D262451685300C1FB51 /* ChattingDateIndicator.swift */,
+				AC8C0D242450DEE800C1FB51 /* OtherMessageView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -504,6 +514,15 @@
 				AC8C0C87244C684700C1FB51 /* ChatModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		AC8C0D1F2450D0C700C1FB51 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				AC8C0C82244AF37E00C1FB51 /* ChattingHistoryCell.swift */,
+				AC8C0D17244F2D9100C1FB51 /* ChattingCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		ACB2B60124333742002FAF27 /* Authorization */ = {
@@ -603,6 +622,7 @@
 		ACCD94D32429F5E400153545 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				AC8C0D1F2450D0C700C1FB51 /* Cell */,
 				AC8C0C86244C683D00C1FB51 /* Model */,
 				AC8C0C81244AF32A00C1FB51 /* Controller */,
 				AC8C0C80244AF32600C1FB51 /* View */,
@@ -923,10 +943,12 @@
 				ACFB7D3A242CCE9200E47F97 /* UIDevice+Extension.swift in Sources */,
 				A62D97E4242B403E006F1722 /* WriteTablePriceCell.swift in Sources */,
 				A6FB7195243755770092A5F1 /* DGAlertAction.swift in Sources */,
+				AC8C0D272451685300C1FB51 /* ChattingDateIndicator.swift in Sources */,
 				A6C1E36B243B38AF00A6FF32 /* WriteTypeButtonView.swift in Sources */,
 				ACB2B60924334813002FAF27 /* NSMutableAttributedString+Extension.swift in Sources */,
 				ACCD94D72429F81D00153545 /* CategoryViewController.swift in Sources */,
 				AC829F4724347FDC00D0623A /* NumberField.swift in Sources */,
+				AC8C0D252450DEE800C1FB51 /* OtherMessageView.swift in Sources */,
 				AC8C0C85244B12C300C1FB51 /* ProfileThumbnailView.swift in Sources */,
 				AC8C0C83244AF37E00C1FB51 /* ChattingHistoryCell.swift in Sources */,
 				AC52A4FD243C495600DB4FB6 /* OtherItemsTableViewCell.swift in Sources */,
@@ -1006,10 +1028,12 @@
 				AC7AA10E2446DEAC00691D5E /* NotificationCell.swift in Sources */,
 				ACCD94EE242A23B800153545 /* DaangnAnimationView.swift in Sources */,
 				ADD05135242C4FC000312DF1 /* Service.swift in Sources */,
+				AC8C0D1E2450BCCA00C1FB51 /* ProductPreview.swift in Sources */,
 				ACCD94DB2429F86B00153545 /* WriteUsedViewController.swift in Sources */,
 				ACCC975B242B6DB0008F95DE /* API.swift in Sources */,
 				ACEE24CE243706380044D573 /* UIViewController+Extension.swift in Sources */,
 				AC52A500243C495600DB4FB6 /* CustomNavigationBarView.swift in Sources */,
+				AC8C0D232450DAD700C1FB51 /* MyMessageView.swift in Sources */,
 				AD6EBFB5243B1D70003F01CA /* TownCountView.swift in Sources */,
 				ACCC9753242B48D6008F95DE /* TownAddressCell.swift in Sources */,
 				AC7AA1012445D62900691D5E /* DGSegmentedControl.swift in Sources */,

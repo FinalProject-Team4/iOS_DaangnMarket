@@ -59,6 +59,8 @@ enum ColorReference: String {
   
   enum Chatting: String {
     case inputFieldBackground = "InputFieldBackground"
+    case borderLine = "ChatBorder"
+    case otherMessageBackground = "MessageBackground_Other"
   }
 }
 

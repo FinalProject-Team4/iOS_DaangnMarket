@@ -15,6 +15,7 @@ class ChattingViewController: UIViewController {
     $0.register(ChattingCell.self, forCellReuseIdentifier: ChattingCell.identifier)
     $0.separatorStyle = .none
     $0.dataSource = self
+    $0.delegate = self
   }
   private let messageField = MessageField()
   private let productPreview = ProductPreview()
@@ -22,8 +23,34 @@ class ChattingViewController: UIViewController {
   // MARK: Model
   
   private let messages: [Message] = [
-    .init(user: "hey", message: "hi", date: ""),
-    .init(user: "hey", message: "hi", date: "")
+    .init(user: "device", message: "#1 Some message for test", date: "2020-04-01 09:50:43"),
+    .init(user: "device", message: "#2 Some message for test", date: "2020-04-01 09:50:43"),
+    .init(user: "device", message: "#3 Some message for test", date: "2020-04-01 09:50:43"),
+    .init(user: "device", message: "#4 Some message for test", date: "2020-04-01 09:50:43"),
+    .init(user: "simulator", message: "#5 Some message for test", date: "2020-04-01 09:50:43"),
+    .init(user: "simulator", message: "#6 Some message for test", date: "2020-04-01 09:50:43"),
+    .init(user: "simulator", message: "#7 Some message for test", date: "2020-04-01 09:50:43"),
+    .init(user: "simulator", message: "#8 Some message for test", date: "2020-04-01 09:50:43"),
+    .init(user: "device", message: "#9 Some long message for test", date: "2020-04-02 09:50:43"),
+    .init(user: "device", message: "#10 Some long message for test", date: "2020-04-02 09:50:43"),
+    .init(user: "device", message: "#11 Some long message for test", date: "2020-04-02 09:50:43"),
+    .init(user: "device", message: "#12 Some long message for test", date: "2020-04-02 09:50:43"),
+    .init(user: "device", message: "#13 Some long message for test", date: "2020-04-02 09:50:43"),
+    .init(user: "device", message: "#14 Some long message for test", date: "2020-04-02 09:50:43"),
+    .init(user: "simulator", message: "#15 Some long long message for test", date: "2020-04-02 09:51:00"),
+    .init(user: "device", message: "#16 Some long long message for test", date: "2020-04-02 09:51:00"),
+    .init(user: "simulator", message: "#17 Some long long message for test", date: "2020-04-02 09:51:00"),
+    .init(user: "device", message: "#18 Some long long message for test", date: "2020-04-02 09:51:00"),
+    .init(user: "simulator", message: "#19 Some long long long message for test", date: "2020-04-02 09:52:00"),
+    .init(user: "device", message: "#20 Some long long long message for test", date: "2020-04-03 09:52:00"),
+    .init(user: "simulator", message: "#21 Some long long long message for test", date: "2020-04-03 09:52:00"),
+    .init(user: "device", message: "#22 Some long long long message for test", date: "2020-04-03 09:52:00"),
+    .init(user: "device", message: "#23 Some long long long long long long message for test", date: "2020-04-03 09:52:00"),
+    .init(user: "simulator", message: "#24 Some long long long long long long message for test", date: "2020-04-03 09:53:00"),
+    .init(user: "simulator", message: "#25 Some long long long long long long message for test", date: "2020-04-03 09:53:00"),
+    .init(user: "device", message: "#26 Some long long long long long long message for test", date: "2020-04-03 09:53:00"),
+    .init(user: "device", message: "#27 Some long long long message for test", date: "2020-04-03 09:53:00"),
+    .init(user: "simulator", message: "#28 Some long long long message for test", date: "2020-04-03 09:56:00")
   ]
   
   private let product = Post(
@@ -40,11 +67,20 @@ class ChattingViewController: UIViewController {
     postImageSet: [PostImage(imageId: 1, photo: "image1", postId: 1)]
   )
   
+  private var dateIndicatables = [(date: String, row: Int)]()
+  
   // MARK: Life Cycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
     self.setupUI()
+    self.messages.enumerated().forEach { (index, message) in
+      let date = message.date.components(separatedBy: " ").first ?? ""
+      let isExist = self.dateIndicatables.contains { $0.date == date }
+      if !isExist {
+        self.dateIndicatables.append((date, index))
+      }
+    }
   }
   
   override func viewDidAppear(_ animated: Bool) {
@@ -177,12 +213,27 @@ extension ChattingViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: ChattingCell.identifier, for: indexPath) as? ChattingCell else { return UITableViewCell() }
     let chat = self.messages[indexPath.row]
-    #if targetEnvironment(simulator)
-    cell.configure(message: chat.message, isMe: chat.user == "simulator")
-    #else
-    cell.configure(message: chat.message, isMe: chat.user == "device")
-    #endif
+    let comp = chat.date.components(separatedBy: " ")
+    let indicatable = self.dateIndicatables.first { $0.row == indexPath.row }
+    
+    cell.configure(
+      message: chat.message,
+      date: comp[0],
+      time: comp[1],
+      profile: nil,
+      isMe: chat.user == "device",
+      displayDateIndicator: indicatable != nil
+    )
     
     return cell
   }
+}
+
+// MARK: - UITableViewDelegate
+
+extension ChattingViewController: UITableViewDelegate {
+//  func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//    guard let cell = cell as? ChattingCell else { return }
+//    cell.removeConstraints()
+//  }
 }
