@@ -26,6 +26,8 @@ class SelectedCategoryFeedViewController: UIViewController {
     view.addSubview($0)
   }
   
+  private lazy var upperAlert = DGUpperAlert()
+  
   // MARK: Properties
   private var postData: [Post] = [] {
     didSet {
@@ -69,7 +71,7 @@ class SelectedCategoryFeedViewController: UIViewController {
   }
   
   private func setupNavigation() {
-    self.navigationController?.isNavigationBarHidden = false
+    self.navigationController?.navigationBar.isHidden = false
     self.navigationController?.navigationBar.barTintColor = .white
     self.navigationController?.navigationBar.tintColor = .black
     self.navigationItem.leftBarButtonItem = UIBarButtonItem(
@@ -160,6 +162,7 @@ class SelectedCategoryFeedViewController: UIViewController {
           self.nextURL = URL(string: decodeResult.next ?? "")
         case .failure(let err):
           print(err.localizedDescription)
+          self.upperAlert.show(message: err.localizedDescription)
         }
     }
   }
@@ -203,7 +206,8 @@ class SelectedCategoryFeedViewController: UIViewController {
   }
   
   @objc private func didTabNaviSearchButton() {
-    print("검색 뷰컨트롤러 슝~")
+    guard let searchVC = ViewControllerGenerator.shared.make(.search) else { return }
+    self.navigationController?.pushViewController(searchVC, animated: true)
   }
 }
 

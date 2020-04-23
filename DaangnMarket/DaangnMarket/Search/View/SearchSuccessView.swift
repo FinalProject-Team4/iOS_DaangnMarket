@@ -1,15 +1,21 @@
 //
-//  SearchResultsView.swift
+//  SearchSuccessView.swift
 //  DaangnMarket
 //
-//  Created by 박지승 on 2020/04/16.
+//  Created by 박지승 on 2020/04/20.
 //  Copyright © 2020 Jisng. All rights reserved.
 //
 
 import UIKit
 
-// MARK: - Class
-class SearchResultsView: UIView {
+class SearchSuccessView: UIView {
+  // MARK: Interface
+  var searchKeyword = "" {
+    didSet {
+      tableView.reloadData()
+    }
+  }
+  
   // MARK: Views
   private lazy var tableView = UITableView().then {
     $0.backgroundColor = UIColor(named: ColorReference.lightBackground.rawValue)
@@ -45,8 +51,7 @@ class SearchResultsView: UIView {
   
   private func setupConstraints() {
     tableView.snp.makeConstraints {
-      $0.top.equalToSuperview()
-      $0.leading.trailing.bottom.equalToSuperview()
+      $0.edges.size.equalToSuperview()
     }
   }
   
@@ -63,7 +68,7 @@ class SearchResultsView: UIView {
 }
 
 // MARK: - Extension
-extension SearchResultsView: UITableViewDataSource {
+extension SearchSuccessView: UITableViewDataSource {
   func numberOfSections(in tableView: UITableView) -> Int {
     3
   }
@@ -84,7 +89,7 @@ extension SearchResultsView: UITableViewDataSource {
     case 0:
       guard let cell = tableView.dequeueReusableCell(withIdentifier: KeywordNotiTableCell.identifier, for: indexPath)
         as? KeywordNotiTableCell else { fallthrough }
-      cell.setupKeywordView(text: "우아아앙")
+      cell.setupKeywordView(text: searchKeyword)
       return cell
     case 1:
       guard let cell = tableView.dequeueReusableCell(withIdentifier: FilterTableViewCell.identifier, for: indexPath)
@@ -109,6 +114,8 @@ extension SearchResultsView: UITableViewDataSource {
   }
 }
 
-extension SearchResultsView: UITableViewDelegate {
-  //
+extension SearchSuccessView: UITableViewDelegate {
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    // -> ProductVC
+  }
 }

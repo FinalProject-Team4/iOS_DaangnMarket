@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 // MARK: - Class Level
 class SearchViewController: UIViewController {
@@ -22,22 +23,26 @@ class SearchViewController: UIViewController {
     $0.delegate = self
     $0.placeholder = "검색어를 입력하세요."
   }
-  
-  private let searchMainView = SearchMainView()
-  
+  private lazy var segementView = DGSegmentedControl(items: ["중고거래", "동네정보", "사람"]).then {
+    $0.backgroundColor = .white
+    $0.delegate = self
+  }
   private lazy var searchListTableView = UITableView().then {
     $0.isHidden = true
     $0.dataSource = self
     $0.delegate = self
     $0.separatorStyle = .none
+    $0.rowHeight = 36
     $0.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
   }
-  
-  private let searchResultsView = SearchResultsView().then {
-    $0.isHidden = true
+  private lazy var contentScrollView = ContentSearchScrollView().then {
+    $0.delegate = self
+    $0.isPagingEnabled = true
+    $0.showsHorizontalScrollIndicator = false
   }
   
-  private var searchNoResultView: NoResultView?
+  // MARK: Properties
+  //  private var seletedTown = AuthorizationManager.shared.selectedTown?.dong ?? "동네없음"
   
   // MARK: LifeCycle
   override func viewDidLoad() {
@@ -61,6 +66,7 @@ class SearchViewController: UIViewController {
     setupAttributes()
     setupConstraints()
     setupNotification()
+    contentScrollView.searchStatus(.standBy)
   }
   
   private func setupNavigation() {
@@ -76,27 +82,21 @@ class SearchViewController: UIViewController {
   }
   
   private func setupAttributes() {
-    searchMainView.delegate = self
     self.tabBarController?.tabBar.isHidden = true
     view.backgroundColor = UIColor(named: ColorReference.lightBackground.rawValue)
-    view.addSubview(searchMainView)
-    view.addSubview(searchListTableView)
-    view.addSubview(searchResultsView)
+    [segementView, searchListTableView, contentScrollView].forEach { view.addSubview($0) }
   }
   
   private func setupConstraints() {
-    searchMainView.snp.makeConstraints {
-      $0.top.equalToSuperview().offset(8)
-      $0.leading.trailing.equalToSuperview()
-      $0.bottom.equalToSuperview()
+    segementView.snp.makeConstraints {
+      $0.top.leading.trailing.equalTo(self.view.safeAreaLayoutGuide)
+      $0.height.equalTo(40)
     }
     searchListTableView.snp.makeConstraints {
-      $0.top.leading.trailing.equalToSuperview()
-      $0.bottom.equalToSuperview()
-      $0.size.equalToSuperview()
+      $0.edges.equalTo(self.view.safeAreaLayoutGuide)
     }
-    searchResultsView.snp.makeConstraints {
-      $0.top.equalToSuperview().offset(8)
+    contentScrollView.snp.makeConstraints {
+      $0.top.equalTo(segementView.snp.bottom)
       $0.leading.trailing.bottom.equalToSuperview()
     }
   }
@@ -110,51 +110,48 @@ class SearchViewController: UIViewController {
       .addObserver(self, selector: #selector(changeHistoryNewItem), name: .HistoryNotification, object: nil)
   }
   
-  // MARK: Actions
-  @objc private func keyboardWillShow(_ notification: Notification) {
-    //    guard let userInfo = notification.userInfo,
-    //      let frame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
-    //
-    //    let height = self.view.frame.maxY
-    //    let keyboard = frame.minY
-    //    let safeLayout = view.safeAreaInsets.bottom
-    //    let diff = height - keyboard - safeLayout
-    //
-    //        searchMainView.snp.updateConstraints {
-    //          $0.bottom.equalToSuperview().offset(-diff)
-    //        }
-    //
-    //        searchListTableView.snp.updateConstraints {
-    //          $0.bottom.equalToSuperview().offset(-diff)
-    //        }
-    //    self.view.layoutIfNeeded()
+  private func searchForData(searchText: String) {
+    dummyList = dummyData.filter { $0 == searchText }
+    if dummyList.isEmpty {
+      contentScrollView.updateFailKeyword(searchText)
+      contentScrollView.searchStatus(.fail)
+      searchListTableView.isHidden = true
+    } else {
+      contentScrollView.searchStatus(.success)
+      contentScrollView.updateFailKeyword(searchText)
+      contentScrollView.updateKeywordNotiCell(searchText)
+      searchListTableView.isHidden = true
+    }
+    searchBar.resignFirstResponder()
+    if !searchText.isEmpty { SearchHistory.shared.history.append(searchBar.text!) }
   }
   
-  @objc private func changeHistoryNewItem() {
-    if SearchHistory.shared.history.isEmpty {
-      self.searchMainView.removeAllHistoryItems()
-    } else {
-      let newItemIdx = SearchHistory.shared.history.count - 1
-      self.searchMainView.addHistoryNewItem(SearchHistory.shared.history[newItemIdx])
+  // MARK: Actions
+  @objc private func keyboardWillShow(_ notification: Notification) {
+    guard let userInfo = notification.userInfo,
+      let frame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+    
+    let height = self.view.frame.maxY
+    let keyboard = frame.minY
+    let safeLayout = view.safeAreaInsets.bottom
+    let diff = height - keyboard - safeLayout
+    
+    searchListTableView.snp.updateConstraints {
+      $0.bottom.equalTo(self.view.safeAreaLayoutGuide).offset(-diff)
     }
+    self.view.layoutIfNeeded()
   }
   
   @objc private func didTapLeftButton() {
     self.navigationController?.popViewController(animated: true)
   }
   
-  private func setupNoResultView(town: String, searchText: String, type: SearchType) {
-    if searchNoResultView != nil {
-      searchNoResultView?.isHidden = false
+  @objc private func changeHistoryNewItem() {
+    if SearchHistory.shared.history.isEmpty {
+      //      self.searchMainView.removeAllHistoryItems()
     } else {
-      searchNoResultView = NoResultView(town: town, keyword: searchText, type: type)
-      searchNoResultView?.isHidden = false
-      guard let noResultView = searchNoResultView else { return }
-      self.view.addSubview(noResultView)
-      noResultView.snp.makeConstraints {
-        $0.top.equalToSuperview().offset(8)
-        $0.leading.trailing.bottom.equalToSuperview()
-      }
+      let newItemIdx = SearchHistory.shared.history.count - 1
+      contentScrollView.addHistoryNewItem(SearchHistory.shared.history[newItemIdx])
     }
   }
 }
@@ -163,38 +160,21 @@ class SearchViewController: UIViewController {
 extension SearchViewController: UISearchBarDelegate {
   func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
     if searchText.isEmpty {
-      searchMainView.isHidden = false
+      contentScrollView.searchStatus(.standBy)
       searchListTableView.isHidden = true
-      searchResultsView.isHidden = true
-      searchNoResultView?.isHidden = true
     } else {
       dummyList = dummyData.filter { $0.contains(searchText) }
+      contentScrollView.searchStatus(.searching)
       searchListTableView.isHidden = false
-      searchMainView.isHidden = false
-      searchResultsView.isHidden = true
-      searchNoResultView?.isHidden = true
     }
   }
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
     guard let searchText = searchBar.text else { return }
-    dummyList = dummyData.filter { $0.contains(searchText) }
-    searchMainView.isHidden = true
-    searchListTableView.isHidden = true
-    if dummyList.isEmpty {
-      setupNoResultView(town: "성수동", searchText: searchText, type: .usedDeal)
-    } else {
-      searchResultsView.isHidden = false
-      searchNoResultView?.isHidden = true
-    }
-    searchBar.resignFirstResponder()
-    
-    if !searchText.isEmpty { SearchHistory.shared.history.append(searchBar.text!) }
+    searchForData(searchText: searchText)
   }
   func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+    contentScrollView.searchStatus(.standBy)
     searchListTableView.isHidden = true
-    searchResultsView.isHidden = true
-    searchMainView.isHidden = false
-    searchNoResultView?.isHidden = true
   }
 }
 
@@ -202,27 +182,29 @@ extension SearchViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     if dummyList.isEmpty {
       return 0
-    } else if dummyList.count > 15 {
-      return 15
-    } else {
+    } else if dummyList.count <= 15 {
       return dummyList.count
+    } else {
+      return 15
     }
   }
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+    cell.textLabel?.text = dummyList[indexPath.row]
     cell.imageView?.image = UIImage(systemName: "magnifyingglass")
     cell.imageView?.tintColor = .gray
-    cell.textLabel?.text = dummyList[indexPath.row]
     return cell
   }
 }
 
 extension SearchViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    searchListTableView.isHidden = true
-    searchResultsView.isHidden = false
-    searchResultsView.makeProductList(searchText: searchBar.searchTextField.text ?? "")
-//    searchResultsView.setupKeywordView(text: searchBar.searchTextField.text ?? "")
+    contentScrollView.searchStatus(.searching)
+    searchListTableView.isHidden = false
+    let cell = tableView.cellForRow(at: indexPath)
+    guard let cellText = cell?.textLabel?.text else { return }
+    searchBar.text = cellText
+    if let searchText = searchBar.text { searchForData(searchText: searchText) }
     searchBar.resignFirstResponder()
   }
 }
@@ -231,5 +213,18 @@ extension SearchViewController: HistoryKeywordsViewDelegate {
   func deleteAllHistory() {
     SearchHistory.shared.history.removeAll()
     print(SearchHistory.shared.history.count)
+  }
+}
+
+extension SearchViewController: UIScrollViewDelegate {
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    segementView.updateSelectedIndicator(offset: scrollView.contentOffset.x / 3, animated: true)
+  }
+}
+
+extension SearchViewController: DGSegmentControlDelegate {
+  func segmentControl(_ segmentControl: DGSegmentedControl, didSelectSegmeentAt index: Int) {
+    let offSet = CGPoint(x: self.contentScrollView.frame.width * CGFloat(index), y: 0)
+    self.contentScrollView.setContentOffset(offSet, animated: false)
   }
 }
