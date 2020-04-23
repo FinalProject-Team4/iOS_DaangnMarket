@@ -239,7 +239,8 @@ extension HomeFeedViewController: NavigationBarButtonDelegate {
     case customNaviBar.categoryFilterButton:
       print("카테고리선택")
     case customNaviBar.notificationButton:
-      print("알림")
+      guard let notiVC = ViewControllerGenerator.shared.make(.notification) else { return }
+      self.navigationController?.pushViewController(notiVC, animated: true)
     default: break
     }
   }
