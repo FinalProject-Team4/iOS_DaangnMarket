@@ -46,8 +46,10 @@
 		A63F37BA24344C39002C0D9B /* SelectedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63F37B924344C39002C0D9B /* SelectedImageView.swift */; };
 		A63F37C0243596EF002C0D9B /* WriteKeywordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63F37BF243596EF002C0D9B /* WriteKeywordViewController.swift */; };
 		A63F37C224359B5D002C0D9B /* KeywordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63F37C124359B5D002C0D9B /* KeywordTableViewCell.swift */; };
-		A63F37C42435CB87002C0D9B /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63F37C32435CB87002C0D9B /* Extension.swift */; };
 		A6595AB324510C3D00DDCAA5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A6595AB224510C3D00DDCAA5 /* GoogleService-Info.plist */; };
+		A6595ABD2451F6B300DDCAA5 /* UITableViewCell+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6595ABC2451F6B300DDCAA5 /* UITableViewCell+Extension.swift */; };
+		A6595ABF2451F6D600DDCAA5 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6595ABE2451F6D600DDCAA5 /* UIView+Extension.swift */; };
+		A6595AC12451F70200DDCAA5 /* CALayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6595AC02451F70200DDCAA5 /* CALayer+Extension.swift */; };
 		A6C1E369243B1AC800A6FF32 /* WriteTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C1E368243B1AC800A6FF32 /* WriteTypeViewController.swift */; };
 		A6C1E36B243B38AF00A6FF32 /* WriteTypeButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C1E36A243B38AF00A6FF32 /* WriteTypeButtonView.swift */; };
 		A6C1E36D243B51A100A6FF32 /* WriteClearViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C1E36C243B51A100A6FF32 /* WriteClearViewController.swift */; };
@@ -213,8 +215,10 @@
 		A63F37B924344C39002C0D9B /* SelectedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedImageView.swift; sourceTree = "<group>"; };
 		A63F37BF243596EF002C0D9B /* WriteKeywordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteKeywordViewController.swift; sourceTree = "<group>"; };
 		A63F37C124359B5D002C0D9B /* KeywordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordTableViewCell.swift; sourceTree = "<group>"; };
-		A63F37C32435CB87002C0D9B /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		A6595AB224510C3D00DDCAA5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
+		A6595ABC2451F6B300DDCAA5 /* UITableViewCell+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extension.swift"; sourceTree = "<group>"; };
+		A6595ABE2451F6D600DDCAA5 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		A6595AC02451F70200DDCAA5 /* CALayer+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Extension.swift"; sourceTree = "<group>"; };
 		A6C1E368243B1AC800A6FF32 /* WriteTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteTypeViewController.swift; sourceTree = "<group>"; };
 		A6C1E36A243B38AF00A6FF32 /* WriteTypeButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteTypeButtonView.swift; sourceTree = "<group>"; };
 		A6C1E36C243B51A100A6FF32 /* WriteClearViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteClearViewController.swift; sourceTree = "<group>"; };
@@ -477,6 +481,50 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		A6595AB42451F5DD00DDCAA5 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				ACCD94DA2429F86B00153545 /* WriteUsedViewController.swift */,
+				A62D97EB242DC448006F1722 /* SelectCategoryViewController.swift */,
+				A6C1E368243B1AC800A6FF32 /* WriteTypeViewController.swift */,
+				A63F37BF243596EF002C0D9B /* WriteKeywordViewController.swift */,
+				A6C1E36C243B51A100A6FF32 /* WriteClearViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		A6595AB52451F5E600DDCAA5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A6C1E36A243B38AF00A6FF32 /* WriteTypeButtonView.swift */,
+				A62D97E7242B5FDC006F1722 /* AddImageView.swift */,
+				A63F37B924344C39002C0D9B /* SelectedImageView.swift */,
+				A62D97E9242CAD7E006F1722 /* SelectLocationView.swift */,
+				A6595AB62451F5F000DDCAA5 /* Cell */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A6595AB62451F5F000DDCAA5 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				A63F37C124359B5D002C0D9B /* KeywordTableViewCell.swift */,
+				A62D97DD242B3F57006F1722 /* WriteTableAlbumCell.swift */,
+				A62D97DF242B401B006F1722 /* WriteTableTitleCell.swift */,
+				A62D97E3242B403E006F1722 /* WriteTablePriceCell.swift */,
+				A62D97E5242B40AE006F1722 /* WriteTableDescriptionCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		A6595AB72451F61E00DDCAA5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A6FB71982439A7AE0092A5F1 /* CategoryModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		AC28CD22242A3FBF0031999B /* Reference */ = {
 			isa = PBXGroup;
 			children = (
@@ -496,6 +544,9 @@
 				ACEE24CD243706380044D573 /* UIViewController+Extension.swift */,
 				AC52A4E6243AED3900DB4FB6 /* UIApplication+Extension.swift */,
 				AC52A4EE243B426A00DB4FB6 /* UserDefaults+Extension.swift */,
+				A6595ABC2451F6B300DDCAA5 /* UITableViewCell+Extension.swift */,
+				A6595ABE2451F6D600DDCAA5 /* UIView+Extension.swift */,
+				A6595AC02451F70200DDCAA5 /* CALayer+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -676,24 +727,11 @@
 		ACCD94D22429F5C400153545 /* Writing */ = {
 			isa = PBXGroup;
 			children = (
-				ACCD94DA2429F86B00153545 /* WriteUsedViewController.swift */,
+				A6595AB72451F61E00DDCAA5 /* Model */,
+				A6595AB52451F5E600DDCAA5 /* View */,
+				A6595AB42451F5DD00DDCAA5 /* Controller */,
 				A6FB7192243731560092A5F1 /* DGAlertController.swift */,
 				A6FB7194243755770092A5F1 /* DGAlertAction.swift */,
-				A62D97DD242B3F57006F1722 /* WriteTableAlbumCell.swift */,
-				A62D97DF242B401B006F1722 /* WriteTableTitleCell.swift */,
-				A62D97E3242B403E006F1722 /* WriteTablePriceCell.swift */,
-				A62D97E5242B40AE006F1722 /* WriteTableDescriptionCell.swift */,
-				A62D97E7242B5FDC006F1722 /* AddImageView.swift */,
-				A63F37B924344C39002C0D9B /* SelectedImageView.swift */,
-				A62D97E9242CAD7E006F1722 /* SelectLocationView.swift */,
-				A62D97EB242DC448006F1722 /* SelectCategoryViewController.swift */,
-				A63F37BF243596EF002C0D9B /* WriteKeywordViewController.swift */,
-				A63F37C124359B5D002C0D9B /* KeywordTableViewCell.swift */,
-				A63F37C32435CB87002C0D9B /* Extension.swift */,
-				A6FB71982439A7AE0092A5F1 /* CategoryModel.swift */,
-				A6C1E368243B1AC800A6FF32 /* WriteTypeViewController.swift */,
-				A6C1E36A243B38AF00A6FF32 /* WriteTypeButtonView.swift */,
-				A6C1E36C243B51A100A6FF32 /* WriteClearViewController.swift */,
 			);
 			path = Writing;
 			sourceTree = "<group>";
@@ -1259,6 +1297,7 @@
 				DE4B7080244490EE001BC5D8 /* MannerTemperatureView.swift in Sources */,
 				A6C1E395243D6B0E00A6FF32 /* CategoryItemView.swift in Sources */,
 				DEE5BBD62450B256009410CA /* MyPageSettingButtonsTableViewCel.swift in Sources */,
+				A6595AC12451F70200DDCAA5 /* CALayer+Extension.swift in Sources */,
 				AC7AA1002445D62900691D5E /* ActivityNotificationCell.swift in Sources */,
 				DEE5BBFB2450C5A1009410CA /* SalesListData.swift in Sources */,
 				DEE5BBCE2450B102009410CA /* MyProfileImageButton.swift in Sources */,
@@ -1311,7 +1350,7 @@
 				AC8C0C88244C684700C1FB51 /* ChatModel.swift in Sources */,
 				ACCC975D242B75B7008F95DE /* TownInfo.swift in Sources */,
 				A621CB37244CA0D100BBFA4E /* SearchTownInfoView.swift in Sources */,
-				A63F37C42435CB87002C0D9B /* Extension.swift in Sources */,
+				A6595ABD2451F6B300DDCAA5 /* UITableViewCell+Extension.swift in Sources */,
 				AD5DC679243F5DF200A4A5A4 /* CustomNavigationBar.swift in Sources */,
 				A6C1E369243B1AC800A6FF32 /* WriteTypeViewController.swift in Sources */,
 				A63F37BA24344C39002C0D9B /* SelectedImageView.swift in Sources */,
@@ -1333,6 +1372,7 @@
 				A639494224486AFD00832F4E /* KeywordCollectionViewCell.swift in Sources */,
 				AD6EBFAC2438E83C003F01CA /* SecondTownSelectButton.swift in Sources */,
 				ACCD94EA242A238300153545 /* FindMyTownViewController.swift in Sources */,
+				A6595ABF2451F6D600DDCAA5 /* UIView+Extension.swift in Sources */,
 				DEE5BBD82450B296009410CA /* MyPageUserInformTableViewCell.swift in Sources */,
 				DEE5BBCA2450B0BB009410CA /* MyPageListButton.swift in Sources */,
 				DEB8887A24508CA900EAE363 /* profileData.swift in Sources */,
