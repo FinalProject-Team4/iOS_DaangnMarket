@@ -26,6 +26,8 @@ class SelectedCategoryFeedViewController: UIViewController {
     view.addSubview($0)
   }
   
+  private lazy var upperAlert = DGUpperAlert()
+  
   // MARK: Properties
   private var postData: [Post] = [] {
     didSet {
@@ -160,6 +162,7 @@ class SelectedCategoryFeedViewController: UIViewController {
           self.nextURL = URL(string: decodeResult.next ?? "")
         case .failure(let err):
           print(err.localizedDescription)
+          self.upperAlert.show(message: err.localizedDescription)
         }
     }
   }
