@@ -25,9 +25,9 @@ class TownCountView: UIView {
     $0.font = .systemFont(ofSize: 17, weight: .regular)
   }
   lazy var aroundTownCountBtn = UIButton().then {
-    let initTownCount = AuthorizationManager.shared.aroundTown.filter { Float($0.distance!/1_200) <= 1.0 }
-    var btnTitle = NSMutableAttributedString().underlineBold("근처 동네 \(initTownCount.count)개", fontSize: 17)
-    $0.setAttributedTitle(btnTitle, for: .normal)
+//    let initTownCount = AuthorizationManager.shared.aroundTown.filter { Float($0.distance!/1_200) <= 1.0 }
+//    var btnTitle = NSMutableAttributedString().underlineBold("근처 동네 \(initTownCount.count)개", fontSize: 17)
+//    $0.setAttributedTitle(btnTitle, for: .normal)
     $0.addTarget(self, action: #selector(didTapShowAroundTownCount), for: .touchUpInside)
   }
   
@@ -58,8 +58,7 @@ class TownCountView: UIView {
   }
   
   private func setupConstraints() {
-    let viewSubUI = [myTownLabel, aroundTownCountBtn]
-    viewSubUI.forEach { self.addSubview($0) }
+    [myTownLabel, aroundTownCountBtn].forEach { self.addSubview($0) }
     myTownLabel.snp.makeConstraints {
       $0.centerY.equalTo(self)
       $0.leading.equalTo(self)

@@ -18,7 +18,7 @@ class CutomNavigationBar: UIView {
   
   let selectedTownButton = UIButton().then {
     $0.setTitleColor(.black, for: .normal)
-    $0.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
+    $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
     $0.addTarget(self, action: #selector(didTapButtonsInNaviBar(_:)), for: .touchUpInside)
   }
   let selectedTownArrowImage = UIImageView().then {

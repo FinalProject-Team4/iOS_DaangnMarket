@@ -13,7 +13,7 @@ class PopoverFirstTownButton: UIButton {
   
   let townLabel = UILabel().then {
     $0.font = .systemFont(ofSize: 16)
-    $0.textColor = UIColor(named: ColorReference.noResultImage.rawValue)
+//    $0.textColor = UIColor(named: ColorReference.noResultImage.rawValue)
   }
   let partitionLine = UIView().then {
     $0.backgroundColor = UIColor(named: ColorReference.noResultImage.rawValue)

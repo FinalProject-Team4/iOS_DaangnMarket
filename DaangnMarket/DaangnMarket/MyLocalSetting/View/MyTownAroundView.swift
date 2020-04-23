@@ -68,6 +68,11 @@ class MyTownAroundView: UIView {
   deinit {
     noti.removeObserver(
       self,
+      name: NSNotification.Name("FirstSelectTownCountView"),
+      object: nil
+    )
+    noti.removeObserver(
+      self,
       name: NSNotification.Name("AroundTownCountView"),
       object: nil
     )
@@ -79,9 +84,10 @@ class MyTownAroundView: UIView {
   }
   
   private func setupConstraint() {
-    let viewSubUI = [townCountView, descriptionLabel, distanceSlider, sliderLeftLabel, sliderRightLabel,
-                     thirdStepTownImageView, secondStepTownImageView, firstStepTownImageView, zeroStepTownImageView]
-    viewSubUI.forEach { self.addSubview($0) }
+    [
+      townCountView, descriptionLabel, distanceSlider, sliderLeftLabel, sliderRightLabel,
+      thirdStepTownImageView, secondStepTownImageView, firstStepTownImageView, zeroStepTownImageView
+    ].forEach { self.addSubview($0) }
     townCountView.snp.makeConstraints {
       $0.centerX.equalToSuperview()
       $0.top.equalToSuperview().offset(26)
@@ -133,6 +139,12 @@ class MyTownAroundView: UIView {
   // MARK: Notification
   
   private func thumbPositionNoti() {
+    noti.addObserver(
+      self,
+      selector: #selector(thumbPositionOnSlide(_:)),
+      name: NSNotification.Name("FirstSelectTownCountView"),
+      object: nil
+    )
     noti.addObserver(
       self,
       selector: #selector(thumbPositionOnSlide(_:)),
