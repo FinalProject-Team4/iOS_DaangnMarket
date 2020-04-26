@@ -16,6 +16,12 @@ class SearchMainView: UIView {
     searchHistoyView.snp.removeConstraints()
     SearchHistory.shared.history.isEmpty ? setupBestViewOnly() : setupHistoryViewAndBestView()
   }
+//  func reloadHistoryItem(_ history: [String]) {
+//    self.searchHistoyView.removeItemInStackView(history)
+//    keywordView.snp.removeConstraints()
+//    searchHistoyView.snp.removeConstraints()
+//    SearchHistory.shared.history.isEmpty ? setupBestViewOnly() : setupHistoryViewAndBestView()
+//  }
   func removeAllHistoryItems() {
     keywordView.snp.removeConstraints()
     searchHistoyView.snp.removeConstraints()

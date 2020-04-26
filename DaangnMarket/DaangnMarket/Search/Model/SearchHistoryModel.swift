@@ -9,7 +9,8 @@
 import Foundation
 
 extension Notification.Name {
-  static let HistoryNotification = Notification.Name("HistoryNewValue")
+  static let addHistoryKeyword = Notification.Name("AddHistoryKeyword")
+  static let removeHistoryKeyword = Notification.Name("RemoveHistoryKeyword")
 }
 
 class SearchHistory {
@@ -17,7 +18,11 @@ class SearchHistory {
   
   var history: [String] = [] {
     didSet {
-      NotificationCenter.default.post(name: .HistoryNotification, object: nil)
+      if oldValue.count > self.history.count {
+//        NotificationCenter.default.post(name: .removeHistoryKeyword, object: nil)
+      } else {
+        NotificationCenter.default.post(name: .addHistoryKeyword, object: nil)
+      }
     }
   }
   

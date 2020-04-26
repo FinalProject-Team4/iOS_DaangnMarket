@@ -25,11 +25,17 @@ class SearchUsedDealView: UIView {
   func addHistoryNewItem(_ text: String) {
     mainView.addHistoryNewItem(text)
   }
+//  func reloadHistoryItem(_ history: [String]) {
+//    mainView.reloadHistoryItem(history)
+//  }
   func updateKeywordNotiCell(_ text: String) {
     successView.searchKeyword = text
   }
   func updateFailKeyword(_ text: String) {
     failView.updateFailKeyword(text)
+  }
+  func searchResultPost(_ post: [SearchResultPost]) {
+    successView.searchResultPost = post
   }
   
   // MARK: Views
@@ -37,7 +43,14 @@ class SearchUsedDealView: UIView {
   private let successView = SearchSuccessView()
   private let failView = SearchFailView(town: "성수동", type: .usedDeal)
   
-  // MARK: Interface
+  // MARK: Properties
+  weak var delegate: HistoryKeywordsViewDelegate? {
+    willSet {
+      mainView.delegate = newValue
+    }
+  }
+  
+  // MARK: Initialize
   override init(frame: CGRect) {
     super.init(frame: .zero)
     setupUI()

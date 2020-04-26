@@ -9,6 +9,7 @@
 import UIKit
 
 class SearchKeywordsView: UIView {
+  // MARK: Views
   private let titleLabel = UILabel().then {
     $0.font = .systemFont(ofSize: 14, weight: .bold)
     $0.textColor = .black
@@ -28,8 +29,10 @@ class SearchKeywordsView: UIView {
     $0.register(KeywordCollectionViewCell.self, forCellWithReuseIdentifier: KeywordCollectionViewCell.cellID)
   }
   
+  // MARK: Properties
   private var keywordData: [String] = []
   
+  // MARK: Initialize
   init(type: SearchType) {
     super.init(frame: .zero)
     switch type {
@@ -76,6 +79,7 @@ class SearchKeywordsView: UIView {
   }
 }
 
+// MARK: - Extension: CollectionView
 extension SearchKeywordsView: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     keywordData.count

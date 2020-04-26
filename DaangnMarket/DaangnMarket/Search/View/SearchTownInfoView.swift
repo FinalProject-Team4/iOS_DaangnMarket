@@ -33,7 +33,14 @@ class SearchTownInfoView: UIView {
   private let mainView = SearchMainView(type: .townInfo)
   private let failView = SearchFailView(town: "성수동", type: .townInfo)
   
-  // MARK: Interface
+  // MARK: Properties
+  weak var delegate: HistoryKeywordsViewDelegate? {
+    willSet {
+      mainView.delegate = newValue
+    }
+  }
+  
+  // MARK: Initialize
   override init(frame: CGRect) {
     super.init(frame: .zero)
     setupUI()
