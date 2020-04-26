@@ -7,10 +7,17 @@
 //
 
 import UIKit
+//import Kingfisher
 
 class SearchSuccessView: UIView {
   // MARK: Interface
   var searchKeyword = "" {
+    didSet {
+      tableView.reloadData()
+    }
+  }
+  
+  var searchResultPost: [SearchResultPost] = [] {
     didSet {
       tableView.reloadData()
     }
@@ -24,10 +31,8 @@ class SearchSuccessView: UIView {
     $0.register(KeywordNotiTableCell.self, forCellReuseIdentifier: KeywordNotiTableCell.identifier)
     $0.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.identifier)
     $0.register(HomeFeedTableViewCell.self, forCellReuseIdentifier: HomeFeedTableViewCell.identifier)
+    $0.tableFooterView = UIView()
   }
-  
-  // MARK: Model
-  private var dummyData: [String] = []
   
   // MARK: Intialize
   override init(frame: CGRect) {
@@ -59,12 +64,6 @@ class SearchSuccessView: UIView {
   @objc private func didTapKeywordNoti() {
     //
   }
-  
-  // MARK: Interface
-  func makeProductList(searchText: String) {
-    // 서버 들어올 곳
-    tableView.reloadData()
-  }
 }
 
 // MARK: - Extension
@@ -79,7 +78,7 @@ extension SearchSuccessView: UITableViewDataSource {
     case 1:
       return 1
     case 2:
-      return 20
+      return searchResultPost.count
     default:
       return 0
     }
@@ -97,6 +96,11 @@ extension SearchSuccessView: UITableViewDataSource {
       return cell
     case 2:
       guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeFeedTableViewCell.identifier, for: indexPath) as? HomeFeedTableViewCell else { fallthrough }
+      let post = searchResultPost[indexPath.row]
+      cell.goodsName.text = post.title
+      cell.goodsPrice.text = "\(post.price)원"
+      cell.goodsImageView.image = UIImage(named: ImageReference.noImage.rawValue)
+      if !post.photos.isEmpty { cell.goodsImageView.kf.setImage(with: URL(string: post.photos[0])) }
       return cell
     default:
       return UITableViewCell().then { $0.isHidden = true }
@@ -112,10 +116,18 @@ extension SearchSuccessView: UITableViewDataSource {
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     return UIView()
   }
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    switch indexPath.section {
+    case 2:
+      return 134
+    default:
+      return UITableView.automaticDimension
+    }
+  }
 }
 
 extension SearchSuccessView: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    // -> ProductVC
+    // -> ProductVC'
   }
 }
