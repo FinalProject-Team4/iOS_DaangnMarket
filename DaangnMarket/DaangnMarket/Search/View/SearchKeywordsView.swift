@@ -73,8 +73,7 @@ class SearchKeywordsView: UIView {
     keywordCollectionView.snp.makeConstraints {
       $0.top.equalTo(titleLabel.snp.bottom).offset(8)
       $0.leading.trailing.equalToSuperview()
-      $0.bottom.equalToSuperview().offset(16)
-      $0.height.equalToSuperview().multipliedBy(0.7)
+      $0.bottom.equalToSuperview().offset(-16)
     }
   }
 }

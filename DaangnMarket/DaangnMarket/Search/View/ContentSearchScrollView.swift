@@ -76,7 +76,8 @@ class ContentSearchScrollView: UIScrollView {
   
   private func setupConstraints() {
     usedDealView.snp.makeConstraints {
-      $0.leading.top.bottom.height.equalToSuperview()
+//      $0.leading.top.bottom.height.equalToSuperview()
+      $0.leading.top.bottom.equalToSuperview()
       $0.width.equalTo(UIScreen.main.bounds.width)
     }
     townInfoView.snp.makeConstraints {

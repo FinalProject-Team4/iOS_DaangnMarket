@@ -83,6 +83,7 @@ class SearchViewController: UIViewController {
   
   deinit {
     NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+    NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     NotificationCenter.default.removeObserver(self, name: .addHistoryKeyword, object: nil)
     NotificationCenter.default.removeObserver(self, name: .removeHistoryKeyword, object: nil)
   }
@@ -124,7 +125,7 @@ class SearchViewController: UIViewController {
     }
     contentScrollView.snp.makeConstraints {
       $0.top.equalTo(segementView.snp.bottom)
-      $0.leading.trailing.bottom.equalToSuperview()
+      $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
     }
   }
   
@@ -132,6 +133,9 @@ class SearchViewController: UIViewController {
     NotificationCenter
       .default
       .addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+    NotificationCenter
+    .default
+    .addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     NotificationCenter
       .default
       .addObserver(self, selector: #selector(addHistoryKeyword), name: .addHistoryKeyword, object: nil)
@@ -153,7 +157,18 @@ class SearchViewController: UIViewController {
     searchListTableView.snp.updateConstraints {
       $0.bottom.equalTo(self.view.safeAreaLayoutGuide).offset(-diff)
     }
-    self.view.layoutIfNeeded()
+    contentScrollView.snp.updateConstraints {
+      $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-diff)
+    }
+  }
+  
+  @objc private func keyboardWillHide(_ notification: Notification) {
+    searchListTableView.snp.updateConstraints {
+      $0.bottom.equalTo(view.safeAreaLayoutGuide)
+    }
+    contentScrollView.snp.updateConstraints {
+      $0.bottom.equalTo(view.safeAreaLayoutGuide)
+    }
   }
   
   @objc private func didTapLeftButton() {

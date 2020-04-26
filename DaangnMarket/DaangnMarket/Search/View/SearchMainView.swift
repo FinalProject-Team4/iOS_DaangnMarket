@@ -67,7 +67,7 @@ class SearchMainView: UIView {
     scrollView.addSubview(keywordView)
     keywordView.snp.makeConstraints {
       $0.edges.width.equalToSuperview()
-      $0.height.equalToSuperview().multipliedBy(0.2)
+      $0.height.equalTo(152)
     }
   }
   
@@ -81,7 +81,7 @@ class SearchMainView: UIView {
     keywordView.snp.makeConstraints {
       $0.top.equalTo(searchHistoyView.snp.bottom).offset(8)
       $0.leading.trailing.equalToSuperview()
-      $0.height.equalToSuperview().multipliedBy(0.2)
+      $0.height.equalTo(152)
       $0.bottom.equalToSuperview()
     }
   }

@@ -73,7 +73,8 @@ class SearchUsedDealView: UIView {
   private func setupConstraints() {
     [mainView, successView, failView].forEach { views in
       views.snp.makeConstraints {
-        $0.edges.size.equalToSuperview()
+//        $0.edges.size.equalToSuperview()
+        $0.edges.equalToSuperview()
       }
     }
   }

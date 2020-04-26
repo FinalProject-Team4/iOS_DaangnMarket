@@ -19,9 +19,11 @@ class SearchHistory {
   var history: [String] = [] {
     didSet {
       if oldValue.count > self.history.count {
-//        NotificationCenter.default.post(name: .removeHistoryKeyword, object: nil)
-      } else {
+        NotificationCenter.default.post(name: .removeHistoryKeyword, object: nil)
+      } else if oldValue.count < self.history.count {
         NotificationCenter.default.post(name: .addHistoryKeyword, object: nil)
+      } else {
+        print("전체 삭제 누름")
       }
     }
   }
