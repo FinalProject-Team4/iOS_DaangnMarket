@@ -35,7 +35,7 @@ struct Post: Codable {
   let updated: String
   let address: String
   let price: Int
-  let state: String
+  var state: String
   let photos: [String]
 }
 
@@ -44,11 +44,11 @@ struct Post: Codable {
 extension Post {
   enum CodingKeys: String, CodingKey {
     case postId = "id"
-    case username, title, content, category
+    case username, title, content, category, photos
     case viewCount = "view_count"
 //    case updated, price, state
     case updated, address, price, state
-    case photos
+//    case postImageSet = "post_images"
   }
 }
 

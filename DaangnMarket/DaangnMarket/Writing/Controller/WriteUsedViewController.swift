@@ -21,32 +21,16 @@ protocol WriteUsedViewControllerDelegate: class {
   func selectImage(image: UIImage)
 }
 
-struct WriteData: Encodable, Then {
+struct WritePost: Encodable {
   let title: String
   let content: String
   let category: String
-  let price: Int
-  let photos: URL?
-  let dongID: Int
+  let price: Int?
+  let photos: [Data?]
+  let locate: Int
   let distance: Int
-  //  let locate: Int
-  //  let showedLocate: [Int]
-  
-  enum CodingKeys: String, CodingKey {
-    case title, content, category, price, photos, distance
-    case dongID = "dong_id"
-    //    locate
-    //    case showedLocate = "showed_locate"
-  }
 }
 
-struct WriteResponse: Decodable {
-  var postID: Int
-  
-  enum CodingKeys: String, CodingKey {
-    case postID = "id"
-  }
-}
 
 // MARK: - Class Level
 class WriteUsedViewController: UIViewController {
@@ -75,7 +59,7 @@ class WriteUsedViewController: UIViewController {
       writeTableView.cellForRow(at: IndexPath(row: 2, section: 0))?.textLabel?.text = currentCategory
     }
   }
-  
+  var header: HTTPHeader
   var uploadImages: [UIImage] = []
   
   // MARK: Life Cycle
@@ -99,13 +83,23 @@ class WriteUsedViewController: UIViewController {
     self.delegate = cell
   }
   
+  // MARK: Initialize
+  
+  init(token: String) {
+    header = HTTPHeader(name: "Authorization", value: token)
+    header = HTTPHeader(name: "Authorization", value: "Token 4ed205c0bdebde284f4267c8004f306198256a66") 
+    super.init(nibName: nil, bundle: nil)
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
   deinit {
     NotificationCenter.default.removeObserver(self, name: .keyboardWillShow, object: nil)
     NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
     NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
   }
-  
-  // MARK: Initialize
   
   private func setupUI() {
     setupNavigation()
@@ -196,78 +190,61 @@ class WriteUsedViewController: UIViewController {
   @objc private func dismissVC() {
     dismiss(animated: true, completion: nil)
   }
-
+  
   @objc private func didTapCreateButton() {
+    let imgDatas = self.uploadImages.map { $0.jpegData(compressionQuality: 0.2) }
     guard let titleCell = self.writeTableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? WriteTableTitleCell else { return }
     let title = titleCell.cellData
     guard let priceCell = self.writeTableView.cellForRow(at: IndexPath(row: 3, section: 0)) as? WriteTablePriceCell else { return }
-    let price = Int(priceCell.cellData) ?? 0
+    let price = priceCell.cellData
     guard let bodyCell = self.writeTableView.cellForRow(at: IndexPath(row: 4, section: 0)) as? WriteTableDescriptionCell else { return }
     let content = bodyCell.cellData
     
     if title.isEmpty || currentCategory == "카테고리 선택" || content.isEmpty {
       alert(title: title, body: content, category: currentCategory)
     } else {
-      let params = WriteData(
-        title: title,
-        content: content,
-        category: categoryFilter(currentCategory),
-        price: price,
-        photos: nil,
-        dongID: 8_790,
-        distance: 2_000
-      )
-      request(params: params)
+      let parameters: [String: Any] = [
+        "title": title,
+        "content": content,
+        "category": categoryFilter(currentCategory),
+        "price": price,
+        "photos": imgDatas,
+        "locate": 1_011,
+        "distance": 2_000
+      ]
+      request(parameters, [header]) { _ in
+        self.dismissVC()
+      }
     }
   }
   
-  private func request(params: WriteData) {
-    AF.request(
-      "http://13.125.217.34/post/create/",
-      method: .post,
-      parameters: params,
-      encoder: JSONParameterEncoder.default
+  func request(_ parameters: [String: Any], _ headers: HTTPHeaders, completion: @escaping (Result<WritePost, AFError>) -> Void) {
+    AF.upload(
+      multipartFormData: { (multiFormData) in
+        for (key, value) in parameters {
+          if value is String || value is Int {
+            multiFormData.append("\(value)".data(using: .utf8)!, withName: key)
+          }
+          if let data = value as? [Data] {
+            print(data)
+            data.forEach {
+              print($0)
+              multiFormData.append($0, withName: key)
+            }
+          }
+        }
+    }, to: "http://13.125.217.34/post/",
+       method: .post,
+       headers: headers
     )
       .validate()
-      .responseJSON { (response) in
-        switch response.result {
+      .responseDecodable { (resonse: DataResponse<Post, AFError>) in
+        switch resonse.result {
         case .success(let data):
           print(data)
-        case .failure(let err):
-          print(err)
+        case .failure(let error):
+          print(error.localizedDescription)
         }
-//      .responseJSON { (response) in
-//        switch response.result {
-//        case .success:
-//          guard let responseData = response.data else { return }
-//          if var decodedID = try? JSONDecoder().decode(WriteResponse.self, from: responseData) {
-//            let image = UIImage.init(named: "DaanggnMascot")
-//            let imgData = image!.jpegData(compressionQuality: 0.2)!
-//            AF.upload(
-//              multipartFormData: { (multiPartFormData) in
-//                multiPartFormData.append(imgData, withName: "test.jpeg")
-//                multiPartFormData.append(
-//                  Data(bytes: &decodedID.postID, count: MemoryLayout.size(ofValue: decodedID.postID)),
-//                  withName: "post_id"
-//                )
-//            },
-//              to: "http://13.125.217.34/post/image/upload/"
-//            )
-//              .validate()
-//              .responseJSON { (response) in
-//                switch response.result {
-//                case .success(let data):
-//                  print(data)
-//                case .failure(let error):
-//                  print(error.localizedDescription)
-//                }
-//            }
-//          } else {
-//            print("WriteResponseResult Decode Fail")
-//          }
-//        case .failure(let error):
-//          print(error.localizedDescription)
-//        }
     }
   }
   
@@ -290,13 +267,13 @@ class WriteUsedViewController: UIViewController {
     alert.modalPresentationStyle = .overFullScreen
     present(alert, animated: false)
   }
-
-   private func categoryFilter(_ currrentCategory: String) -> String {
-     DGCategory.allCases
-       .filter { $0.korean == currentCategory }
-       .map { $0.rawValue }
-       .first ?? "other"
-   }
+  
+  private func categoryFilter(_ currrentCategory: String) -> String {
+    DGCategory.allCases
+      .filter { $0.korean == currentCategory }
+      .map { $0.rawValue }
+      .first ?? "other"
+  }
 }
 
 // MARK: - Extension Level

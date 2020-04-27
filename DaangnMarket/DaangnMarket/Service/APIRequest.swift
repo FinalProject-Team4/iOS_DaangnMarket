@@ -20,15 +20,15 @@ extension APIRequest {
 
 enum RequestTown: APIRequest {
   case search(text: String, page: Int = 1)
-  case GPS(lat: Double, lon: Double, distance: Double = 100_000, page: Int = 1)
-//  case GPS(lat: Double, lon: Double, distance: Double = 100_000)
+//  case GPS(lat: Double, lon: Double, distance: Double = 100_000, page: Int = 1)
+  case GPS(lat: Double, lon: Double, distance: Double = 100_000)
   case distance(dongId: Int, distance: Double = 4_800)
   
   var url: String {
     switch self {
     case .search(_, _):
       return host + "/location/"
-    case .GPS(_, _, _, _):
+    case .GPS(_, _, _):
       return host + "/location/range/"
     case .distance(_, _):
       return host + "/location/range/"
@@ -42,13 +42,13 @@ enum RequestTown: APIRequest {
         "dong": text,
         "page": page
       ]
-    case let .GPS(latitude, longitude, distance, page):
-//      case let .GPS(latitude, longitude, distance):
+//    case let .GPS(latitude, longitude, distance, page):
+      case let .GPS(latitude, longitude, distance):
       return [
         "lati": latitude,
         "longi": longitude,
         "distance": distance,
-        "page": page
+//        "page": page
       ]
     case let .distance(dongId, distance):
       return [

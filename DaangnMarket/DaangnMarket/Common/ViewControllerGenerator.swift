@@ -59,7 +59,8 @@ class ViewControllerGenerator {
         let sender = parameters["sender"] as? UIView else { return nil }
       return self.makePopoverController(homeVC, sender)
     case .writeUsed:
-      return UINavigationController(rootViewController: WriteUsedViewController())
+//      return UINavigationController(rootViewController: WriteUsedViewController())
+      return UINavigationController(rootViewController: WriteUsedViewController(token: AuthorizationManager.shared.userInfo!.authorization))
     case .townShow:
       return UINavigationController(rootViewController: ChooseTownToShowViewController())
     case .findTown:
