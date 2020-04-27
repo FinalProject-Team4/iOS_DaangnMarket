@@ -87,7 +87,6 @@ class WriteUsedViewController: UIViewController {
   
   init(token: String) {
     header = HTTPHeader(name: "Authorization", value: token)
-    header = HTTPHeader(name: "Authorization", value: "Token 4ed205c0bdebde284f4267c8004f306198256a66") 
     super.init(nibName: nil, bundle: nil)
   }
   

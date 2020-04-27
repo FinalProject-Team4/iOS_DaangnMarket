@@ -18,9 +18,21 @@ class WriteTypeViewController: UIViewController {
     if usedMarket.frame.contains(touchPoint) {
       self.dismiss(animated: false)
       guard let presentingVC = presentingViewController as? UITabBarController else { return }
-      guard let writeUsedVC = ViewControllerGenerator.shared.make(.writeUsed) else { return }
-      writeUsedVC.modalPresentationStyle = .fullScreen
-      presentingVC.present(writeUsedVC, animated: true)
+      if let idToken = AuthorizationManager.shared.userInfo?.authorization {
+        guard let writeUsedVC = ViewControllerGenerator.shared.make(.writeUsed, parameters: ["id_token": idToken]) else { return }
+        writeUsedVC.modalPresentationStyle = .fullScreen
+        presentingVC.present(writeUsedVC, animated: true)
+      } else {
+        let alert = DGAlertController(title: "회원가입 또는 로그인후 이용할 수 있습니다.")
+        let signInAction = DGAlertAction(title: "로그인/가입", style: .orange) {
+          print("어~디로~가야하죠~아저씨~")
+        }
+        let cancelAction = DGAlertAction(title: "취소", style: .white) {
+          self.dismiss(animated: false)
+        }
+        [signInAction, cancelAction].forEach { alert.addAction($0) }
+        presentingVC.present(alert, animated: true)
+      }
     } else if townLife.frame.contains(touchPoint) {
       print("동네생활 비활성화")
     } else if townAD.frame.contains(touchPoint) {
