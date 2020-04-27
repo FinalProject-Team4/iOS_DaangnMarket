@@ -70,7 +70,8 @@ class ViewControllerGenerator {
       productPostVC.hidesBottomBarWhenPushed = true
       return productPostVC
     case .notification:
-      return NotificationViewController()
+      guard let userInfo = parameters["userInfo"] as? UserInfo else { return nil }
+      return NotificationViewController(userInfo: userInfo)
     case .profilePage:
       guard let ownSelfData = parameters["ownSelf"] as? Bool, let nameData = parameters["name"] as? String, let profileData = parameters["profileData"] as? [Post] else { return nil }
       let profilePageVC = ProfilePageViewController(ownSelf: ownSelfData, name: nameData, profileData: profileData)

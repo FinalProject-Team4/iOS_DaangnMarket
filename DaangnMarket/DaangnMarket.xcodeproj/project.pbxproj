@@ -92,6 +92,8 @@
 		AC8C0C83244AF37E00C1FB51 /* ChattingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0C82244AF37E00C1FB51 /* ChattingCell.swift */; };
 		AC8C0C85244B12C300C1FB51 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0C84244B12C300C1FB51 /* ProfileView.swift */; };
 		AC8C0C88244C684700C1FB51 /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0C87244C684700C1FB51 /* ChatModel.swift */; };
+		AC8C0D2B2451D47100C1FB51 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AC8C0D2A2451D47000C1FB51 /* GoogleService-Info.plist */; };
+		AC8C0D2D2451E3B300C1FB51 /* ActivityNotiInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0D2C2451E3B300C1FB51 /* ActivityNotiInfo.swift */; };
 		ACB2B60324333763002FAF27 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B60224333763002FAF27 /* AuthViewController.swift */; };
 		ACB2B6072433472B002FAF27 /* AuthDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B6062433472B002FAF27 /* AuthDescriptionView.swift */; };
 		ACB2B60924334813002FAF27 /* NSMutableAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B60824334813002FAF27 /* NSMutableAttributedString+Extension.swift */; };
@@ -261,6 +263,8 @@
 		AC8C0C82244AF37E00C1FB51 /* ChattingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingCell.swift; sourceTree = "<group>"; };
 		AC8C0C84244B12C300C1FB51 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		AC8C0C87244C684700C1FB51 /* ChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
+		AC8C0D2A2451D47000C1FB51 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		AC8C0D2C2451E3B300C1FB51 /* ActivityNotiInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityNotiInfo.swift; sourceTree = "<group>"; };
 		ACB2B60224333763002FAF27 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		ACB2B6062433472B002FAF27 /* AuthDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDescriptionView.swift; sourceTree = "<group>"; };
 		ACB2B60824334813002FAF27 /* NSMutableAttributedString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Extension.swift"; sourceTree = "<group>"; };
@@ -626,6 +630,7 @@
 			isa = PBXGroup;
 			children = (
 				AC7AA1022445D63400691D5E /* NotificationModel.swift */,
+				AC8C0D2C2451E3B300C1FB51 /* ActivityNotiInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1308,6 +1313,7 @@
 				DEE5BBD02450B19D009410CA /* MyPageListButtonsTableViewCell.swift in Sources */,
 				AD7ABAB42443FFB000520C28 /* AroundTownsViewController.swift in Sources */,
 				A6C1E36B243B38AF00A6FF32 /* WriteTypeButtonView.swift in Sources */,
+				AC8C0D2D2451E3B300C1FB51 /* ActivityNotiInfo.swift in Sources */,
 				ACB2B60924334813002FAF27 /* NSMutableAttributedString+Extension.swift in Sources */,
 				ACCD94D72429F81D00153545 /* CategoryViewController.swift in Sources */,
 				AC829F4724347FDC00D0623A /* NumberField.swift in Sources */,
