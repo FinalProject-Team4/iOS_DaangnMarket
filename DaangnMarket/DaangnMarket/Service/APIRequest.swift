@@ -27,9 +27,8 @@ enum RequestTown: APIRequest {
   var url: String {
     switch self {
     case .search(_, _):
-      return host + "/location/locate/search/"
-//    case .GPS(_, _, _, _):
-      case .GPS(_, _, _):
+      return host + "/location/"
+    case .GPS(_, _, _, _):
       return host + "/location/range/"
     case .distance(_, _):
       return host + "/location/range/"
@@ -40,7 +39,7 @@ enum RequestTown: APIRequest {
     switch self {
     case let .search(text, page):
       return [
-        "dong_name": text,
+        "dong": text,
         "page": page
       ]
     case let .GPS(latitude, longitude, distance, page):

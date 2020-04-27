@@ -36,15 +36,14 @@ class MyTownSettingViewController: UIViewController {
     callDelegate()
     setupConstraint()
     setupNaviBar()
-    postNotification()
-    willDisappearSeoncondTownBtn()
+    showAroundTownsDistance(MyTownSetting.shared.isFirstTown)
   }
   
-  override func viewDidAppear(_ animated: Bool) {
-    super.viewDidAppear(animated)
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
     MyTownSetting.shared.register(townInfo: AuthorizationManager.shared.aroundTown)
-    postNotification()
-    willDisappearSeoncondTownBtn()
+    saveTownsInfo(MyTownSetting.shared.isFirstTown)
+    willDisappearAboutSeoncondTownBtn(MyTownSetting.shared.secondSelectTown.isEmpty)
   }
   
   private func callDelegate() {
@@ -78,39 +77,63 @@ class MyTownSettingViewController: UIViewController {
     }
   }
   
-  // MARK: Method
-  
-  private func willDisappearSeoncondTownBtn() {
-    let secondTownIsSet = MyTownSetting.shared.secondSelectTown.isEmpty
-    if secondTownIsSet {
-      townSelectView.secondTownSelectBtn.isHidden = secondTownIsSet
-      townSelectView.secondTownSetBtn.isHidden = !secondTownIsSet
-    } else {
-      townSelectView.secondTownSelectBtn.isHidden = secondTownIsSet
-      townSelectView.secondTownSetBtn.isHidden = !secondTownIsSet
+  private func showAroundTownsDistance(_ isFirstTown: Bool) {
+    switch isFirstTown {
+    case true:
+      if MyTownSetting.shared.firstAroundTownList.isEmpty {
+        MyTownSettingViewController.calculateNumberOfAourndTown(isFirstTown, 1.0)
+      } else {
+        MyTownSettingViewController.calculateNumberOfAourndTown(isFirstTown, Float(MyTownSetting.shared.numberOfAroundTownByFirst.1))
+      }
+    case false:
+      if MyTownSetting.shared.secondAroundTownList.isEmpty {
+        MyTownSettingViewController.calculateNumberOfAourndTown(isFirstTown, 1.0)
+      } else {
+        MyTownSettingViewController.calculateNumberOfAourndTown(isFirstTown, Float(MyTownSetting.shared.numberOfAroundTownBySecond.1))
+      }
     }
   }
   
-  private func postNotification() {
-    guard let firstTown = AuthorizationManager.shared.selectedTown else { print("MyTownSettingVC Line 95"); return }
-      MyTownSetting.shared.isFirstTown = true
-      MyTownSetting.shared.firstSelectTown = firstTown.dong
-      noti.post(name: NSNotification.Name("FirstSelectTownCountView"), object: nil)
-    
-    guard let secondTown = AuthorizationManager.shared.anotherTown else { print("MyTownSettingVC Line 100"); return }
-      MyTownSetting.shared.isFirstTown = false
-      MyTownSetting.shared.secondSelectTown = secondTown.dong
-      noti.post(name: NSNotification.Name("anotherTownSecondTownBtn"), object: nil)
-      noti.post(name: NSNotification.Name("SecondSelectTownCountView"), object: nil)
-
-    setupSelectedTownBGColor(MyTownSetting.shared.isFirstTown)
+  // MARK: Method
+  
+  private func willDisappearAboutSeoncondTownBtn(_ isEmpty: Bool) {
+    switch isEmpty {
+    case true:
+      townSelectView.secondTownSelectBtn.isHidden = true
+      townSelectView.secondTownSetBtn.isHidden = false
+    case false:
+      townSelectView.secondTownSelectBtn.isHidden = false
+      townSelectView.secondTownSetBtn.isHidden = true
+    }
   }
   
-  private func setupSelectedTownBGColor(_ isFirstButton: Bool) {
-    if isFirstButton {
-      townSelectView.changeBtnBGColor(townSelectView.firstTownSelectBtn)
-    } else {
-      townSelectView.changeBtnBGColor(townSelectView.secondTownSelectBtn)
+  private func saveTownsInfo(_ isFirstTowns: Bool) {
+    if let firstTown = AuthorizationManager.shared.selectedTown {
+      MyTownSetting.shared.firstSelectTown = firstTown.dong
+    }
+    if let secondTown = AuthorizationManager.shared.anotherTown {
+      MyTownSetting.shared.secondSelectTown = secondTown.dong
+      noti.post(name: NSNotification.Name("anotherTownSecondTownBtn"), object: nil)
+    }
+    postNotificationForDefineMyTown(isFirstTowns)
+  }
+  
+  private func postNotificationForDefineMyTown(_ isFirstTowns: Bool) {
+    switch isFirstTowns {
+    case true:
+      noti.post(name: NSNotification.Name("FirstSelectTownCountView"), object: nil)
+    case false:      
+      noti.post(name: NSNotification.Name("SecondSelectTownCountView"), object: nil)
+    }
+    setupSelectedTownBGColor(isFirstTowns)
+  }
+  
+  private func setupSelectedTownBGColor(_ isFirstTowns: Bool) {
+    switch isFirstTowns {
+    case true:
+      townSelectView.changeBtnColor(townSelectView.firstTownSelectBtn)
+    case false:
+      townSelectView.changeBtnColor(townSelectView.secondTownSelectBtn)
     }
   }
   
@@ -148,17 +171,24 @@ class MyTownSettingViewController: UIViewController {
       MyTownSetting.shared.firstSelectTown = ""
       townSelectView.didTapSelectTownButton(townSelectView.firstTownSelectBtn)
     case .towTown:
-      AuthorizationManager.shared.removeTown(forKey: .anotherTown)
-      UserDefaults.standard.remove(forKey: .secondTownByDistance)
-      MyTownSetting.shared.secondAroundTownList = [Town]()
-      MyTownSetting.shared.secondSelectTown = ""
-      MyTownSetting.shared.towns.removeValue(forKey: "second")
-      MyTownSetting.shared.isFirstTown = true
-      self.townSelectView.secondTownSelectBtn.isHidden = MyTownSetting.shared.isFirstTown
-      self.townSelectView.secondTownSetBtn.isHidden = !MyTownSetting.shared.isFirstTown
-      self.setupSelectedTownBGColor(MyTownSetting.shared.isFirstTown)
-      townSelectView.didTapSelectTownButton(townSelectView.secondTownSelectBtn)
+      secondTownInit()
+      secondBtnInit()
+      townSelectView.didTapSelectTownButton(townSelectView.firstTownSelectBtn)
     }
+  }
+  
+  private func secondTownInit() {
+    AuthorizationManager.shared.removeTown(forKey: .anotherTown)
+    UserDefaults.standard.remove(forKey: .secondTownByDistance)
+    MyTownSetting.shared.secondAroundTownList = [Town]()
+    MyTownSetting.shared.secondSelectTown = ""
+    MyTownSetting.shared.towns.removeValue(forKey: "second")
+    MyTownSetting.shared.register(isFirstTown: true)
+  }
+  private func secondBtnInit() {
+    self.townSelectView.secondTownSelectBtn.isHidden = MyTownSetting.shared.isFirstTown
+    self.townSelectView.secondTownSetBtn.isHidden = !MyTownSetting.shared.isFirstTown
+    self.setupSelectedTownBGColor(MyTownSetting.shared.isFirstTown)
   }
   
   static func calculateNumberOfAourndTown(_ isFirstTown: Bool, _ distanceValue: Float) {
@@ -181,18 +211,17 @@ class MyTownSettingViewController: UIViewController {
       MyTownSetting.shared.numberOfAroundTownByFirst = (firstAroundTownCount.count, Int(distanceValue))
     case false:
       guard let secondTownByDistance = MyTownSetting.shared.secondTownByDistance else { return }
-      if !secondTownByDistance.isEmpty {
-        let secondAroundTownCount = secondTownByDistance.filter {
-          Float($0.distance!/1_200) <= (distanceValue.rounded() + 1)
-        }
-        MyTownSetting.shared.secondAroundTownList = secondAroundTownCount
-        MyTownSetting.shared.numberOfAroundTownBySecond = (secondAroundTownCount.count, Int(distanceValue))
-      } else {
-        MyTownSetting.shared.numberOfAroundTownBySecond = (0, 0)
+      let secondAroundTownCount = secondTownByDistance.filter {
+        Float($0.distance!/1_200) <= (distanceValue.rounded() + 1)
       }
+      MyTownSetting.shared.secondAroundTownList = secondAroundTownCount
+      MyTownSetting.shared.numberOfAroundTownBySecond = (secondAroundTownCount.count, Int(distanceValue))
     }
+//    var temp = MyTownSetting.shared.firstAroundTownList
+//    print("very far town", temp.count)
+//    print("very far town", temp[0].distance)
   }
-   
+  
   // MARK: Action
   
   @objc private func didTapLeftBarButton() {
@@ -205,6 +234,7 @@ extension MyTownSettingViewController: SecondTownButtonDelegate {
   func secondTownSetBtn(_ secondButton: UIButton) {
     let findTownVC = FindMyTownViewController()
     self.navigationController?.pushViewController(findTownVC, animated: true)
+    MyTownSetting.shared.register(isFirstTown: false)
   }
 }
 

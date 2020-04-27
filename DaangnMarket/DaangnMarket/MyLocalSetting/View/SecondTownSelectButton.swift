@@ -44,8 +44,7 @@ class SecondTownSelectButton: UIButton {
   }
   
   func setupSecondBtnConstraints() {
-    let inButtonSubUI = [selectedSecondTownLabel, deleteSelectedSecondTownButton]
-    inButtonSubUI.forEach { self.addSubview($0) }
+    [selectedSecondTownLabel, deleteSelectedSecondTownButton].forEach { self.addSubview($0) }
     selectedSecondTownLabel.snp.makeConstraints {
       $0.top.equalToSuperview().offset(16)
       $0.bottom.equalToSuperview().offset(-16)
