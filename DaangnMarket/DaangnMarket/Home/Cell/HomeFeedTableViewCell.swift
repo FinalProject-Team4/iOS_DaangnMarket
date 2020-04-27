@@ -9,40 +9,44 @@
 import UIKit
 
 class HomeFeedTableViewCell: UITableViewCell {
+  // MARK: Properties
+  
+  var userUpdateTimes = [DateComponents]()
+  
   // MARK: Views
   
-  var goodsImageView = UIImageView().then {
+  private let goodsImageView = UIImageView().then {
     $0.clipsToBounds = true
     $0.layer.cornerRadius = 5
     $0.contentMode = .scaleToFill
   }
-  let goodsName = UILabel().then {
+  private let goodsName = UILabel().then {
     $0.font = .systemFont(ofSize: 16)
     $0.textAlignment = .left
     $0.numberOfLines = 0
   }
-  let sellerLoctionAndTime = UILabel().then {
+  private let sellerLoctionAndTime = UILabel().then {
     $0.font = .systemFont(ofSize: 12)
     $0.textAlignment = .center
     $0.textColor = .lightGray
   }
-  let goodsPrice = UILabel().then {
+  private let goodsPrice = UILabel().then {
     $0.font = .systemFont(ofSize: 15)
     $0.textAlignment = .center
   }
-  let favoriteMark = UIImageView().then {
+  private let favoriteMark = UIImageView().then {
     $0.frame = CGRect(x: 0, y: 0, width: 16, height: 16)
     $0.image = UIImage(systemName: "heart")
     $0.tintColor = .lightGray
   }
-  let favoriteCount = UILabel().then {
+  private let favoriteCount = UILabel().then {
     $0.frame = CGRect(x: 0, y: 0, width: 0, height: 16)
     $0.text = "3"
     $0.font = .systemFont(ofSize: 14)
     $0.textColor = .lightGray
     $0.textAlignment = .center
   }
-  let separateBar = UIView().then {
+  private let separateBar = UIView().then {
     $0.backgroundColor = .lightGray
   }
   
@@ -95,6 +99,57 @@ class HomeFeedTableViewCell: UITableViewCell {
       $0.height.equalTo(0.3)
       $0.centerX.equalToSuperview()
     }
+  }
+  
+  // MARK: Method
+  private func removeNotNeededTimeUnit(_ address: String, _ userUpdateTimes: DateComponents) -> String {
+    var updateTime = String()
+    if userUpdateTimes.day != 0 {
+      if userUpdateTimes.day == 1 {
+        updateTime += "\(address) • 어제"
+      } else {
+        updateTime += "\(address) • \(userUpdateTimes.day!)일 전"
+      }
+    } else if userUpdateTimes.hour != 0 {
+      updateTime += "\(address) • \(userUpdateTimes.hour!)시간 전"
+    } else if userUpdateTimes.minute != 0 {
+      updateTime += "\(address) • \(userUpdateTimes.minute!)분 전"
+    } else if userUpdateTimes.second != 0 {
+      updateTime += "\(address) • \(userUpdateTimes.second!)초 전"
+    }
+    return updateTime
+  }
+  
+  private func calculateDifferentTime(_ posts: [Post]) {
+    let currentTime = Date()
+    for idx in 0..<posts.count {
+      let tempTime = posts[idx].updated.replacingOccurrences(of: "T", with: " ").components(separatedBy: ".")[0]
+      let dateFormatter = DateFormatter()
+      dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+      let updatedTime: Date = dateFormatter.date(from: tempTime) ?? currentTime
+      let calculrate = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)
+      guard let compareTime = calculrate?.components(
+        [.day, .hour, .minute, .second],
+        from: updatedTime,
+        to: currentTime,
+        options: []
+      )
+      else { fatalError("castin error") }
+      userUpdateTimes.append(compareTime)
+    }
+  }
+  
+  func setupHomeFeedCell(posts: [Post], indexPath: IndexPath) {
+    calculateDifferentTime(posts)
+    
+    if posts[indexPath.row].photos.isEmpty {
+      goodsImageView.image = UIImage(named: "DaanggnMascot")
+    } else {
+      goodsImageView.kf.setImage(with: URL(string: posts[indexPath.row].photos[0]))
+    }
+    goodsName.text = "\(posts[indexPath.row].title)"
+    goodsPrice.text = "\(posts[indexPath.row].price)"
+    sellerLoctionAndTime.text = removeNotNeededTimeUnit(posts[indexPath.row].address, userUpdateTimes[indexPath.row])
   }
   
   required init?(coder: NSCoder) {
