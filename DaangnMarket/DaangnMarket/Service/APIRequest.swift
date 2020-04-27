@@ -28,12 +28,10 @@ enum RequestTown: APIRequest {
     switch self {
     case .search(_, _):
       return host + "/location/locate/search/"
-//    case .GPS(_, _, _, _):
-      case .GPS(_, _, _):
-      return host + "/location/locate/gps/"
+    case .GPS(_, _, _, _):
+      return host + "/location/range/"
     case .distance(_, _):
-//      return host + "/location/locate/"
-      return host + "/location/range"
+      return host + "/location/range/"
     }
   }
   
@@ -49,14 +47,12 @@ enum RequestTown: APIRequest {
       return [
         "lati": latitude,
         "longi": longitude,
-//        "latitude": latitude,
-//        "longitude": longitude,
         "distance": distance,
 //        "page": page
       ]
     case let .distance(dongId, distance):
       return [
-        "dong_id": dongId,
+        "locate": dongId,
         "distance": distance
       ]
     }
