@@ -9,10 +9,25 @@
 import UIKit
 
 protocol HistoryKeywordsViewDelegate: class {
+  func deleteSelectedItem(tag: Int)
   func deleteAllHistory()
 }
 
 class HistoryKeywordsView: UIView {
+  // MARK: Interface
+  func makeNewHistoryItem(_ item: String) {
+    setListItemView(text: item)
+  }
+//  func removeItemInStackView(_ history: [String]) {
+//    listStackView.snp.removeConstraints()
+//    for keyword in SearchHistory.shared.history {
+//      setListItemView(text: keyword)
+//    }
+//  }
+  func removeAllItemsInStackView() {
+    listStackView.removeFromSuperview()
+  }
+  
   // MARK: Views
   private let titleLabel = UILabel().then {
     $0.text = "최근 검색"
@@ -65,6 +80,7 @@ class HistoryKeywordsView: UIView {
       $0.top.equalTo(titleLabel.snp.bottom).offset(8)
       $0.bottom.equalTo(deleteAllButton.snp.top).offset(-8)
       $0.leading.trailing.equalToSuperview()
+      $0.width.equalTo(self.safeAreaLayoutGuide)
     }
     deleteAllButton.snp.makeConstraints {
       $0.bottom.equalToSuperview().offset(-24)
@@ -74,7 +90,7 @@ class HistoryKeywordsView: UIView {
   
   // MARK: Actions
   @objc private func didTapXButton(_ sender: UIButton) {
-    print(sender)
+    delegate?.deleteSelectedItem(tag: sender.tag)
   }
   
   @objc private func didTapAllDeleteButton() {
@@ -84,31 +100,29 @@ class HistoryKeywordsView: UIView {
   // MARK: Methods
   private func makeHistoryListItem() {
     if SearchHistory.shared.history.count == 1 {
-      print("self.addSubview(listStackView)")
       self.addSubview(listStackView)
     }
-    for txt in SearchHistory.shared.history.sorted() {
-      addListStackView(text: txt)
+    for text in SearchHistory.shared.history.sorted() {
+      setListItemView(text: text)
     }
   }
   
-  func addListStackView(text: String) {
+  private func setListItemView(text: String) {
     let itemView = UIView().then {
       $0.backgroundColor = .white
     }
     let tagImageView = UIImageView().then {
-      let tagImage = UIImage(named: "tag")
-      tagImage?.withAlignmentRectInsets(UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20))
-//      $0.image = UIImage(systemName: "tag")
-      $0.image = tagImage
-//        UIImage(named: "tag")
+      $0.image = UIImage(systemName: "tag")
+      $0.transform = CGAffineTransform(scaleX: -1, y: 1)
       $0.contentMode = .scaleAspectFit
       $0.tintColor = .black
-//      $0.transform = CGAffineTransform(scaleX: -1, y: 1)
       $0.clipsToBounds = true
+    }
+    let tagBorderView = UIView().then {
       $0.layer.cornerRadius = 16
       $0.layer.borderWidth = 1
       $0.layer.borderColor = UIColor.lightGray.cgColor
+      $0.backgroundColor = .clear
     }
     let titleLabel = UILabel().then { label in
       label.font = .systemFont(ofSize: 13, weight: .bold)
@@ -118,16 +132,24 @@ class HistoryKeywordsView: UIView {
       $0.setImage(UIImage(systemName: "xmark"), for: .normal)
       $0.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
       $0.tintColor = .black
+      $0.tag = SearchHistory.shared.history.count - 1
       $0.addTarget(self, action: #selector(didTapXButton), for: .touchUpInside)
     }
     let bottomLine = UIView().then {
       $0.backgroundColor = UIColor(named: ColorReference.borderLine.rawValue)
     }
-    [tagImageView, titleLabel, deleteButton, bottomLine].forEach { itemView.addSubview($0) }
+    setListItemViewContraints(itemView, tagImageView, tagBorderView, titleLabel, deleteButton, bottomLine)
+  }
+  
+  private func setListItemViewContraints(_ itemView: UIView, _ tagImageView: UIImageView, _ tagBorderView: UIView, _ titleLabel: UILabel, _ deleteButton: UIButton, _ bottomLine: UIView) {
+    [tagImageView, tagBorderView, titleLabel, deleteButton, bottomLine].forEach { itemView.addSubview($0) }
     tagImageView.snp.makeConstraints {
+      $0.edges.equalTo(tagBorderView).inset(UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4))
+    }
+    tagBorderView.snp.makeConstraints {
       $0.top.leading.equalToSuperview().offset(16)
       $0.bottom.equalToSuperview().offset(-16)
-      $0.width.equalTo(tagImageView.snp.height)
+      $0.width.equalTo(tagBorderView.snp.height)
     }
     titleLabel.snp.makeConstraints {
       $0.leading.equalTo(tagImageView.snp.trailing).offset(16)
@@ -151,13 +173,5 @@ class HistoryKeywordsView: UIView {
       $0.height.equalTo(64)
       $0.leading.trailing.width.equalToSuperview()
     }
-  }
-  
-  // MARK: Interface
-  func makeNewHistoryItem(_ item: String) {
-    addListStackView(text: item)
-  }
-  func removeAllItemsInStackView() {
-    listStackView.removeFromSuperview()
   }
 }
