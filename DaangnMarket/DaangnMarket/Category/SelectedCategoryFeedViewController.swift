@@ -110,7 +110,8 @@ class SelectedCategoryFeedViewController: UIViewController {
       .filter { $0.korean == category }
       .map { $0.rawValue }
       .first ?? "other"
-    let url = URL(string: "http://13.125.217.34/post/list/category/?category=\(category)&page=1&locate=8725")
+    let url = URL(string: "http://13.125.217.34/post/list?category=\(category)&page=1&locate=6971")
+//    let url = URL(string: "http://13.125.217.34/post/list/category/?category=\(category)&page=1&locate=8725")
     firstRequest(url: url)
   }
   
@@ -133,7 +134,7 @@ class SelectedCategoryFeedViewController: UIViewController {
           guard let responseData = response.data else { return }
           guard let decodeResult = try? JSONDecoder().decode(PostInfo.self, from: responseData) else { return }
           self.postData += decodeResult.results
-          self.calculateDifferentTime()
+//          self.calculateDifferentTime()
           self.nextURL = URL(string: decodeResult.next ?? "")
         case .failure(let err):
           print(err.localizedDescription)
@@ -158,7 +159,7 @@ class SelectedCategoryFeedViewController: UIViewController {
             self.setupEmptyView(category: self.selectedCategory!)
             self.tableView.isHidden = true
           }
-          self.calculateDifferentTime()
+//          self.calculateDifferentTime()
           self.nextURL = URL(string: decodeResult.next ?? "")
         case .failure(let err):
           print(err.localizedDescription)
@@ -167,37 +168,37 @@ class SelectedCategoryFeedViewController: UIViewController {
     }
   }
   
-  private func removeNotNeededTimeUnit(_ address: String, _ userUpdateTimes: DateComponents) -> String {
-    var updateTime = String()
-    if userUpdateTimes.day != 0 {
-      if userUpdateTimes.day == 1 {
-        updateTime += "\(address) • 어제"
-      } else {
-        updateTime += "\(address) • \(userUpdateTimes.day!)일 전"
-      }
-    } else if userUpdateTimes.hour != 0 {
-      updateTime += "\(address) • \(userUpdateTimes.hour!)시간 전"
-    } else if userUpdateTimes.minute != 0 {
-      updateTime += "\(address) • \(userUpdateTimes.minute!)분 전"
-    } else if userUpdateTimes.second != 0 {
-      updateTime += "\(address) • \(userUpdateTimes.second!)초 전"
-    }
-    return updateTime
-  }
-  
-  private func calculateDifferentTime() {
-    let currentTime = Date()
-    for idx in 0..<postData.count {
-      let tempTime = postData[idx].updated.replacingOccurrences(of: "T", with: " ").components(separatedBy: ".")[0]
-      let dateFormatter = DateFormatter()
-      dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-      let updatedTime: Date = dateFormatter.date(from: tempTime) ?? currentTime
-      let calculrate = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)
-      guard let compareTime = calculrate?.components([.day, .hour, .minute, .second], from: updatedTime, to: currentTime, options: [])
-        else { fatalError("castin error") }
-      userUpdateTimes.append(compareTime)
-    }
-  }
+//  private func removeNotNeededTimeUnit(_ address: String, _ userUpdateTimes: DateComponents) -> String {
+//    var updateTime = String()
+//    if userUpdateTimes.day != 0 {
+//      if userUpdateTimes.day == 1 {
+//        updateTime += "\(address) • 어제"
+//      } else {
+//        updateTime += "\(address) • \(userUpdateTimes.day!)일 전"
+//      }
+//    } else if userUpdateTimes.hour != 0 {
+//      updateTime += "\(address) • \(userUpdateTimes.hour!)시간 전"
+//    } else if userUpdateTimes.minute != 0 {
+//      updateTime += "\(address) • \(userUpdateTimes.minute!)분 전"
+//    } else if userUpdateTimes.second != 0 {
+//      updateTime += "\(address) • \(userUpdateTimes.second!)초 전"
+//    }
+//    return updateTime
+//  }
+//
+//  private func calculateDifferentTime() {
+//    let currentTime = Date()
+//    for idx in 0..<postData.count {
+//      let tempTime = postData[idx].updated.replacingOccurrences(of: "T", with: " ").components(separatedBy: ".")[0]
+//      let dateFormatter = DateFormatter()
+//      dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+//      let updatedTime: Date = dateFormatter.date(from: tempTime) ?? currentTime
+//      let calculrate = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)
+//      guard let compareTime = calculrate?.components([.day, .hour, .minute, .second], from: updatedTime, to: currentTime, options: [])
+//        else { fatalError("castin error") }
+//      userUpdateTimes.append(compareTime)
+//    }
+//  }
   
   // MARK: Actions
   
@@ -219,11 +220,13 @@ extension SelectedCategoryFeedViewController: UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: "GoodsCell", for: indexPath) as? HomeFeedTableViewCell else { return UITableViewCell() }
-    let post = postData[indexPath.row]
-    cell.goodsName.text = post.title
-    cell.sellerLoctionAndTime.text = removeNotNeededTimeUnit(post.address, userUpdateTimes[indexPath.row])
-    cell.goodsPrice.text = "\(post.price)원"
-    cell.goodsImageView.image = UIImage(named: ImageReference.noImage.rawValue)
+//    let post = postData[indexPath.row]
+    
+    cell.setupHomeFeedCell(posts: postData, indexPath: indexPath)
+//    cell.goodsName.text = post.title
+//    cell.sellerLoctionAndTime.text = removeNotNeededTimeUnit(post.address, userUpdateTimes[indexPath.row])
+//    cell.goodsPrice.text = "\(post.price)원"
+//    cell.goodsImageView.image = UIImage(named: ImageReference.noImage.rawValue)
     return cell
   }
 }
@@ -242,8 +245,8 @@ extension SelectedCategoryFeedViewController: UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     guard let productPVC = ViewControllerGenerator.shared.make(.productPost) else { return }
-    let addressTime = removeNotNeededTimeUnit(postData[indexPath.row].address, userUpdateTimes[indexPath.row])
-    PostData.shared.updated = addressTime.components(separatedBy: " • ")[1]
+//    let addressTime = removeNotNeededTimeUnit(postData[indexPath.row].address, userUpdateTimes[indexPath.row])
+//    PostData.shared.updated = addressTime.components(separatedBy: " • ")[1]
     PostData.shared.saveData(postData[indexPath.row])
     self.navigationController?.pushViewController(productPVC, animated: true)
   }
