@@ -51,10 +51,16 @@ class DGAlertAction: UIButton {
   }
   
   @objc func handlerAction() {
-    guard let handler = self.handler else { return }
-    handler()
-    guard let superView = self.superview else { return }
-    superView.parentViewController?.dismiss(animated: false, completion: nil)
+//    guard let handler = self.handler else { return }
+//    handler()
+//    guard let superView = self.superview else { return }
+//    superView.parentViewController?.dismiss(animated: false, completion: nil)
+    
+    // Optional Chaining : Optional type의 변수 및 함수 호출 시 ?. 으로 이어가면
+    // closure 및 변수가 nil인 경우 ?에서 실행이 중지되어 끝나고, nil이 아니면 . 다음으로 넘어감
+    self.superview?.parentViewController?.dismiss(animated: false) {
+      self.handler?()
+    }
   }
   
   private func setupOrange() {
