@@ -25,9 +25,6 @@ class TownCountView: UIView {
     $0.font = .systemFont(ofSize: 17, weight: .regular)
   }
   lazy var aroundTownCountBtn = UIButton().then {
-//    let initTownCount = AuthorizationManager.shared.aroundTown.filter { Float($0.distance!/1_200) <= 1.0 }
-//    var btnTitle = NSMutableAttributedString().underlineBold("근처 동네 \(initTownCount.count)개", fontSize: 17)
-//    $0.setAttributedTitle(btnTitle, for: .normal)
     $0.addTarget(self, action: #selector(didTapShowAroundTownCount), for: .touchUpInside)
   }
   

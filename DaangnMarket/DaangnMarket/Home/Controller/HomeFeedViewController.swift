@@ -86,10 +86,10 @@ class HomeFeedViewController: UIViewController {
   private func setTownsName() {
     guard let selectedTown = AuthorizationManager.shared.selectedTown else { print("popover selectedTown"); return }
       MyTownSetting.shared.towns["first"] = selectedTown.dong
-    if !AuthorizationManager.shared.aroundTown.isEmpty {
+//    if !AuthorizationManager.shared.aroundTown.isEmpty {
       guard let anotherTown = AuthorizationManager.shared.anotherTown else { print("popover anotherTown"); return }
       MyTownSetting.shared.towns["second"] = anotherTown.dong
-    }
+//    }
   }
   
   private func initTownName() {
