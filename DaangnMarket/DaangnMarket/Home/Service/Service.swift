@@ -24,6 +24,7 @@ final class ServiceManager {
         case .success(let postInfo):
           completionHandler(.success(postInfo))
         case . failure(let error):
+          print(error)
           completionHandler(.failure(error))
         }
     }

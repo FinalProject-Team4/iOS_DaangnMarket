@@ -9,12 +9,21 @@
 import UIKit
 
 class MyTownSetting {
+  private init() {}
+  
   // MARK: Shared
   
   static var shared = MyTownSetting()
   
   // MARK: TownSelectView Property
   
+  func register(isFirstTown: Bool) {
+    if AuthorizationManager.shared.selectedTown != nil {
+      UserDefaults.standard.set(isFirstTown, forKey: "isFirstTown")
+    }
+  }
+  
+  var isFirstTowns = UserDefaults.standard.object(forKey: "isFirstTowns")
   var isFirstTown = Bool()
 
   var firstSelectTown = String()

@@ -40,8 +40,6 @@ class MyTownSettingViewController: UIViewController {
       name: NSNotification.Name("PopoverDismiss"),
       object: nil
       )
-//    saveTownsInfo(MyTownSetting.shared.isFirstTown)
-//    willDisappearAboutSeoncondTownBtn(MyTownSetting.shared.secondSelectTown.isEmpty)
   }
   
   

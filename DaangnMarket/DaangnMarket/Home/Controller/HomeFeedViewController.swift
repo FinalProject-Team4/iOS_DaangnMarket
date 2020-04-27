@@ -13,7 +13,7 @@ class HomeFeedViewController: UIViewController {
   // MARK: Property
   
   let service = ServiceManager.shared
-  private let url = "http://13.125.217.34/post/list/"
+  private let url = "http://13.125.217.34/post/list"
   var parameters: Parameters = [String: Any]()
   var nextPageURL: String?
   var posts = [Post]() {
@@ -30,15 +30,14 @@ class HomeFeedViewController: UIViewController {
     $0.backgroundColor = .white
     $0.layer.borderColor = UIColor.lightGray.cgColor
     $0.layer.borderWidth = 0.3
-    $0.selectedTownButton.setTitle(AuthorizationManager.shared.selectedTown?.dong ?? "unknown", for: .normal)
   }
-
+  
   private lazy var homeTableView = UITableView().then {
-     $0.sectionHeaderHeight = 4
-     $0.separatorStyle = .none
-     $0.rowHeight = 136
-     $0.register(HomeFeedTableViewCell.self, forCellReuseIdentifier: "GoodsCell")
-   }
+    $0.sectionHeaderHeight = 4
+    $0.separatorStyle = .none
+    $0.rowHeight = 136
+    $0.register(HomeFeedTableViewCell.self, forCellReuseIdentifier: "GoodsCell")
+  }
   
   // MARK: Life Cycle
   
@@ -46,17 +45,21 @@ class HomeFeedViewController: UIViewController {
     super.viewDidLoad()
     self.view.backgroundColor = .white
     self.tabBarController?.tabBar.isHidden = false
-    self.parameters = ["locate": 8_725]
+    self.parameters = ["locate": 6_971]
+    
     requestPostData(url, self.parameters)
     callDelegate()
     setupUI()
+//    initTownName()
   }
   
-  override func viewDidAppear(_ animated: Bool) {
-    super.viewDidAppear(animated)
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    initTownName()
+    navigationController?.navigationBar.isHidden = true
     if AuthorizationManager.shared.userInfo == nil {
       if isFirstAlert {
-      doFirstViewPresent()
+        doFirstViewPresent()
       }
     }
   }
@@ -84,6 +87,34 @@ class HomeFeedViewController: UIViewController {
     homeTableView.snp.makeConstraints {
       $0.top.equalTo(customNaviBar.snp.bottom)
       $0.leading.trailing.bottom.equalTo(self.view.safeAreaLayoutGuide)
+    }
+  }
+  
+  private func initTownName() {
+    print("is first town", MyTownSetting.shared.isFirstTown)
+    print("towns first", MyTownSetting.shared.towns["first"])
+    print("authorization manager select town", AuthorizationManager.shared.selectedTown?.dong)
+    print("user default", MyTownSetting.shared.isFirstTowns)
+if MyTownSetting.shared.isFirstTown {
+      customNaviBar
+        .selectedTownButton
+        .setTitle(
+          MyTownSetting
+            .shared
+            .towns["first"] ?? AuthorizationManager
+              .shared
+              .selectedTown?.dong,
+          for: .normal
+      )
+    } else {
+      customNaviBar
+        .selectedTownButton
+        .setTitle(
+          MyTownSetting
+            .shared
+            .towns["second"],
+          for: .normal
+      )
     }
   }
   
@@ -115,8 +146,8 @@ class HomeFeedViewController: UIViewController {
       cell.goodsImageView.kf.setImage(with: URL(string: posts[indexPath.row].postImageSet[0].photo))
     }
   }
-    
-  private func removeNotNeededTimeUnit(_ address: String, _ userUpdateTimes: DateComponents) -> String {
+  
+  func removeNotNeededTimeUnit(_ address: String, _ userUpdateTimes: DateComponents) -> String {
     var updateTime = String()
     if userUpdateTimes.day != 0 {
       if userUpdateTimes.day == 1 {
@@ -204,11 +235,11 @@ extension HomeFeedViewController: UITableViewDataSource {
 
 extension HomeFeedViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    guard let productPVC = ViewControllerGenerator.shared.make(.productPost) else { return }
-    PostData.shared.saveData(posts[indexPath.row])
-    navigationController?.pushViewController(productPVC, animated: true)
-    let addressTime = removeNotNeededTimeUnit(posts[indexPath.row].address, userUpdateTimes[indexPath.row])
-    PostData.shared.updated = addressTime.components(separatedBy: " • ")[1]
+    //print("\(posts[indexPath.row].postId)번 id")
+    tabBarController?.tabBar.isHidden = true
+    navigationController?.navigationBar.shadowImage = .none
+    guard let productPostVC = ViewControllerGenerator.shared.make(.productPost, parameters: ["postData": posts[indexPath.row]]) else { return }
+    navigationController?.pushViewController(productPostVC, animated: true)
   }
 }
 
