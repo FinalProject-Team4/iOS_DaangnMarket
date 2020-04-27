@@ -150,17 +150,17 @@ class SalesListOnSaleTableViewCell: UITableViewCell {
       if stateButton.titleLabel?.text == "예약중으로 변경" {
         self.stateButton.setTitle("판매중으로 변경", for: .normal)
         self.itemContentView.reservedState(reserved: true)
-        guard let indexOfData = sellerItemsData1.lastIndex(where: { (idx) -> Bool in
-          idx.postId == self.itemContentView.postID }
-          ) else { return }
-        sellerItemsData1[indexOfData].state = "reserved"
-      } else {
-        guard let indexOfData = sellerItemsData1.lastIndex(where: { (idx) -> Bool in
-          idx.postId == self.itemContentView.postID }
-          ) else { return }
-        sellerItemsData1[indexOfData].state = "slaes"
-        self.stateButton.setTitle("예약중으로 변경", for: .normal)
-        self.itemContentView.reservedState(reserved: false)
+//        guard let indexOfData = sellerItemsData1.lastIndex(where: { (idx) -> Bool in
+//          idx.postId == self.itemContentView.postID }
+//          ) else { return }
+//        sellerItemsData1[indexOfData].state = "reserved"
+//      } else {
+//        guard let indexOfData = sellerItemsData1.lastIndex(where: { (idx) -> Bool in
+//          idx.postId == self.itemContentView.postID }
+//          ) else { return }
+//        sellerItemsData1[indexOfData].state = "slaes"
+//        self.stateButton.setTitle("예약중으로 변경", for: .normal)
+//        self.itemContentView.reservedState(reserved: false)
       }
       
     case endOfSalesButton:

@@ -7,21 +7,25 @@
 //
 
 import UIKit
+protocol SelectedTownNameInNavibarDelegate: class {
+  func showSelectedTownName(_ isFirst: Bool)
+}
 
 class PopoverViewController: UIViewController {
+  // MARK: Property
+  
+  weak var delegate: SelectedTownNameInNavibarDelegate?
+  
   // MARK: Views
   
   lazy var firstMyTownBtn = PopoverFirstTownButton().then {
-    $0.restorationIdentifier = "popoverFirstTownBtn"
     $0.addTarget(self, action: #selector(didTapButtonForHomeFeed(_:)), for: .touchUpInside)
   }
   lazy var secondMyTownBtn = PopoverSecondTownButton().then {
-    $0.restorationIdentifier = "popoverSecondTownBtn"
     $0.addTarget(self, action: #selector(didTapButtonForHomeFeed(_:)), for: .touchUpInside)
   }
   var myTownSettingBtn = PopoverTownSettingButton().then {
-    $0.restorationIdentifier = "popoverTownSettingBtn"
-    $0.addTarget(self, action: #selector(didTapViewChange), for: .touchUpInside)
+    $0.addTarget(self, action: #selector(didTapPresentBtn), for: .touchUpInside)
   }
   
   // MARK: Life Cycle
@@ -29,15 +33,13 @@ class PopoverViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.view.backgroundColor = .white
-    self.preferredContentSize = CGSize(
-      width: Int(UIScreen.main.bounds.width * 0.7),
-      height: 50 * (MyTownSetting.shared.towns.count + 1)
-    )
-    setTownName()
+    getTownsName()
     setupConstraint()
+    didTapButtonForHomeFeed(UIButton())
   }
-  override func viewDidAppear(_ animated: Bool) {
-    super.viewDidAppear(animated)
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
     self.preferredContentSize = CGSize(
       width: Int(UIScreen.main.bounds.width * 0.7),
       height: 50 * (MyTownSetting.shared.towns.count + 1)
@@ -83,18 +85,29 @@ class PopoverViewController: UIViewController {
   
   // MARK: Method
   
-  private func setTownName() {
-    guard let selectedTown = AuthorizationManager.shared.selectedTown else { print("popover selectedTown"); return }
-      MyTownSetting.shared.towns["first"] = selectedTown.dong
-      firstMyTownBtn.townLabel.text = MyTownSetting.shared.towns["first"]
-    guard let anotherTown = AuthorizationManager.shared.anotherTown else { print("popover anotherTown"); return }
-      MyTownSetting.shared.towns["second"] = anotherTown.dong
-      secondMyTownBtn.townLabel.text = MyTownSetting.shared.towns["second"]
+  private func getTownsName() {
+    firstMyTownBtn.townLabel.text = MyTownSetting.shared.towns["first"]
+    secondMyTownBtn.townLabel.text = MyTownSetting.shared.towns["second"]
+  }
+  
+  private func changeSelectTownBtnFont(_ isSelect: Bool) {
+    switch isSelect {
+    case true:
+      secondMyTownBtn.townLabel.textColor = UIColor(named: ColorReference.noResultImage.rawValue)
+      secondMyTownBtn.townLabel.font = .systemFont(ofSize: 16, weight: .regular)
+      firstMyTownBtn.townLabel.textColor = .black
+      firstMyTownBtn.townLabel.font = .systemFont(ofSize: 16, weight: .bold)
+    case false:
+      firstMyTownBtn.townLabel.textColor = UIColor(named: ColorReference.noResultImage.rawValue)
+      firstMyTownBtn.townLabel.font = .systemFont(ofSize: 16, weight: .regular)
+      secondMyTownBtn.townLabel.textColor = .black
+      secondMyTownBtn.townLabel.font = .systemFont(ofSize: 16, weight: .bold)
+    }
   }
   
   // MARK: Action
   
-  @objc func didTapViewChange(_ sender: UIButton) {
+  @objc func didTapPresentBtn(_ sender: UIButton) {
     guard let myTownVC = ViewControllerGenerator.shared.make(.townSetting) else { return }
     myTownVC.modalPresentationStyle = .fullScreen
     self.present(myTownVC, animated: true)
@@ -102,12 +115,14 @@ class PopoverViewController: UIViewController {
   @objc func didTapButtonForHomeFeed(_ sender: UIButton) {
     switch sender {
     case firstMyTownBtn:
-//      print("\(MyTownSetting.shared.firstAroundTownList[0].dong)")
-      print("첫번째 설정 동네")
+//      MyTownSetting.shared.isFirstTown = true
+      MyTownSetting.shared.register(isFirstTown: true)
     case secondMyTownBtn:
-//      print("\(MyTownSetting.shared.secondAroundTownList[0].dong)")
-      print("두번째 설정 동네")
+      MyTownSetting.shared.register(isFirstTown: false)
+//      MyTownSetting.shared.isFirstTown = false
     default: break
     }
+    changeSelectTownBtnFont(MyTownSetting.shared.isFirstTown)
+    self.delegate?.showSelectedTownName(MyTownSetting.shared.isFirstTown)
   }
 }

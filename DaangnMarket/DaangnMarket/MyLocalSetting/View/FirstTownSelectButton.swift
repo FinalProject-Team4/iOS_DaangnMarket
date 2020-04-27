@@ -74,7 +74,6 @@ class FirstTownSelectButton: UIButton {
   
   @objc private func didTapFirstTownDeleteButton(_ button: UIButton) {
     self.delegate?.didTapDeleteButton(button)
-    print("Delete First Town")
   }
   
   @objc private func changeFirstTownName() {
