@@ -17,12 +17,15 @@ class MyTownSetting {
   
   // MARK: TownSelectView Property
   
-  func register(isFirstTowns: Bool) {
-    UserDefaults.standard.set(isFirstTowns, forKey: "isFirstTowns")
+  func register(isFirstTown: Bool) {
+    UserDefaults.standard.set(isFirstTown, forKey: "isFirstTowns")
   }
   
-  var isFirstTowns = UserDefaults.standard.object(forKey: "isFirstTowns")
-  var isFirstTown = Bool()
+  var isFirstTown: Bool {
+    return UserDefaults.standard.bool(forKey: "isFirstTowns")
+  }
+  
+//  var isFirstTown = Bool()
 
   var firstSelectTown = String()
   var secondSelectTown = String()

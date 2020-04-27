@@ -154,7 +154,7 @@ class TownSelectView: UIView {
     }
     switch sender {
     case firstTownSelectBtn:
-      MyTownSetting.shared.isFirstTown = true
+      MyTownSetting.shared.register(isFirstTown: true)
       noti.post(
         name: NSNotification.Name("FirstSelectTownCountView"),
         object: nil
@@ -163,7 +163,7 @@ class TownSelectView: UIView {
       changeBtnColor(firstTownSelectBtn)
       willDisplayUpperAlert(.firstBtn)
     case secondTownSelectBtn:
-      MyTownSetting.shared.isFirstTown = false
+      MyTownSetting.shared.register(isFirstTown: false)
       noti.post(
         name: NSNotification.Name("SecondSelectTownCountView"),
         object: nil

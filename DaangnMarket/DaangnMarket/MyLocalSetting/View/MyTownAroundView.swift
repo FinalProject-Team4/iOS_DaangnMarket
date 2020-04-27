@@ -16,7 +16,7 @@ class MyTownAroundView: UIView {
   // MARK: UIViews
   
   let townCountView = TownCountView().then {
-    $0.backgroundColor = .yellow
+    $0.backgroundColor = .clear
   }
   var descriptionLabel = UILabel().then {
     $0.textColor = UIColor(named: ColorReference.noResultImage.rawValue)
@@ -175,7 +175,6 @@ class MyTownAroundView: UIView {
   
   @objc private func slideAction(_ sender: UISlider) {
     MyTownSettingViewController.calculateNumberOfAourndTown(MyTownSetting.shared.isFirstTown, sender.value)
-//    changeImgaesAlpha(sender)
   }
   @objc private func thumbPositionOnSlide(_ sender: Notification) {
     guard let userInfo = sender.userInfo,

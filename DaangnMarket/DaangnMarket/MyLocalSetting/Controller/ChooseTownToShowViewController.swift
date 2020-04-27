@@ -9,6 +9,9 @@
 import UIKit
 
 class ChooseTownToShowViewController: UIViewController {
+  // MARK: Propoerty
+  let noti = NotificationCenter.default
+  
   // MARK: Views
   
   lazy var townAroundView = MyTownAroundView().then {
@@ -27,6 +30,7 @@ class ChooseTownToShowViewController: UIViewController {
 //    MyTownSetting.shared.towns["first"] = AuthorizationManager.shared.selectedTown?.dong ?? "unknown"
     setupConstraint()
     setupNaviBar()
+    saveTownsInfo(MyTownSetting.shared.isFirstTown)
   }
   
   // MARK: Initialize
@@ -44,7 +48,29 @@ class ChooseTownToShowViewController: UIViewController {
     self.view.addSubview(townAroundView)
     townAroundView.snp.makeConstraints {
       $0.top.equalTo(self.view.safeAreaLayoutGuide)
-      $0.leading.trailing.bottom.equalToSuperview()
+      $0.leading.trailing.equalToSuperview()
+    }
+  }
+  
+  // MARK: Method
+  private func saveTownsInfo(_ isFirstTowns: Bool) {
+    if let firstTown = AuthorizationManager.shared.selectedTown {
+      MyTownSetting.shared.firstSelectTown = firstTown.dong
+    }
+    if let secondTown = AuthorizationManager.shared.anotherTown {
+      MyTownSetting.shared.secondSelectTown = secondTown.dong
+      noti.post(name: NSNotification.Name("anotherTownSecondTownBtn"), object: nil)
+    }
+    postNotificationForDefineMyTown(isFirstTowns)
+  }
+  
+  private func postNotificationForDefineMyTown(_ isFirstTown: Bool) {
+    print("first town", MyTownSetting.shared.firstSelectTown)
+    switch isFirstTown {
+    case true:
+      noti.post(name: NSNotification.Name("FirstSelectTownCountView"), object: nil)
+    case false:
+      noti.post(name: NSNotification.Name("SecondSelectTownCountView"), object: nil)
     }
   }
   

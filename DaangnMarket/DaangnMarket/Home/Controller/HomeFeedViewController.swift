@@ -44,17 +44,16 @@ class HomeFeedViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.view.backgroundColor = .white
-    self.tabBarController?.tabBar.isHidden = false
     self.parameters = ["locate": 6_971]
-    
     requestPostData(url, self.parameters)
-    callDelegate()
+    setTownsName()
+    callDelegates()
     setupUI()
-//    initTownName()
   }
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+//    setTownsName()
     initTownName()
     navigationController?.navigationBar.isHidden = true
     if AuthorizationManager.shared.userInfo == nil {
@@ -62,12 +61,6 @@ class HomeFeedViewController: UIViewController {
         doFirstViewPresent()
       }
     }
-  }
-  
-  private func callDelegate() {
-    homeTableView.dataSource = self
-    homeTableView.delegate = self
-    self.customNaviBar.delegate = self
   }
   
   // MARK: Initialize
@@ -90,19 +83,20 @@ class HomeFeedViewController: UIViewController {
     }
   }
   
+  private func setTownsName() {
+    guard let selectedTown = AuthorizationManager.shared.selectedTown else { print("popover selectedTown"); return }
+      MyTownSetting.shared.towns["first"] = selectedTown.dong
+//    if !AuthorizationManager.shared.aroundTown.isEmpty {
+      guard let anotherTown = AuthorizationManager.shared.anotherTown else { print("popover anotherTown"); return }
+      MyTownSetting.shared.towns["second"] = anotherTown.dong
+//    }
+  }
+  
   private func initTownName() {
-    print("is first town", MyTownSetting.shared.isFirstTown)
-    print("towns first", MyTownSetting.shared.towns["first"])
-    print("authorization manager select town", AuthorizationManager.shared.selectedTown?.dong)
-    print("user default", MyTownSetting.shared.isFirstTowns)
-if MyTownSetting.shared.isFirstTown {
-      customNaviBar.selectedTownButton.setTitle(
-          MyTownSetting.shared.towns["first"] ?? AuthorizationManager.shared.selectedTown?.dong, for: .normal
-      )
+    if MyTownSetting.shared.isFirstTown {
+      customNaviBar.selectedTownButton.setTitle(MyTownSetting.shared.towns["first"], for: .normal)
     } else {
-      customNaviBar.selectedTownButton.setTitle(
-        MyTownSetting.shared.towns["second"], for: .normal
-      )
+      customNaviBar.selectedTownButton.setTitle(MyTownSetting.shared.towns["second"], for: .normal)
     }
   }
   
@@ -126,6 +120,12 @@ if MyTownSetting.shared.isFirstTown {
   }
   
   // MARK: Method
+  
+  private func callDelegates() {
+     homeTableView.dataSource = self
+     homeTableView.delegate = self
+     self.customNaviBar.delegate = self
+   }
   
   private func cellPostGoodsImage(_ cell: HomeFeedTableViewCell, _ indexPath: IndexPath) {
     if posts[indexPath.row].photos.isEmpty {
@@ -225,7 +225,6 @@ extension HomeFeedViewController: UITableViewDataSource {
 
 extension HomeFeedViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    //print("\(posts[indexPath.row].postId)번 id")
     tabBarController?.tabBar.isHidden = true
     navigationController?.navigationBar.shadowImage = .none
     guard let productPostVC = ViewControllerGenerator.shared.make(.productPost, parameters: ["postData": posts[indexPath.row]]) else { return }
@@ -281,9 +280,9 @@ extension HomeFeedViewController: NavigationBarButtonDelegate {
 // MARK: - SelectedTownName in NaviBar Delegate
 extension HomeFeedViewController: SelectedTownNameInNavibarDelegate {
   func showSelectedTownName(_ isFirst: Bool) {
-    defer {
-      dismiss(animated: true)
-    }
+//    defer {
+//      dismiss(animated: true)
+//    }
     switch isFirst {
     case true:
       customNaviBar.selectedTownButton.setTitle(MyTownSetting.shared.towns["first"], for: .normal)

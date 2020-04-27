@@ -33,7 +33,7 @@ class PopoverViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.view.backgroundColor = .white
-    setTownName()
+    getTownsName()
     setupConstraint()
     didTapButtonForHomeFeed(UIButton())
   }
@@ -85,13 +85,9 @@ class PopoverViewController: UIViewController {
   
   // MARK: Method
   
-  private func setTownName() {
-    guard let selectedTown = AuthorizationManager.shared.selectedTown else { print("popover selectedTown"); return }
-      MyTownSetting.shared.towns["first"] = selectedTown.dong
-      firstMyTownBtn.townLabel.text = MyTownSetting.shared.towns["first"]
-    guard let anotherTown = AuthorizationManager.shared.anotherTown else { print("popover anotherTown"); return }
-      MyTownSetting.shared.towns["second"] = anotherTown.dong
-      secondMyTownBtn.townLabel.text = MyTownSetting.shared.towns["second"]
+  private func getTownsName() {
+    firstMyTownBtn.townLabel.text = MyTownSetting.shared.towns["first"]
+    secondMyTownBtn.townLabel.text = MyTownSetting.shared.towns["second"]
   }
   
   private func changeSelectTownBtnFont(_ isSelect: Bool) {
@@ -119,9 +115,11 @@ class PopoverViewController: UIViewController {
   @objc func didTapButtonForHomeFeed(_ sender: UIButton) {
     switch sender {
     case firstMyTownBtn:
-      MyTownSetting.shared.isFirstTown = true
+//      MyTownSetting.shared.isFirstTown = true
+      MyTownSetting.shared.register(isFirstTown: true)
     case secondMyTownBtn:
-      MyTownSetting.shared.isFirstTown = false
+      MyTownSetting.shared.register(isFirstTown: false)
+//      MyTownSetting.shared.isFirstTown = false
     default: break
     }
     changeSelectTownBtnFont(MyTownSetting.shared.isFirstTown)

@@ -185,8 +185,8 @@ extension FindMyTownViewController: UITableViewDelegate {
         ViewControllerGenerator.shared.make(.default)?.do {
           UIApplication.shared.switchRootViewController($0)
         }
-        MyTownSetting.shared.isFirstTown = true
-        MyTownSetting.shared.register(isFirstTowns: true)
+//        MyTownSetting.shared.isFirstTown = true
+        MyTownSetting.shared.register(isFirstTown: true)
       case is MyTownSettingViewController:
         self.navigationController?.popViewController(animated: true)
       default:
