@@ -62,10 +62,11 @@ class ProductPostViewController: UIViewController {
     init(postData: Post) {
       self.postData1 = postData
       super.init(nibName: nil, bundle: nil)
-      let temp = postData1.postImageSet
-      for idx in 0..<temp.count {
-        imageSet.append(temp[idx].photo)
-      }
+      //let temp = postData1.postImageSet
+     
+//      for idx in 0..<temp.count {
+//        imageSet.append(temp[idx].photo)
+//      }
     }
     
     required init?(coder: NSCoder) {
@@ -267,8 +268,8 @@ class ProductPostViewController: UIViewController {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
       if indexPath.section == 0 {
-        guard let profilePageVC = ViewControllerGenerator.shared.make(.profilePage, parameters: ["ownSelf": false, "name": postData1.username, "profileData": sellerItemsData]) else { return }
-        navigationController?.pushViewController(profilePageVC, animated: true)
+//        guard let profilePageVC = ViewControllerGenerator.shared.make(.profilePage, parameters: ["ownSelf": false, "name": postData1.username, "profileData": sellerItemsData]) else { return }
+//        navigationController?.pushViewController(profilePageVC, animated: true)
       }
     }
   }

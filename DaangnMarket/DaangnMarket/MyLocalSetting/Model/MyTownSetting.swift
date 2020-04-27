@@ -17,10 +17,8 @@ class MyTownSetting {
   
   // MARK: TownSelectView Property
   
-  func register(isFirstTown: Bool) {
-    if AuthorizationManager.shared.selectedTown != nil {
-      UserDefaults.standard.set(isFirstTown, forKey: "isFirstTown")
-    }
+  func register(isFirstTowns: Bool) {
+    UserDefaults.standard.set(isFirstTowns, forKey: "isFirstTowns")
   }
   
   var isFirstTowns = UserDefaults.standard.object(forKey: "isFirstTowns")

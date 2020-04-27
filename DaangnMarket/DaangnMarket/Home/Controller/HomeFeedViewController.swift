@@ -96,24 +96,12 @@ class HomeFeedViewController: UIViewController {
     print("authorization manager select town", AuthorizationManager.shared.selectedTown?.dong)
     print("user default", MyTownSetting.shared.isFirstTowns)
 if MyTownSetting.shared.isFirstTown {
-      customNaviBar
-        .selectedTownButton
-        .setTitle(
-          MyTownSetting
-            .shared
-            .towns["first"] ?? AuthorizationManager
-              .shared
-              .selectedTown?.dong,
-          for: .normal
+      customNaviBar.selectedTownButton.setTitle(
+          MyTownSetting.shared.towns["first"] ?? AuthorizationManager.shared.selectedTown?.dong, for: .normal
       )
     } else {
-      customNaviBar
-        .selectedTownButton
-        .setTitle(
-          MyTownSetting
-            .shared
-            .towns["second"],
-          for: .normal
+      customNaviBar.selectedTownButton.setTitle(
+        MyTownSetting.shared.towns["second"], for: .normal
       )
     }
   }
@@ -140,10 +128,12 @@ if MyTownSetting.shared.isFirstTown {
   // MARK: Method
   
   private func cellPostGoodsImage(_ cell: HomeFeedTableViewCell, _ indexPath: IndexPath) {
-    if posts[indexPath.row].postImageSet.isEmpty {
+    if posts[indexPath.row].photos.isEmpty {
+//    if posts[indexPath.row].postImageSet.isEmpty {
       cell.goodsImageView.image = UIImage(named: "DaanggnMascot")
     } else {
-      cell.goodsImageView.kf.setImage(with: URL(string: posts[indexPath.row].postImageSet[0].photo))
+      cell.goodsImageView.kf.setImage(with: URL(string: posts[indexPath.row].photos[0]))
+//      cell.goodsImageView.kf.setImage(with: URL(string: posts[indexPath.row].postImageSet[0].photo))
     }
   }
   
