@@ -12,12 +12,10 @@ protocol SecondTownButtonDelegate: class {
 }
 
 class TownSelectView: UIView {
-  // MARK: Delegate creation
-  
-  weak var delegate: SecondTownButtonDelegate?
-  
   // MARK: Propoerty
+  
   let noti = NotificationCenter.default
+  weak var delegate: SecondTownButtonDelegate?
   
   // MARK: Views
   
@@ -51,7 +49,6 @@ class TownSelectView: UIView {
     $0.layer.borderWidth = 1
     $0.backgroundColor = .white
   }
-  
   lazy var upperAlert = DGUpperAlert()
   
   // MARK: Initialize
@@ -62,8 +59,10 @@ class TownSelectView: UIView {
   }
     
   private func inViewSetupConstraints() {
-    let viewSubUI = [townSelectLabel, townSelectDescribeLabel, partitionLineView, firstTownSelectBtn, secondTownSelectBtn, secondTownSetBtn]
-    viewSubUI.forEach { self.addSubview($0) }
+    [
+      townSelectLabel, townSelectDescribeLabel, partitionLineView,
+      firstTownSelectBtn, secondTownSelectBtn, secondTownSetBtn
+    ].forEach { self.addSubview($0) }
     townSelectLabel.snp.makeConstraints {
       $0.centerX.equalToSuperview()
       $0.top.equalToSuperview().offset(24)
@@ -100,7 +99,7 @@ class TownSelectView: UIView {
   
   // MARK: Method
   
-  private func changeSelectedTownButton(_ item: UIView) {
+  private func changeSelectedTownBtnColor(_ item: UIView) {
     item.backgroundColor = UIColor(named: ColorReference.daangnMain.rawValue)
     item.layer.borderWidth = 1
     item.layer.borderColor = UIColor(named: ColorReference.daangnMain.rawValue)?.cgColor
@@ -120,7 +119,7 @@ class TownSelectView: UIView {
         .tintColor = .white
     }
   }
-  private func changeUnSelectedTownButton(_ item: UIView) {
+  private func changeUnSelectedTownBtnColor(_ item: UIView) {
     item.layer.borderWidth = 1
     item.layer.borderColor = UIColor(named: ColorReference.noResultImage.rawValue)?.cgColor
     item.backgroundColor = .white
@@ -155,20 +154,22 @@ class TownSelectView: UIView {
     }
     switch sender {
     case firstTownSelectBtn:
-      MyTownSetting.shared.isFirstTown = true
+      MyTownSetting.shared.register(isFirstTown: true)
       noti.post(
         name: NSNotification.Name("FirstSelectTownCountView"),
         object: nil
       )
-      changeBtnBGColor(firstTownSelectBtn)
+      print(MyTownSetting.shared.numberOfAroundTownByFirst)
+      changeBtnColor(firstTownSelectBtn)
       willDisplayUpperAlert(.firstBtn)
     case secondTownSelectBtn:
-      MyTownSetting.shared.isFirstTown = false
+      MyTownSetting.shared.register(isFirstTown: false)
       noti.post(
         name: NSNotification.Name("SecondSelectTownCountView"),
         object: nil
       )
-      changeBtnBGColor(secondTownSelectBtn)
+      print(MyTownSetting.shared.numberOfAroundTownBySecond)
+      changeBtnColor(secondTownSelectBtn)
       willDisplayUpperAlert(.secondBtn)
     case secondTownSetBtn:
       self.delegate?.secondTownSetBtn(sender)
@@ -178,15 +179,15 @@ class TownSelectView: UIView {
   @objc func hidePlusImage() {
     secondTownSelectBtn.setImage(UIImage(), for: .normal)
   }
-  func changeBtnBGColor(_ sender: UIButton) {
+  func changeBtnColor(_ sender: UIButton) {
     switch sender {
     case firstTownSelectBtn:
-      changeSelectedTownButton(firstTownSelectBtn)
-      changeUnSelectedTownButton(secondTownSelectBtn)
+      changeSelectedTownBtnColor(firstTownSelectBtn)
+      changeUnSelectedTownBtnColor(secondTownSelectBtn)
     case secondTownSelectBtn:
       if !MyTownSetting.shared.secondSelectTown.isEmpty {
-        changeSelectedTownButton(secondTownSelectBtn)
-        changeUnSelectedTownButton(firstTownSelectBtn)
+        changeSelectedTownBtnColor(secondTownSelectBtn)
+        changeUnSelectedTownBtnColor(firstTownSelectBtn)
       }
     default: break
     }

@@ -18,7 +18,8 @@ class HomeFeedTableViewCell: UITableViewCell {
   }
   let goodsName = UILabel().then {
     $0.font = .systemFont(ofSize: 16)
-    $0.textAlignment = .center
+    $0.textAlignment = .left
+    $0.numberOfLines = 0
   }
   let sellerLoctionAndTime = UILabel().then {
     $0.font = .systemFont(ofSize: 12)
@@ -57,8 +58,10 @@ class HomeFeedTableViewCell: UITableViewCell {
     setupConstraints()
   }
   private func setupConstraints() {
-    let UIs = [goodsImageView, goodsName, sellerLoctionAndTime, goodsPrice, favoriteMark, favoriteCount, separateBar]
-    UIs.forEach { self.contentView.addSubview($0) }
+    [
+      goodsImageView, goodsName, sellerLoctionAndTime,
+      goodsPrice, favoriteMark, favoriteCount, separateBar
+    ].forEach { self.contentView.addSubview($0) }
     goodsImageView.snp.makeConstraints {
       $0.centerY.equalTo(self.contentView.snp.centerY)
       $0.leading.equalTo(self.contentView.snp.leading).offset(16)
@@ -67,6 +70,7 @@ class HomeFeedTableViewCell: UITableViewCell {
     goodsName.snp.makeConstraints {
       $0.top.equalTo(goodsImageView)
       $0.leading.equalTo(goodsImageView.snp.trailing).offset(16)
+      $0.trailing.equalToSuperview().offset(-5)
     }
     sellerLoctionAndTime.snp.makeConstraints {
       $0.top.equalTo(goodsName.snp.bottom).offset(5)

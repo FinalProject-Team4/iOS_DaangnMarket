@@ -9,13 +9,23 @@
 import UIKit
 
 class MyTownSetting {
+  private init() {}
+  
   // MARK: Shared
   
   static var shared = MyTownSetting()
   
   // MARK: TownSelectView Property
   
-  var isFirstTown = Bool()
+  func register(isFirstTown: Bool) {
+    UserDefaults.standard.set(isFirstTown, forKey: "isFirstTowns")
+  }
+  
+  var isFirstTown: Bool {
+    return UserDefaults.standard.bool(forKey: "isFirstTowns")
+  }
+  
+//  var isFirstTown = Bool()
 
   var firstSelectTown = String()
   var secondSelectTown = String()
