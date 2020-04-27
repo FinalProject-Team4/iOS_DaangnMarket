@@ -25,6 +25,11 @@ class ContentSearchScrollView: UIScrollView {
     townInfoView.addHistoryNewItem(text)
     personView.addHistoryNewItem(text)
   }
+//  func reloadHistoryItem(_ history: [String]) {
+//    usedDealView.reloadHistoryItem(history)
+//    townInfoView.reloadHistoryItem(history)
+//    personView.reloadHistoryItem(history)
+//  }
   func updateKeywordNotiCell(_ text: String) {
     usedDealView.updateKeywordNotiCell(text)
   }
@@ -32,11 +37,23 @@ class ContentSearchScrollView: UIScrollView {
     usedDealView.updateFailKeyword(text)
     townInfoView.updateFailKeyword(text)
   }
+  func searchResultPost(_ post: [SearchResultPost]) {
+    usedDealView.searchResultPost(post)
+  }
   
   // MARK: Views
   private let usedDealView = SearchUsedDealView()
   private let townInfoView = SearchTownInfoView()
   private let personView = SearchPersonView()
+  
+  // MARK: Properties
+  weak var historyDelegate: HistoryKeywordsViewDelegate? {
+    willSet {
+      usedDealView.delegate = newValue
+      townInfoView.delegate = newValue
+      personView.delegate = newValue
+    }
+  }
   
   // MARK: Initialize
   override init(frame: CGRect) {
@@ -59,7 +76,8 @@ class ContentSearchScrollView: UIScrollView {
   
   private func setupConstraints() {
     usedDealView.snp.makeConstraints {
-      $0.leading.top.bottom.height.equalToSuperview()
+//      $0.leading.top.bottom.height.equalToSuperview()
+      $0.leading.top.bottom.equalToSuperview()
       $0.width.equalTo(UIScreen.main.bounds.width)
     }
     townInfoView.snp.makeConstraints {

@@ -56,7 +56,7 @@ class API {
       self.requestLogin(url: type.url, parameters: parameters) { completion($0) }
     case let .signUp(idToken, username, avatar):
       let parameters = [
-        "idToken": idToken,
+        "id_token": idToken,
         "username": username
       ]
       self.requestSignUp(url: type.url, imageData: avatar, parameters: parameters) { completion($0) }
@@ -87,7 +87,8 @@ class API {
           formData.append(imageData, withName: "avatar")
         }
     },
-      to: url
+      to: url,
+      method: .post
     )
       .validate()
       .responseDecodable { (response: DataResponse<UserInfo, AFError>) in

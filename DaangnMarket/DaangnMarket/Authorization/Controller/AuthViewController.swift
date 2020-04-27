@@ -186,7 +186,7 @@ extension AuthViewController: AuthInputFormDelegate {
             self.dismiss(animated: true)
           case .failure(let error) where error.responseCode == 401:
             ViewControllerGenerator.shared
-              .make(.signUp, parameters: ["idToken": idToken])?
+              .make(.signUp, parameters: ["id_token": idToken])?
               .do {
                 $0.modalPresentationStyle = .fullScreen
                 self.present($0, animated: true)

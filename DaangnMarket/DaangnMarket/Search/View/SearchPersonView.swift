@@ -30,7 +30,14 @@ class SearchPersonView: UIView {
   private let mainView = SearchMainView(type: .person)
   private let failView = SearchFailView(town: "성수동", type: .person)
   
-  // MARK: Interface
+  // MARK: Properties
+  weak var delegate: HistoryKeywordsViewDelegate? {
+    willSet {
+      mainView.delegate = newValue
+    }
+  }
+  
+  // MARK: Initialize
   override init(frame: CGRect) {
     super.init(frame: .zero)
     setupUI()

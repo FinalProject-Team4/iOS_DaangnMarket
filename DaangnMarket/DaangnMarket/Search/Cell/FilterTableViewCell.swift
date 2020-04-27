@@ -48,6 +48,7 @@ class FilterTableViewCell: UITableViewCell {
   }
   
   private func setupAttributes() {
+    self.isUserInteractionEnabled = false
     contentView.addSubview(headerView)
     headerView.addSubview(searchFilterButton)
     headerView.addSubview(soldoutFilterButton)
