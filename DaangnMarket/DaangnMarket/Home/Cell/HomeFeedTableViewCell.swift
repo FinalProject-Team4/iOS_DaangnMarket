@@ -34,14 +34,13 @@ class HomeFeedTableViewCell: UITableViewCell {
     $0.font = .systemFont(ofSize: 15)
     $0.textAlignment = .center
   }
-  private let favoriteMark = UIImageView().then {
+  private let likesMark = UIImageView().then {
     $0.frame = CGRect(x: 0, y: 0, width: 16, height: 16)
     $0.image = UIImage(systemName: "heart")
     $0.tintColor = .lightGray
   }
-  private let favoriteCount = UILabel().then {
+  private let likesCount = UILabel().then {
     $0.frame = CGRect(x: 0, y: 0, width: 0, height: 16)
-    $0.text = "3"
     $0.font = .systemFont(ofSize: 14)
     $0.textColor = .lightGray
     $0.textAlignment = .center
@@ -64,7 +63,7 @@ class HomeFeedTableViewCell: UITableViewCell {
   private func setupConstraints() {
     [
       goodsImageView, goodsName, sellerLoctionAndTime,
-      goodsPrice, favoriteMark, favoriteCount, separateBar
+      goodsPrice, likesMark, likesCount, separateBar
     ].forEach { self.contentView.addSubview($0) }
     goodsImageView.snp.makeConstraints {
       $0.centerY.equalTo(self.contentView.snp.centerY)
@@ -84,13 +83,13 @@ class HomeFeedTableViewCell: UITableViewCell {
       $0.top.equalTo(sellerLoctionAndTime.snp.bottom).offset(7)
       $0.leading.equalTo(goodsName)
     }
-    favoriteMark.snp.makeConstraints {
+    likesMark.snp.makeConstraints {
       $0.trailing.equalToSuperview().offset(-30)
       $0.bottom.equalToSuperview().offset(-18)
     }
-    favoriteCount.snp.makeConstraints {
-      $0.centerY.equalTo(favoriteMark.snp.centerY)
-      $0.leading.equalTo(favoriteMark.snp.trailing)
+    likesCount.snp.makeConstraints {
+      $0.centerY.equalTo(likesMark.snp.centerY)
+      $0.leading.equalTo(likesMark.snp.trailing)
     }
     separateBar.snp.makeConstraints {
       $0.leading.equalTo(self.contentView.snp.leading).offset(16)
@@ -140,16 +139,37 @@ class HomeFeedTableViewCell: UITableViewCell {
   }
   
   func setupHomeFeedCell(posts: [Post], indexPath: IndexPath) {
+    setFeedImage(posts, indexPath)
+    setLikes(posts, indexPath)
     calculateDifferentTime(posts)
-    
+    goodsName.text = "\(posts[indexPath.row].title)"
+    goodsPrice.text = self.inputTheThousandsOfCommas(posts, indexPath)
+    sellerLoctionAndTime.text = removeNotNeededTimeUnit(posts[indexPath.row].address, userUpdateTimes[indexPath.row])
+  }
+  
+  private func setFeedImage(_ posts: [Post], _ indexPath: IndexPath) {
     if posts[indexPath.row].photos.isEmpty {
       goodsImageView.image = UIImage(named: "DaanggnMascot")
     } else {
       goodsImageView.kf.setImage(with: URL(string: posts[indexPath.row].photos[0]))
     }
-    goodsName.text = "\(posts[indexPath.row].title)"
-    goodsPrice.text = "\(posts[indexPath.row].price)"
-    sellerLoctionAndTime.text = removeNotNeededTimeUnit(posts[indexPath.row].address, userUpdateTimes[indexPath.row])
+  }
+  
+  private func setLikes(_ posts: [Post], _ indexPath: IndexPath) {
+    if posts[indexPath.row].likes == 0 {
+      likesMark.isHidden = true
+      likesCount.text = ""
+    } else {
+      likesMark.isHidden = false
+      likesCount.text = "\(posts[indexPath.row].likes)"
+    }
+  }
+  
+  private func inputTheThousandsOfCommas(_ posts: [Post], _ indexPath: IndexPath) -> String {
+    let numberFormatter = NumberFormatter()
+    numberFormatter.numberStyle = .decimal
+    let price = numberFormatter.string(from: NSNumber(value: posts[indexPath.row].price))! + "원"
+    return price
   }
   
   required init?(coder: NSCoder) {

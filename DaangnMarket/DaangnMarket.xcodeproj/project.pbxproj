@@ -417,6 +417,7 @@
 				ACCD94D42429F5E600153545 /* MyDaangn */,
 				AD6EBFA02436C3CB003F01CA /* MyLocalSetting */,
 				AC52A5822441923F00DB4FB6 /* Notificatiion */,
+				ACCD94E5242A206400153545 /* Service */,
 				ACCD94EF242A24A300153545 /* Common */,
 				ACFB7D2F242C415F00E47F97 /* Test */,
 				A62D96B22424A442006F1722 /* Assets.xcassets */,
@@ -885,7 +886,6 @@
 				AD6EBFA12436C427003F01CA /* MyTownSettingViewController.swift */,
 				AD6208A9243CB386007818C6 /* ChooseTownToShowViewController.swift */,
 				AD7ABAB32443FFB000520C28 /* AroundTownsViewController.swift */,
-				ACCD94E5242A206400153545 /* Service */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
