@@ -118,11 +118,11 @@ class HomeFeedViewController: UIViewController {
   // MARK: Method
   
   func cellPostGoodsImage(_ cell: HomeFeedTableViewCell, _ indexPath: IndexPath) {
-    if posts[indexPath.row].postImageSet.isEmpty {
-      cell.goodsImageView.image = UIImage(named: "DaanggnMascot")
-    } else {
-      cell.goodsImageView.kf.setImage(with: URL(string: posts[indexPath.row].postImageSet[0].photo))
-    }
+//    if posts[indexPath.row].postImageSet.isEmpty {
+//      cell.goodsImageView.image = UIImage(named: "DaanggnMascot")
+//    } else {
+//      cell.goodsImageView.kf.setImage(with: URL(string: posts[indexPath.row].postImageSet[0].photo))
+//    }
   }
   
   func removeNotNeededTimeUnit(_ address: String, _ userUpdateTimes: DateComponents) -> String {

@@ -36,7 +36,8 @@ struct Post: Codable {
   let address: String
   let price: Int
   var state: String
-  let postImageSet: [PostImage]
+  let photos: [String]
+//  let postImageSet: [PostImage]
 }
 
 // MARK: Extention Post
@@ -46,8 +47,8 @@ extension Post {
     case postId = "id"
     case username, title, content, category
     case viewCount = "view_count"
-    case updated, address, price, state
-    case postImageSet = "post_images"
+    case updated, address, price, state, photos
+//    case postImageSet = "post_images"
   }
 }
 

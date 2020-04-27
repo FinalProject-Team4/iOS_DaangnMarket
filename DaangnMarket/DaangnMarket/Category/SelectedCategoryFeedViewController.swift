@@ -36,11 +36,6 @@ class SelectedCategoryFeedViewController: UIViewController {
   }
   private var cellHeightDictionary: NSMutableDictionary = [:]
   private var nextURL: URL?
-  private var userUpdateTimes = [DateComponents]() {
-    didSet {
-      print(self.userUpdateTimes)
-    }
-  }
   private var selectedCategory: String?
   
   // MARK: Initialieze
@@ -110,7 +105,15 @@ class SelectedCategoryFeedViewController: UIViewController {
       .filter { $0.korean == category }
       .map { $0.rawValue }
       .first ?? "other"
-    let url = URL(string: "http://13.125.217.34/post/list/category/?category=\(category)&page=1&locate=8725")
+
+    let locate = ""
+    let distance = ""
+    print("---locate---", locate)
+    print("---distance---", distance)
+    
+    let url = URL(
+      string: "http://13.125.217.34/post/list?locate=\(locate)&category=\(category)&distance=\(distance)"
+    )
     firstRequest(url: url)
   }
   
@@ -119,27 +122,6 @@ class SelectedCategoryFeedViewController: UIViewController {
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3 ) {
       self.indicator.stopAnimating()
       self.setupTableView()
-      self.tableView.reloadData()
-    }
-  }
-  
-  private func nextRequest(url: URL?) {
-    guard let url = url else { return }
-    AF.request(url, method: .get)
-      .validate()
-      .responseJSON { response in
-        switch response.result {
-        case .success:
-          guard let responseData = response.data else { return }
-          guard let decodeResult = try? JSONDecoder().decode(PostInfo.self, from: responseData) else { return }
-          self.postData += decodeResult.results
-          self.calculateDifferentTime()
-          self.nextURL = URL(string: decodeResult.next ?? "")
-        case .failure(let err):
-          print(err.localizedDescription)
-        }
-    }
-    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3 ) {
       self.tableView.reloadData()
     }
   }
@@ -158,7 +140,6 @@ class SelectedCategoryFeedViewController: UIViewController {
             self.setupEmptyView(category: self.selectedCategory!)
             self.tableView.isHidden = true
           }
-          self.calculateDifferentTime()
           self.nextURL = URL(string: decodeResult.next ?? "")
         case .failure(let err):
           print(err.localizedDescription)
@@ -167,35 +148,23 @@ class SelectedCategoryFeedViewController: UIViewController {
     }
   }
   
-  private func removeNotNeededTimeUnit(_ address: String, _ userUpdateTimes: DateComponents) -> String {
-    var updateTime = String()
-    if userUpdateTimes.day != 0 {
-      if userUpdateTimes.day == 1 {
-        updateTime += "\(address) • 어제"
-      } else {
-        updateTime += "\(address) • \(userUpdateTimes.day!)일 전"
-      }
-    } else if userUpdateTimes.hour != 0 {
-      updateTime += "\(address) • \(userUpdateTimes.hour!)시간 전"
-    } else if userUpdateTimes.minute != 0 {
-      updateTime += "\(address) • \(userUpdateTimes.minute!)분 전"
-    } else if userUpdateTimes.second != 0 {
-      updateTime += "\(address) • \(userUpdateTimes.second!)초 전"
+  private func nextRequest(url: URL?) {
+    guard let url = url else { return }
+    AF.request(url, method: .get)
+      .validate()
+      .responseJSON { response in
+        switch response.result {
+        case .success:
+          guard let responseData = response.data else { return }
+          guard let decodeResult = try? JSONDecoder().decode(PostInfo.self, from: responseData) else { return }
+          self.postData += decodeResult.results
+          self.nextURL = URL(string: decodeResult.next ?? "")
+        case .failure(let err):
+          print(err.localizedDescription)
+        }
     }
-    return updateTime
-  }
-  
-  private func calculateDifferentTime() {
-    let currentTime = Date()
-    for idx in 0..<postData.count {
-      let tempTime = postData[idx].updated.replacingOccurrences(of: "T", with: " ").components(separatedBy: ".")[0]
-      let dateFormatter = DateFormatter()
-      dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-      let updatedTime: Date = dateFormatter.date(from: tempTime) ?? currentTime
-      let calculrate = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)
-      guard let compareTime = calculrate?.components([.day, .hour, .minute, .second], from: updatedTime, to: currentTime, options: [])
-        else { fatalError("castin error") }
-      userUpdateTimes.append(compareTime)
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3 ) {
+      self.tableView.reloadData()
     }
   }
   
@@ -221,7 +190,7 @@ extension SelectedCategoryFeedViewController: UITableViewDataSource {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: "GoodsCell", for: indexPath) as? HomeFeedTableViewCell else { return UITableViewCell() }
     let post = postData[indexPath.row]
     cell.goodsName.text = post.title
-    cell.sellerLoctionAndTime.text = removeNotNeededTimeUnit(post.address, userUpdateTimes[indexPath.row])
+    cell.sellerLoctionAndTime.text = post.address + " • " + PostData.shared.calculateDifferentTime(updated: post.updated)
     cell.goodsPrice.text = "\(post.price)원"
     cell.goodsImageView.image = UIImage(named: ImageReference.noImage.rawValue)
     return cell
@@ -242,9 +211,9 @@ extension SelectedCategoryFeedViewController: UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     guard let productPVC = ViewControllerGenerator.shared.make(.productPost) else { return }
-    let addressTime = removeNotNeededTimeUnit(postData[indexPath.row].address, userUpdateTimes[indexPath.row])
-    PostData.shared.updated = addressTime.components(separatedBy: " • ")[1]
-    PostData.shared.saveData(postData[indexPath.row])
+    let post = postData[indexPath.row]
+    PostData.shared.updated = post.address + " • " + PostData.shared.calculateDifferentTime(updated: post.updated)
+    PostData.shared.saveData(post)
     self.navigationController?.pushViewController(productPVC, animated: true)
   }
 }
