@@ -76,6 +76,8 @@ class WriteUsedViewController: UIViewController {
     }
   }
   
+  var uploadImages: [UIImage] = []
+  
   // MARK: Life Cycle
   
   override func viewDidLoad() {
@@ -117,7 +119,7 @@ class WriteUsedViewController: UIViewController {
     self.navigationController?.navigationBar.barTintColor = .white
     self.navigationController?.navigationBar.tintColor = .black
     self.navigationItem.rightBarButtonItem =
-      UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(create))
+      UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(didTapCreateButton))
     self.navigationItem.leftBarButtonItem =
       UIBarButtonItem(title: "닫기", style: .plain, target: self, action: #selector(dismissVC))
   }
@@ -195,7 +197,7 @@ class WriteUsedViewController: UIViewController {
     dismiss(animated: true, completion: nil)
   }
 
-  @objc private func create() {
+  @objc private func didTapCreateButton() {
     guard let titleCell = self.writeTableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? WriteTableTitleCell else { return }
     let title = titleCell.cellData
     guard let priceCell = self.writeTableView.cellForRow(at: IndexPath(row: 3, section: 0)) as? WriteTablePriceCell else { return }

@@ -28,7 +28,8 @@ enum RequestTown: APIRequest {
     switch self {
     case .search(_, _):
       return host + "/location/locate/search/"
-    case .GPS(_, _, _, _):
+//    case .GPS(_, _, _, _):
+      case .GPS(_, _, _):
       return host + "/location/range/"
     case .distance(_, _):
       return host + "/location/range/"
