@@ -30,7 +30,7 @@ class NoResultOfPersonView: UIView {
     }
     
     private func setupAttributes() {
-      self.backgroundColor = .lightGray
+      self.backgroundColor = UIColor(named: ColorReference.lightBackground.rawValue)
       self.addSubview(label)
     }
     

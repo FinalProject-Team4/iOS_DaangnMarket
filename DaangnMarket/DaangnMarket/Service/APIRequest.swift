@@ -71,3 +71,19 @@ enum RequestMembers: APIRequest {
     }
   }
 }
+
+enum DaangnURL {
+  enum Notification: APIRequest {
+    case registerKey
+    case noticeList
+    
+    var url: String {
+      switch self {
+      case .registerKey:
+        return host + "/fcm/register/"
+      case .noticeList:
+        return host + "/fcm/list/notice/"
+      }
+    }
+  }
+}

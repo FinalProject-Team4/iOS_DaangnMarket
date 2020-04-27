@@ -72,6 +72,15 @@ extension AppDelegate: MessagingDelegate {
   func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
     print("==================== FCM TOKEN ====================\n", fcmToken)
     NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: ["token": fcmToken])
+    guard let authToken = AuthorizationManager.shared.userInfo?.authorization else { return }
+    API.default.requestPushKeyRegister(authToken: authToken, fcmToken: fcmToken) { (result) in
+      switch result {
+      case .success(let value):
+        print("Register Succcess :", value)
+      case .failure(let error):
+        print("Register Fail :", error.localizedDescription)
+      }
+    }
   }
 }
 

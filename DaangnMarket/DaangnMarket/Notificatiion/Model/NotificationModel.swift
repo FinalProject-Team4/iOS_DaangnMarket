@@ -9,6 +9,39 @@
 import Foundation
 
 class NotificationModel {
+  // MARK: Notification
+  
+  static let didResponseActivityNotification = Notification.Name(rawValue: "didResponseActivityNotification")
+  
+  // MARK: Data
+  
+  var notifications = [ActivityNoti]() {
+    didSet {
+      NotificationCenter.default.post(
+        name: NotificationModel.didResponseActivityNotification,
+        object: nil,
+        userInfo: nil
+      )
+    }
+  }
+  
+  private var notiInfo: ActivityNotiInfo?
+  
+  // MARK: Life Cycle
+  
+  init(userInfo: UserInfo) {
+    API.default.requestActivityNoti(token: userInfo.authorization) { (result) in
+      switch result {
+      case .success(let notiInfo):
+        self.notiInfo = notiInfo
+        self.notifications = notiInfo.results
+      case .failure(let error):
+        self.notifications = []
+        print(error)
+      }
+    }
+  }
+  
   var contents = [
     "👀 낙성대동 이웃을 사로잡은 금주의 인기매물, 지금 만 나보세요!하하하하하하하하하",
     "💌 2020년 4월 당근 가계부가 도착했습니다!",
@@ -31,7 +64,8 @@ class NotificationModel {
   ]
   
   func removeContent(at index: Int) {
-    self.contents.remove(at: index)
+//    self.contents.remove(at: index)
+    self.notifications.remove(at: index)
     self.thumbnails.remove(at: index)
   }
 }

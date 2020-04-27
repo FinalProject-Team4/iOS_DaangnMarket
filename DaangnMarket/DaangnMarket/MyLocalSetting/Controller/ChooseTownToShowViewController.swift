@@ -44,7 +44,7 @@ class ChooseTownToShowViewController: UIViewController {
     self.view.addSubview(townAroundView)
     townAroundView.snp.makeConstraints {
       $0.top.equalTo(self.view.safeAreaLayoutGuide)
-      $0.leading.trailing.bottom.equalToSuperview()
+      $0.leading.trailing.equalToSuperview()
     }
   }
   

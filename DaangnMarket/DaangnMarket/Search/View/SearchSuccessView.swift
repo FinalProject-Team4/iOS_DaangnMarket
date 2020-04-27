@@ -1,15 +1,28 @@
 //
-//  SearchResultsView.swift
+//  SearchSuccessView.swift
 //  DaangnMarket
 //
-//  Created by 박지승 on 2020/04/16.
+//  Created by 박지승 on 2020/04/20.
 //  Copyright © 2020 Jisng. All rights reserved.
 //
 
 import UIKit
+//import Kingfisher
 
-// MARK: - Class
-class SearchResultsView: UIView {
+class SearchSuccessView: UIView {
+  // MARK: Interface
+  var searchKeyword = "" {
+    didSet {
+      tableView.reloadData()
+    }
+  }
+  
+  var searchResultPost: [SearchResultPost] = [] {
+    didSet {
+      tableView.reloadData()
+    }
+  }
+  
   // MARK: Views
   private lazy var tableView = UITableView().then {
     $0.backgroundColor = UIColor(named: ColorReference.lightBackground.rawValue)
@@ -18,10 +31,8 @@ class SearchResultsView: UIView {
     $0.register(KeywordNotiTableCell.self, forCellReuseIdentifier: KeywordNotiTableCell.identifier)
     $0.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.identifier)
     $0.register(HomeFeedTableViewCell.self, forCellReuseIdentifier: HomeFeedTableViewCell.identifier)
+    $0.tableFooterView = UIView()
   }
-  
-  // MARK: Model
-  private var dummyData: [String] = []
   
   // MARK: Intialize
   override init(frame: CGRect) {
@@ -45,8 +56,7 @@ class SearchResultsView: UIView {
   
   private func setupConstraints() {
     tableView.snp.makeConstraints {
-      $0.top.equalToSuperview()
-      $0.leading.trailing.bottom.equalToSuperview()
+      $0.edges.size.equalToSuperview()
     }
   }
   
@@ -54,16 +64,10 @@ class SearchResultsView: UIView {
   @objc private func didTapKeywordNoti() {
     //
   }
-  
-  // MARK: Interface
-  func makeProductList(searchText: String) {
-    // 서버 들어올 곳
-    tableView.reloadData()
-  }
 }
 
 // MARK: - Extension
-extension SearchResultsView: UITableViewDataSource {
+extension SearchSuccessView: UITableViewDataSource {
   func numberOfSections(in tableView: UITableView) -> Int {
     3
   }
@@ -74,7 +78,7 @@ extension SearchResultsView: UITableViewDataSource {
     case 1:
       return 1
     case 2:
-      return 20
+      return searchResultPost.count
     default:
       return 0
     }
@@ -84,7 +88,7 @@ extension SearchResultsView: UITableViewDataSource {
     case 0:
       guard let cell = tableView.dequeueReusableCell(withIdentifier: KeywordNotiTableCell.identifier, for: indexPath)
         as? KeywordNotiTableCell else { fallthrough }
-      cell.setupKeywordView(text: "우아아앙")
+      cell.setupKeywordView(text: searchKeyword)
       return cell
     case 1:
       guard let cell = tableView.dequeueReusableCell(withIdentifier: FilterTableViewCell.identifier, for: indexPath)
@@ -92,6 +96,11 @@ extension SearchResultsView: UITableViewDataSource {
       return cell
     case 2:
       guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeFeedTableViewCell.identifier, for: indexPath) as? HomeFeedTableViewCell else { fallthrough }
+      let post = searchResultPost[indexPath.row]
+      cell.goodsName.text = post.title
+      cell.goodsPrice.text = "\(post.price)원"
+      cell.goodsImageView.image = UIImage(named: ImageReference.noImage.rawValue)
+      if !post.photos.isEmpty { cell.goodsImageView.kf.setImage(with: URL(string: post.photos[0])) }
       return cell
     default:
       return UITableViewCell().then { $0.isHidden = true }
@@ -107,8 +116,18 @@ extension SearchResultsView: UITableViewDataSource {
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     return UIView()
   }
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    switch indexPath.section {
+    case 2:
+      return 134
+    default:
+      return UITableView.automaticDimension
+    }
+  }
 }
 
-extension SearchResultsView: UITableViewDelegate {
-  //
+extension SearchSuccessView: UITableViewDelegate {
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    // -> ProductVC'
+  }
 }
