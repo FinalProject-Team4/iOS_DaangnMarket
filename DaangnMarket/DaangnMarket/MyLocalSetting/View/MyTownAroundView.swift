@@ -56,7 +56,7 @@ class MyTownAroundView: UIView {
     $0.image = UIImage(named: "thirdStep")
     $0.alpha = 1.0
   }
-
+  
   // MARK: Initialize
   
   override init(frame: CGRect) {
@@ -66,19 +66,19 @@ class MyTownAroundView: UIView {
   }
   
   deinit {
+    //    noti.removeObserver(
+    //      self,
+    //      name: NSNotification.Name("FirstSelectTownCountView"),
+    //      object: nil
+    //    )
+    //    noti.removeObserver(
+    //      self,
+    //      name: NSNotification.Name("AroundTownCountView"),
+    //      object: nil
+    //    )
     noti.removeObserver(
       self,
-      name: NSNotification.Name("FirstSelectTownCountView"),
-      object: nil
-    )
-    noti.removeObserver(
-      self,
-      name: NSNotification.Name("AroundTownCountView"),
-      object: nil
-    )
-    noti.removeObserver(
-      self,
-      name: NSNotification.Name("AlphaValue"),
+      name: CustomSlider.sliderShouldChangeValueNotification,
       object: nil
     )
   }
@@ -87,7 +87,7 @@ class MyTownAroundView: UIView {
     [
       townCountView, descriptionLabel, distanceSlider, sliderLeftLabel, sliderRightLabel,
       thirdStepTownImageView, secondStepTownImageView, firstStepTownImageView, zeroStepTownImageView
-    ].forEach { self.addSubview($0) }
+      ].forEach { self.addSubview($0) }
     townCountView.snp.makeConstraints {
       $0.centerX.equalToSuperview()
       $0.top.equalToSuperview().offset(26)
@@ -139,29 +139,58 @@ class MyTownAroundView: UIView {
   // MARK: Notification
   
   private func thumbPositionNoti() {
-    noti.addObserver(
-      self,
-      selector: #selector(thumbPositionOnSlide(_:)),
-      name: NSNotification.Name("FirstSelectTownCountView"),
-      object: nil
-    )
-    noti.addObserver(
-      self,
-      selector: #selector(thumbPositionOnSlide(_:)),
-      name: NSNotification.Name("AroundTownCountView"),
-      object: nil
-    )
+    //    noti.addObserver(
+    //      self,
+    //      selector: #selector(thumbPositionOnSlide(_:)),
+    //      name: NSNotification.Name("FirstSelectTownCountView"),
+    //      object: nil
+    //    )
+    //    noti.addObserver(
+    //      self,
+    //      selector: #selector(thumbPositionOnSlide(_:)),
+    //      name: NSNotification.Name("AroundTownCountView"),
+    //      object: nil
+    //    )
     noti.addObserver(
       self,
       selector: #selector(changeImgaesAlpha(_:)),
-      name: NSNotification.Name("AlphaValue"),
+      name: CustomSlider.sliderShouldChangeValueNotification,
       object: nil
     )
   }
   
   @objc private func changeImgaesAlpha(_ sender: Notification) {
-    guard let value = sender.userInfo,
-      let alpha = value["alpha"] as? CGFloat else { print("alpha error"); return }
+    guard let floatValue = sender.userInfo?["value"] as? Int else { return print("alpha error") }
+    self.changeImageAlpha(floatValue)
+  }
+  
+  func changeImageAlpha(_ alpha: Int) {
+    if alpha == 0 {
+      zeroStepTownImageView.alpha = 1
+      firstStepTownImageView.alpha = 1
+      secondStepTownImageView.alpha = 1
+      thirdStepTownImageView.alpha = 1
+    } else if alpha == 1 {
+      zeroStepTownImageView.alpha = 0
+      firstStepTownImageView.alpha = 1
+      secondStepTownImageView.alpha = 1
+      thirdStepTownImageView.alpha = 1
+    } else if alpha == 2 {
+      zeroStepTownImageView.alpha = 0
+      firstStepTownImageView.alpha = 0
+      secondStepTownImageView.alpha = 1
+      thirdStepTownImageView.alpha = 1
+    } else if alpha == 3 {
+      zeroStepTownImageView.alpha = 0
+      firstStepTownImageView.alpha = 0
+      secondStepTownImageView.alpha = 0
+      thirdStepTownImageView.alpha = 1
+    } else {
+      return
+    }
+  }
+  
+  private func changeImageAlpha(_ alpha: CGFloat) {
     if alpha <= 1.0 {
       zeroStepTownImageView.alpha = 1.0 - alpha
     } else if alpha <= 2.0 {
@@ -174,18 +203,23 @@ class MyTownAroundView: UIView {
   // MARK: Action
   
   @objc private func slideAction(_ sender: UISlider) {
-    MyTownSettingViewController.calculateNumberOfAourndTown(MyTownSetting.shared.isFirstTown, sender.value)
+    print("slider value :", sender.value)
+    self.changeImageAlpha(CGFloat(sender.value))
+    
+    // 근처 동네 개수 바꾸기 위함
+//    MyTownSettingViewController.calculateNumberOfAourndTown(MyTownSetting.shared.isFirstTown, sender.value)
   }
-  @objc private func thumbPositionOnSlide(_ sender: Notification) {
-    guard let userInfo = sender.userInfo,
-      let thumbPosition = userInfo["SingleTon"] as? MyTownSetting else { return }
-    switch thumbPosition.isFirstTown {
-    case true:
-      distanceSlider.slider.value = Float(thumbPosition.numberOfAroundTownByFirst.1)
-    case false:
-      distanceSlider.slider.value = Float(thumbPosition.numberOfAroundTownBySecond.1)
-    }
-  }
+  
+  //  @objc private func thumbPositionOnSlide(_ sender: Notification) {
+  //    guard let userInfo = sender.userInfo,
+  //      let thumbPosition = userInfo["SingleTon"] as? MyTownSetting else { return }
+  //    switch thumbPosition.isFirstTown {
+  //    case true:
+  //      distanceSlider.slider.value = Float(thumbPosition.numberOfAroundTownByFirst.1)
+  //    case false:
+  //      distanceSlider.slider.value = Float(thumbPosition.numberOfAroundTownBySecond.1)
+  //    }
+  //  }
   
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")

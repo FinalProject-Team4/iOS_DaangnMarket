@@ -61,8 +61,8 @@ class WelcomeView: UIView {
   
   override init(frame: CGRect) {
     super.init(frame: frame)
-    guard let firstTown = AuthorizationManager.shared.selectedTown?.dong else { return }
-    startViewTopLabel.text = "가입하고 \(firstTown)"
+    guard let firstTown = AuthorizationManager.shared.firstTown else { return }
+    startViewTopLabel.text = "가입하고 \(firstTown.locate.dong)"
     setupUI()
   }
   

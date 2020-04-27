@@ -32,15 +32,15 @@ class TownSelectView: UIView {
     $0.textColor = UIColor(named: ColorReference.noResultImage.rawValue)
   }
   var firstTownSelectBtn = FirstTownSelectButton().then {
-    $0.layer.cornerRadius = 5
+//    $0.layer.cornerRadius = 5
     $0.addTarget(self, action: #selector(didTapSelectTownButton(_:)), for: .touchUpInside)
-    $0.backgroundColor = UIColor(named: ColorReference.daangnMain.rawValue)
+//    $0.backgroundColor = UIColor(named: ColorReference.daangnMain.rawValue)
     }
   var secondTownSelectBtn = SecondTownSelectButton().then {
-    $0.layer.cornerRadius = 5
+//    $0.layer.cornerRadius = 5
     $0.addTarget(self, action: #selector(didTapSelectTownButton(_:)), for: .touchUpInside)
   }
-  var secondTownSetBtn = SecondTownSetButton().then {
+  var addTownBtn = SecondTownSetButton().then {
     $0.addTarget(self, action: #selector(didTapSelectTownButton(_:)), for: .touchUpInside)
     $0.setImage(UIImage(systemName: "plus"), for: .normal)
     $0.tintColor = UIColor(named: ColorReference.noResultImage.rawValue)
@@ -61,7 +61,7 @@ class TownSelectView: UIView {
   private func inViewSetupConstraints() {
     [
       townSelectLabel, townSelectDescribeLabel, partitionLineView,
-      firstTownSelectBtn, secondTownSelectBtn, secondTownSetBtn
+      firstTownSelectBtn, secondTownSelectBtn, addTownBtn
     ].forEach { self.addSubview($0) }
     townSelectLabel.snp.makeConstraints {
       $0.centerX.equalToSuperview()
@@ -89,7 +89,7 @@ class TownSelectView: UIView {
       $0.width.equalTo(172)
       $0.height.equalTo(50)
     }
-    secondTownSetBtn.snp.makeConstraints {
+    addTownBtn.snp.makeConstraints {
       $0.top.equalTo(firstTownSelectBtn)
       $0.trailing.equalTo(self.snp.trailing).offset(-12)
       $0.width.equalTo(172)
@@ -99,106 +99,199 @@ class TownSelectView: UIView {
   
   // MARK: Method
   
-  private func changeSelectedTownBtnColor(_ item: UIView) {
-    item.backgroundColor = UIColor(named: ColorReference.daangnMain.rawValue)
-    item.layer.borderWidth = 1
-    item.layer.borderColor = UIColor(named: ColorReference.daangnMain.rawValue)?.cgColor
-    if item == firstTownSelectBtn {
-      firstTownSelectBtn
-        .selectedFirstTownLabel
-        .textColor = .white
-      firstTownSelectBtn
-        .deleteSelectedFirstTownButton
-        .tintColor = .white
-    } else if item == secondTownSelectBtn {
-      secondTownSelectBtn
-        .selectedSecondTownLabel
-        .textColor = .white
-      secondTownSelectBtn
-        .deleteSelectedSecondTownButton
-        .tintColor = .white
-    }
-  }
-  private func changeUnSelectedTownBtnColor(_ item: UIView) {
-    item.layer.borderWidth = 1
-    item.layer.borderColor = UIColor(named: ColorReference.noResultImage.rawValue)?.cgColor
-    item.backgroundColor = .white
-    if item == firstTownSelectBtn {
-      firstTownSelectBtn
-        .selectedFirstTownLabel
-        .textColor = .black
-      firstTownSelectBtn
-        .deleteSelectedFirstTownButton
-        .tintColor = UIColor(named: ColorReference.noResultImage.rawValue)
-    } else if item == secondTownSelectBtn {
-      secondTownSelectBtn
-        .selectedSecondTownLabel
-        .textColor = .black
-      secondTownSelectBtn
-        .deleteSelectedSecondTownButton
-        .tintColor = UIColor(named: ColorReference.noResultImage.rawValue)
-    }
-  }
+//  private func changeSelectedTownBtnColor(_ item: UIView) {
+//    item.backgroundColor = UIColor(named: ColorReference.daangnMain.rawValue)
+//    item.layer.borderWidth = 1
+//    item.layer.borderColor = UIColor(named: ColorReference.daangnMain.rawValue)?.cgColor
+//    if item == firstTownSelectBtn {
+//      firstTownSelectBtn
+//        .selectedFirstTownLabel
+//        .textColor = .white
+//      firstTownSelectBtn
+//        .deleteSelectedFirstTownButton
+//        .tintColor = .white
+//    } else if item == secondTownSelectBtn {
+//      secondTownSelectBtn
+//        .selectedSecondTownLabel
+//        .textColor = .white
+//      secondTownSelectBtn
+//        .deleteSelectedSecondTownButton
+//        .tintColor = .white
+//    }
+//  }
+//  private func changeUnSelectedTownBtnColor(_ item: UIView) {
+//    item.layer.borderWidth = 1
+//    item.layer.borderColor = UIColor(named: ColorReference.noResultImage.rawValue)?.cgColor
+//    item.backgroundColor = .white
+//    if item == firstTownSelectBtn {
+//      firstTownSelectBtn
+//        .selectedFirstTownLabel
+//        .textColor = .black
+//      firstTownSelectBtn
+//        .deleteSelectedFirstTownButton
+//        .tintColor = UIColor(named: ColorReference.noResultImage.rawValue)
+//    } else if item == secondTownSelectBtn {
+//      secondTownSelectBtn
+//        .selectedSecondTownLabel
+//        .textColor = .black
+//      secondTownSelectBtn
+//        .deleteSelectedSecondTownButton
+//        .tintColor = UIColor(named: ColorReference.noResultImage.rawValue)
+//    }
+//  }
   
   // MARK: Action
 
   @objc func didTapSelectTownButton(_ sender: UIButton) {
-    defer {
-      noti.post(
-        name: NSNotification.Name("AroundTownCountView"),
-        object: nil,
-        userInfo: [
-          "SingleTon": MyTownSetting.shared
-        ]
-      )
-    }
+//    defer {
+//      noti.post(
+//        name: NSNotification.Name("AroundTownCountView"),
+//        object: nil,
+//        userInfo: [
+//          "SingleTon": MyTownSetting.shared
+//        ]
+//      )
+//    }
+    
     switch sender {
     case firstTownSelectBtn:
-      MyTownSetting.shared.register(isFirstTown: true)
-      noti.post(
-        name: NSNotification.Name("FirstSelectTownCountView"),
-        object: nil
-      )
-      print(MyTownSetting.shared.numberOfAroundTownByFirst)
-      changeBtnColor(firstTownSelectBtn)
+      self.setupFirstTown()
+      
+//      MyTownSetting.shared.register(isFirstTown: true)
+//      noti.post(
+//        name: NSNotification.Name("FirstSelectTownCountView"),
+//        object: nil
+//      )
+//      print(MyTownSetting.shared.numberOfAroundTownByFirst)
+      
+//      changeBtnColor(firstTownSelectBtn)
       willDisplayUpperAlert(.firstBtn)
     case secondTownSelectBtn:
-      MyTownSetting.shared.register(isFirstTown: false)
-      noti.post(
-        name: NSNotification.Name("SecondSelectTownCountView"),
-        object: nil
-      )
-      print(MyTownSetting.shared.numberOfAroundTownBySecond)
-      changeBtnColor(secondTownSelectBtn)
+      self.setupSecondTown()
+      
+//      MyTownSetting.shared.register(isFirstTown: false)
+//      noti.post(
+//        name: NSNotification.Name("SecondSelectTownCountView"),
+//        object: nil
+//      )
+//      print(MyTownSetting.shared.numberOfAroundTownBySecond)
+//      changeBtnColor(secondTownSelectBtn)
       willDisplayUpperAlert(.secondBtn)
-    case secondTownSetBtn:
+    case addTownBtn:
       self.delegate?.secondTownSetBtn(sender)
-    default: break
+    default:
+      return
     }
+    changeBtnColor(sender)
   }
+  
+  func setupFirstTown() {
+    let manager = AuthorizationManager.shared
+    guard let firstTown = manager.firstTown else { return }
+    
+    // Slider 위치 설정
+    let aroundView = self.superview?
+      .subviews
+      .compactMap { $0 as? MyTownAroundView }
+      .first
+      
+    let sliderValue = Float(firstTown.distance / 1_200) - 1
+    aroundView?.distanceSlider
+      .slider
+      .value = sliderValue
+    
+    // 현재 동네 이름 설정
+    aroundView?.townCountView.myTownLabel.text = firstTown.locate.dong
+    
+    // 근처 동네 개수 설정
+    let filtered = manager.firstAroundTown
+      .filter { ($0.distance ?? 0) <= 1_200 * (Double(sliderValue) + 2) }
+    let townCount = NSMutableAttributedString()
+      .underlineBold(
+        "근처 동네 \(filtered.count)개",
+        fontSize: 17
+    )
+    self.superview?
+      .subviews
+      .compactMap { $0 as? MyTownAroundView }
+      .first?
+      .townCountView
+      .aroundTownCountBtn
+      .setAttributedTitle(townCount, for: .normal)
+    
+    // Activate 상태 설정
+    manager.updateFirstTown(activated: true)
+    manager.updateSecondTown(activated: false)
+  }
+  
+  func setupSecondTown() {
+    let manager = AuthorizationManager.shared
+    guard let secondTown = manager.secondTown else { return }
+    
+    // Slider 설정
+    let aroundView = self.superview?
+      .subviews
+      .compactMap { $0 as? MyTownAroundView }
+      .first
+      
+    let sliderValue = Float(secondTown.distance / 1_200) - 1
+    aroundView?.distanceSlider
+      .slider
+      .value = sliderValue
+    
+    // 현재 동네 이름 설정
+    aroundView?.townCountView.myTownLabel.text = secondTown.locate.dong
+    
+    // 근처 동네 개수 설정
+    let filtered = manager.secondAroundTown
+      .filter { ($0.distance ?? 0) <= 1_200 * (Double(sliderValue) + 2) }
+    let townCount = NSMutableAttributedString()
+      .underlineBold(
+        "근처 동네 \(filtered.count)개",
+        fontSize: 17
+    )
+    self.superview?
+      .subviews
+      .compactMap { $0 as? MyTownAroundView }
+      .first?
+      .townCountView
+      .aroundTownCountBtn
+      .setAttributedTitle(townCount, for: .normal)
+    
+    // Activate 상태 설정
+    manager.updateFirstTown(activated: false)
+    manager.updateSecondTown(activated: true)
+  }
+  
   @objc func hidePlusImage() {
     secondTownSelectBtn.setImage(UIImage(), for: .normal)
   }
+  
   func changeBtnColor(_ sender: UIButton) {
-    switch sender {
-    case firstTownSelectBtn:
-      changeSelectedTownBtnColor(firstTownSelectBtn)
-      changeUnSelectedTownBtnColor(secondTownSelectBtn)
-    case secondTownSelectBtn:
-      if !MyTownSetting.shared.secondSelectTown.isEmpty {
-        changeSelectedTownBtnColor(secondTownSelectBtn)
-        changeUnSelectedTownBtnColor(firstTownSelectBtn)
-      }
-    default: break
-    }
+    self.firstTownSelectBtn.isSelected = sender is FirstTownSelectButton
+    self.secondTownSelectBtn.isSelected = sender is SecondTownSelectButton
+//    switch sender {
+//    case firstTownSelectBtn:
+////      changeSelectedTownBtnColor(firstTownSelectBtn)
+////      changeUnSelectedTownBtnColor(secondTownSelectBtn)
+//    case secondTownSelectBtn:
+//      if !MyTownSetting.shared.secondSelectTown.isEmpty {
+//        changeSelectedTownBtnColor(secondTownSelectBtn)
+//        changeUnSelectedTownBtnColor(firstTownSelectBtn)
+//      }
+//    default: break
+//    }
   }
+  
   private func willDisplayUpperAlert(_ selectButton: MyTownSetting.UpperAlerCallBtn) {
+    let dong: String
     switch selectButton {
     case .firstBtn:
-      upperAlert.show(message: "\(MyTownSetting.shared.firstSelectTown)으로 설정되었습니다.")
+      dong = AuthorizationManager.shared.firstTown?.locate.dong ?? "unknown"
     case .secondBtn:
-      upperAlert.show(message: "\(MyTownSetting.shared.secondSelectTown)으로 설정되었습니다.")
+      dong = AuthorizationManager.shared.secondTown?.locate.dong ?? "unknown"
     }
+    upperAlert.show(message: "\(dong)으로 설정되었습니다.")
   }
   
   required init?(coder: NSCoder) {

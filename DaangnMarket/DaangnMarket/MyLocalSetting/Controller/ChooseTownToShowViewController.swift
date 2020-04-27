@@ -54,17 +54,17 @@ class ChooseTownToShowViewController: UIViewController {
   
   // MARK: Method
   private func saveTownsInfo(_ isFirstTowns: Bool) {
-    if let firstTown = AuthorizationManager.shared.selectedTown {
-      MyTownSetting.shared.firstSelectTown = firstTown.dong
+    if let firstTown = AuthorizationManager.shared.firstTown {
+      MyTownSetting.shared.firstSelectTown = firstTown.locate.dong
     }
-    if let secondTown = AuthorizationManager.shared.anotherTown {
-      MyTownSetting.shared.secondSelectTown = secondTown.dong
+    if let secondTown = AuthorizationManager.shared.secondTown {
+      MyTownSetting.shared.secondSelectTown = secondTown.locate.dong
       noti.post(name: NSNotification.Name("anotherTownSecondTownBtn"), object: nil)
     }
-    postNotificationForDefineMyTown(isFirstTowns)
+    postNotificationForDefineAroundTown(isFirstTowns)
   }
   
-  private func postNotificationForDefineMyTown(_ isFirstTown: Bool) {
+  private func postNotificationForDefineAroundTown(_ isFirstTown: Bool) {
     print("first town", MyTownSetting.shared.firstSelectTown)
     switch isFirstTown {
     case true:
