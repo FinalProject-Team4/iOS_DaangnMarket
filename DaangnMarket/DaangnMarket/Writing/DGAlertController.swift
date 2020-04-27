@@ -70,6 +70,7 @@ class DGAlertController: UIViewController {
   private func setUI() {
     let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapViewGesture(_:)))
     self.view.addGestureRecognizer(tapGesture)
+    self.modalPresentationStyle = .overFullScreen
     view.backgroundColor = UIColor.gray.withAlphaComponent(0.6)
     view.addSubview(alertView)
     alertView.snp.makeConstraints {

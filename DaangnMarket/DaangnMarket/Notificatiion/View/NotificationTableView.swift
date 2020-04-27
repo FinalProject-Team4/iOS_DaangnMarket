@@ -26,8 +26,13 @@ class NotificationTableView: UIView {
     }
   }
   
-  func reloadKeyword() {
-    self.keywordNotiTableView.reloadData()
+  func reloadData(for type: NotificationType) {
+    switch type {
+    case .activity:
+      self.activityNotiTableView.reloadData()
+    case .keyword:
+      self.keywordNotiTableView.reloadData()
+    }
   }
   
   func setEditing(_ editing: Bool) {
