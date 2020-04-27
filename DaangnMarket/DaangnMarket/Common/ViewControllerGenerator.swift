@@ -49,7 +49,7 @@ class ViewControllerGenerator {
     case .phoneAuth:
       return UINavigationController(rootViewController: AuthViewController())
     case .signUp:
-      guard let idToken = parameters["idToken"] as? String else { return nil }
+      guard let idToken = parameters["id_token"] as? String else { return nil }
       return UINavigationController(rootViewController: ConfigProfileViewController(idToken: idToken))
     case .townSetting:
       return UINavigationController(rootViewController: MyTownSettingViewController())
