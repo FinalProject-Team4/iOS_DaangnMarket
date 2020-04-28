@@ -38,7 +38,10 @@ class PopoverViewController: UIViewController {
     getTownsName()
     setupSelectedState()
     setupConstraint()
-//    didTapTownButton(UIButton())
+    print(MyTownSetting.shared.towns.count)
+    print(MyTownSetting.shared.towns["second"])
+//    didTapButtonForHomeFeed(UIButton())
+    changeSelectTownBtnFont(MyTownSetting.shared.isFirstTown)
   }
   
   override func viewWillAppear(_ animated: Bool) {

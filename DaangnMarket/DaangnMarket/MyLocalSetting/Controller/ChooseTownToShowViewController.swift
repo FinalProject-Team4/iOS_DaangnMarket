@@ -57,9 +57,9 @@ class ChooseTownToShowViewController: UIViewController {
     if let firstTown = AuthorizationManager.shared.firstTown {
       MyTownSetting.shared.firstSelectTown = firstTown.locate.dong
     }
-    if let secondTown = AuthorizationManager.shared.secondTown {
-      MyTownSetting.shared.secondSelectTown = secondTown.locate.dong
-      noti.post(name: NSNotification.Name("anotherTownSecondTownBtn"), object: nil)
+    if let secondTown = AuthorizationManager.shared.anotherTown {
+      MyTownSetting.shared.secondSelectTown = secondTown.dong
+//      noti.post(name: NSNotification.Name("anotherTownSecondTownBtn"), object: nil)
     }
     postNotificationForDefineAroundTown(isFirstTowns)
   }

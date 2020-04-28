@@ -97,10 +97,10 @@ extension SearchSuccessView: UITableViewDataSource {
     case 2:
       guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeFeedTableViewCell.identifier, for: indexPath) as? HomeFeedTableViewCell else { fallthrough }
       let post = searchResultPost[indexPath.row]
-      cell.goodsName.text = post.title
-      cell.goodsPrice.text = "\(post.price)원"
-      cell.goodsImageView.image = UIImage(named: ImageReference.noImage.rawValue)
-      if !post.photos.isEmpty { cell.goodsImageView.kf.setImage(with: URL(string: post.photos[0])) }
+//      cell.goodsName.text = post.title
+//      cell.goodsPrice.text = "\(post.price)원"
+//      cell.goodsImageView.image = UIImage(named: ImageReference.noImage.rawValue)
+//      if !post.photos.isEmpty { cell.goodsImageView.kf.setImage(with: URL(string: post.photos[0])) }
       return cell
     default:
       return UITableViewCell().then { $0.isHidden = true }
