@@ -124,6 +124,7 @@ extension SearchSuccessView: UITableViewDataSource {
 
 extension SearchSuccessView: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    // -> ProductVC'
+    guard let productPostVC = ViewControllerGenerator.shared.make(.productPost, parameters: ["postData": searchResultPost[indexPath.row]]) else { return }
+    self.parentViewController?.navigationController?.pushViewController(productPostVC, animated: true)
   }
 }
