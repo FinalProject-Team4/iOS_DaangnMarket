@@ -103,18 +103,26 @@ class HomeFeedTableViewCell: UITableViewCell {
   // MARK: Method
   private func removeNotNeededTimeUnit(_ address: String, _ userUpdateTimes: DateComponents) -> String {
     var updateTime = String()
+    var filteredAddress = String()
+    if address != "None" {
+      filteredAddress = address.components(separatedBy: "구 ")[1]
+      print()
+    } else {
+      filteredAddress = "패캠동"
+    }
+    
     if userUpdateTimes.day != 0 {
       if userUpdateTimes.day == 1 {
-        updateTime += "\(address) • 어제"
+        updateTime += "\(filteredAddress) • 어제"
       } else {
-        updateTime += "\(address) • \(userUpdateTimes.day!)일 전"
+        updateTime += "\(filteredAddress) • \(userUpdateTimes.day!)일 전"
       }
     } else if userUpdateTimes.hour != 0 {
-      updateTime += "\(address) • \(userUpdateTimes.hour!)시간 전"
+      updateTime += "\(filteredAddress) • \(userUpdateTimes.hour!)시간 전"
     } else if userUpdateTimes.minute != 0 {
-      updateTime += "\(address) • \(userUpdateTimes.minute!)분 전"
+      updateTime += "\(filteredAddress) • \(userUpdateTimes.minute!)분 전"
     } else if userUpdateTimes.second != 0 {
-      updateTime += "\(address) • \(userUpdateTimes.second!)초 전"
+      updateTime += "\(filteredAddress) • \(userUpdateTimes.second!)초 전"
     }
     return updateTime
   }

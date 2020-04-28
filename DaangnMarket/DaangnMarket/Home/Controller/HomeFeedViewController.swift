@@ -132,7 +132,7 @@ class HomeFeedViewController: UIViewController {
       case .success(let postInfoData):
         self.posts += postInfoData.results
         self.nextPageURL = postInfoData.next
-        self.calculateDifferentTime()
+//        self.calculateDifferentTime()
       case .failure(let error):
         print(error.localizedDescription)
       }
@@ -150,7 +150,7 @@ class HomeFeedViewController: UIViewController {
      self.customNaviBar.delegate = self
    }
   
-  private func cellPostGoodsImage(_ cell: HomeFeedTableViewCell, _ indexPath: IndexPath) {
+//  private func cellPostGoodsImage(_ cell: HomeFeedTableViewCell, _ indexPath: IndexPath) {
 //    if posts[indexPath.row].photos.isEmpty {
 ////    if posts[indexPath.row].postImageSet.isEmpty {
 //      cell.goodsImageView.image = UIImage(named: "DaanggnMascot")
@@ -158,44 +158,53 @@ class HomeFeedViewController: UIViewController {
 //      cell.goodsImageView.kf.setImage(with: URL(string: posts[indexPath.row].photos[0]))
 ////      cell.goodsImageView.kf.setImage(with: URL(string: posts[indexPath.row].postImageSet[0].photo))
 //    }
-  }
+//  }
   
-  func removeNotNeededTimeUnit(_ address: String, _ userUpdateTimes: DateComponents) -> String {
-    var updateTime = String()
-    if userUpdateTimes.day != 0 {
-      if userUpdateTimes.day == 1 {
-        updateTime += "\(address) • 어제"
-      } else {
-        updateTime += "\(address) • \(userUpdateTimes.day!)일 전"
-      }
-    } else if userUpdateTimes.hour != 0 {
-      updateTime += "\(address) • \(userUpdateTimes.hour!)시간 전"
-    } else if userUpdateTimes.minute != 0 {
-      updateTime += "\(address) • \(userUpdateTimes.minute!)분 전"
-    } else if userUpdateTimes.second != 0 {
-      updateTime += "\(address) • \(userUpdateTimes.second!)초 전"
-    }
-    return updateTime
-  }
+//  func removeNotNeededTimeUnit(_ address: String, _ userUpdateTimes: DateComponents) -> String {
+//    var updateTime = String()
+//    var filteredAddress = String()
+//    if address != "None" {
+//      filteredAddress = address.components(separatedBy: "구 ")[1]
+//      print()
+//    } else {
+//      filteredAddress = "패캠동"
+//    }
+//
+//    if userUpdateTimes.day != 0 {
+//      if userUpdateTimes.day == 1 {
+//        updateTime += "\(filteredAddress) • 어제"
+//      } else {
+//        updateTime += "\(filteredAddress) • \(userUpdateTimes.day!)일 전"
+//      }
+//    } else if userUpdateTimes.hour != 0 {
+//      updateTime += "\(filteredAddress) • \(userUpdateTimes.hour!)시간 전"
+//    } else if userUpdateTimes.minute != 0 {
+//      updateTime += "\(filteredAddress) • \(userUpdateTimes.minute!)분 전"
+//    } else if userUpdateTimes.second != 0 {
+//      updateTime += "\(filteredAddress) • \(userUpdateTimes.second!)초 전"
+//    }
+//    return updateTime
+//  }
   
-  private func calculateDifferentTime() {
-    let currentTime = Date()
-    for idx in 0..<posts.count {
-      let tempTime = posts[idx].updated.replacingOccurrences(of: "T", with: " ").components(separatedBy: ".")[0]
-      let dateFormatter = DateFormatter()
-      dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-      let updatedTime: Date = dateFormatter.date(from: tempTime) ?? currentTime
-      let calculrate = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)
-      guard let compareTime = calculrate?.components(
-        [.day, .hour, .minute, .second],
-        from: updatedTime,
-        to: currentTime,
-        options: []
-      )
-      else { fatalError("castin error") }
-      userUpdateTimes.append(compareTime)
-    }
-  }
+//  private func calculateDifferentTime() {
+//    let currentTime = Date()
+//    for idx in 0..<posts.count {
+//      let tempTime = posts[idx].created.replacingOccurrences(of: "T", with: " ").components(separatedBy: ".")[0]
+////      let tempTime = posts[idx].updated.replacingOccurrences(of: "T", with: " ").components(separatedBy: ".")[0]
+//      let dateFormatter = DateFormatter()
+//      dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+//      let updatedTime: Date = dateFormatter.date(from: tempTime) ?? currentTime
+//      let calculrate = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)
+//      guard let compareTime = calculrate?.components(
+//        [.day, .hour, .minute, .second],
+//        from: updatedTime,
+//        to: currentTime,
+//        options: []
+//      )
+//      else { fatalError("castin error") }
+//      userUpdateTimes.append(compareTime)
+//    }
+//  }
   
   // MARK: Present
   
