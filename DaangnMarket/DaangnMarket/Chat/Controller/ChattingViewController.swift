@@ -61,9 +61,10 @@ class ChattingViewController: UIViewController {
     category: "digital",
     viewCount: 10,
     updated: "",
+    created: "",
+    likes: 1,
     address: "성수",
     price: 450_000,
-    likes: 1,
     state: "sales",
     photos: ["image1"]
   )
