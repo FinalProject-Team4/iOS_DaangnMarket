@@ -10,6 +10,13 @@ import UIKit
 import MapKit
 import Alamofire
 
+struct SaveLocate: Codable {
+  let locate: String
+  let distance: String
+  let verified: String
+  let activated: String
+}
+
 class TownAuthorizationViewController: UIViewController {
   // MARK: Views
   private let mapView = MKMapView().then {
@@ -83,6 +90,10 @@ class TownAuthorizationViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     setupUI()
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
     checkAuthorizationStatus()
   }
   
@@ -94,8 +105,6 @@ class TownAuthorizationViewController: UIViewController {
   // MARK: Initialize
   init(_ selectedAddress: String) {
     super.init(nibName: nil, bundle: nil)
-    // 1. check locationManager -> setUI? / Alert
-    
     // 2. check adress <-> longi,lati adress
     checkGPSAdress { result in
       switch result {
@@ -104,7 +113,6 @@ class TownAuthorizationViewController: UIViewController {
       case .failure(let err):
         print(err.localizedDescription)
       }
-      //      self.setupUI()
       for town in self.currentTownList {
         if "서초동" == town {
           //        if selectedAddress == town {
@@ -122,7 +130,7 @@ class TownAuthorizationViewController: UIViewController {
   }
   
   private func setupUI() {
-    checkAuthorizationStatus()
+//    checkAuthorizationStatus()
     setupAttributes()
     setupConstraints()
   }
@@ -257,7 +265,6 @@ class TownAuthorizationViewController: UIViewController {
     listView.viewDelegate = self
     let alert = DGAlertController(title: "현재 위치에 있는 동네는 아래와 같아요. 변경하려는 동네를 선택해주세요.", view: listView)
     let okButton = DGAlertAction(title: "동네 변경", style: .orange) {
-      //      self.changeCurrentTownLabel()
       alert.dismiss(animated: false)
     }
     let cancelButton = DGAlertAction(title: "취소", style: .white) {
@@ -276,26 +283,30 @@ class TownAuthorizationViewController: UIViewController {
     // get -> My Location List/locate/id <-> selecte locate id 비교
     // post -> My Location Save
     // AuthorizationManager.updateSecondTown
+    print("----------------!!!!!!!------------------")
+    print("----------------!!!!!!!------------------")
+    print("----------------!!!!!!!------------------")
+    print("----------------!!!!!!!------------------")
+    print("----------------!!!!!!!------------------")
     print("선택한 동네가 유저의 첫번째 동네와 동일하면 따로 추가 X, 다르면 유저의 두번째 동네로 추가하면서 dismiss -> toast alert -> HomeFeedVC")
-    if userSelectedCurrentTown == AuthorizationManager.shared.firstTown?.locate.dong ||
-      userSelectedCurrentTown == AuthorizationManager.shared.secondTown?.locate.dong
-      {
-        
-    } else {
-      
-    }
-    AF.reque
+    print("----------------!!!!!!!------------------")
+    print("----------------!!!!!!!------------------")
+    print("----------------!!!!!!!------------------")
+    print("----------------!!!!!!!------------------")
+    print("----------------!!!!!!!------------------")
   }
   
   // MARK: Methods
   private func setAlert() {
-    self.present(CategoryViewController(), animated: true)
     let alert = UIAlertController(title: "위치정보 이용에 대한 엑세스 권한이 없습니당.", message: "앱 설정으로 가서 액세스 권한을 수정 하실 수가 있습니당. 이동하시겠나요?", preferredStyle: .alert)
-    let cancelAction = UIAlertAction(title: "", style: .cancel) { _ in
-      //
+    let cancelAction = UIAlertAction(title: "취소", style: .cancel) { _ in
+      self.dismiss(animated: true)
     }
     let okAction = UIAlertAction(title: "예", style: .default) { _ in
-      //
+      guard let url = URL(string: UIApplication.openSettingsURLString),
+      UIApplication.shared.canOpenURL(url) else { return }
+      UIApplication.shared.open(url)
+      self.dismiss(animated: true)
     }
     alert.addAction(cancelAction)
     alert.addAction(okAction)
@@ -344,25 +355,15 @@ class TownAuthorizationViewController: UIViewController {
 
 // MARK: Extension
 extension TownAuthorizationViewController: CLLocationManagerDelegate {
+  func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+    //
+  }
   func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
     let current = locations.last!
     let coordinate = current.coordinate
     let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
     let region = MKCoordinateRegion(center: coordinate, span: span)
     mapView.setRegion(region, animated: true)
-    
-    //    guard let url = URL(string: "http://13.125.217.34/location/range?lati=\(coordinate.latitude)&longi=\(coordinate.longitude)&distance=1000") else { return }
-    //    AF.request(url)
-    //      .validate()
-    //      .responseDecodable { (response: DataResponse<TownInfo, AFError>) in
-    //        switch response.result {
-    //        case .success(let data):
-    //          self.currentTownList = data.results.map { $0.dong }
-    //        case .failure(let err):
-    //          print(err)
-    //        }
-    //    }
-    //    self.locationManager.stopUpdatingLocation()
   }
 }
 
