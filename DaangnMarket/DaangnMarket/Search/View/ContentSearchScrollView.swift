@@ -37,7 +37,7 @@ class ContentSearchScrollView: UIScrollView {
     usedDealView.updateFailKeyword(text)
     townInfoView.updateFailKeyword(text)
   }
-  func searchResultPost(_ post: [SearchResultPost]) {
+  func searchResultPost(_ post: [Post]) {
     usedDealView.searchResultPost(post)
   }
   

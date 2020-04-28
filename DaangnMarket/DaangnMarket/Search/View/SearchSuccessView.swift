@@ -17,7 +17,7 @@ class SearchSuccessView: UIView {
     }
   }
   
-  var searchResultPost: [SearchResultPost] = [] {
+  var searchResultPost: [Post] = [] {
     didSet {
       tableView.reloadData()
     }
@@ -96,11 +96,7 @@ extension SearchSuccessView: UITableViewDataSource {
       return cell
     case 2:
       guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeFeedTableViewCell.identifier, for: indexPath) as? HomeFeedTableViewCell else { fallthrough }
-      let post = searchResultPost[indexPath.row]
-//      cell.goodsName.text = post.title
-//      cell.goodsPrice.text = "\(post.price)원"
-//      cell.goodsImageView.image = UIImage(named: ImageReference.noImage.rawValue)
-//      if !post.photos.isEmpty { cell.goodsImageView.kf.setImage(with: URL(string: post.photos[0])) }
+      cell.setupHomeFeedCell(posts: searchResultPost, indexPath: indexPath)
       return cell
     default:
       return UITableViewCell().then { $0.isHidden = true }
@@ -128,6 +124,7 @@ extension SearchSuccessView: UITableViewDataSource {
 
 extension SearchSuccessView: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    // -> ProductVC'
+    guard let productPostVC = ViewControllerGenerator.shared.make(.productPost, parameters: ["postData": searchResultPost[indexPath.row]]) else { return }
+    self.parentViewController?.navigationController?.pushViewController(productPostVC, animated: true)
   }
 }
