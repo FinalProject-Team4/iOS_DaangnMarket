@@ -86,16 +86,16 @@ class DGAlertController: UIViewController {
     }
     alertView.addSubview(newView)
     newView.snp.makeConstraints {
-      $0.top.equalTo(titleLabel.snp.bottom).offset(18)
-      $0.bottom.equalTo(buttonsView.snp.top).offset(-24)
+      $0.top.equalTo(titleLabel.snp.bottom).offset(20)
+      $0.bottom.equalTo(buttonsView.snp.top).offset(-20)
       $0.leading.trailing.equalTo(titleLabel)
       $0.height.equalTo(120)
     }
   }
   
   private func setUI() {
-    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapViewGesture(_:)))
-    self.view.addGestureRecognizer(tapGesture)
+//    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapViewGesture(_:)))
+//    self.view.addGestureRecognizer(tapGesture)
     self.modalPresentationStyle = .overFullScreen
     view.backgroundColor = UIColor.gray.withAlphaComponent(0.6)
     view.addSubview(alertView)

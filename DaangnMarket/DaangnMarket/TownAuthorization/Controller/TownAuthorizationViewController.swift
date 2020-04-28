@@ -75,6 +75,7 @@ class TownAuthorizationViewController: UIViewController {
         .normal("에 있습니다.", fontSize: 16)
       noticeLabel.isHidden = true
       changeLocationButton.isHidden = true
+      successButton.isHidden = false
     }
   }
   
@@ -276,6 +277,14 @@ class TownAuthorizationViewController: UIViewController {
     // post -> My Location Save
     // AuthorizationManager.updateSecondTown
     print("선택한 동네가 유저의 첫번째 동네와 동일하면 따로 추가 X, 다르면 유저의 두번째 동네로 추가하면서 dismiss -> toast alert -> HomeFeedVC")
+    if userSelectedCurrentTown == AuthorizationManager.shared.firstTown?.locate.dong ||
+      userSelectedCurrentTown == AuthorizationManager.shared.secondTown?.locate.dong
+      {
+        
+    } else {
+      
+    }
+    AF.reque
   }
   
   // MARK: Methods
@@ -358,9 +367,7 @@ extension TownAuthorizationViewController: CLLocationManagerDelegate {
 }
 
 extension TownAuthorizationViewController: CurrentTownListViewDelegate {
-  func selectedTag(_ tag: Int) {
-    print("--------------------------------------")
-    userSelectedCurrentTown = currentTownList[tag]
-    print(userSelectedCurrentTown)
+  func selectedTown(_ town: String) {
+    userSelectedCurrentTown = town
   }
 }
