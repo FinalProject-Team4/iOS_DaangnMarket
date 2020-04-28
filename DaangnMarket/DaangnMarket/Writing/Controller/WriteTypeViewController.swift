@@ -12,36 +12,7 @@ class WriteTypeViewController: UIViewController {
   private let selectTypeView = UIView().then {
     $0.backgroundColor = .white
   }
-  
-  override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-    guard let touchPoint = touches.first?.location(in: selectTypeView) else { return }
-    if usedMarket.frame.contains(touchPoint) {
-      self.dismiss(animated: false)
-      guard let presentingVC = presentingViewController as? UITabBarController else { return }
-      if let idToken = AuthorizationManager.shared.userInfo?.authorization {
-        guard let writeUsedVC = ViewControllerGenerator.shared.make(.writeUsed, parameters: ["id_token": idToken]) else { return }
-        writeUsedVC.modalPresentationStyle = .fullScreen
-        presentingVC.present(writeUsedVC, animated: true)
-      } else {
-        let alert = DGAlertController(title: "회원가입 또는 로그인후 이용할 수 있습니다.")
-        let signInAction = DGAlertAction(title: "로그인/가입", style: .orange) {
-          print("어~디로~가야하죠~아저씨~")
-        }
-        let cancelAction = DGAlertAction(title: "취소", style: .white) {
-          self.dismiss(animated: false)
-        }
-        [signInAction, cancelAction].forEach { alert.addAction($0) }
-        presentingVC.present(alert, animated: true)
-      }
-    } else if townLife.frame.contains(touchPoint) {
-      print("동네생활 비활성화")
-    } else if townAD.frame.contains(touchPoint) {
-      print("동네홍보 비활성화")
-    } else {
-      dismiss(animated: false, completion: nil)
-    }
-  }
-  
+
   private let usedMarket = WriteTypeButtonView(
     image: UIImage(systemName: "bag")!,
     title: "중고거래",
@@ -71,6 +42,9 @@ class WriteTypeViewController: UIViewController {
     $0.backgroundColor = .red
   }
   
+  private var idToken: String
+  
+  // MARK: LifeCycle
   override func viewDidLoad() {
     super.viewDidLoad()
     setupUI()
@@ -90,6 +64,16 @@ class WriteTypeViewController: UIViewController {
     [usedMarket, townLife, townAD].forEach {
       $0.layer.addBorder(edge: .bottom, color: UIColor(named: ColorReference.borderLine.rawValue)!, thickness: 1)
     }
+  }
+  
+  // MARK: Initialize
+  init(token: String) {
+    idToken = token
+    super.init(nibName: nil, bundle: nil)
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
   }
   
   private func setupUI() {
@@ -129,6 +113,23 @@ class WriteTypeViewController: UIViewController {
     }
     townAD.snp.makeConstraints {
       $0.top.equalTo(townLife.snp.bottom)
+    }
+  }
+  
+  override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    guard let touchPoint = touches.first?.location(in: selectTypeView) else { return }
+    if usedMarket.frame.contains(touchPoint) {
+      self.dismiss(animated: false)
+      guard let presentingVC = presentingViewController as? UITabBarController else { return }
+      guard let writeUsedVC = ViewControllerGenerator.shared.make(.writeUsed, parameters: ["id_token": idToken]) else { return }
+      writeUsedVC.modalPresentationStyle = .fullScreen
+      presentingVC.present(writeUsedVC, animated: true)
+    } else if townLife.frame.contains(touchPoint) {
+      print("동네생활 비활성화")
+    } else if townAD.frame.contains(touchPoint) {
+      print("동네홍보 비활성화")
+    } else {
+      dismiss(animated: false, completion: nil)
     }
   }
 }

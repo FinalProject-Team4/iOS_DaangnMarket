@@ -206,10 +206,10 @@ class WriteUsedViewController: UIViewController {
         "title": title,
         "content": content,
         "category": categoryFilter(currentCategory),
-        "price": price,
+        "price": String(price),
         "photos": imgDatas,
-        "locate": 1_011,
-        "distance": 2_000
+        "locate": String(1_011),
+        "distance": String(2_000)
       ]
       request(parameters, [header]) { _ in
         self.dismissVC()
