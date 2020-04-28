@@ -24,12 +24,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     self.window = UIWindow(frame: UIScreen.main.bounds)
     self.window?.rootViewController = ViewControllerGenerator.shared.make(.launch)
     self.window?.makeKeyAndVisible()
-    
     UNUserNotificationCenter.current().delegate = self
     Messaging.messaging().delegate = self
     UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound], completionHandler: { (_, _) in })
     application.registerForRemoteNotifications()
     
+    if let notification = launchOptions?[.remoteNotification] as? [String: AnyObject], let notiType = notification["type"] as? String {  
+      NotificationTrigger.default.type = NotificationType(rawValue: notiType)
+    }
     
     return true
   }
@@ -62,7 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
       }
     }
-
+    
     completionHandler(UIBackgroundFetchResult.newData)
   }
 }
@@ -73,17 +75,36 @@ extension AppDelegate: MessagingDelegate {
   func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
     print("==================== FCM TOKEN ====================\n", fcmToken)
     NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: ["token": fcmToken])
+    guard let authToken = AuthorizationManager.shared.userInfo?.authorization else { return }
+    API.default.requestPushKeyRegister(authToken: authToken, fcmToken: fcmToken) { (result) in
+      switch result {
+      case .success(let value):
+        print("Register Succcess :", value)
+      case .failure(let error):
+        print("Register Fail :", error.localizedDescription)
+      }
+    }
   }
 }
 
 // MARK: - UNUserNotificationCenterDelegate
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
-  func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-    print(#function)
-  }
   
+  func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+    // Foreground에서 알림 도착
+
+    completionHandler([.alert, .badge, .sound])
+  }
+
   func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-    print(#function)
+    // Background 및 Foreground에서 알림 눌렀을 때 호출
+
+    if let notiType = response.notification.request.content.userInfo["type"] as? String {
+      print(#function, "Tap Push Notification")
+      NotificationTrigger.default.type = NotificationType(rawValue: notiType)
+      NotificationTrigger.default.trigger()
+      completionHandler()
+    }
   }
 }

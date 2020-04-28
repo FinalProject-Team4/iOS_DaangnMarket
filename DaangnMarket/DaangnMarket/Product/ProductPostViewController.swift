@@ -54,7 +54,7 @@ class ProductPostViewController: UIViewController {
   private func setupAttributes() {
     navigationBar.delegate = self
     UIApplication.shared.statusBarStyle = .darkContent
-    navigationController?.isNavigationBarHidden = true
+    navigationController?.navigationBar.isHidden = true
     self.tabBarController?.tabBar.isHidden = true
     view.backgroundColor = .white
     //pageControl.numberOfPages = dummy.postImageSet.count

@@ -94,7 +94,8 @@ class DGUpperAlert: UIView {
       UIView.animate(withDuration: 0.3) {
         self.transform = .init(translationX: 0, y: self.alertHeight)
       }
-      DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+      DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { // default
         UIView.animate(
           withDuration: 0.3,
           animations: {

@@ -11,7 +11,7 @@ import UIKit
 class ImagesScrollView: UIScrollView {
   // MARK: Views
   
-  let viewWidth = UIScreen.main.bounds.width
+  private let viewWidth = UIScreen.main.bounds.width
   lazy var imageViews: [UIImageView] = []
   
   // MARK: Initialize
@@ -22,7 +22,15 @@ class ImagesScrollView: UIScrollView {
   
   convenience init(items: [String]) {
     self.init()
-    imageViews = items.map { UIImageView(image: UIImage(named: $0)) }
+    //imageViews = items.map { UIImageView(image: UIImage(named: $0)) }
+    for idx in items {
+      let imageView = UIImageView().then {
+        $0.contentMode = .scaleAspectFit
+        $0.clipsToBounds = true
+        $0.kf.setImage(with: URL(string: idx))
+      }
+      imageViews.append(imageView)
+    }
     setupScrollView()
   }
   
@@ -30,7 +38,7 @@ class ImagesScrollView: UIScrollView {
     fatalError("init(coder:) has not been implemented")
   }
   
-  func setupScrollView() {
+  private func setupScrollView() {
     self.isPagingEnabled = true
     self.showsVerticalScrollIndicator = false
     self.showsHorizontalScrollIndicator = false

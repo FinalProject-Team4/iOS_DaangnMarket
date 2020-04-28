@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol NotificationTableViewDelegate: class {
+  func activityTableView(_ tableView: UITableView, didStartRefreshControl refreshControl: UIRefreshControl)
+  func keywordTableView(_ tableView: UITableView, didStartRefreshControl refreshControl: UIRefreshControl)
+}
+
 class NotificationTableView: UIView {
   // MARK: Interface - ScrollView
   
@@ -26,8 +31,13 @@ class NotificationTableView: UIView {
     }
   }
   
-  func reloadKeyword() {
-    self.keywordNotiTableView.reloadData()
+  func reloadData(for type: NotificationType) {
+    switch type {
+    case .activity:
+      self.activityNotiTableView.reloadData()
+    case .keyword:
+      self.keywordNotiTableView.reloadData()
+    }
   }
   
   func setEditing(_ editing: Bool) {
@@ -82,6 +92,8 @@ class NotificationTableView: UIView {
     get { return self.scrollView.delegate }
     set { self.scrollView.delegate = newValue }
   }
+  
+  weak var delegate: NotificationTableViewDelegate?
   
   func setTableViewDelegate(_ delegate: UITableViewDelegate) {
     self.activityNotiTableView.delegate = delegate
@@ -145,6 +157,7 @@ class NotificationTableView: UIView {
     $0.separatorInset = UIEdgeInsets(top: 0, left: insetX, bottom: 0, right: insetX)
     $0.tableFooterView = UIView()
     $0.refreshControl = UIRefreshControl().then {
+      $0.tag = 0
       $0.tintColor = UIColor(named: ColorReference.daangnMain.rawValue)
       $0.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
     }
@@ -156,6 +169,7 @@ class NotificationTableView: UIView {
     $0.separatorInset = UIEdgeInsets(top: 0, left: insetX, bottom: 0, right: insetX)
     $0.tableFooterView = UIView()
     $0.refreshControl = UIRefreshControl().then {
+      $0.tag = 1
       $0.tintColor = UIColor(named: ColorReference.daangnMain.rawValue)
       $0.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
     }
@@ -198,8 +212,10 @@ class NotificationTableView: UIView {
   // MARK: Actions
   
   @objc private func refresh(_ sender: UIRefreshControl) {
-    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-      sender.endRefreshing()
+    if sender.tag == 0 {
+      self.delegate?.activityTableView(self.activityNotiTableView, didStartRefreshControl: sender)
+    } else {
+      self.delegate?.keywordTableView(self.keywordNotiTableView, didStartRefreshControl: sender)
     }
   }
   

@@ -52,11 +52,11 @@ class API {
   func request(_ type: RequestMembers, completion: @escaping (Result<UserInfo, AFError>) -> Void) {
     switch type {
     case let .login(idToken):
-      let parameters = ["idToken": idToken]
+      let parameters = ["id_token": idToken]
       self.requestLogin(url: type.url, parameters: parameters) { completion($0) }
     case let .signUp(idToken, username, avatar):
       let parameters = [
-        "idToken": idToken,
+        "id_token": idToken,
         "username": username
       ]
       self.requestSignUp(url: type.url, imageData: avatar, parameters: parameters) { completion($0) }
@@ -87,13 +87,98 @@ class API {
           formData.append(imageData, withName: "avatar")
         }
     },
-      to: url
+      to: url,
+      method: .post
     )
       .validate()
       .responseDecodable { (response: DataResponse<UserInfo, AFError>) in
         switch response.result {
         case .success(let userInfo):
           completion(.success(userInfo))
+        case .failure(let error):
+          completion(.failure(error))
+        }
+    }
+  }
+  
+  // MARK: Notification
+  
+  func requestActivityNoti(token: String, completion: @escaping (Result<ActivityNotiInfo, AFError>) -> Void) {
+    let header = HTTPHeader(name: "Authorization", value: token)
+    AF.request(DaangnURL.Notification.noticeList.url, headers: [header])
+      .validate()
+      .responseDecodable { (response: DataResponse<ActivityNotiInfo, AFError>) in
+        switch response.result {
+        case .success(let notiInfo):
+          completion(.success(notiInfo))
+        case .failure(let error):
+          completion(.failure(error))
+        }
+    }
+  }
+  
+  func requestNextActivityNoti(nextURL: String, token: String, completion: @escaping (Result<ActivityNotiInfo, AFError>) -> Void) {
+    let header = HTTPHeader(name: "Authorization", value: token)
+    AF.request(nextURL, headers: [header])
+      .validate()
+      .responseDecodable { (response: DataResponse<ActivityNotiInfo, AFError>) in
+        switch response.result {
+        case .success(let notiInfo):
+          completion(.success(notiInfo))
+        case .failure(let error):
+          completion(.failure(error))
+        }
+    }
+  }
+  
+  func requestPushKeyRegister(authToken: String, fcmToken: String, completion: @escaping (Result<Any, AFError>) -> Void) {
+    let header = HTTPHeader(name: "Authorization", value: authToken)
+    AF.request(DaangnURL.Notification.registerKey.url, method: .post, parameters: ["registration_id": fcmToken], headers: [header])
+      .validate()
+      .responseJSON { (response) in
+        print("=============== \(#function) ===============")
+        print("HTTP Status Code :", response.response!.statusCode)
+        print("FCM Token :", fcmToken)
+        print("Auth Token :", authToken)
+        switch response.result {
+        case .success(let value):
+          completion(.success(value))
+        case .failure(let error):
+          completion(.failure(error))
+        }
+    }
+  }
+  
+  // MARK: User Town  
+
+  func requestRegisterUserTown(userTown: UserTown, authToken: String, completion: @escaping (Result<UserTown, AFError>) -> Void) {
+    let parameters: [String: String] = [
+      "locate": userTown.locate.id.description,
+      "distance": userTown.distance.description,
+      "verified": userTown.verified.description,
+      "activated": userTown.activated.description
+    ]
+    let header = HTTPHeader(name: "Authorization", value: authToken)
+    AF.request(DaangnURL.UserTown.register.url, method: .post, parameters: parameters, headers: HTTPHeaders([header]))
+      .validate()
+      .responseDecodable { (response: DataResponse<UserTown, AFError>) in
+        switch response.result {
+        case .success(let userTown):
+          completion(.success(userTown))
+        case .failure(let error):
+          completion(.failure(error))
+        }
+    }
+  }
+  
+  func requestUserTown(authToken: String, completion: @escaping (Result<[UserTown], AFError>) -> Void) {
+    let header = HTTPHeader(name: "Authorization", value: authToken)
+    AF.request(DaangnURL.UserTown.register.url, headers: HTTPHeaders([header]))
+      .validate()
+      .responseDecodable { (response: DataResponse<[UserTown], AFError>) in
+        switch response.result {
+        case .success(let userTowns):
+          completion(.success(userTowns))
         case .failure(let error):
           completion(.failure(error))
         }

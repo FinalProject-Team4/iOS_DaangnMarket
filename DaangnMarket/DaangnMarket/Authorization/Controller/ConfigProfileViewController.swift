@@ -125,11 +125,22 @@ class ConfigProfileViewController: UIViewController {
       switch result {
       case .success(let userInfo):
         print("=================== User Info ====================\n", userInfo)
-        AuthorizationManager.shared.register(userInfo)
-        self.navigationController?
-          .presentingViewController?
-          .presentingViewController?
-          .dismiss(animated: true)
+        
+        // SignUp할 때는 선택할 수 있는 동네가 1개로 제한됨
+        guard var selected = AuthorizationManager.shared.firstTown else { return }
+        selected.user = userInfo.username
+        API.default.requestRegisterUserTown(userTown: selected, authToken: userInfo.authorization) { (result) in
+          switch result {
+          case .success(let userTown):
+            AuthorizationManager.shared.firstTown = userTown
+            self.navigationController?
+              .presentingViewController?
+              .presentingViewController?
+              .dismiss(animated: true)
+          case .failure(let error):
+            self.presentAlert(title: "Register User Town Error", message: error.localizedDescription)
+          }
+        }
       case .failure(let error):
         self.presentAlert(title: "Sign Up Error", message: error.localizedDescription)
       }

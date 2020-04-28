@@ -9,6 +9,59 @@
 import Foundation
 
 class NotificationModel {
+  // MARK: Notification
+  
+  static let didResponseActivityNotification = Notification.Name(rawValue: "didResponseActivityNotification")
+  
+  // MARK: Data
+  
+  var notifications = [ActivityNoti]() {
+    didSet {
+      NotificationCenter.default.post(
+        name: NotificationModel.didResponseActivityNotification,
+        object: nil,
+        userInfo: nil
+      )
+    }
+  }
+  
+  var userInfo: UserInfo
+  var nextURL: String?
+  
+  // MARK: Life Cycle
+  
+  init(userInfo: UserInfo) {
+    self.userInfo = userInfo
+    self.requestActivityNoti()
+  }
+  
+  func requestActivityNoti(completion: (() -> Void)? = nil) {
+    API.default.requestActivityNoti(token: self.userInfo.authorization) { (result) in
+      switch result {
+      case .success(let notiInfo):
+        self.nextURL = notiInfo.next
+        self.notifications = notiInfo.results
+      case .failure(let error):
+        self.notifications = []
+        print(error)
+      }
+      completion?()
+    }
+  }
+  
+  func requestNextActivityNoti() {
+    guard let nextURL = self.nextURL else { return }
+    API.default.requestNextActivityNoti(nextURL: nextURL, token: self.userInfo.authorization) { (result) in
+      switch result {
+      case .success(let notiInfo):
+        self.nextURL = notiInfo.next
+        self.notifications += notiInfo.results
+      case .failure(let error):
+        return print(error.localizedDescription)
+      }
+    }
+  }
+  
   var contents = [
     "👀 낙성대동 이웃을 사로잡은 금주의 인기매물, 지금 만 나보세요!하하하하하하하하하",
     "💌 2020년 4월 당근 가계부가 도착했습니다!",
@@ -20,7 +73,7 @@ class NotificationModel {
     .daangnLogo,
     .daangnLogo,
     .priceDown,
-    .daangni,
+    .daangni
   ]
   
   var keywordContents = [
@@ -31,7 +84,8 @@ class NotificationModel {
   ]
   
   func removeContent(at index: Int) {
-    self.contents.remove(at: index)
+//    self.contents.remove(at: index)
+    self.notifications.remove(at: index)
     self.thumbnails.remove(at: index)
   }
 }
