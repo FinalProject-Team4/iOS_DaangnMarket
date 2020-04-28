@@ -21,21 +21,11 @@ protocol WriteUsedViewControllerDelegate: class {
   func selectImage(image: UIImage)
 }
 
-struct WritePost: Encodable {
-  let title: String
-  let content: String
-  let category: String
-  let price: Int?
-  let photos: [Data?]
-  let locate: Int
-  let distance: Int
-}
-
-
 // MARK: - Class Level
 class WriteUsedViewController: UIViewController {
   weak var delegate: WriteUsedViewControllerDelegate?
   
+  // MARK: Views
   private lazy var writeTableView = UITableView()
     .then {
       $0.dataSource = self
@@ -63,7 +53,6 @@ class WriteUsedViewController: UIViewController {
   var uploadImages: [UIImage] = []
   
   // MARK: Life Cycle
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     setupUI()
@@ -84,7 +73,6 @@ class WriteUsedViewController: UIViewController {
   }
   
   // MARK: Initialize
-  
   init(token: String) {
     header = HTTPHeader(name: "Authorization", value: token)
     super.init(nibName: nil, bundle: nil)
@@ -150,7 +138,6 @@ class WriteUsedViewController: UIViewController {
   }
   
   // MARK: Actions
-  
   @objc private func keyboardWillShow(_ notification: Notification) {
     guard let userInfo = notification.userInfo,
       let frame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
@@ -208,34 +195,36 @@ class WriteUsedViewController: UIViewController {
         "title": title,
         "content": content,
         "category": categoryFilter(currentCategory),
-        //        "price": String(price),
-        "price": price,
+        "price": String(price),
         "photos": imgDatas,
         //        "locate": String(locate),
-        //        "locate": locate,
-        "locate": 1_011,
+        "locate": String(1_011),
         //        "distance": String(distance)
-        //        "distance": distance
-        "distance": 1_000
+        "distance": String(1_000)
       ]
       request(parameters, [header]) { result in
-        self.dismiss(animated: true)
+        switch result {
+        case .success:
+          self.dismiss(animated: true)
+        case .failure(let err):
+          print(err.localizedDescription)
+        }
       }
     }
   }
   
-  func request(_ parameters: [String: Any], _ headers: HTTPHeaders, completion: @escaping (Result<Post, AFError>) -> Void) {
+  // MARK: Methods
+  private func request(_ parameters: [String: Any], _ headers: HTTPHeaders, completion: @escaping (Result<Post, AFError>) -> Void) {
     AF.upload(
       multipartFormData: { (multiFormData) in
         for (key, value) in parameters {
-          if value is String || value is Int {
-            multiFormData.append("\(value)".data(using: .utf8)!, withName: key)
-          }
           if let data = value as? [Data] {
             data.forEach {
               let num = data.firstIndex(of: $0)
               multiFormData.append($0, withName: key, fileName: "image\(num).jpeg", mimeType: "image/jpeg")
             }
+          } else {
+            multiFormData.append("\(value)".data(using: .utf8)!, withName: key)
           }
         }
     }, to: "http://13.125.217.34/post/",
@@ -248,7 +237,7 @@ class WriteUsedViewController: UIViewController {
         case .success(let data):
           completion(.success(data))
         case .failure(let error):
-          print(error.localizedDescription)
+          completion(.failure(error))
         }
     }
   }
