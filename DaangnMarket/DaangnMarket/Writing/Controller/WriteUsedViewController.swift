@@ -191,6 +191,8 @@ class WriteUsedViewController: UIViewController {
   }
   
   @objc private func didTapCreateButton() {
+    guard let locate = AuthorizationManager.shared.selectedTown?.id else { return }
+    let distance = AuthorizationManager.shared.selectedTown?.distance ?? 1_000
     let imgDatas = self.uploadImages.map { $0.jpegData(compressionQuality: 0.2) }
     guard let titleCell = self.writeTableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? WriteTableTitleCell else { return }
     let title = titleCell.cellData
@@ -206,18 +208,23 @@ class WriteUsedViewController: UIViewController {
         "title": title,
         "content": content,
         "category": categoryFilter(currentCategory),
-        "price": String(price),
+        //        "price": String(price),
+        "price": price,
         "photos": imgDatas,
-        "locate": String(1_011),
-        "distance": String(2_000)
+        //        "locate": String(locate),
+        //        "locate": locate,
+        "locate": 1_011,
+        //        "distance": String(distance)
+        //        "distance": distance
+        "distance": 1_000
       ]
-      request(parameters, [header]) { _ in
-        self.dismissVC()
+      request(parameters, [header]) { result in
+        self.dismiss(animated: true)
       }
     }
   }
   
-  func request(_ parameters: [String: Any], _ headers: HTTPHeaders, completion: @escaping (Result<WritePost, AFError>) -> Void) {
+  func request(_ parameters: [String: Any], _ headers: HTTPHeaders, completion: @escaping (Result<Post, AFError>) -> Void) {
     AF.upload(
       multipartFormData: { (multiFormData) in
         for (key, value) in parameters {
@@ -225,10 +232,9 @@ class WriteUsedViewController: UIViewController {
             multiFormData.append("\(value)".data(using: .utf8)!, withName: key)
           }
           if let data = value as? [Data] {
-            print(data)
             data.forEach {
-              print($0)
-              multiFormData.append($0, withName: key)
+              let num = data.firstIndex(of: $0)
+              multiFormData.append($0, withName: key, fileName: "image\(num).jpeg", mimeType: "image/jpeg")
             }
           }
         }
@@ -240,7 +246,7 @@ class WriteUsedViewController: UIViewController {
       .responseDecodable { (resonse: DataResponse<Post, AFError>) in
         switch resonse.result {
         case .success(let data):
-          print(data)
+          completion(.success(data))
         case .failure(let error):
           print(error.localizedDescription)
         }
@@ -260,7 +266,7 @@ class WriteUsedViewController: UIViewController {
     }
     let alert = DGAlertController(title: message)
     let okAction = DGAlertAction(title: "확인", style: .orange) {
-      self.dismiss(animated: false)
+      alert.dismiss(animated: false)
     }
     alert.addAction(okAction)
     alert.modalPresentationStyle = .overFullScreen

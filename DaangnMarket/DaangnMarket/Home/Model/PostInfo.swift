@@ -45,28 +45,9 @@ struct Post: Codable {
 extension Post {
   enum CodingKeys: String, CodingKey {
     case postId = "id"
-    case username, title, content, category, photos
+    case username, title, content, category
     case viewCount = "view_count"
-//    case updated, price, state
     case updated, address, price, state, likes
     case photos
   }
 }
-
-//// MARK: PostImage
-//
-//struct PostImage: Codable {
-//  let imageId: Int
-//  let photo: String
-//  let postId: Int
-//}
-
-// MARK: Extention Post
-
-//extension PostImage {
-//  enum CodingKeys: String, CodingKey {
-//    case imageId = "id"
-//    case photo
-//    case postId = "post"
-//  }
-//}
