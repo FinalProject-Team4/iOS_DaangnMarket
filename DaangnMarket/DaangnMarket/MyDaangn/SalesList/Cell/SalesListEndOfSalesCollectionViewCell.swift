@@ -9,7 +9,7 @@
 import UIKit
 
 protocol SalesListEndOfSalesCVCDelegate: class {
-  func endOfSalesOptionDelever()
+  func endOfSalesOptionDelever(itemPostID: Int)
   func moveToPage(endOfSale: Post)
 }
 
@@ -59,8 +59,10 @@ class SalesListEndOfSalesCollectionViewCell: UICollectionViewCell {
   }
   func configure(endOfSale: [Post]) {
     self.endOfSaleData = endOfSale
+    self.salesListTableView.reloadData()
   }
   @objc func didPullrefreshControl(_ sender: Any) {
+    self.salesListTableView.reloadData()
      self.refreshControl.endRefreshing()
    }
 }
@@ -93,7 +95,7 @@ extension SalesListEndOfSalesCollectionViewCell: UITableViewDelegate {
 // MARK: - SalesListEndOfSalesTVCDelegate
 
 extension SalesListEndOfSalesCollectionViewCell: SalesListEndOfSalesTVCDelegate {
-  func endOfSalesOption() {
-    delegate?.endOfSalesOptionDelever()
+  func endOfSalesOption(postID: Int) {
+    delegate?.endOfSalesOptionDelever(itemPostID: postID)
   }
 }

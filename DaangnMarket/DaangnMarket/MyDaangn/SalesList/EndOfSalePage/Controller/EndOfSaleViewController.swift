@@ -89,6 +89,15 @@ class EndOfSaleViewController: UIViewController {
   
   // MARK: Initialize
   
+  init(title: String) {
+     super.init(nibName: nil, bundle: nil)
+     self.titleLabel.text = title
+   }
+   
+   required init?(coder: NSCoder) {
+     fatalError("init(coder:) has not been implemented")
+   }
+  
   private func setupUI() {
     setupAttributes()
     setupConstraints()
