@@ -36,7 +36,7 @@ enum ImageReference: String {
 
 enum ColorReference: String {
   case daangnMain = "DaangnColor_Main"
-  case item = "Item"
+  case item
   case borderLine = "BorderLine"
   case toastAlert = "ToastAlert"
   case upperAlert = "UpperAlert"
@@ -55,8 +55,8 @@ enum ColorReference: String {
 
 enum UserReference: String {
   case userInfo
-  case selectedTown
-  case anotherTown
+  case firstTown
+  case secondTown
   case firstTownByDistance
   case secondTownByDistance
 }

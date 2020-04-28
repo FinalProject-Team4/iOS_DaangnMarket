@@ -1,6 +1,12 @@
+////
+////  profileData.swift
+////  DaangnMarket
+////
+////  Created by JinGyung Kim on 2020/04/22.
+////  Copyright © 2020 Jisng. All rights reserved.
+////
 //
-//  profileData.swift
-//  DaangnMarket
+//import Foundation
 //
 //  Created by JinGyung Kim on 2020/04/22.
 //  Copyright © 2020 Jisng. All rights reserved.

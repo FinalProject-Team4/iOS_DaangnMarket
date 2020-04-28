@@ -119,6 +119,7 @@ class ViewControllerGenerator {
     return MainTabBarController().then {
       $0.viewControllers = [homeFeedVC, categoryVC, writeUseVC, chatVC, mypageVC]
       $0.tabBar.tintColor = .black
+      NotificationTrigger.default.tabBarController = $0
     }
   }
   

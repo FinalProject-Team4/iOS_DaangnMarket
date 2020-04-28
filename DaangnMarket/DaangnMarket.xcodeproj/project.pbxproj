@@ -95,6 +95,8 @@
 		ACB2B6072433472B002FAF27 /* AuthDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B6062433472B002FAF27 /* AuthDescriptionView.swift */; };
 		ACB2B60924334813002FAF27 /* NSMutableAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B60824334813002FAF27 /* NSMutableAttributedString+Extension.swift */; };
 		ACB600A424486A0700315DEA /* KeywordNotificationHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB600A324486A0700315DEA /* KeywordNotificationHeader.swift */; };
+		ACBD477B2457E4DB008C322C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACBD477A2457E4DB008C322C /* GoogleService-Info.plist */; };
+		ACBD477F2457FAA9008C322C /* NotificationTrigger.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACBD477E2457FAA9008C322C /* NotificationTrigger.swift */; };
 		ACCC9750242B31CB008F95DE /* TownSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCC974F242B31CB008F95DE /* TownSearchBar.swift */; };
 		ACCC9753242B48D6008F95DE /* TownAddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCC9752242B48D6008F95DE /* TownAddressCell.swift */; };
 		ACCC9755242B490E008F95DE /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCC9754242B490E008F95DE /* Identifiable.swift */; };
@@ -267,6 +269,8 @@
 		ACB2B6062433472B002FAF27 /* AuthDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDescriptionView.swift; sourceTree = "<group>"; };
 		ACB2B60824334813002FAF27 /* NSMutableAttributedString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Extension.swift"; sourceTree = "<group>"; };
 		ACB600A324486A0700315DEA /* KeywordNotificationHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordNotificationHeader.swift; sourceTree = "<group>"; };
+		ACBD477A2457E4DB008C322C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		ACBD477E2457FAA9008C322C /* NotificationTrigger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTrigger.swift; sourceTree = "<group>"; };
 		ACCC974F242B31CB008F95DE /* TownSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownSearchBar.swift; sourceTree = "<group>"; };
 		ACCC9752242B48D6008F95DE /* TownAddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownAddressCell.swift; sourceTree = "<group>"; };
 		ACCC9754242B490E008F95DE /* Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
@@ -634,6 +638,7 @@
 			children = (
 				AC7AA1022445D63400691D5E /* NotificationModel.swift */,
 				AC8C0D2C2451E3B300C1FB51 /* ActivityNotiInfo.swift */,
+				ACBD477E2457FAA9008C322C /* NotificationTrigger.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1366,6 +1371,7 @@
 				DE4B705E24447EF0001BC5D8 /* UserProfilePercentageView.swift in Sources */,
 				ACCD94D92429F84200153545 /* ProductPostViewController.swift in Sources */,
 				AC7AA0FF2445D62900691D5E /* KeywordNotificationCell.swift in Sources */,
+				ACBD477F2457FAA9008C322C /* NotificationTrigger.swift in Sources */,
 				A639494C2449933600832F4E /* KeywordNotiTableCell.swift in Sources */,
 				AC52A502243C495600DB4FB6 /* ImagesScrollView.swift in Sources */,
 				AC8C0C88244C684700C1FB51 /* ChatModel.swift in Sources */,

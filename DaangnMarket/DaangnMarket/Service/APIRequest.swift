@@ -89,4 +89,17 @@ enum DaangnURL {
       }
     }
   }
+  enum UserTown: APIRequest {
+    case register
+    case townList
+    
+    var url: String {
+      switch self {
+      case .register:
+        return self.host + "/members/locate/"
+      case .townList:
+        return self.host + "/members/locate/"
+      }
+    }
+  }
 }
