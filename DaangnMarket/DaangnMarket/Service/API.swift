@@ -56,7 +56,7 @@ class API {
       self.requestLogin(url: type.url, parameters: parameters) { completion($0) }
     case let .signUp(idToken, username, avatar):
       let parameters = [
-        "idToken": idToken,
+        "id_token": idToken,
         "username": username
       ]
       self.requestSignUp(url: type.url, imageData: avatar, parameters: parameters) { completion($0) }
@@ -87,7 +87,8 @@ class API {
           formData.append(imageData, withName: "avatar")
         }
     },
-      to: url
+      to: url,
+      method: .post
     )
       .validate()
       .responseDecodable { (response: DataResponse<UserInfo, AFError>) in
@@ -128,6 +129,42 @@ class API {
         switch response.result {
         case .success(let value):
           completion(.success(value))
+        case .failure(let error):
+          completion(.failure(error))
+        }
+    }
+  }
+  
+  // MARK: User Town  
+
+  func requestRegisterUserTown(userTown: UserTown, authToken: String, completion: @escaping (Result<UserTown, AFError>) -> Void) {
+    let parameters: [String: String] = [
+      "locate": userTown.locate.id.description,
+      "distance": userTown.distance.description,
+      "verified": userTown.verified.description,
+      "activated": userTown.activated.description
+    ]
+    let header = HTTPHeader(name: "Authorization", value: authToken)
+    AF.request(DaangnURL.UserTown.register.url, method: .post, parameters: parameters, headers: HTTPHeaders([header]))
+      .validate()
+      .responseDecodable { (response: DataResponse<UserTown, AFError>) in
+        switch response.result {
+        case .success(let userTown):
+          completion(.success(userTown))
+        case .failure(let error):
+          completion(.failure(error))
+        }
+    }
+  }
+  
+  func requestUserTown(authToken: String, completion: @escaping (Result<[UserTown], AFError>) -> Void) {
+    let header = HTTPHeader(name: "Authorization", value: authToken)
+    AF.request(DaangnURL.UserTown.register.url, headers: HTTPHeaders([header]))
+      .validate()
+      .responseDecodable { (response: DataResponse<[UserTown], AFError>) in
+        switch response.result {
+        case .success(let userTowns):
+          completion(.success(userTowns))
         case .failure(let error):
           completion(.failure(error))
         }

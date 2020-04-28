@@ -211,14 +211,6 @@ class WriteUsedViewController: UIViewController {
   }
   
   @objc private func requestCreate() {
-    // 글쓰기에 필요한 데이터 모으기
-    // parameters
-    // reqeust
-    // response
-    // success -> finish(dismiss)
-    // success -> nil -> alert
-    // failure -> alert
-    
     guard let titleCell = self.writeTableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? WriteTableTitleCell else { return }
     let title = titleCell.cellData
     guard let priceCell = self.writeTableView.cellForRow(at: IndexPath(row: 3, section: 0)) as? WriteTablePriceCell else { return }
@@ -232,7 +224,8 @@ class WriteUsedViewController: UIViewController {
       title: title.isEmpty ? "알림" : title,
       content: content.isEmpty ? "알림" : content,
       category: currentCategory == "카테고리 선택" ?
-        "알림" : DGCategory.allCases.filter{ $0.korean == currentCategory }.map{ $0.rawValue }.first ?? "other",
+        "알림" : DGCategory.allCases.filter{ $0.korean == currentCategory }
+          .map{ $0.rawValue }.first ?? "other",
       price: price == 0 ? 0 : price,
       locate: 6_971,
       showedLocate: [6_971, 8_730, 8_725, 6_921]
