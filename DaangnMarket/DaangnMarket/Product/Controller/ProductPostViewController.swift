@@ -62,8 +62,7 @@ class ProductPostViewController: UIViewController {
     init(postData: Post) {
       self.postData1 = postData
       super.init(nibName: nil, bundle: nil)
-      //let temp = postData1.postImageSet
-     
+//      let temp = postData1.postImageSet
 //      for idx in 0..<temp.count {
 //        imageSet.append(temp[idx].photo)
 //      }

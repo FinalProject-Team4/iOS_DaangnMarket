@@ -94,7 +94,7 @@ struct DummyPostData {
 //  Post(postId: 5, username: "모모", title: "향초 팔아요~", content: "사놓고 한번도 착용하지 않은 새 상품 입니다~ \n저렴하게 드릴께요 \n편하게 문의 주세요!!! \n신당 근처는 직거래 가능합니다 :)", category: "여성의류", viewCount: 1, updated: "일주일 전", address: "강서구 화곡동", price: 20_000, state: "sales", postImageSet: [DaangnMarket.PostImage(imageId: 1, photo: "image3", postId: 1), DaangnMarket.PostImage(imageId: 2, photo: "image5", postId: 1), DaangnMarket.PostImage(imageId: 3, photo: "image2", postId: 1)]),
 //  Post(postId: 6, username: "모모", title: "모니터 사세요", content: "딱 한번 착용한 새상품 입니다\n예뻐서 샀는데 안어울려서 내놓아요ㅜㅜ \n직거래 가능합니다 \n ", category: "여성의류", viewCount: 6, updated: "10일 전", address: "강서구 화곡동", price: 5_000, state: "done", postImageSet: [DaangnMarket.PostImage(imageId: 1, photo: "image3", postId: 1), DaangnMarket.PostImage(imageId: 2, photo: "image5", postId: 1), DaangnMarket.PostImage(imageId: 3, photo: "image2", postId: 1)])
 //]
-
+//
 //let dummyData1 = DummyPostData(
 //  seller: ["sellerImage1", "라이언", "성북구 성북동"],
 //  price: "20,000원",
