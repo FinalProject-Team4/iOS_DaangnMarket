@@ -86,17 +86,23 @@ extension WriteTableAlbumCell: WriteUsedViewControllerDelegate {
     selectImageView.snp.makeConstraints {
       $0.size.equalTo(addImageView)
     }
+    guard let parentVC = self.tableView?.parentViewController as? WriteUsedViewController else { return }
+    parentVC.uploadImages.append(image)
   }
 }
 
 extension WriteTableAlbumCell: SelectedImageViewDelegate {
   func deleteImage(_ view: UIView) {
+    if let idx = selectedStackView.arrangedSubviews.firstIndex(of: view) {
+      guard let parentVC = self.tableView?.parentViewController as? WriteUsedViewController else { return }
+      parentVC.uploadImages.remove(at: idx - 1)
+    }
     UIView.animate(withDuration: 0.3) {
       self.imageCount -= 1
       self.selectedStackView.arrangedSubviews
-      .filter { $0.isEqual(view) }
-      .first?
-      .do { $0.removeFromSuperview() }
+        .filter { $0.isEqual(view) }
+        .first?
+        .do { $0.removeFromSuperview() }
       self.tableView?.superview?.layoutIfNeeded()
     }
   }

@@ -41,7 +41,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>카메라 사용</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>위치사용</string>
+	<string>가까운 동네를 검색하거나 동네인증을 위해 현재 위치를 확인합니다.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>앨범 추가</string>
 	<key>UIBackgroundModes</key>

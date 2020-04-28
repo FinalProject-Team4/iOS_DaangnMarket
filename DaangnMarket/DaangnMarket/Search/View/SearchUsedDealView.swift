@@ -34,7 +34,7 @@ class SearchUsedDealView: UIView {
   func updateFailKeyword(_ text: String) {
     failView.updateFailKeyword(text)
   }
-  func searchResultPost(_ post: [SearchResultPost]) {
+  func searchResultPost(_ post: [Post]) {
     successView.searchResultPost = post
   }
   
