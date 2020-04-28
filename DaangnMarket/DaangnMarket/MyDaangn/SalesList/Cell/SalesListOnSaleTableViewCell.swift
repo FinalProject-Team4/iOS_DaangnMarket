@@ -142,14 +142,14 @@ class SalesListOnSaleTableViewCell: UITableViewCell {
   // MARK: Action
   
   @objc func didTapButton(_ sender: UIButton) {
-    switch sender {
-    case optionButton:
-      delegate?.onSaleOption()
-      
-    case stateButton:
-      if stateButton.titleLabel?.text == "예약중으로 변경" {
-        self.stateButton.setTitle("판매중으로 변경", for: .normal)
-        self.itemContentView.reservedState(reserved: true)
+//    switch sender {
+//    case optionButton:
+//      delegate?.onSaleOption()
+//
+//    case stateButton:
+//      if stateButton.titleLabel?.text == "예약중으로 변경" {
+//        self.stateButton.setTitle("판매중으로 변경", for: .normal)
+//        self.itemContentView.reservedState(reserved: true)
 //        guard let indexOfData = sellerItemsData1.lastIndex(where: { (idx) -> Bool in
 //          idx.postId == self.itemContentView.postID }
 //          ) else { return }
@@ -161,13 +161,13 @@ class SalesListOnSaleTableViewCell: UITableViewCell {
 //        sellerItemsData1[indexOfData].state = "slaes"
 //        self.stateButton.setTitle("예약중으로 변경", for: .normal)
 //        self.itemContentView.reservedState(reserved: false)
-      }
-      
-    case endOfSalesButton:
-      delegate?.endOfSalePage()
-      
-    default:
-      break
-    }
+//      }
+//
+//    case endOfSalesButton:
+//      delegate?.endOfSalePage()
+//
+//    default:
+//      break
+//    }
   }
 }
