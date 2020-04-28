@@ -9,6 +9,15 @@
 import UIKit
 
 class DGAlertController: UIViewController {
+  // MARK: Interface
+  func addAction(_ action: DGAlertAction) {
+    buttonsView.addArrangedSubview(action)
+    action.snp.makeConstraints {
+      $0.leading.trailing.equalToSuperview()
+      $0.height.equalTo(40)
+    }
+  }
+  
   private let alertView = UIView().then {
     $0.backgroundColor = .white
     $0.layer.cornerRadius = 10
@@ -18,6 +27,10 @@ class DGAlertController: UIViewController {
     $0.font = .systemFont(ofSize: 17)
     $0.textAlignment = .center
     $0.numberOfLines = 0
+  }
+  
+  private let contentView = UIView().then {
+    $0.backgroundColor = .white
   }
   
   private let buttonsView = UIStackView().then {
@@ -33,16 +46,13 @@ class DGAlertController: UIViewController {
     setTitleLabel(title)
   }
   
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
+  convenience init(title: String, view: UIView) {
+    self.init(title: title)
+    setAddView(newView: view)
   }
   
-  func addAction(_ action: DGAlertAction) {
-    buttonsView.addArrangedSubview(action)
-    action.snp.makeConstraints {
-      $0.leading.trailing.equalToSuperview()
-      $0.height.equalTo(40)
-    }
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
   }
   
   private func setTitleLabel(_ title: String) {
@@ -67,9 +77,25 @@ class DGAlertController: UIViewController {
     titleLabel.attributedText = attrString
   }
   
+  private func setAddView(newView: UIView) {
+    titleLabel.snp.removeConstraints()
+    titleLabel.snp.makeConstraints {
+      $0.centerX.equalToSuperview()
+      $0.top.leading.equalToSuperview().offset(24)
+      $0.trailing.equalToSuperview().offset(-24)
+    }
+    alertView.addSubview(newView)
+    newView.snp.makeConstraints {
+      $0.top.equalTo(titleLabel.snp.bottom).offset(20)
+      $0.bottom.equalTo(buttonsView.snp.top).offset(-20)
+      $0.leading.trailing.equalTo(titleLabel)
+      $0.height.equalTo(120)
+    }
+  }
+  
   private func setUI() {
-    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapViewGesture(_:)))
-    self.view.addGestureRecognizer(tapGesture)
+//    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapViewGesture(_:)))
+//    self.view.addGestureRecognizer(tapGesture)
     self.modalPresentationStyle = .overFullScreen
     view.backgroundColor = UIColor.gray.withAlphaComponent(0.6)
     view.addSubview(alertView)

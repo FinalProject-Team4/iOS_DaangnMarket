@@ -26,6 +26,7 @@ enum ImageReference: String {
   case pencil
   case daangni = "DaangnLogo-Noti-Daangni"
   case badge = "Badge"
+  case scope = "Scope-1"
   
   enum Notification: String {
     case daangnLogo = "DaangnLogo-Noti"
@@ -60,6 +61,7 @@ enum ColorReference: String {
   case backGray = "BackGray"
   case backLightGray = "BackLighGray"
   case reservedMark = "ReservedMark"
+  case warning = "Warning"
   
   enum Chatting: String {
     case inputFieldBackground = "InputFieldBackground"
