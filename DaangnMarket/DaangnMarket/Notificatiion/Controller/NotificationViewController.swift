@@ -27,6 +27,8 @@ class NotificationViewController: UIViewController {
   private lazy var notificationTableView = NotificationTableView().then {
     $0.scrollViewDelegate = self
     $0.setTableViewDataSource(self)
+    $0.setTableViewDelegate(self)
+    $0.delegate = self
   }
   private let activityEditButton = UIButton().then { button in
     button.setBackgroundImage(UIImage(systemName: ImageReference.trash.rawValue), for: .normal)
@@ -194,6 +196,29 @@ extension NotificationViewController: UITableViewDataSource {
     guard let header = tableView.dequeueReusableCell(withIdentifier: KeywordNotificationHeader.identifier, for: indexPath) as? KeywordNotificationHeader else { return UITableViewCell() }
     header.delegate = self
     return header
+  }
+}
+
+// MARK: - UITableViewDelegate
+
+extension NotificationViewController: UITableViewDelegate {
+  func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    if self.notificationTableView.isActivityNotification(tableView),
+      indexPath.row == self.model.notifications.count - 2 {
+      self.model.requestNextActivityNoti()
+    }
+  }
+}
+
+// MARK: - NotificationTableViewDelegate
+
+extension NotificationViewController: NotificationTableViewDelegate {
+  func activityTableView(_ tableView: UITableView, didStartRefreshControl refreshControl: UIRefreshControl) {
+    self.model.requestActivityNoti() { refreshControl.endRefreshing() }
+  }
+  
+  func keywordTableView(_ tableView: UITableView, didStartRefreshControl refreshControl: UIRefreshControl) {
+    refreshControl.endRefreshing()
   }
 }
 

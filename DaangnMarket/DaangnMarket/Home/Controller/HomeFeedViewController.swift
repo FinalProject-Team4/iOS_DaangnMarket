@@ -62,6 +62,11 @@ class HomeFeedViewController: UIViewController {
     }
   }
   
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    NotificationTrigger.default.trigger()
+  }
+  
   func requestInitialPostList() {
     self.posts.removeAll()
     let manager = AuthorizationManager.shared
@@ -271,10 +276,9 @@ extension HomeFeedViewController: UIPopoverPresentationControllerDelegate {
 
 extension HomeFeedViewController: NavigationBarButtonDelegate {
   func navigationBarButton(_ naviBarButton: UIButton) {
-    guard let popoverVC = ViewControllerGenerator.shared.make(.popover, parameters: ["target": self, "sender": naviBarButton]) as? PopoverViewController else { print("return"); return }
-    
     switch naviBarButton {
     case customNaviBar.selectedTownButton:
+      guard let popoverVC = ViewControllerGenerator.shared.make(.popover, parameters: ["target": self, "sender": naviBarButton]) as? PopoverViewController else { print("return"); return }
       popoverVC.modalPresentationStyle = .popover
 //      popoverVC.delegate = self
       present(popoverVC, animated: true)
