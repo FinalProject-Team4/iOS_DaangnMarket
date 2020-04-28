@@ -28,8 +28,8 @@ class HomeFeedViewController: UIViewController {
   
   lazy var customNaviBar = CutomNavigationBar().then {
     $0.backgroundColor = .white
-    $0.layer.borderColor = UIColor.lightGray.cgColor
-    $0.layer.borderWidth = 0.3
+//    $0.layer.borderColor = UIColor.lightGray.cgColor
+//    $0.layer.borderWidth = 0.3
   }
   
   private lazy var homeTableView = UITableView().then {
@@ -92,8 +92,9 @@ class HomeFeedViewController: UIViewController {
   
   private func setupConstraints() {
     customNaviBar.snp.makeConstraints {
-      $0.top.leading.trailing.equalToSuperview()
-      $0.height.equalTo(92)
+      $0.top.equalToSuperview().offset(UINavigationBar.statusBarSize.height)
+      $0.size.equalTo(UINavigationBar.navigationBarSize)
+      $0.centerX.equalToSuperview()
     }
     homeTableView.snp.makeConstraints {
       $0.top.equalTo(customNaviBar.snp.bottom)

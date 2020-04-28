@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChattingCell: UITableViewCell {
+class ChattingHistoryCell: UITableViewCell {
   // MARK: Interface
   
   func configure(chatInfo chat: ChatInfo) {
@@ -41,11 +41,12 @@ class ChattingCell: UITableViewCell {
         $0.width.equalTo(30)
       }
     }
+    self.bookmarkView.isHidden = !chat.isBookmarked
   }
   
   // MARK: Views
   
-  private let profileView = ProfileView().then {
+  private let profileView = ProfileThumbnailView().then {
     $0.profileImage = UIImage(named: ImageReference.daangni.rawValue)
     $0.badgeImage = UIImage(named: ImageReference.badge.rawValue)
   }
@@ -72,6 +73,9 @@ class ChattingCell: UITableViewCell {
     $0.clipsToBounds = true
     $0.backgroundColor = .brown
   }
+  private let bookmarkView = UIView().then {
+    $0.backgroundColor = UIColor(named: ColorReference.daangnMain.rawValue)
+  }
   
   // MARK: Initialize
   
@@ -90,6 +94,12 @@ class ChattingCell: UITableViewCell {
     let profileSize: CGFloat = 52
     let thumbnailSize: CGFloat = 40
     
+    self.setupProfileConstraint(padding: padding, profileSize: profileSize)
+    self.setupChatConstraint(padding: padding, thumbnailSize: thumbnailSize)
+    self.setupBookmarkConstraint()
+  }
+  
+  private func setupProfileConstraint(padding: (x: CGFloat, y: CGFloat), profileSize: CGFloat) {
     self.profileView
       .then { self.contentView.addSubview($0) }
       .snp.makeConstraints {
@@ -108,7 +118,9 @@ class ChattingCell: UITableViewCell {
           .offset(12)
     }
     self.usernameLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-    
+  }
+  
+  private func setupChatConstraint(padding: (x: CGFloat, y: CGFloat), thumbnailSize: CGFloat) {
     self.chatInfoLabel
       .then { self.contentView.addSubview($0) }
       .snp.makeConstraints {
@@ -116,9 +128,6 @@ class ChattingCell: UITableViewCell {
         $0.leading
           .equalTo(self.usernameLabel.snp.trailing)
           .offset(8)
-//        $0.trailing
-//          .equalTo(self.b)
-//          .offset(-padding.x)
     }
     self.chatInfoLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
     
@@ -149,6 +158,15 @@ class ChattingCell: UITableViewCell {
           .offset(16)
         $0.leading.equalTo(self.usernameLabel)
         $0.trailing.equalTo(self.chatInfoLabel)
+    }
+  }
+  
+  private func setupBookmarkConstraint() {
+    self.bookmarkView
+      .then { self.contentView.addSubview($0) }
+      .snp.makeConstraints {
+        $0.width.equalTo(8)
+        $0.top.leading.bottom.equalToSuperview()
     }
   }
   

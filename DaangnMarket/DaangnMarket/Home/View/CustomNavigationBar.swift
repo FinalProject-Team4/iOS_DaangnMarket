@@ -90,6 +90,18 @@ class CutomNavigationBar: UIView {
     self.delegate?.navigationBarButton(self.notificationButton)
   }
   
+  override func draw(_ rect: CGRect) {
+    // Draw Underbar
+    UIBezierPath().do {
+      $0.lineWidth = 0.3
+      $0.move(to: CGPoint(x: rect.minX, y: rect.maxY))
+      $0.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
+      $0.close()
+      UIColor(named: ColorReference.borderLine.rawValue)?.setStroke()
+      $0.stroke()
+    }
+  }
+  
   required init?(coder: NSCoder) {
      fatalError("init(coder:) has not been implemented")
    }
