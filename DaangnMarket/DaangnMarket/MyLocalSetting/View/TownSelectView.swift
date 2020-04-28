@@ -205,7 +205,7 @@ class TownSelectView: UIView {
     
     // 근처 동네 개수 설정
     let filtered = manager.firstAroundTown
-      .filter { ($0.distance ?? 0) <= 1_200 * (Double(sliderValue) + 2) }
+      .filter { ($0.distance ?? 0) <= 1_200 * (Double(sliderValue) + 1) }
     let townCount = NSMutableAttributedString()
       .underlineBold(
         "근처 동네 \(filtered.count)개",
@@ -244,7 +244,7 @@ class TownSelectView: UIView {
     
     // 근처 동네 개수 설정
     let filtered = manager.secondAroundTown
-      .filter { ($0.distance ?? 0) <= 1_200 * (Double(sliderValue) + 2) }
+      .filter { ($0.distance ?? 0) <= 1_200 * (Double(sliderValue) + 1) }
     let townCount = NSMutableAttributedString()
       .underlineBold(
         "근처 동네 \(filtered.count)개",

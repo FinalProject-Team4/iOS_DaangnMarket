@@ -23,6 +23,34 @@ class AuthorizationManager: Then {
   var firstAroundTown = [Town]()
   var secondAroundTown = [Town]()
   
+  var firstTown: UserTown? {
+    get {
+      return UserDefaults.standard.object(UserTown.self, forKey: .firstTown)
+    }
+    set {
+      UserDefaults.standard.set(newValue, forKey: .firstTown)
+    }
+  }
+  
+  var secondTown: UserTown? {
+    get {
+      return UserDefaults.standard.object(UserTown.self, forKey: .secondTown)
+    }
+    set {
+      UserDefaults.standard.set(newValue, forKey: .secondTown)
+    }
+  }
+  
+  var activatedTown: UserTown? {
+    if let firstTown = self.firstTown, firstTown.activated {
+      return firstTown
+    } else if let secondTown = self.secondTown, secondTown.activated {
+      return secondTown
+    } else {
+      return nil
+    }
+  }
+  
   func updateFirstTown(distance: Double? = nil, verified: Bool? = nil, activated: Bool? = nil) {
     guard var firstTown = self.firstTown else { return }
     if let distance = distance {
@@ -37,15 +65,6 @@ class AuthorizationManager: Then {
     self.firstTown = firstTown
   }
   
-  var firstTown: UserTown? {
-    get {
-      return UserDefaults.standard.object(UserTown.self, forKey: .firstTown)
-    }
-    set {
-      UserDefaults.standard.set(newValue, forKey: .firstTown)
-    }
-  }
-  
   func updateSecondTown(distance: Double? = nil, verified: Bool? = nil, activated: Bool? = nil) {
     guard var secondTown = self.secondTown else { return }
     if let distance = distance {
@@ -58,15 +77,6 @@ class AuthorizationManager: Then {
       secondTown.activated = activated
     }
     self.secondTown = secondTown
-  }
-  
-  var secondTown: UserTown? {
-    get {
-      return UserDefaults.standard.object(UserTown.self, forKey: .secondTown)
-    }
-    set {
-      UserDefaults.standard.set(newValue, forKey: .secondTown)
-    }
   }
   
   func register(town: UserTown) {

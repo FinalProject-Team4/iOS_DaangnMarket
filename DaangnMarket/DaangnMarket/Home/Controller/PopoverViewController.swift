@@ -38,10 +38,10 @@ class PopoverViewController: UIViewController {
     getTownsName()
     setupSelectedState()
     setupConstraint()
-    print(MyTownSetting.shared.towns.count)
-    print(MyTownSetting.shared.towns["second"])
+//    print(MyTownSetting.shared.towns.count)
+//    print(MyTownSetting.shared.towns["second"])
 //    didTapButtonForHomeFeed(UIButton())
-    changeSelectTownBtnFont(MyTownSetting.shared.isFirstTown)
+//    changeSelectTownBtnFont(MyTownSetting.shared.isFirstTown)
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -190,16 +190,30 @@ class PopoverViewController: UIViewController {
   }
   
   @objc func didTapTownButton(_ sender: UIButton) {
-    guard var firstTown = self.manager.firstTown, var secondTown = self.manager.secondTown else { return }
+    guard let firstTown = self.manager.firstTown, let secondTown = self.manager.secondTown else { return }
     
     firstMyTownBtn.isSelected = sender == firstMyTownBtn
-    secondMyTownBtn.isSelected = sender != firstMyTownBtn
-    firstTown.activated = sender.isSelected
-    secondTown.activated = sender.isSelected
-    self.manager.firstTown = firstTown
-    self.manager.secondTown = secondTown
+    secondMyTownBtn.isSelected = sender == secondMyTownBtn
+    self.manager.updateFirstTown(activated: firstMyTownBtn.isSelected)
+    self.manager.updateSecondTown(activated: secondMyTownBtn.isSelected)
+//    firstTown.activated = sender.isSelected
+//    secondTown.activated = sender.isSelected
+//    self.manager.firstTown = firstTown
+//    self.manager.secondTown = secondTown
     
+    let title = self.firstMyTownBtn.isSelected ? firstTown.locate.dong : secondTown.locate.dong
+    let naviVC = (self.presentingViewController as? MainTabBarController)?
+      .viewControllers?
+      .first as? UINavigationController
+    self.homeVC = naviVC?.topViewController
+    (self.homeVC as? HomeFeedViewController)?
+      .customNaviBar
+      .selectedTownButton
+      .setTitle(title, for: .normal)
     
+    self.dismiss(animated: true) {
+      (self.homeVC as? HomeFeedViewController)?.requestInitialPostList()
+    }
 //    switch sender {
 //    case firstMyTownBtn:
 ////      MyTownSetting.shared.isFirstTown = true

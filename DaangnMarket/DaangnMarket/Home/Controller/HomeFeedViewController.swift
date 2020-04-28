@@ -26,7 +26,7 @@ class HomeFeedViewController: UIViewController {
   
   // MARK: Views
   
-  private lazy var customNaviBar = CutomNavigationBar().then {
+  lazy var customNaviBar = CutomNavigationBar().then {
     $0.backgroundColor = .white
     $0.layer.borderColor = UIColor.lightGray.cgColor
     $0.layer.borderWidth = 0.3
@@ -55,6 +55,15 @@ class HomeFeedViewController: UIViewController {
     initTownName()
     navigationController?.navigationBar.isHidden = true
     
+    self.requestInitialPostList()
+    let manager = AuthorizationManager.shared
+    if manager.userInfo == nil, isFirstAlert {
+      doFirstViewPresent()
+    }
+  }
+  
+  func requestInitialPostList() {
+    self.posts.removeAll()
     let manager = AuthorizationManager.shared
     if let firstTown = manager.firstTown, firstTown.activated {
       print("Request First")
@@ -65,9 +74,6 @@ class HomeFeedViewController: UIViewController {
     }
     
     requestPostData(url, self.parameters)
-    if manager.userInfo == nil, isFirstAlert {
-      doFirstViewPresent()
-    }
   }
   
   // MARK: Initialize
