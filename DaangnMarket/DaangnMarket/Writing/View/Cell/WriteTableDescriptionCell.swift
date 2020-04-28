@@ -41,7 +41,7 @@ class WriteTableDescriptionCell: UITableViewCell {
   // MARK: Properties
   
   var keyboardHeight: CGFloat = 0
-  private var location = AuthorizationManager.shared.selectedTown?.dong ?? "unknown"
+  private var location = AuthorizationManager.shared.firstTown?.locate.dong ?? "unknown"
   
   // MARK: Initialize
   

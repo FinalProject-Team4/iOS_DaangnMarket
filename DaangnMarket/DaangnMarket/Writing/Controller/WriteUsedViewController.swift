@@ -178,8 +178,8 @@ class WriteUsedViewController: UIViewController {
   }
   
   @objc private func didTapCreateButton() {
-    guard let locate = AuthorizationManager.shared.selectedTown?.id else { return }
-    let distance = AuthorizationManager.shared.selectedTown?.distance ?? 1_000
+    guard let locate = AuthorizationManager.shared.firstTown?.locate.id,
+      let distance = AuthorizationManager.shared.firstTown?.distance else { return }
     let imgDatas = self.uploadImages.map { $0.jpegData(compressionQuality: 0.2) }
     guard let titleCell = self.writeTableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? WriteTableTitleCell else { return }
     let title = titleCell.cellData
@@ -197,10 +197,8 @@ class WriteUsedViewController: UIViewController {
         "category": categoryFilter(currentCategory),
         "price": String(price),
         "photos": imgDatas,
-        //        "locate": String(locate),
-        "locate": String(1_011),
-        //        "distance": String(distance)
-        "distance": String(1_000)
+        "locate": String(locate),
+        "distance": String(distance)
       ]
       request(parameters, [header]) { result in
         switch result {
