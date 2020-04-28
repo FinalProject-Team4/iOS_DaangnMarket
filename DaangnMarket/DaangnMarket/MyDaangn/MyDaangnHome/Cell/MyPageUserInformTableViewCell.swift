@@ -101,4 +101,9 @@ class MyPageUserInformTableViewCell: UITableViewCell {
       print("default")
     }
   }
+  
+//  func configure(userData: Post) {
+//    self.userNameLabel.text = userData.username
+//    self.addressLabel.text = userData.address
+//  }
 }

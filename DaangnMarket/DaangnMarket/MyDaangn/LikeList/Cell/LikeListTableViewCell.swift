@@ -5,10 +5,16 @@
 //  Created by JinGyung Kim on 2020/04/23.
 //  Copyright © 2020 Jisng. All rights reserved.
 //
-
 import UIKit
+import Alamofire
+
+protocol LikeListTVCDelegate: class {
+  func likeButton(postId: Int)
+}
 
 class LikeListTableViewCell: UITableViewCell {
+  weak var delegate: LikeListTVCDelegate?
+  
   let itemImageView = UIImageView().then {
     $0.layer.cornerRadius = 5
     $0.contentMode = .scaleAspectFit
@@ -29,13 +35,6 @@ class LikeListTableViewCell: UITableViewCell {
     $0.textColor = .black
     $0.numberOfLines = 2
   }
-  //  let heartButton = UIImageView().then {
-  //    $0.image = UIImage(systemName: "suit.heart.fill")
-  //    $0.tintColor = UIColor(named: ColorReference.daangnMain.rawValue)
-  //    $0.contentMode = .scaleAspectFill
-  //    $0.clipsToBounds = true
-  //  }
-  
   var heartButton = UIButton().then {
     $0.setImage(UIImage(systemName: "suit.heart.fill"), for: .normal)
     $0.tintColor = UIColor(named: ColorReference.daangnMain.rawValue)
@@ -51,6 +50,7 @@ class LikeListTableViewCell: UITableViewCell {
   let chatLikeView = PageChatLikeView()
   
   var isFullHeart = true
+  var postID = 0
   
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -119,12 +119,16 @@ class LikeListTableViewCell: UITableViewCell {
   let numberFormatter = NumberFormatter()
   
   func configure(likeData: Post) {
-    self.itemImageView.image = UIImage(named: "others1")
+    self.postID = likeData.postId
+    if likeData.photos.isEmpty {
+      self.itemImageView.image = UIImage(named: "DaangnDefaultItem")
+    } else {
+      self.itemImageView.kf.setImage(with: URL(string: likeData.photos[0]))
+    }
     self.contentLabel.text = likeData.title + likeData.content
-    self.addrTimeLabel.text = "\(likeData.address) ･ \(likeData.updated)"
+    self.addrTimeLabel.text = "\(likeData.address) ･ \(PostData.shared.calculateDifferentTime(updated: likeData.created))"
     self.numberFormatter.numberStyle = .decimal
     self.priceLabel.text = "\(numberFormatter.string(from: NSNumber(value: likeData.price))!)원"
-    
     if likeData.state == "sales" {
       self.completedMark.isHidden = true
     }
@@ -137,6 +141,7 @@ class LikeListTableViewCell: UITableViewCell {
     } else {
       self.heartButton.setImage(UIImage(systemName: "suit.heart.fill"), for: .normal)
     }
+    delegate?.likeButton(postId: self.postID)
+    print(self.postID)
   }
 }
-

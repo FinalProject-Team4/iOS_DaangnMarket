@@ -15,7 +15,6 @@
 		9A6536C32441AC6600301D01 /* TabMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6536C22441AC6600301D01 /* TabMenuView.swift */; };
 		9A6536C52441AC8100301D01 /* TabMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6536C42441AC8100301D01 /* TabMenuCollectionViewCell.swift */; };
 		9A6536C72442738A00301D01 /* SellingItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6536C62442738A00301D01 /* SellingItemsViewController.swift */; };
-		9A935DC1244387D10043298E /* ItemsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A935DC0244387D10043298E /* ItemsData.swift */; };
 		A621CB29244C970E00BBFA4E /* ContentSearchScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A621CB28244C970E00BBFA4E /* ContentSearchScrollView.swift */; };
 		A621CB2F244C992600BBFA4E /* SearchMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A621CB2E244C992600BBFA4E /* SearchMainView.swift */; };
 		A621CB31244C9EC400BBFA4E /* SearchUsedDealView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A621CB30244C9EC400BBFA4E /* SearchUsedDealView.swift */; };
@@ -149,6 +148,11 @@
 		DE4B705E24447EF0001BC5D8 /* UserProfilePercentageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4B705D24447EF0001BC5D8 /* UserProfilePercentageView.swift */; };
 		DE4B7080244490EE001BC5D8 /* MannerTemperatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4B707F244490EE001BC5D8 /* MannerTemperatureView.swift */; };
 		DE4B708224449981001BC5D8 /* PageChatLikeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4B708124449981001BC5D8 /* PageChatLikeView.swift */; };
+		DE5EC3D024574CA2002448AC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DE5EC3CF24574CA2002448AC /* GoogleService-Info.plist */; };
+		DE5EC3D324574F93002448AC /* MyDaangnServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5EC3D224574F93002448AC /* MyDaangnServiceManager.swift */; };
+		DE5EC3D624574FEC002448AC /* LikeListInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5EC3D524574FEC002448AC /* LikeListInfo.swift */; };
+		DE5EC3D82457500B002448AC /* OtherItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5EC3D72457500B002448AC /* OtherItems.swift */; };
+		DE5EC3DB24578B7D002448AC /* ProductPostServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5EC3DA24578B7D002448AC /* ProductPostServiceManager.swift */; };
 		DEB8887A24508CA900EAE363 /* profileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB8887924508CA900EAE363 /* profileData.swift */; };
 		DEE5BBCA2450B0BB009410CA /* MyPageListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5BBC92450B0BB009410CA /* MyPageListButton.swift */; };
 		DEE5BBCC2450B0D8009410CA /* MyPageSettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5BBCB2450B0D8009410CA /* MyPageSettingButton.swift */; };
@@ -168,7 +172,6 @@
 		DEE5BBF42450C36A009410CA /* SalesListEndOfSalesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5BBF32450C36A009410CA /* SalesListEndOfSalesTableViewCell.swift */; };
 		DEE5BBF62450C3B5009410CA /* SalesListHiddenTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5BBF52450C3B5009410CA /* SalesListHiddenTableViewCell.swift */; };
 		DEE5BBF82450C3FB009410CA /* SalesListOnSaleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5BBF72450C3FB009410CA /* SalesListOnSaleTableViewCell.swift */; };
-		DEE5BBFB2450C5A1009410CA /* SalesListData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5BBFA2450C5A1009410CA /* SalesListData.swift */; };
 		DEE5BC002450C5F7009410CA /* BackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5BBFF2450C5F7009410CA /* BackView.swift */; };
 		DEE5BC022450C62B009410CA /* EndOfSaleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5BC012450C62B009410CA /* EndOfSaleViewController.swift */; };
 /* End PBXBuildFile section */
@@ -184,7 +187,6 @@
 		9A6536C22441AC6600301D01 /* TabMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabMenuView.swift; sourceTree = "<group>"; };
 		9A6536C42441AC8100301D01 /* TabMenuCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabMenuCollectionViewCell.swift; sourceTree = "<group>"; };
 		9A6536C62442738A00301D01 /* SellingItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellingItemsViewController.swift; sourceTree = "<group>"; };
-		9A935DC0244387D10043298E /* ItemsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsData.swift; sourceTree = "<group>"; };
 		A621CB28244C970E00BBFA4E /* ContentSearchScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSearchScrollView.swift; sourceTree = "<group>"; };
 		A621CB2E244C992600BBFA4E /* SearchMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMainView.swift; sourceTree = "<group>"; };
 		A621CB30244C9EC400BBFA4E /* SearchUsedDealView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUsedDealView.swift; sourceTree = "<group>"; };
@@ -322,6 +324,11 @@
 		DE4B705D24447EF0001BC5D8 /* UserProfilePercentageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePercentageView.swift; sourceTree = "<group>"; };
 		DE4B707F244490EE001BC5D8 /* MannerTemperatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MannerTemperatureView.swift; sourceTree = "<group>"; };
 		DE4B708124449981001BC5D8 /* PageChatLikeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageChatLikeView.swift; sourceTree = "<group>"; };
+		DE5EC3CF24574CA2002448AC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/finalProject/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		DE5EC3D224574F93002448AC /* MyDaangnServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDaangnServiceManager.swift; sourceTree = "<group>"; };
+		DE5EC3D524574FEC002448AC /* LikeListInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeListInfo.swift; sourceTree = "<group>"; };
+		DE5EC3D72457500B002448AC /* OtherItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherItems.swift; sourceTree = "<group>"; };
+		DE5EC3DA24578B7D002448AC /* ProductPostServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductPostServiceManager.swift; sourceTree = "<group>"; };
 		DEB8887924508CA900EAE363 /* profileData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileData.swift; sourceTree = "<group>"; };
 		DEE5BBC92450B0BB009410CA /* MyPageListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageListButton.swift; sourceTree = "<group>"; };
 		DEE5BBCB2450B0D8009410CA /* MyPageSettingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageSettingButton.swift; sourceTree = "<group>"; };
@@ -341,7 +348,6 @@
 		DEE5BBF32450C36A009410CA /* SalesListEndOfSalesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesListEndOfSalesTableViewCell.swift; sourceTree = "<group>"; };
 		DEE5BBF52450C3B5009410CA /* SalesListHiddenTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesListHiddenTableViewCell.swift; sourceTree = "<group>"; };
 		DEE5BBF72450C3FB009410CA /* SalesListOnSaleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesListOnSaleTableViewCell.swift; sourceTree = "<group>"; };
-		DEE5BBFA2450C5A1009410CA /* SalesListData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesListData.swift; sourceTree = "<group>"; };
 		DEE5BBFF2450C5F7009410CA /* BackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackView.swift; sourceTree = "<group>"; };
 		DEE5BC012450C62B009410CA /* EndOfSaleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndOfSaleViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -378,7 +384,8 @@
 		9A935DBF244387C20043298E /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				9A935DC0244387D10043298E /* ItemsData.swift */,
+				DE5EC3D524574FEC002448AC /* LikeListInfo.swift */,
+				DE5EC3D72457500B002448AC /* OtherItems.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -423,8 +430,8 @@
 				ACFB7D2F242C415F00E47F97 /* Test */,
 				A62D96B22424A442006F1722 /* Assets.xcassets */,
 				A62D96B42424A442006F1722 /* LaunchScreen.storyboard */,
+				DE5EC3CF24574CA2002448AC /* GoogleService-Info.plist */,
 				A62D96B72424A442006F1722 /* Info.plist */,
-				ACBD477A2457E4DB008C322C /* GoogleService-Info.plist */,
 				AC52A50B243D90D000DB4FB6 /* LaunchViewController.swift */,
 			);
 			path = DaangnMarket;
@@ -722,6 +729,7 @@
 		ACCD94D12429F5C000153545 /* Product */ = {
 			isa = PBXGroup;
 			children = (
+				DE5EC3D924578AFC002448AC /* Service */,
 				AC52A4F5243C495600DB4FB6 /* Model */,
 				DEB8887524507FD400EAE363 /* Controller */,
 				AC52A4F0243C495600DB4FB6 /* Cell */,
@@ -755,10 +763,11 @@
 		ACCD94D42429F5E600153545 /* MyDaangn */ = {
 			isa = PBXGroup;
 			children = (
+				9A935DBF244387C20043298E /* Model */,
+				DE5EC3D124574F6D002448AC /* Service */,
 				DEE5BBC52450B048009410CA /* MyDaangnHome */,
 				DEE5BBDB2450B794009410CA /* SalesList */,
 				DEE5BBDC2450B79A009410CA /* LikeList */,
-				9A935DBF244387C20043298E /* Model */,
 				DEA48F5A24507D090012317E /* ProfilePage */,
 				DEB8886E24507E7E00EAE363 /* SellingItems */,
 			);
@@ -937,6 +946,22 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
+		DE5EC3D124574F6D002448AC /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				DE5EC3D224574F93002448AC /* MyDaangnServiceManager.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		DE5EC3D924578AFC002448AC /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				DE5EC3DA24578B7D002448AC /* ProductPostServiceManager.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		DEA48F5A24507D090012317E /* ProfilePage */ = {
 			isa = PBXGroup;
 			children = (
@@ -1070,7 +1095,6 @@
 			isa = PBXGroup;
 			children = (
 				DEE5BBE82450C01E009410CA /* EndOfSalePage */,
-				DEE5BBF92450C591009410CA /* Model */,
 				DEE5BBE02450B7C0009410CA /* Controller */,
 				DEE5BBDF2450B7BC009410CA /* Cell */,
 				DEE5BBDE2450B7B4009410CA /* View */,
@@ -1140,14 +1164,6 @@
 				DEE5BBFC2450C5C7009410CA /* View */,
 			);
 			path = EndOfSalePage;
-			sourceTree = "<group>";
-		};
-		DEE5BBF92450C591009410CA /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				DEE5BBFA2450C5A1009410CA /* SalesListData.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		DEE5BBFC2450C5C7009410CA /* View */ = {
@@ -1228,7 +1244,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ACCD94CE2429E59500153545 /* .swiftlint.yml in Resources */,
-				ACBD477B2457E4DB008C322C /* GoogleService-Info.plist in Resources */,
+				DE5EC3D024574CA2002448AC /* GoogleService-Info.plist in Resources */,
 				A62D96B62424A442006F1722 /* LaunchScreen.storyboard in Resources */,
 				A62D96B32424A442006F1722 /* Assets.xcassets in Resources */,
 			);
@@ -1305,7 +1321,6 @@
 				DEE5BBD62450B256009410CA /* MyPageSettingButtonsTableViewCel.swift in Sources */,
 				A6595AC12451F70200DDCAA5 /* CALayer+Extension.swift in Sources */,
 				AC7AA1002445D62900691D5E /* ActivityNotificationCell.swift in Sources */,
-				DEE5BBFB2450C5A1009410CA /* SalesListData.swift in Sources */,
 				DEE5BBCE2450B102009410CA /* MyProfileImageButton.swift in Sources */,
 				ACCC9755242B490E008F95DE /* Identifiable.swift in Sources */,
 				ACFB7D3A242CCE9200E47F97 /* UIDevice+Extension.swift in Sources */,
@@ -1346,6 +1361,8 @@
 				DEE5BBDA2450B781009410CA /* SalesListViewController.swift in Sources */,
 				A62D97DE242B3F57006F1722 /* WriteTableAlbumCell.swift in Sources */,
 				A62D97E6242B40AE006F1722 /* WriteTableDescriptionCell.swift in Sources */,
+				DE5EC3DB24578B7D002448AC /* ProductPostServiceManager.swift in Sources */,
+				DE5EC3D324574F93002448AC /* MyDaangnServiceManager.swift in Sources */,
 				AD6208AA243CB386007818C6 /* ChooseTownToShowViewController.swift in Sources */,
 				DE4B708224449981001BC5D8 /* PageChatLikeView.swift in Sources */,
 				ADE2AA5324505EE400CC8E72 /* SecondTownSetButton.swift in Sources */,
@@ -1379,6 +1396,7 @@
 				DE4B705C24447ED8001BC5D8 /* UserProfileMannerTemperView.swift in Sources */,
 				AC5052DB242DA1B40045B9BC /* TownBackgroundView.swift in Sources */,
 				AD6EBFAE2438EF4C003F01CA /* MyTownSetting.swift in Sources */,
+				DE5EC3D82457500B002448AC /* OtherItems.swift in Sources */,
 				A639494224486AFD00832F4E /* KeywordCollectionViewCell.swift in Sources */,
 				AD6EBFAC2438E83C003F01CA /* SecondTownSelectButton.swift in Sources */,
 				ACCD94EA242A238300153545 /* FindMyTownViewController.swift in Sources */,
@@ -1407,7 +1425,6 @@
 				A6C1E393243C5CE400A6FF32 /* MainTabBarController.swift in Sources */,
 				DEE5BBF82450C3FB009410CA /* SalesListOnSaleTableViewCell.swift in Sources */,
 				A639494424486B7500832F4E /* SearchHistoryModel.swift in Sources */,
-				9A935DC1244387D10043298E /* ItemsData.swift in Sources */,
 				9A6536B92441A7FB00301D01 /* ProfilePageViewController.swift in Sources */,
 				ACCC9750242B31CB008F95DE /* TownSearchBar.swift in Sources */,
 				A639493F24486AD100832F4E /* SearchKeywordsView.swift in Sources */,
@@ -1458,6 +1475,7 @@
 				A639494E2449CDA500832F4E /* FilterTableViewCell.swift in Sources */,
 				ACCD94DF2429F89200153545 /* MyPageViewController.swift in Sources */,
 				A621CB35244C9F9300BBFA4E /* SearchFailView.swift in Sources */,
+				DE5EC3D624574FEC002448AC /* LikeListInfo.swift in Sources */,
 				ADD05137242C62CF00312DF1 /* PostInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
