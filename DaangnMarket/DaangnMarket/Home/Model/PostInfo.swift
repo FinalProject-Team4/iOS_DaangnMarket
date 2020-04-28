@@ -32,6 +32,7 @@ struct Post: Codable {
   let content: String
   let category: String
   let viewCount: Int
+  let created: String
   let updated: String
   let address: String
   let price: Int
@@ -48,7 +49,7 @@ extension Post {
     case username, title, content, category
     case viewCount = "view_count"
 //    case updated, price, state
-    case updated, address, price, state, likes
+    case updated, created, address, price, state, likes
     case photos
   }
 }

@@ -122,7 +122,7 @@ class HomeFeedTableViewCell: UITableViewCell {
   private func calculateDifferentTime(_ posts: [Post]) {
     let currentTime = Date()
     for idx in 0..<posts.count {
-      let tempTime = posts[idx].updated.replacingOccurrences(of: "T", with: " ").components(separatedBy: ".")[0]
+      let tempTime = posts[idx].created.replacingOccurrences(of: "T", with: " ").components(separatedBy: ".")[0]
       let dateFormatter = DateFormatter()
       dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
       let updatedTime: Date = dateFormatter.date(from: tempTime) ?? currentTime

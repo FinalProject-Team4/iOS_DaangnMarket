@@ -82,8 +82,10 @@ class AuthorizationManager: Then {
   func register(town: UserTown) {
     if self.firstTown == nil {
       UserDefaults.standard.set(town, forKey: .firstTown)
+      UserDefaults.standard.synchronize()
     } else if self.secondTown == nil {
       UserDefaults.standard.set(town, forKey: .secondTown)
+      UserDefaults.standard.synchronize()
     } else {
       return
     }
@@ -98,7 +100,8 @@ class AuthorizationManager: Then {
       UserDefaults.standard.remove(forKey: key)
     } else {
       UserDefaults.standard.swapAt(.firstTown, .secondTown)
-      self.removeTown(forKey: .secondTown)
+//      self.removeTown(forKey: .secondTown)
+      UserDefaults.standard.remove(forKey: .secondTown)
     }
   }
   
