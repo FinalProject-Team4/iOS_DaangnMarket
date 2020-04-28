@@ -14,10 +14,16 @@ class MainTabBarController: UITabBarController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.delegate = self
+    self.tabBar.backgroundImage = UIImage()
   }
 }
 
 extension MainTabBarController: UITabBarControllerDelegate {
+  func deSelecteTabBarIdx(_ idx: Int) {
+    
+  }
+  
+  
   func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
     if viewController is WriteClearViewController {
       if let token = AuthorizationManager.shared.userInfo?.authorization {
@@ -32,7 +38,9 @@ extension MainTabBarController: UITabBarControllerDelegate {
           tabBarController.present(authVC, animated: false)
         }
         let cancelAction = DGAlertAction(title: "취소", style: .white) {
-          self.dismiss(animated: false)
+          self.dismiss(animated: false) {
+            tabBarController.selectedIndex = 0
+          }
         }
         [signInAction, cancelAction].forEach { alert.addAction($0) }
         tabBarController.present(alert, animated: false)
