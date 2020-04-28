@@ -105,15 +105,7 @@ class SelectedCategoryFeedViewController: UIViewController {
       .filter { $0.korean == category }
       .map { $0.rawValue }
       .first ?? "other"
-
-    let locate = ""
-    let distance = ""
-    print("---locate---", locate)
-    print("---distance---", distance)
-    
-    let url = URL(
-      string: "http://13.125.217.34/post/list?locate=\(locate)&category=\(category)&distance=\(distance)"
-    )
+    let url = URL(string: "http://13.125.217.34/post/list?category=\(category)&page=1&locate=6971")
     firstRequest(url: url)
   }
   
@@ -158,6 +150,10 @@ class SelectedCategoryFeedViewController: UIViewController {
           guard let responseData = response.data else { return }
           guard let decodeResult = try? JSONDecoder().decode(PostInfo.self, from: responseData) else { return }
           self.postData += decodeResult.results
+          if self.postData.isEmpty {
+            self.setupEmptyView(category: self.selectedCategory!)
+            self.tableView.isHidden = true
+          }
           self.nextURL = URL(string: decodeResult.next ?? "")
         case .failure(let err):
           print(err.localizedDescription)
@@ -188,11 +184,7 @@ extension SelectedCategoryFeedViewController: UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: "GoodsCell", for: indexPath) as? HomeFeedTableViewCell else { return UITableViewCell() }
-    let post = postData[indexPath.row]
-    cell.goodsName.text = post.title
-    cell.sellerLoctionAndTime.text = post.address + " • " + PostData.shared.calculateDifferentTime(updated: post.updated)
-    cell.goodsPrice.text = "\(post.price)원"
-    cell.goodsImageView.image = UIImage(named: ImageReference.noImage.rawValue)
+    cell.setupHomeFeedCell(posts: postData, indexPath: indexPath)
     return cell
   }
 }
@@ -211,9 +203,7 @@ extension SelectedCategoryFeedViewController: UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     guard let productPVC = ViewControllerGenerator.shared.make(.productPost) else { return }
-    let post = postData[indexPath.row]
-    PostData.shared.updated = post.address + " • " + PostData.shared.calculateDifferentTime(updated: post.updated)
-    PostData.shared.saveData(post)
+    PostData.shared.saveData(postData[indexPath.row])
     self.navigationController?.pushViewController(productPVC, animated: true)
   }
 }

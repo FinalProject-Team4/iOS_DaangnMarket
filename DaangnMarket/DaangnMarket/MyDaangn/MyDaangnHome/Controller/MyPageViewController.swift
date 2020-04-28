@@ -151,9 +151,6 @@ extension MyPageViewController: MyPageListButtonDelegate {
 //      self.navigationController?.pushViewController(salesListVC, animated: true)
     case "likeListButton":
       break
-//      let dummyData = PostData.shared.dummyData
-//      guard let likeListVC = ViewControllerGenerator.shared.make(.likeList, parameters: ["likeListData": dummyData]) else { return }
-//      self.navigationController?.pushViewController(likeListVC, animated: true)
     default:
       break
     }

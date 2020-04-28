@@ -46,7 +46,6 @@
 		A63F37BA24344C39002C0D9B /* SelectedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63F37B924344C39002C0D9B /* SelectedImageView.swift */; };
 		A63F37C0243596EF002C0D9B /* WriteKeywordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63F37BF243596EF002C0D9B /* WriteKeywordViewController.swift */; };
 		A63F37C224359B5D002C0D9B /* KeywordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63F37C124359B5D002C0D9B /* KeywordTableViewCell.swift */; };
-		A6595AB324510C3D00DDCAA5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A6595AB224510C3D00DDCAA5 /* GoogleService-Info.plist */; };
 		A6595ABD2451F6B300DDCAA5 /* UITableViewCell+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6595ABC2451F6B300DDCAA5 /* UITableViewCell+Extension.swift */; };
 		A6595ABF2451F6D600DDCAA5 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6595ABE2451F6D600DDCAA5 /* UIView+Extension.swift */; };
 		A6595AC12451F70200DDCAA5 /* CALayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6595AC02451F70200DDCAA5 /* CALayer+Extension.swift */; };
@@ -92,12 +91,12 @@
 		AC8C0C83244AF37E00C1FB51 /* ChattingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0C82244AF37E00C1FB51 /* ChattingCell.swift */; };
 		AC8C0C85244B12C300C1FB51 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0C84244B12C300C1FB51 /* ProfileView.swift */; };
 		AC8C0C88244C684700C1FB51 /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0C87244C684700C1FB51 /* ChatModel.swift */; };
-		AC8C0D2B2451D47100C1FB51 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AC8C0D2A2451D47000C1FB51 /* GoogleService-Info.plist */; };
 		AC8C0D2D2451E3B300C1FB51 /* ActivityNotiInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0D2C2451E3B300C1FB51 /* ActivityNotiInfo.swift */; };
 		ACB2B60324333763002FAF27 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B60224333763002FAF27 /* AuthViewController.swift */; };
 		ACB2B6072433472B002FAF27 /* AuthDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B6062433472B002FAF27 /* AuthDescriptionView.swift */; };
 		ACB2B60924334813002FAF27 /* NSMutableAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B60824334813002FAF27 /* NSMutableAttributedString+Extension.swift */; };
 		ACB600A424486A0700315DEA /* KeywordNotificationHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB600A324486A0700315DEA /* KeywordNotificationHeader.swift */; };
+		ACBD4779245719F6008C322C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACBD4778245719F6008C322C /* GoogleService-Info.plist */; };
 		ACCC9750242B31CB008F95DE /* TownSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCC974F242B31CB008F95DE /* TownSearchBar.swift */; };
 		ACCC9753242B48D6008F95DE /* TownAddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCC9752242B48D6008F95DE /* TownAddressCell.swift */; };
 		ACCC9755242B490E008F95DE /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCC9754242B490E008F95DE /* Identifiable.swift */; };
@@ -124,8 +123,6 @@
 		ACFB7D3C242CCFF000E47F97 /* DGNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFB7D3B242CCFF000E47F97 /* DGNavigationBar.swift */; };
 		ACFB7D3E242CD94E00E47F97 /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFB7D3D242CD94E00E47F97 /* UINavigationController+Extension.swift */; };
 		AD37AA13244F21B100D24EDD /* PopoverSecondTownButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD37AA10244F21B000D24EDD /* PopoverSecondTownButton.swift */; };
-		AD37AA14244F21B100D24EDD /* PopoverTownSettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD37AA11244F21B000D24EDD /* PopoverTownSettingButton.swift */; };
-		AD37AA15244F21B100D24EDD /* PopoverFirstTownButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD37AA12244F21B100D24EDD /* PopoverFirstTownButton.swift */; };
 		AD5DC679243F5DF200A4A5A4 /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5DC678243F5DF200A4A5A4 /* CustomNavigationBar.swift */; };
 		AD6208AA243CB386007818C6 /* ChooseTownToShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6208A9243CB386007818C6 /* ChooseTownToShowViewController.swift */; };
 		AD677861242A21ED00CFEB86 /* FirstAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD677860242A21ED00CFEB86 /* FirstAlertViewController.swift */; };
@@ -138,12 +135,14 @@
 		AD6EBFB5243B1D70003F01CA /* TownCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6EBFB4243B1D70003F01CA /* TownCountView.swift */; };
 		AD7ABAB42443FFB000520C28 /* AroundTownsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7ABAB32443FFB000520C28 /* AroundTownsViewController.swift */; };
 		AD7BEF772444811300F72831 /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7BEF762444811300F72831 /* CustomSlider.swift */; };
+		AD9EAF1A24509BE8000D8BCD /* PopoverFirstTownButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9EAF1924509BE8000D8BCD /* PopoverFirstTownButton.swift */; };
 		ADAA12BF2433214000A692A0 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAA12BE2433214000A692A0 /* PopoverViewController.swift */; };
-		ADB599202449846900E4322D /* SecondTownSetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB5991F2449846900E4322D /* SecondTownSetButton.swift */; };
 		ADD05132242B595200312DF1 /* HomeFeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD05131242B595200312DF1 /* HomeFeedTableViewCell.swift */; };
 		ADD05135242C4FC000312DF1 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD05134242C4FC000312DF1 /* Service.swift */; };
 		ADD05137242C62CF00312DF1 /* PostInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD05136242C62CF00312DF1 /* PostInfo.swift */; };
 		ADDF1822243D965100CA5205 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDF1821243D965100CA5205 /* WelcomeView.swift */; };
+		ADE2AA5124505E6D00CC8E72 /* PopoverTownSettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE2AA5024505E6C00CC8E72 /* PopoverTownSettingButton.swift */; };
+		ADE2AA5324505EE400CC8E72 /* SecondTownSetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE2AA5224505EE400CC8E72 /* SecondTownSetButton.swift */; };
 		DE4B705A24447EC1001BC5D8 /* UserProfileImageNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4B705924447EC1001BC5D8 /* UserProfileImageNameView.swift */; };
 		DE4B705C24447ED8001BC5D8 /* UserProfileMannerTemperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4B705B24447ED8001BC5D8 /* UserProfileMannerTemperView.swift */; };
 		DE4B705E24447EF0001BC5D8 /* UserProfilePercentageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4B705D24447EF0001BC5D8 /* UserProfilePercentageView.swift */; };
@@ -217,7 +216,6 @@
 		A63F37B924344C39002C0D9B /* SelectedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedImageView.swift; sourceTree = "<group>"; };
 		A63F37BF243596EF002C0D9B /* WriteKeywordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteKeywordViewController.swift; sourceTree = "<group>"; };
 		A63F37C124359B5D002C0D9B /* KeywordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordTableViewCell.swift; sourceTree = "<group>"; };
-		A6595AB224510C3D00DDCAA5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A6595ABC2451F6B300DDCAA5 /* UITableViewCell+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extension.swift"; sourceTree = "<group>"; };
 		A6595ABE2451F6D600DDCAA5 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		A6595AC02451F70200DDCAA5 /* CALayer+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Extension.swift"; sourceTree = "<group>"; };
@@ -263,12 +261,12 @@
 		AC8C0C82244AF37E00C1FB51 /* ChattingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingCell.swift; sourceTree = "<group>"; };
 		AC8C0C84244B12C300C1FB51 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		AC8C0C87244C684700C1FB51 /* ChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
-		AC8C0D2A2451D47000C1FB51 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AC8C0D2C2451E3B300C1FB51 /* ActivityNotiInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityNotiInfo.swift; sourceTree = "<group>"; };
 		ACB2B60224333763002FAF27 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		ACB2B6062433472B002FAF27 /* AuthDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDescriptionView.swift; sourceTree = "<group>"; };
 		ACB2B60824334813002FAF27 /* NSMutableAttributedString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Extension.swift"; sourceTree = "<group>"; };
 		ACB600A324486A0700315DEA /* KeywordNotificationHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordNotificationHeader.swift; sourceTree = "<group>"; };
+		ACBD4778245719F6008C322C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ACCC974F242B31CB008F95DE /* TownSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownSearchBar.swift; sourceTree = "<group>"; };
 		ACCC9752242B48D6008F95DE /* TownAddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownAddressCell.swift; sourceTree = "<group>"; };
 		ACCC9754242B490E008F95DE /* Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
@@ -296,8 +294,6 @@
 		ACFB7D3B242CCFF000E47F97 /* DGNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DGNavigationBar.swift; sourceTree = "<group>"; };
 		ACFB7D3D242CD94E00E47F97 /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
 		AD37AA10244F21B000D24EDD /* PopoverSecondTownButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverSecondTownButton.swift; sourceTree = "<group>"; };
-		AD37AA11244F21B000D24EDD /* PopoverTownSettingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverTownSettingButton.swift; sourceTree = "<group>"; };
-		AD37AA12244F21B100D24EDD /* PopoverFirstTownButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverFirstTownButton.swift; sourceTree = "<group>"; };
 		AD5DC678243F5DF200A4A5A4 /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
 		AD6208A9243CB386007818C6 /* ChooseTownToShowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseTownToShowViewController.swift; sourceTree = "<group>"; };
 		AD677860242A21ED00CFEB86 /* FirstAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstAlertViewController.swift; sourceTree = "<group>"; };
@@ -311,12 +307,14 @@
 		AD6EBFB4243B1D70003F01CA /* TownCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownCountView.swift; sourceTree = "<group>"; };
 		AD7ABAB32443FFB000520C28 /* AroundTownsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AroundTownsViewController.swift; sourceTree = "<group>"; };
 		AD7BEF762444811300F72831 /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
+		AD9EAF1924509BE8000D8BCD /* PopoverFirstTownButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverFirstTownButton.swift; sourceTree = "<group>"; };
 		ADAA12BE2433214000A692A0 /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
-		ADB5991F2449846900E4322D /* SecondTownSetButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondTownSetButton.swift; sourceTree = "<group>"; };
 		ADD05131242B595200312DF1 /* HomeFeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeedTableViewCell.swift; sourceTree = "<group>"; };
 		ADD05134242C4FC000312DF1 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		ADD05136242C62CF00312DF1 /* PostInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostInfo.swift; sourceTree = "<group>"; };
 		ADDF1821243D965100CA5205 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		ADE2AA5024505E6C00CC8E72 /* PopoverTownSettingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverTownSettingButton.swift; sourceTree = "<group>"; };
+		ADE2AA5224505EE400CC8E72 /* SecondTownSetButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondTownSetButton.swift; sourceTree = "<group>"; };
 		DE4B705924447EC1001BC5D8 /* UserProfileImageNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileImageNameView.swift; sourceTree = "<group>"; };
 		DE4B705B24447ED8001BC5D8 /* UserProfileMannerTemperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileMannerTemperView.swift; sourceTree = "<group>"; };
 		DE4B705D24447EF0001BC5D8 /* UserProfilePercentageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePercentageView.swift; sourceTree = "<group>"; };
@@ -424,7 +422,7 @@
 				A62D96B22424A442006F1722 /* Assets.xcassets */,
 				A62D96B42424A442006F1722 /* LaunchScreen.storyboard */,
 				A62D96B72424A442006F1722 /* Info.plist */,
-				A6595AB224510C3D00DDCAA5 /* GoogleService-Info.plist */,
+				ACBD4778245719F6008C322C /* GoogleService-Info.plist */,
 				AC52A50B243D90D000DB4FB6 /* LaunchViewController.swift */,
 			);
 			path = DaangnMarket;
@@ -872,7 +870,7 @@
 				AD6EBFA7243773BB003F01CA /* TownSelectView.swift */,
 				AD6EBFA92438E01D003F01CA /* FirstTownSelectButton.swift */,
 				AD6EBFAB2438E83C003F01CA /* SecondTownSelectButton.swift */,
-				ADB5991F2449846900E4322D /* SecondTownSetButton.swift */,
+				ADE2AA5224505EE400CC8E72 /* SecondTownSetButton.swift */,
 				AD6EBFB2243AF07C003F01CA /* MyTownAroundView.swift */,
 				AD7BEF762444811300F72831 /* CustomSlider.swift */,
 				AD6EBFB4243B1D70003F01CA /* TownCountView.swift */,
@@ -903,9 +901,9 @@
 			children = (
 				ADDF1821243D965100CA5205 /* WelcomeView.swift */,
 				AD5DC678243F5DF200A4A5A4 /* CustomNavigationBar.swift */,
-				AD37AA12244F21B100D24EDD /* PopoverFirstTownButton.swift */,
+				AD9EAF1924509BE8000D8BCD /* PopoverFirstTownButton.swift */,
 				AD37AA10244F21B000D24EDD /* PopoverSecondTownButton.swift */,
-				AD37AA11244F21B000D24EDD /* PopoverTownSettingButton.swift */,
+				ADE2AA5024505E6C00CC8E72 /* PopoverTownSettingButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1227,7 +1225,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ACCD94CE2429E59500153545 /* .swiftlint.yml in Resources */,
-				A6595AB324510C3D00DDCAA5 /* GoogleService-Info.plist in Resources */,
+				ACBD4779245719F6008C322C /* GoogleService-Info.plist in Resources */,
 				A62D96B62424A442006F1722 /* LaunchScreen.storyboard in Resources */,
 				A62D96B32424A442006F1722 /* Assets.xcassets in Resources */,
 			);
@@ -1316,8 +1314,8 @@
 				AC8C0D2D2451E3B300C1FB51 /* ActivityNotiInfo.swift in Sources */,
 				ACB2B60924334813002FAF27 /* NSMutableAttributedString+Extension.swift in Sources */,
 				ACCD94D72429F81D00153545 /* CategoryViewController.swift in Sources */,
+				AD9EAF1A24509BE8000D8BCD /* PopoverFirstTownButton.swift in Sources */,
 				AC829F4724347FDC00D0623A /* NumberField.swift in Sources */,
-				AD37AA15244F21B100D24EDD /* PopoverFirstTownButton.swift in Sources */,
 				AC8C0C85244B12C300C1FB51 /* ProfileView.swift in Sources */,
 				AC8C0C83244AF37E00C1FB51 /* ChattingCell.swift in Sources */,
 				AC52A4FD243C495600DB4FB6 /* OtherItemsTableViewCell.swift in Sources */,
@@ -1347,6 +1345,8 @@
 				A62D97E6242B40AE006F1722 /* WriteTableDescriptionCell.swift in Sources */,
 				AD6208AA243CB386007818C6 /* ChooseTownToShowViewController.swift in Sources */,
 				DE4B708224449981001BC5D8 /* PageChatLikeView.swift in Sources */,
+				ADE2AA5324505EE400CC8E72 /* SecondTownSetButton.swift in Sources */,
+				ADE2AA5124505E6D00CC8E72 /* PopoverTownSettingButton.swift in Sources */,
 				AC52A4EB243B113B00DB4FB6 /* AuthorizationManager.swift in Sources */,
 				DE4B705E24447EF0001BC5D8 /* UserProfilePercentageView.swift in Sources */,
 				ACCD94D92429F84200153545 /* ProductPostViewController.swift in Sources */,
@@ -1408,7 +1408,6 @@
 				ACCC9750242B31CB008F95DE /* TownSearchBar.swift in Sources */,
 				A639493F24486AD100832F4E /* SearchKeywordsView.swift in Sources */,
 				AD6EBFA8243773BB003F01CA /* TownSelectView.swift in Sources */,
-				ADB599202449846900E4322D /* SecondTownSetButton.swift in Sources */,
 				A63949342448525700832F4E /* SearchViewController.swift in Sources */,
 				DEE5BBE52450B811009410CA /* LikeListViewController.swift in Sources */,
 				ACB2B6072433472B002FAF27 /* AuthDescriptionView.swift in Sources */,
@@ -1423,7 +1422,6 @@
 				ACCD94F2242A250500153545 /* DGButton.swift in Sources */,
 				AD6EBFB3243AF07C003F01CA /* MyTownAroundView.swift in Sources */,
 				AD6EBFAA2438E01D003F01CA /* FirstTownSelectButton.swift in Sources */,
-				AD37AA14244F21B100D24EDD /* PopoverTownSettingButton.swift in Sources */,
 				AC7AA10E2446DEAC00691D5E /* NotificationCell.swift in Sources */,
 				ACCD94EE242A23B800153545 /* DaangnAnimationView.swift in Sources */,
 				DEE5BBF42450C36A009410CA /* SalesListEndOfSalesTableViewCell.swift in Sources */,

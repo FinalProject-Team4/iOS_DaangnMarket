@@ -17,8 +17,6 @@ final class ServiceManager {
   // MARK: Request Post & PostInfo Data
   
   func requestPostData(_ url: URL, _ parameters: Parameters, completionHandler: @escaping (Result<PostInfo, Error>) -> Void) {
-//    func requestPostData(_ url: URL, completionHandler: @escaping (Result<PostInfo, Error>) -> Void) {
-//    AF.request(url)
       AF.request(url, parameters: parameters)
       .validate()
       .responseDecodable { (response: DataResponse<PostInfo, AFError>) in
@@ -26,6 +24,7 @@ final class ServiceManager {
         case .success(let postInfo):
           completionHandler(.success(postInfo))
         case . failure(let error):
+          print(error)
           completionHandler(.failure(error))
         }
     }

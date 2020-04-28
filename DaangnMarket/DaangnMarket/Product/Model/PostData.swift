@@ -62,6 +62,7 @@ class PostData {
     }
     return updateTime
   }
+}
   
   // LikeList Dummy Data
 //  var dummyData: [Post] = [

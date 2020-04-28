@@ -53,6 +53,12 @@ class FindMyTownViewController: UIViewController {
   }
   private var sectionTitle = "근처 동네"
   
+  private enum TownRequestType {
+    case gps, search
+  }
+  
+  private var townRequestType: TownRequestType = .gps
+  
   // MARK: Services
   
   private let locationManager = LocationManager()
@@ -74,22 +80,41 @@ class FindMyTownViewController: UIViewController {
   private func setupAttributes() {
     self.view.backgroundColor = .systemBackground
     self.locationManager.delegate = self
+    
+    let isPushedFromInitial = self.navigationController?.lastViewController(offset: 1) is InitialStartViewController
+    
+    if !isPushedFromInitial {
+      let button = UIButton().then { button in
+        button.setBackgroundImage(UIImage(systemName: ImageReference.arrowLeft.rawValue), for: .normal)
+        button.tintColor = .black
+        button.addTarget(self, action: #selector(didTapBackButton(_:)), for: .touchUpInside)
+      }
+      self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: button)
+    }
   }
   
   private func setupConstraints() {
-    self.navigationBar
-      .then { self.view.addSubview($0) }
-      .snp
-      .makeConstraints {
-        $0.top.equalToSuperview().offset(UINavigationBar.statusBarSize.height)
-        $0.centerX.equalToSuperview()
-    }
+    let isPushedFromInitial = self.navigationController?.lastViewController(offset: 1) is InitialStartViewController
     
+    if isPushedFromInitial {
+      self.navigationBar
+        .then { self.view.addSubview($0) }
+        .snp
+        .makeConstraints {
+          $0.top.equalToSuperview().offset(UINavigationBar.statusBarSize.height)
+          $0.centerX.equalToSuperview()
+      }
+    }
+        
     self.townSearchBar
       .then { self.view.addSubview($0) }
       .snp
       .makeConstraints {
-        $0.top.equalTo(self.navigationBar.snp.bottom)
+        if isPushedFromInitial {
+          $0.top.equalTo(self.navigationBar.snp.bottom)
+        } else {
+          $0.top.equalTo(self.view.safeAreaLayoutGuide)
+        }
         $0.leading.trailing.equalTo(self.view.safeAreaLayoutGuide)
       }
     
@@ -171,10 +196,28 @@ extension FindMyTownViewController: UITableViewDelegate {
     API.default.request(.distance(dongId: selected.id)) { (result) in
       switch result {
       case .success(let around):
-        AuthorizationManager.shared.do {
-          $0.register(town: selected)
-          $0.aroundTown = around
+        let userInfo = AuthorizationManager.shared.userInfo
+        let userTown = UserTown(
+          user: userInfo?.username ?? "unknown",
+          verified: self.townRequestType == .gps,
+          activated: true,
+          distance: 3_600,
+          locate: selected
+        )
+        
+        let manager = AuthorizationManager.shared
+        if manager.firstTown == nil {
+          manager.firstTown = userTown
+          manager.firstAroundTown = around
+        } else {
+          // second에 넣기
+          manager.secondTown = userTown
+          manager.secondAroundTown = around
         }
+//        AuthorizationManager.shared.do {
+//          $0.register(town: userTown)
+//          $0.aroundTown = around
+//        }
       case .failure(let error):
         self.presentAlert(title: "Around Address Error", message: error.localizedDescription)
         return
@@ -185,6 +228,8 @@ extension FindMyTownViewController: UITableViewDelegate {
         ViewControllerGenerator.shared.make(.default)?.do {
           UIApplication.shared.switchRootViewController($0)
         }
+//        MyTownSetting.shared.isFirstTown = true
+//        MyTownSetting.shared.register(isFirstTown: true)
       case is MyTownSettingViewController:
         self.navigationController?.popViewController(animated: true)
       default:
@@ -232,9 +277,9 @@ extension FindMyTownViewController: LocationManagerDelegate {
     API.default
       .request(.GPS(lat: coordinate.latitude, lon: coordinate.longitude)) { (result) in
         defer { self.activityIndicator.stopAnimating() }
-        
         switch result {
         case .success(let addresses):
+          self.townRequestType = .gps
           self.towns = addresses
         case .failure(let error):
           print(error.localizedDescription)
@@ -258,6 +303,7 @@ extension FindMyTownViewController: TownSearchBarDelegate {
           
           switch result {
           case .success(let addresses):
+            self.townRequestType = .search
             self.towns = addresses
           case .failure(let error):
             print(error.localizedDescription)
