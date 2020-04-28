@@ -18,6 +18,7 @@ class CurrentTownListItemView: UIControl {
     imageView.image = UIImage(systemName: "checkmark.circle")
     imageView.tintColor = .lightGray
   }
+
   
   // MARK: Views
   private let imageView = UIImageView().then {

@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import Alamofire
 
 class TownAuthorizationViewController: UIViewController {
   // MARK: Views
@@ -16,28 +17,16 @@ class TownAuthorizationViewController: UIViewController {
   }
   private let findScopeButton = FindMyLocationButton().then {
     $0.layer.cornerRadius = 28
+    $0.layer.borderWidth = 1
+    $0.layer.borderColor = UIColor(white: 0.9, alpha: 0.2).cgColor
+    $0.addTarget(self, action: #selector(findMyLocate), for: .touchUpInside)
   }
-  private lazy var checkTownLabel = UILabel().then {
-    $0.attributedText = NSMutableAttributedString()
-      .normal("잠깐만요! 현재 위치가 ", fontSize: 15)
-      .bold("\(selectedTown)", fontSize: 15)
-      .normal("이 맞나요?", fontSize: 15)
-    $0.textColor = .white
+  private lazy var noticeLabel = UILabel().then {
     $0.textAlignment = .center
     $0.backgroundColor = UIColor(named: ColorReference.warning.rawValue)
   }
-  private let currentLocateView = UIView()
+  private var statusView = UIView()
   private lazy var checkSelectedLocationLabel = UILabel().then {
-    currentTownList.forEach {
-      currentTownListToString.append($0)
-      if currentTownList.lastIndex(of: $0) != 2 {
-        currentTownListToString.append(", ")
-      }
-    }
-    $0.attributedText = NSMutableAttributedString()
-      .normal("현재 내 동네로 설정되어 있는 ", fontSize: 16)
-      .bold("\(currentTownListToString)", fontSize: 16)
-      .normal("에서만 동네인증을 할 수 있어요. 현재 위치를 확인해주세요.", fontSize: 16)
     $0.numberOfLines = 0
   }
   private let changeLocationButton = UIButton().then {
@@ -53,86 +42,97 @@ class TownAuthorizationViewController: UIViewController {
     $0.backgroundColor = UIColor(named: ColorReference.borderLine.rawValue)
   }
   private let qnaView = UIView()
-  
-  private lazy var locationManager = CLLocationManager().then {
-    $0.delegate = self
+  private let successButton = UIButton().then {
+    $0.isHidden = true
+    $0.setTitle("동네 인증 완료하기", for: .normal)
+    $0.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
+    $0.layer.cornerRadius = 8
+    $0.backgroundColor = UIColor(named: ColorReference.daangnMain.rawValue)
+    $0.addTarget(self, action: #selector(didTapAuthSuccessButton), for: .touchUpInside)
   }
   
-  // MARK: Properties
-  private let selectedTown = "두번째동네선택"
-  private var currentTownList = ["현재동네1", "현재동네2", "현재동네3"]
-  private var userSelectedCurrentTown = ""
-  var currentTownListToString = ""
+  private lazy var locationManager = CLLocationManager().then { $0.delegate = self }
   
-  // MARK: Initialize
+  // MARK: Properties
+  private let selectedTown = AuthorizationManager.shared.activatedTown?.locate.dong ?? "unknown"
+  private var currentTownList: [String] = [] {
+    didSet {
+      currentTownList.forEach {
+        if $0 == currentTownList[currentTownList.count - 1] {
+        currentTownListToString.append($0)
+        } else {
+          currentTownListToString.append($0 + ", ")
+        }
+      }
+    }
+  }
+  var currentTownListToString = ""
+  private var userSelectedCurrentTown = "" {
+    didSet {
+      checkSelectedLocationLabel.attributedText = NSMutableAttributedString()
+        .normal("현재 위치가 내 동네로 설정한 ", fontSize: 16)
+        .bold("\(self.userSelectedCurrentTown)", fontSize: 16)
+        .normal("에 있습니다.", fontSize: 16)
+      noticeLabel.isHidden = true
+      changeLocationButton.isHidden = true
+    }
+  }
+  
+  // MARK: LifeCylce
   override func viewDidLoad() {
     super.viewDidLoad()
     setupUI()
+    checkAuthorizationStatus()
+  }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    locationManager.stopUpdatingLocation()
+  }
+  
+  // MARK: Initialize
+  init(_ selectedAddress: String) {
+    super.init(nibName: nil, bundle: nil)
+    // 1. check locationManager -> setUI? / Alert
+    
+    // 2. check adress <-> longi,lati adress
+    checkGPSAdress { result in
+      switch result {
+      case .success(let data):
+        self.currentTownList = data.results.map { $0.dong }
+      case .failure(let err):
+        print(err.localizedDescription)
+      }
+      //      self.setupUI()
+      for town in self.currentTownList {
+        if "서초동" == town {
+          //        if selectedAddress == town {
+          self.setAuthSelectedLocateView(town)
+          break
+        } else {
+          self.setChangeGPSLocateView(selectedAddress)
+        }
+      }
+    }
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
   }
   
   private func setupUI() {
-    myCheckAuthorizationStatus()
+    checkAuthorizationStatus()
     setupAttributes()
     setupConstraints()
   }
   
   private func setupAttributes() {
     view.backgroundColor = .white
-    [mapView, findScopeButton, checkTownLabel, currentLocateView, guideLine, qnaView].forEach {
+    [mapView, findScopeButton, statusView, guideLine, qnaView, successButton].forEach {
       view.addSubview($0)
     }
     setupCurrentTownView()
     setupQnAView()
-  }
-  
-  private func setupConstraints() {
-    mapView.snp.makeConstraints {
-      $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-      $0.height.equalTo(view.safeAreaLayoutGuide).multipliedBy(0.5)
-    }
-    findScopeButton.snp.makeConstraints {
-      $0.size.equalTo(56)
-      $0.trailing.equalTo(mapView.snp.trailing).offset(-24)
-      $0.bottom.equalTo(checkTownLabel.snp.top).offset(-26)
-    }
-    checkTownLabel.snp.makeConstraints {
-      $0.top.equalTo(mapView.snp.bottom)
-      $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-      $0.height.equalTo(40)
-    }
-    currentLocateView.snp.makeConstraints {
-      $0.top.equalTo(checkTownLabel.snp.bottom)
-      $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-    }
-    guideLine.snp.makeConstraints {
-      $0.top.equalTo(currentLocateView.snp.bottom)
-      $0.leading.equalTo(view.safeAreaLayoutGuide).offset(16)
-      $0.trailing.equalTo(view.safeAreaLayoutGuide).offset(-16)
-      $0.height.equalTo(1)
-    }
-    qnaView.snp.makeConstraints {
-      $0.top.equalTo(guideLine.snp.bottom)
-      $0.width.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-      $0.height.equalTo(60)
-    }
-  }
-  
-  private func setupCurrentTownView() {
-    [checkSelectedLocationLabel, changeLocationButton].forEach {
-      currentLocateView.addSubview($0)
-    }
-    checkSelectedLocationLabel.snp.makeConstraints {
-      $0.top.equalToSuperview().offset(24)
-      $0.leading.equalToSuperview().offset(16)
-      $0.trailing.equalToSuperview().offset(-20)
-      $0.bottom.equalToSuperview().offset(-76)
-    }
-    changeLocationButton.snp.makeConstraints {
-      $0.top.equalTo(checkSelectedLocationLabel.snp.bottom).offset(16)
-      $0.leading.trailing.equalTo(checkSelectedLocationLabel)
-      $0.bottom.equalToSuperview().offset(-24)
-      $0.height.equalTo(36)
-    }
   }
   
   private func setupQnAView() {
@@ -157,7 +157,95 @@ class TownAuthorizationViewController: UIViewController {
     }
   }
   
+  private func setupConstraints() {
+    mapView.snp.makeConstraints {
+      $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+      $0.height.equalTo(view.safeAreaLayoutGuide).multipliedBy(0.5)
+    }
+    findScopeButton.snp.makeConstraints {
+      $0.size.equalTo(56)
+      $0.trailing.equalTo(mapView.snp.trailing).offset(-24)
+      $0.bottom.equalTo(mapView.snp.top).offset(-26)
+    }
+    statusView.snp.makeConstraints {
+      $0.top.equalTo(mapView.snp.bottom)
+      $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+    }
+    guideLine.snp.makeConstraints {
+      $0.top.equalTo(statusView.snp.bottom)
+      $0.leading.equalTo(view.safeAreaLayoutGuide).offset(16)
+      $0.trailing.equalTo(view.safeAreaLayoutGuide).offset(-16)
+      $0.height.equalTo(1)
+    }
+    qnaView.snp.makeConstraints {
+      $0.top.equalTo(guideLine.snp.bottom)
+      $0.width.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+      $0.height.equalTo(60)
+    }
+    successButton.snp.makeConstraints {
+      $0.top.equalTo(qnaView.snp.bottom).offset(16)
+      $0.leading.equalToSuperview().offset(16)
+      $0.trailing.equalToSuperview().offset(-16)
+      $0.height.equalTo(44)
+    }
+  }
+  
+  private func setupCurrentTownView() {
+    [noticeLabel, checkSelectedLocationLabel, changeLocationButton].forEach {
+      statusView.addSubview($0)
+    }
+    noticeLabel.snp.makeConstraints {
+      $0.top.equalToSuperview()
+      $0.leading.trailing.equalToSuperview()
+      $0.height.equalTo(40)
+    }
+    checkSelectedLocationLabel.snp.makeConstraints {
+      $0.top.equalTo(noticeLabel.snp.bottom).offset(24)
+      $0.leading.equalToSuperview().offset(16)
+      $0.trailing.equalToSuperview().offset(-16)
+      $0.bottom.equalTo(changeLocationButton.snp.top).offset(-16)
+    }
+    changeLocationButton.snp.makeConstraints {
+      $0.top.equalTo(checkSelectedLocationLabel.snp.bottom).offset(16)
+      $0.leading.equalToSuperview().offset(16)
+      $0.trailing.equalToSuperview().offset(-16)
+      $0.bottom.equalToSuperview().offset(-24)
+      $0.height.equalTo(36)
+    }
+  }
+  
+  private func setChangeGPSLocateView(_ selectedTown: String) {
+    noticeLabel.attributedText = NSMutableAttributedString()
+      .normal("잠깐만요! 현재 위치가 ", fontSize: 15)
+      .bold("\(selectedTown)", fontSize: 15)
+      .normal("이 맞나요?", fontSize: 15)
+    noticeLabel.textColor = .white
+    
+    checkSelectedLocationLabel.attributedText = NSMutableAttributedString()
+      .normal("현재 내 동네로 설정되어 있는 ", fontSize: 16)
+      .bold("'\(currentTownListToString)'", fontSize: 16)
+      .normal("에서만 동네인증을 할 수 있어요. 현재 위치를 확인해주세요.", fontSize: 16)
+  }
+  
+  private func setAuthSelectedLocateView(_ town: String) {
+    checkSelectedLocationLabel.attributedText = NSMutableAttributedString()
+      .normal("현재 위치가 내 동네로 설정한 ", fontSize: 16)
+      .bold("\(town)", fontSize: 16)
+      .normal("에 있습니다.", fontSize: 16)
+    noticeLabel.isHidden = true
+    changeLocationButton.isHidden = true
+    successButton.isHidden = false
+  }
+  
   // MARK: Actions
+  @objc private func findMyLocate() {
+    let current = locationManager.location!
+    let coordinate = current.coordinate
+    let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+    let region = MKCoordinateRegion(center: coordinate, span: span)
+    mapView.setRegion(region, animated: true)
+  }
+  
   @objc private func didTapChangeTownButton(_ sender: UIButton) {
     UIView.animate(withDuration: 0.3) {
       sender.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
@@ -168,11 +256,11 @@ class TownAuthorizationViewController: UIViewController {
     listView.viewDelegate = self
     let alert = DGAlertController(title: "현재 위치에 있는 동네는 아래와 같아요. 변경하려는 동네를 선택해주세요.", view: listView)
     let okButton = DGAlertAction(title: "동네 변경", style: .orange) {
-      self.changeTown()
-      self.dismiss(animated: false)
+      //      self.changeCurrentTownLabel()
+      alert.dismiss(animated: false)
     }
     let cancelButton = DGAlertAction(title: "취소", style: .white) {
-      self.dismiss(animated: false)
+      alert.dismiss(animated: false)
     }
     alert.addAction(okButton)
     alert.addAction(cancelButton)
@@ -184,45 +272,33 @@ class TownAuthorizationViewController: UIViewController {
   }
   
   @objc private func didTapAuthSuccessButton() {
+    // get -> My Location List/locate/id <-> selecte locate id 비교
+    // post -> My Location Save
+    // AuthorizationManager.updateSecondTown
     print("선택한 동네가 유저의 첫번째 동네와 동일하면 따로 추가 X, 다르면 유저의 두번째 동네로 추가하면서 dismiss -> toast alert -> HomeFeedVC")
   }
   
   // MARK: Methods
-  private func changeTown() {
-    self.checkSelectedLocationLabel.attributedText = NSMutableAttributedString()
-      .normal("현재 위치가 내 동네로 설정한 ", fontSize: 16)
-      .bold("\(self.userSelectedCurrentTown)", fontSize: 16)
-      .normal("에 있습니다.", fontSize: 16)
-    self.changeLocationButton.removeFromSuperview()
-    self.checkSelectedLocationLabel.snp.updateConstraints {
-      $0.bottom.equalToSuperview().offset(-24)
+  private func setAlert() {
+    self.present(CategoryViewController(), animated: true)
+    let alert = UIAlertController(title: "위치정보 이용에 대한 엑세스 권한이 없습니당.", message: "앱 설정으로 가서 액세스 권한을 수정 하실 수가 있습니당. 이동하시겠나요?", preferredStyle: .alert)
+    let cancelAction = UIAlertAction(title: "", style: .cancel) { _ in
+      //
     }
-    setupSuccessButton()
+    let okAction = UIAlertAction(title: "예", style: .default) { _ in
+      //
+    }
+    alert.addAction(cancelAction)
+    alert.addAction(okAction)
+    self.present(alert, animated: false)
   }
   
-  private func setupSuccessButton() {
-    let successButton = UIButton().then {
-      $0.backgroundColor = UIColor(named: ColorReference.daangnMain.rawValue)
-      $0.setTitle("동네 인증 완료하기", for: .normal)
-      $0.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
-      $0.layer.cornerRadius = 8
-      $0.addTarget(self, action: #selector(didTapAuthSuccessButton), for: .touchUpInside)
-    }
-    view.addSubview(successButton)
-    successButton.snp.makeConstraints {
-      $0.top.equalTo(qnaView.snp.bottom).offset(16)
-      $0.leading.equalToSuperview().offset(16)
-      $0.trailing.equalToSuperview().offset(-16)
-      $0.height.equalTo(44)
-    }
-  }
-  
-  private func myCheckAuthorizationStatus() {
+  private func checkAuthorizationStatus() {
     switch CLLocationManager.authorizationStatus() {
     case .notDetermined:
       locationManager.requestWhenInUseAuthorization()
     case .restricted, .denied:
-      break
+      setAlert()
     case .authorizedWhenInUse:
       fallthrough
     case .authorizedAlways:
@@ -239,6 +315,22 @@ class TownAuthorizationViewController: UIViewController {
     locationManager.distanceFilter = 10.0
     locationManager.startUpdatingLocation()
   }
+  
+  private func checkGPSAdress(_ completion: @escaping ( Result<TownInfo, AFError>) -> Void) {
+    guard let coordinate = locationManager.location?.coordinate else { return }
+    guard let url = URL(string: "http://13.125.217.34/location/range?lati=\(coordinate.latitude)&longi=\(coordinate.longitude)&distance=1200") else { return }
+    AF.request(url)
+      .validate()
+      .responseDecodable { (response: DataResponse<TownInfo, AFError>) in
+        switch response.result {
+        case .success(let data):
+          completion(.success(data))
+        case .failure(let err):
+          completion(.failure(err))
+        }
+    }
+    self.locationManager.stopUpdatingLocation()
+  }
 }
 
 // MARK: Extension
@@ -249,11 +341,26 @@ extension TownAuthorizationViewController: CLLocationManagerDelegate {
     let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
     let region = MKCoordinateRegion(center: coordinate, span: span)
     mapView.setRegion(region, animated: true)
+    
+    //    guard let url = URL(string: "http://13.125.217.34/location/range?lati=\(coordinate.latitude)&longi=\(coordinate.longitude)&distance=1000") else { return }
+    //    AF.request(url)
+    //      .validate()
+    //      .responseDecodable { (response: DataResponse<TownInfo, AFError>) in
+    //        switch response.result {
+    //        case .success(let data):
+    //          self.currentTownList = data.results.map { $0.dong }
+    //        case .failure(let err):
+    //          print(err)
+    //        }
+    //    }
+    //    self.locationManager.stopUpdatingLocation()
   }
 }
 
 extension TownAuthorizationViewController: CurrentTownListViewDelegate {
   func selectedTag(_ tag: Int) {
+    print("--------------------------------------")
     userSelectedCurrentTown = currentTownList[tag]
+    print(userSelectedCurrentTown)
   }
 }

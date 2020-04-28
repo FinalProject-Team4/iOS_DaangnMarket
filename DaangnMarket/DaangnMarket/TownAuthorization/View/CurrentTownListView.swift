@@ -47,8 +47,9 @@ class CurrentTownListView: UIScrollView {
   private func setupListView(_ list: [String]) {
     for item in list {
       let itemView = CurrentTownListItemView(item)
+      itemView.backgroundColor = .yellow
       itemView.tag = list.firstIndex(of: item)!
-      itemView.addTarget(self, action: #selector(didTapItemView(_:)), for: .touchUpInside)
+      itemView.addTarget(self, action: #selector(didTapItemView), for: .touchUpInside)
       stackView.addArrangedSubview(itemView)
       itemView.snp.makeConstraints {
         $0.width.equalTo(UIScreen.main.bounds.width * 0.7)
@@ -58,11 +59,12 @@ class CurrentTownListView: UIScrollView {
   }
   
   // MARK: Actions
-  @objc private func didTapItemView(_ sender: CurrentTownListItemView) {
-    for item in stackView.subviews {
-      guard let item = item as? CurrentTownListItemView else { return }
-      sender == item ? item.didSelectItem() : item.didDeSelectItem()
-    }
-    self.viewDelegate?.selectedTag(sender.tag)
+  @objc private func didTapItemView() {
+    print("---------------------------------------------------------")
+//    for item in stackView.subviews {
+//      guard let item = item as? CurrentTownListItemView else { return }
+//      sender == item ? item.didSelectItem() : item.didDeSelectItem()
+//    }
+//    self.viewDelegate?.selectedTag(sender.tag)
   }
 }

@@ -283,6 +283,9 @@ extension HomeFeedViewController: NavigationBarButtonDelegate {
       self.navigationController?.pushViewController(searchVC, animated: true)
     case customNaviBar.categoryFilterButton:
       print("카테고리선택")
+      let testVC = TownAuthorizationViewController(AuthorizationManager.shared.activatedTown!.locate.dong)
+      testVC.modalPresentationStyle = .overFullScreen
+      present(testVC, animated: true)
     case customNaviBar.notificationButton:
       guard
         let userInfo = AuthorizationManager.shared.userInfo,
