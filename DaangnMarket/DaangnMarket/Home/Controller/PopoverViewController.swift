@@ -35,7 +35,10 @@ class PopoverViewController: UIViewController {
     self.view.backgroundColor = .white
     getTownsName()
     setupConstraint()
-    didTapButtonForHomeFeed(UIButton())
+    print(MyTownSetting.shared.towns.count)
+    print(MyTownSetting.shared.towns["second"])
+//    didTapButtonForHomeFeed(UIButton())
+    changeSelectTownBtnFont(MyTownSetting.shared.isFirstTown)
   }
   
   override func viewWillAppear(_ animated: Bool) {

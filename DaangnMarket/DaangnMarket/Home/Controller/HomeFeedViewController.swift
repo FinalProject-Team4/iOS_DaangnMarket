@@ -128,13 +128,13 @@ class HomeFeedViewController: UIViewController {
    }
   
   private func cellPostGoodsImage(_ cell: HomeFeedTableViewCell, _ indexPath: IndexPath) {
-    if posts[indexPath.row].photos.isEmpty {
-//    if posts[indexPath.row].postImageSet.isEmpty {
-      cell.goodsImageView.image = UIImage(named: "DaanggnMascot")
-    } else {
-      cell.goodsImageView.kf.setImage(with: URL(string: posts[indexPath.row].photos[0]))
-//      cell.goodsImageView.kf.setImage(with: URL(string: posts[indexPath.row].postImageSet[0].photo))
-    }
+//    if posts[indexPath.row].photos.isEmpty {
+////    if posts[indexPath.row].postImageSet.isEmpty {
+//      cell.goodsImageView.image = UIImage(named: "DaanggnMascot")
+//    } else {
+//      cell.goodsImageView.kf.setImage(with: URL(string: posts[indexPath.row].photos[0]))
+////      cell.goodsImageView.kf.setImage(with: URL(string: posts[indexPath.row].postImageSet[0].photo))
+//    }
   }
   
   func removeNotNeededTimeUnit(_ address: String, _ userUpdateTimes: DateComponents) -> String {
@@ -201,10 +201,14 @@ extension HomeFeedViewController: UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: "GoodsCell", for: indexPath) as? HomeFeedTableViewCell else { fatalError("faile type casting") }
-    cellPostGoodsImage(cell, indexPath)
-    cell.goodsName.text = "\(posts[indexPath.row].title)"
-    cell.goodsPrice.text = "\(posts[indexPath.row].price)"
-    cell.sellerLoctionAndTime.text = removeNotNeededTimeUnit(posts[indexPath.row].address, userUpdateTimes[indexPath.row])
+//    cellPostGoodsImage(cell, indexPath)
+    
+    cell.setupHomeFeedCell(posts: posts, indexPath: indexPath)
+    
+//    cell.goodsName.text = "\(posts[indexPath.row].title)"
+//    cell.goodsPrice.text = "\(posts[indexPath.row].price)"
+//    cell.sellerLoctionAndTime.text = removeNotNeededTimeUnit(posts[indexPath.row].address, userUpdateTimes[indexPath.row])
+    
     return cell
   }
   

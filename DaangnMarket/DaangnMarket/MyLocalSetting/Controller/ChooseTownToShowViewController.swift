@@ -59,7 +59,7 @@ class ChooseTownToShowViewController: UIViewController {
     }
     if let secondTown = AuthorizationManager.shared.anotherTown {
       MyTownSetting.shared.secondSelectTown = secondTown.dong
-      noti.post(name: NSNotification.Name("anotherTownSecondTownBtn"), object: nil)
+//      noti.post(name: NSNotification.Name("anotherTownSecondTownBtn"), object: nil)
     }
     postNotificationForDefineMyTown(isFirstTowns)
   }
