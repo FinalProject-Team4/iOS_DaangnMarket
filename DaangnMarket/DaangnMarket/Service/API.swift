@@ -52,7 +52,7 @@ class API {
   func request(_ type: RequestMembers, completion: @escaping (Result<UserInfo, AFError>) -> Void) {
     switch type {
     case let .login(idToken):
-      let parameters = ["idToken": idToken]
+      let parameters = ["id_token": idToken]
       self.requestLogin(url: type.url, parameters: parameters) { completion($0) }
     case let .signUp(idToken, username, avatar):
       let parameters = [
@@ -101,6 +101,8 @@ class API {
     }
   }
   
+  // MARK: Notification
+  
   func requestActivityNoti(token: String, completion: @escaping (Result<ActivityNotiInfo, AFError>) -> Void) {
     let header = HTTPHeader(name: "Authorization", value: token)
     AF.request(DaangnURL.Notification.noticeList.url, headers: [header])
@@ -115,7 +117,19 @@ class API {
     }
   }
   
-  // MARK: Notification
+  func requestNextActivityNoti(nextURL: String, token: String, completion: @escaping (Result<ActivityNotiInfo, AFError>) -> Void) {
+    let header = HTTPHeader(name: "Authorization", value: token)
+    AF.request(nextURL, headers: [header])
+      .validate()
+      .responseDecodable { (response: DataResponse<ActivityNotiInfo, AFError>) in
+        switch response.result {
+        case .success(let notiInfo):
+          completion(.success(notiInfo))
+        case .failure(let error):
+          completion(.failure(error))
+        }
+    }
+  }
   
   func requestPushKeyRegister(authToken: String, fcmToken: String, completion: @escaping (Result<Any, AFError>) -> Void) {
     let header = HTTPHeader(name: "Authorization", value: authToken)
