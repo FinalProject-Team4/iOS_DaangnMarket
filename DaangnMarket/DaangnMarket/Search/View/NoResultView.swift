@@ -9,16 +9,42 @@
 import UIKit
 
 class NoResultView: UIView {
+  func updateFailKeyword(_ text: String) {
+    resultLabel.attributedText = NSMutableAttributedString()
+    .normal("\(text)", textColor: UIColor(named: ColorReference.daangnMain.rawValue), fontSize: 16)
+    .normal("의 검색결과가 없어요.", fontSize: 16)
+  }
+  
   private let daangImageView = UIImageView().then {
     $0.image = UIImage(named: "DanngnCry")
     $0.contentMode = .scaleToFill
   }
   
+  private lazy var townLabel = UILabel().then {
+    $0.text = "앗! \(selectedTown) 근처에는"
+    $0.font = .systemFont(ofSize: 16)
+    self.addSubview($0)
+  }
+  
+  private lazy var resultLabel = UILabel().then {
+    $0.textAlignment = .center
+    $0.numberOfLines = 0
+//    $0.attributedText = NSMutableAttributedString()
+//      .normal("\(searchText)", textColor: UIColor(named: ColorReference.daangnMain.rawValue), fontSize: 16)
+//      .normal("의 검색결과가 없어요.", fontSize: 16)
+    self.addSubview($0)
+  }
+  
+  private let selectedTown: String
+  private var searchText: String
+
   init(town: String, keyword: String, type: SearchType) {
+    selectedTown = town
+    searchText = keyword
     super.init(frame: .zero)
     self.backgroundColor = .white
-    makeImageView()
-    makeResultLabel(town: town, keyword: keyword)
+    setupImageView()
+    setupResultLabel()
     makeSuggestionLabel(town: town, type: type)
   }
   
@@ -26,7 +52,7 @@ class NoResultView: UIView {
     fatalError("init(coder:) has not been implemented")
   }
   
-  private func makeImageView() {
+  private func setupImageView() {
     self.addSubview(daangImageView)
     daangImageView.snp.makeConstraints {
       $0.top.equalToSuperview()
@@ -35,20 +61,7 @@ class NoResultView: UIView {
     }
   }
   
-  private func makeResultLabel(town: String, keyword: String) {
-    let townLabel = UILabel().then {
-      $0.text = "앗! \(town) 근처에는"
-      $0.font = .systemFont(ofSize: 16)
-      self.addSubview($0)
-    }
-    let resultLabel = UILabel().then {
-      $0.textAlignment = .center
-      $0.numberOfLines = 0
-      $0.attributedText = NSMutableAttributedString()
-        .normal("\(keyword)", textColor: UIColor(named: ColorReference.daangnMain.rawValue), fontSize: 16)
-        .normal("의 검색결과가 없어요.", fontSize: 16)
-      self.addSubview($0)
-    }
+  private func setupResultLabel() {
     townLabel.snp.makeConstraints {
       $0.top.equalTo(daangImageView.snp.bottom)
       $0.centerX.equalToSuperview()

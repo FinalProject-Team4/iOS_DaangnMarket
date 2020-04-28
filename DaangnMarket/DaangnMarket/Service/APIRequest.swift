@@ -21,16 +21,17 @@ extension APIRequest {
 enum RequestTown: APIRequest {
   case search(text: String, page: Int = 1)
   case GPS(lat: Double, lon: Double, distance: Double = 100_000, page: Int = 1)
+//  case GPS(lat: Double, lon: Double, distance: Double = 100_000)
   case distance(dongId: Int, distance: Double = 4_800)
   
   var url: String {
     switch self {
     case .search(_, _):
-      return host + "/location/locate/search/"
+      return host + "/location/"
     case .GPS(_, _, _, _):
-      return host + "/location/locate/gps/"
+      return host + "/location/range/"
     case .distance(_, _):
-      return host + "/location/locate/"
+      return host + "/location/range/"
     }
   }
   
@@ -38,19 +39,20 @@ enum RequestTown: APIRequest {
     switch self {
     case let .search(text, page):
       return [
-        "dong_name": text,
+        "dong": text,
         "page": page
       ]
     case let .GPS(latitude, longitude, distance, page):
+//      case let .GPS(latitude, longitude, distance):
       return [
-        "latitude": latitude,
-        "longitude": longitude,
+        "lati": latitude,
+        "longi": longitude,
         "distance": distance,
         "page": page
       ]
     case let .distance(dongId, distance):
       return [
-        "dong_id": dongId,
+        "locate": dongId,
         "distance": distance
       ]
     }
@@ -69,6 +71,35 @@ enum RequestMembers: APIRequest {
       return host + "/members/login/"
     case .signUp(_, _, _):
       return host + "/members/signup/"
+    }
+  }
+}
+
+enum DaangnURL {
+  enum Notification: APIRequest {
+    case registerKey
+    case noticeList
+    
+    var url: String {
+      switch self {
+      case .registerKey:
+        return host + "/fcm/register/"
+      case .noticeList:
+        return host + "/fcm/list/notice/"
+      }
+    }
+  }
+  enum UserTown: APIRequest {
+    case register
+    case townList
+    
+    var url: String {
+      switch self {
+      case .register:
+        return self.host + "/members/locate/"
+      case .townList:
+        return self.host + "/members/locate/"
+      }
     }
   }
 }

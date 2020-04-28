@@ -131,8 +131,8 @@ extension MyPageViewController: MyPageUserInformDelegate {
     switch tag {
     case "showProfileButton":
       self.tabBarController?.tabBar.isHidden = true
-      guard let profilePageVC = ViewControllerGenerator.shared.make(.profilePage, parameters: ["ownSelf": true, "name": "라이언", "profileData": userItemsData]) else { return }
-      self.navigationController?.pushViewController(profilePageVC, animated: true)
+//      guard let profilePageVC = ViewControllerGenerator.shared.make(.profilePage, parameters: ["ownSelf": true, "name": "라이언", "profileData": userItemsData]) else { return }
+//      self.navigationController?.pushViewController(profilePageVC, animated: true)
     default:
       break
     }
@@ -145,13 +145,12 @@ extension MyPageViewController: MyPageListButtonDelegate {
   func moveToPage(tag: String) {
     switch tag {
     case "salesListButton":
+      break
       //let salesListVC = SalesListViewController()
-      guard let salesListVC = ViewControllerGenerator.shared.make(.salesList, parameters: ["salesListData": sellerItemsData1]) else { return }
-      self.navigationController?.pushViewController(salesListVC, animated: true)
+//      guard let salesListVC = ViewControllerGenerator.shared.make(.salesList, parameters: ["salesListData": sellerItemsData1]) else { return }
+//      self.navigationController?.pushViewController(salesListVC, animated: true)
     case "likeListButton":
-      let dummyData = PostData.shared.dummyData
-      guard let likeListVC = ViewControllerGenerator.shared.make(.likeList, parameters: ["likeListData": dummyData]) else { return }
-      self.navigationController?.pushViewController(likeListVC, animated: true)
+      break
     default:
       break
     }

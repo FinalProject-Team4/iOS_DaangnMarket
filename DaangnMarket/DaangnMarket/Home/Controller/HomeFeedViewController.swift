@@ -13,7 +13,7 @@ class HomeFeedViewController: UIViewController {
   // MARK: Property
   
   let service = ServiceManager.shared
-  private let url = "http://13.125.217.34/post/list/"
+  private let url = "http://13.125.217.34/post/list"
   var parameters: Parameters = [String: Any]()
   var nextPageURL: String?
   var posts = [Post]() {
@@ -26,11 +26,10 @@ class HomeFeedViewController: UIViewController {
   
   // MARK: Views
   
-  private lazy var customNaviBar = CutomNavigationBar().then {
+  lazy var customNaviBar = CutomNavigationBar().then {
     $0.backgroundColor = .white
     $0.layer.borderColor = UIColor.lightGray.cgColor
     $0.layer.borderWidth = 0.3
-    $0.selectedTownButton.setTitle(AuthorizationManager.shared.selectedTown?.dong ?? "unknown", for: .normal)
   }
   
   private lazy var homeTableView = UITableView().then {
@@ -45,33 +44,36 @@ class HomeFeedViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.view.backgroundColor = .white
-    self.tabBarController?.tabBar.isHidden = false
-    self.parameters = ["locate": 8_725]
-    //    requestPostData(url)
-    requestPostData(url, self.parameters)
-    callDelegate()
+//    setTownsName()
+    callDelegates()
     setupUI()
   }
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    tabBarController?.tabBar.isHidden = false
+//    setTownsName()
+    initTownName()
     navigationController?.navigationBar.isHidden = true
-  }
-  
-  override func viewDidAppear(_ animated: Bool) {
-    super.viewDidAppear(animated)
-    if AuthorizationManager.shared.userInfo == nil {
-      if isFirstAlert {
-        doFirstViewPresent()
-      }
+    
+    self.requestInitialPostList()
+    let manager = AuthorizationManager.shared
+    if manager.userInfo == nil, isFirstAlert {
+      doFirstViewPresent()
     }
   }
   
-  private func callDelegate() {
-    homeTableView.dataSource = self
-    homeTableView.delegate = self
-    self.customNaviBar.delegate = self
+  func requestInitialPostList() {
+    self.posts.removeAll()
+    let manager = AuthorizationManager.shared
+    if let firstTown = manager.firstTown, firstTown.activated {
+      print("Request First")
+      self.parameters = ["locate": firstTown.locate.id]
+    } else if let secondTown = manager.secondTown {
+      print("Request Second")
+      self.parameters = ["locate": secondTown.locate.id]
+    }
+    
+    requestPostData(url, self.parameters)
   }
   
   // MARK: Initialize
@@ -86,7 +88,7 @@ class HomeFeedViewController: UIViewController {
   private func setupConstraints() {
     customNaviBar.snp.makeConstraints {
       $0.top.leading.trailing.equalToSuperview()
-      $0.height.equalTo(80)
+      $0.height.equalTo(92)
     }
     homeTableView.snp.makeConstraints {
       $0.top.equalTo(customNaviBar.snp.bottom)
@@ -94,12 +96,37 @@ class HomeFeedViewController: UIViewController {
     }
   }
   
+//  private func setTownsName() {
+//    guard let selectedTown = AuthorizationManager.shared.firstTown else { print("popover selectedTown"); return }
+//      MyTownSetting.shared.towns["first"] = selectedTown.dong
+////    if !AuthorizationManager.shared.aroundTown.isEmpty {
+//      guard let anotherTown = AuthorizationManager.shared.secondTown else { print("popover secondTown"); return }
+//      MyTownSetting.shared.towns["second"] = anotherTown.dong
+////    }
+//  }
+  
+  // 좌상단 선택된 동네 이름 설정하기
+  private func initTownName() {
+    var selected = ""
+    let manager = AuthorizationManager.shared
+    if let firstTown = manager.firstTown, firstTown.activated {
+      selected = firstTown.locate.dong
+    } else if let secondTown = manager.secondTown, secondTown.activated {
+      selected = secondTown.locate.dong
+    }
+    customNaviBar.selectedTownButton.setTitle(selected, for: .normal)
+    
+//    if MyTownSetting.shared.isFirstTown {
+//      customNaviBar.selectedTownButton.setTitle(MyTownSetting.shared.towns["first"], for: .normal)
+//    } else {
+//      customNaviBar.selectedTownButton.setTitle(MyTownSetting.shared.towns["second"], for: .normal)
+//    }
+  }
+  
   // MARK: Request PostData
   
   func requestPostData(_ url: String, _ parameters: Parameters) {
-    //    func requestPostData(_ url: String) {
-    //    service.requestPostData(URL(string: url)!) { [weak self] result in
-    service.requestPostData(URL(string: url)!, parameters) { [weak self] result in
+      service.requestPostData(URL(string: url)!, parameters) { [weak self] result in
       guard let self = self else { return }
       switch result {
       case .success(let postInfoData):
@@ -117,12 +144,20 @@ class HomeFeedViewController: UIViewController {
   
   // MARK: Method
   
-  func cellPostGoodsImage(_ cell: HomeFeedTableViewCell, _ indexPath: IndexPath) {
-    if posts[indexPath.row].postImageSet.isEmpty {
-      cell.goodsImageView.image = UIImage(named: "DaanggnMascot")
-    } else {
-      cell.goodsImageView.kf.setImage(with: URL(string: posts[indexPath.row].postImageSet[0].photo))
-    }
+  private func callDelegates() {
+     homeTableView.dataSource = self
+     homeTableView.delegate = self
+     self.customNaviBar.delegate = self
+   }
+  
+  private func cellPostGoodsImage(_ cell: HomeFeedTableViewCell, _ indexPath: IndexPath) {
+//    if posts[indexPath.row].photos.isEmpty {
+////    if posts[indexPath.row].postImageSet.isEmpty {
+//      cell.goodsImageView.image = UIImage(named: "DaanggnMascot")
+//    } else {
+//      cell.goodsImageView.kf.setImage(with: URL(string: posts[indexPath.row].photos[0]))
+////      cell.goodsImageView.kf.setImage(with: URL(string: posts[indexPath.row].postImageSet[0].photo))
+//    }
   }
   
   func removeNotNeededTimeUnit(_ address: String, _ userUpdateTimes: DateComponents) -> String {
@@ -143,7 +178,7 @@ class HomeFeedViewController: UIViewController {
     return updateTime
   }
   
-  func calculateDifferentTime() {
+  private func calculateDifferentTime() {
     let currentTime = Date()
     for idx in 0..<posts.count {
       let tempTime = posts[idx].updated.replacingOccurrences(of: "T", with: " ").components(separatedBy: ".")[0]
@@ -151,8 +186,13 @@ class HomeFeedViewController: UIViewController {
       dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
       let updatedTime: Date = dateFormatter.date(from: tempTime) ?? currentTime
       let calculrate = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)
-      guard let compareTime = calculrate?.components([.day, .hour, .minute, .second], from: updatedTime, to: currentTime, options: [])
-        else { fatalError("castin error") }
+      guard let compareTime = calculrate?.components(
+        [.day, .hour, .minute, .second],
+        from: updatedTime,
+        to: currentTime,
+        options: []
+      )
+      else { fatalError("castin error") }
       userUpdateTimes.append(compareTime)
     }
   }
@@ -184,17 +224,20 @@ extension HomeFeedViewController: UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: "GoodsCell", for: indexPath) as? HomeFeedTableViewCell else { fatalError("faile type casting") }
-    cellPostGoodsImage(cell, indexPath)
-    cell.goodsName.text = "\(posts[indexPath.row].title)"
-    cell.goodsPrice.text = "\(posts[indexPath.row].price)"
-    cell.sellerLoctionAndTime.text = removeNotNeededTimeUnit(posts[indexPath.row].address, userUpdateTimes[indexPath.row])
+//    cellPostGoodsImage(cell, indexPath)
+    
+    cell.setupHomeFeedCell(posts: posts, indexPath: indexPath)
+    
+//    cell.goodsName.text = "\(posts[indexPath.row].title)"
+//    cell.goodsPrice.text = "\(posts[indexPath.row].price)"
+//    cell.sellerLoctionAndTime.text = removeNotNeededTimeUnit(posts[indexPath.row].address, userUpdateTimes[indexPath.row])
+    
     return cell
   }
   
   func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
     if indexPath.row == (posts.count - 2) {
       guard let pageURL = nextPageURL else { return }
-      //      requestPostData(pageURL)
       requestPostData(pageURL, self.parameters)
       self.perform(#selector(loadTable), with: nil, afterDelay: 1.0)
     }
@@ -209,7 +252,6 @@ extension HomeFeedViewController: UITableViewDataSource {
 
 extension HomeFeedViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    //print("\(posts[indexPath.row].postId)번 id")
     tabBarController?.tabBar.isHidden = true
     navigationController?.navigationBar.shadowImage = .none
     guard let productPostVC = ViewControllerGenerator.shared.make(.productPost, parameters: ["postData": posts[indexPath.row]]) else { return }
@@ -217,7 +259,7 @@ extension HomeFeedViewController: UITableViewDelegate {
   }
 }
 
-// MARK: PopoverPresent Delegate
+// MARK: - PopoverPresent Delegate
 
 extension HomeFeedViewController: UIPopoverPresentationControllerDelegate {
   func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
@@ -225,22 +267,55 @@ extension HomeFeedViewController: UIPopoverPresentationControllerDelegate {
   }
 }
 
-// MARK: NavigationBarButton Delegate
+// MARK: - NavigationBarButton Delegate
 
 extension HomeFeedViewController: NavigationBarButtonDelegate {
   func navigationBarButton(_ naviBarButton: UIButton) {
-    guard let popoverVC = ViewControllerGenerator.shared.make(.popover, parameters: ["target": self, "sender": naviBarButton]) else { print("return"); return }
+    guard let popoverVC = ViewControllerGenerator.shared.make(.popover, parameters: ["target": self, "sender": naviBarButton]) as? PopoverViewController else { print("return"); return }
+    
     switch naviBarButton {
     case customNaviBar.selectedTownButton:
       popoverVC.modalPresentationStyle = .popover
+//      popoverVC.delegate = self
       present(popoverVC, animated: true)
     case customNaviBar.searchButton:
-      print("검색하기")
+      guard let searchVC = ViewControllerGenerator.shared.make(.search) else { return }
+      self.navigationController?.pushViewController(searchVC, animated: true)
     case customNaviBar.categoryFilterButton:
       print("카테고리선택")
     case customNaviBar.notificationButton:
-      print("알림")
+      guard
+        let userInfo = AuthorizationManager.shared.userInfo,
+        let notiVC = ViewControllerGenerator.shared.make(.notification, parameters: ["userInfo": userInfo])
+        else {
+          let alert = DGAlertController(title: "회원가입 또는 로그인후 이용할 수 있습니다.")
+          let login = DGAlertAction(title: "로그인/가입", style: .orange) {
+            guard let loginVC = ViewControllerGenerator.shared.make(.phoneAuth) else { return }
+            loginVC.modalPresentationStyle = .fullScreen
+            self.present(loginVC, animated: true)
+          }
+          let cancel = DGAlertAction(title: "취소", style: .cancel)
+          [login, cancel].forEach { alert.addAction($0) }
+          self.present(alert, animated: false)
+          return
+      }
+      self.navigationController?.pushViewController(notiVC, animated: true)
     default: break
     }
   }
 }
+
+//// MARK: - SelectedTownName in NaviBar Delegate
+//extension HomeFeedViewController: SelectedTownNameInNavibarDelegate {
+//  func showSelectedTownName(_ isFirst: Bool) {
+////    defer {
+////      dismiss(animated: true)
+////    }
+//    switch isFirst {
+//    case true:
+//      customNaviBar.selectedTownButton.setTitle(MyTownSetting.shared.towns["first"], for: .normal)
+//    case false:
+//      customNaviBar.selectedTownButton.setTitle(MyTownSetting.shared.towns["second"], for: .normal)
+//    }
+//  }
+//}

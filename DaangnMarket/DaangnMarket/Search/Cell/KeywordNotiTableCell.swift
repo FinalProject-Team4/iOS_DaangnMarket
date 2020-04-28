@@ -31,7 +31,7 @@ class KeywordNotiTableCell: UITableViewCell {
     keywordNotiButton.snp.makeConstraints {
       $0.top.equalToSuperview()
       $0.leading.trailing.equalToSuperview()
-      $0.height.equalTo(48)
+      $0.height.equalTo(44)
     }
   }
   

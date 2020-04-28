@@ -34,6 +34,7 @@ class ViewControllerGenerator {
     case notification
     case categoryFeed
     case chatting
+    case search
     case salesList
     case likeList
   }
@@ -49,7 +50,7 @@ class ViewControllerGenerator {
     case .phoneAuth:
       return UINavigationController(rootViewController: AuthViewController())
     case .signUp:
-      guard let idToken = parameters["idToken"] as? String else { return nil }
+      guard let idToken = parameters["id_token"] as? String else { return nil }
       return UINavigationController(rootViewController: ConfigProfileViewController(idToken: idToken))
     case .townSetting:
       return UINavigationController(rootViewController: MyTownSettingViewController())
@@ -69,7 +70,8 @@ class ViewControllerGenerator {
       productPostVC.hidesBottomBarWhenPushed = true
       return productPostVC
     case .notification:
-      return NotificationViewController()
+      guard let userInfo = parameters["userInfo"] as? UserInfo else { return nil }
+      return NotificationViewController(userInfo: userInfo)
     case .profilePage:
       guard let ownSelfData = parameters["ownSelf"] as? Bool, let nameData = parameters["name"] as? String, let profileData = parameters["profileData"] as? [Post] else { return nil }
       let profilePageVC = ProfilePageViewController(ownSelf: ownSelfData, name: nameData, profileData: profileData)
@@ -92,6 +94,8 @@ class ViewControllerGenerator {
       guard let salesListData = parameters["salesListData"] as? [Post] else { return nil }
       let salesListVC = SalesListViewController(salesListData: salesListData)
       return salesListVC
+    case .search:
+      return SearchViewController()
     }
   }
   
@@ -122,10 +126,9 @@ class ViewControllerGenerator {
   
   private func makePopoverController(_ homeVC: UIViewController, _ sender: UIView) -> UIViewController {
     let popover = PopoverViewController()
-    //    popover.preferredContentSize = CGSize(width: 300, height: 150)
     popover.modalPresentationStyle = .popover
-    guard let presentationController = popover.popoverPresentationController else { fatalError("popOverPresent casting error") }
     
+    guard let presentationController = popover.popoverPresentationController else { fatalError("popOverPresent casting error") }
     presentationController.delegate = homeVC as? UIPopoverPresentationControllerDelegate
     presentationController.sourceRect = sender.bounds
     presentationController.sourceView = sender

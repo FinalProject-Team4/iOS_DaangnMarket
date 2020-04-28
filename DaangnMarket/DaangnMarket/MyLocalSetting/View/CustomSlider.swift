@@ -67,29 +67,30 @@ class SliderView: UIView {
 }
 
 class CustomSlider: UISlider {
+  static let sliderShouldChangeValueNotification = Notification.Name(rawValue: "sliderShouldChangeValueNotification")
+  
   override init(frame: CGRect) {
     super.init(frame: frame)
-    self.isContinuous = false
   }
   
-  override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-    super .touchesMoved(touches, with: event)
-    guard let gage = touches.first?.location(in: self) else { return }
-    let convertOfValue = floor((gage.x / self.frame.width * 3) * 10) / 10
-    NotificationCenter.default.post(
-      name: NSNotification.Name("AlphaValue"),
-      object: nil,
-      userInfo: [
-        "alpha": convertOfValue
-      ]
-    )
-  }
+//  override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+//    super .touchesMoved(touches, with: event)
+//    guard let gage = touches.first?.location(in: self) else { return }
+//    let convertOfValue = floor((gage.x / self.frame.width * 3) * 10) / 10
+//    NotificationCenter.default.post(
+//      name: CustomSlider.sliderShouldChangeValueNotification,
+//      object: nil,
+//      userInfo: [
+//        "alpha": convertOfValue
+//      ]
+//    )
+//  }
   
   override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
     super.touchesEnded(touches, with: event)
     guard let point = touches.first?.location(in: self) else { return }
     let value = point.x / self.frame.width * 3
-    let convertOfValue = floor(value * 10) / 10
+//    let convertOfValue = floor(value * 10) / 10
     UIView.animate(
       withDuration: 0.3,
       delay: 0,
@@ -101,15 +102,24 @@ class CustomSlider: UISlider {
         self.layoutIfNeeded() },
       completion: nil
     )
-    MyTownSettingViewController
-      .calculateNumberOfAourndTown(
-        MyTownSetting.shared.isFirstTown, self.value
-    )
+    
+    let manager = AuthorizationManager.shared
+    if let firstTown = manager.firstTown, firstTown.activated {
+      manager.updateFirstTown(distance: Double((self.value + 1) * 1_200))
+    }
+
+    if let secondTown = manager.secondTown, secondTown.activated {
+      manager.updateSecondTown(distance: Double((self.value + 1) * 1_200))
+    }
+//    MyTownSettingViewController
+//      .calculateNumberOfAourndTown(
+//        MyTownSetting.shared.isFirstTown, self.value
+//    )
     NotificationCenter.default.post(
-      name: NSNotification.Name("AlphaValue"),
+      name: CustomSlider.sliderShouldChangeValueNotification,
       object: nil,
       userInfo: [
-        "alpha": convertOfValue
+        "value": Int(value.rounded())
       ]
     )
   }

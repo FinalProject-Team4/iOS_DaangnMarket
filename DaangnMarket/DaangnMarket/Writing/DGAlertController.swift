@@ -94,8 +94,10 @@ class DGAlertController: UIViewController {
   }
   
   private func setUI() {
-    view.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapViewGesture(_:)))
+    self.view.addGestureRecognizer(tapGesture)
     self.modalPresentationStyle = .overFullScreen
+    view.backgroundColor = UIColor.gray.withAlphaComponent(0.6)
     view.addSubview(alertView)
     alertView.snp.makeConstraints {
       $0.width.equalToSuperview().multipliedBy(0.85)
@@ -105,6 +107,12 @@ class DGAlertController: UIViewController {
     buttonsView.snp.makeConstraints {
       $0.leading.equalToSuperview().offset(24)
       $0.bottom.trailing.equalToSuperview().offset(-24)
+    }
+  }
+  
+  @objc private func tapViewGesture(_ sender: UITapGestureRecognizer) {
+    if !alertView.point(inside: sender.location(in: alertView), with: nil) {
+      self.dismiss(animated: false, completion: nil)
     }
   }
 }

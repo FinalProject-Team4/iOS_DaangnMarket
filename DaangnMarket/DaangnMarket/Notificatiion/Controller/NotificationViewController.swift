@@ -49,13 +49,18 @@ class NotificationViewController: UIViewController {
   
   // MARK: Model
   
-  private let model = NotificationModel()
+  private let model: NotificationModel
   
   // MARK: Properties
   
   private var shouldScrollWithPanGesture = false
   
   // MARK: Life Cycle
+  
+  init(userInfo: UserInfo) {
+    self.model = NotificationModel(userInfo: userInfo)
+    super.init(nibName: nil, bundle: nil)
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -69,6 +74,13 @@ class NotificationViewController: UIViewController {
   
   private func setupAttributes() {
     self.view.backgroundColor = .systemBackground
+    
+    NotificationCenter.default.addObserver(
+      self,
+      selector: #selector(didReceiveActivityNotification(_:)),
+      name: NotificationModel.didResponseActivityNotification,
+      object: nil
+    )
   }
   
   private func setupConstraints() {
@@ -112,6 +124,16 @@ class NotificationViewController: UIViewController {
   @objc private func didTapKeywordConfigButton(_ sender: UIButton) {
     print("Configure Keyword")
   }
+  
+  // MARK: Observing
+  
+  @objc private func didReceiveActivityNotification(_ noti: Notification) {
+    self.notificationTableView.reloadData(for: .activity)
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
 }
 
 // MARK: - UITableViewDataSource
@@ -123,7 +145,8 @@ extension NotificationViewController: UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     if self.notificationTableView.isActivityNotification(tableView) {
-      return self.model.contents.count
+//      return self.model.contents.count
+      return self.model.notifications.count
     } else if section == 0 {
       return self.keywordEditButton.isSelected ? 1 : 0
     } else {
@@ -147,8 +170,8 @@ extension NotificationViewController: UITableViewDataSource {
       .then {
         $0.delegate = self
         $0.configure(
-          thumbnail: UIImage(named: self.model.thumbnails[indexPath.row].rawValue),
-          content: self.model.contents[indexPath.row],
+          thumbnail: UIImage(named: self.model.thumbnails[0].rawValue),
+          content: self.model.notifications[indexPath.row].body,
           date: "\(indexPath.row + 1)시간 전"
         )
     }
@@ -226,7 +249,7 @@ extension NotificationViewController: KeywordNotificationHeaderDelegate {
     let cancel = UIAlertAction(title: "취소", style: .cancel)
     let remove = UIAlertAction(title: "삭제", style: .default) { (_) in
       self.model.keywordContents.removeAll()
-      self.notificationTableView.reloadKeyword()
+      self.notificationTableView.reloadData(for: .keyword)
     }
     self.presentAlert(
       title: "키워드 알림을 모두 삭제하시겠어요?",
