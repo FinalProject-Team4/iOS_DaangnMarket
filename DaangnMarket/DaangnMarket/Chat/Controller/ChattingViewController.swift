@@ -63,8 +63,9 @@ class ChattingViewController: UIViewController {
     updated: "",
     address: "성수",
     price: 450_000,
+    likes: 1,
     state: "sales",
-    postImageSet: [PostImage(imageId: 1, photo: "image1", postId: 1)]
+    photos: ["image1"]
   )
   
   private var dateIndicatables = [(date: String, row: Int)]()
@@ -99,7 +100,7 @@ class ChattingViewController: UIViewController {
     self.productPreview.configure(
       title: self.product.title,
       price: self.product.price,
-      thumbnail: UIImage(named: self.product.postImageSet.first?.photo ?? "")
+      thumbnail: UIImage(named: self.product.photos.first ?? "")
     )
     
     // Add Observers

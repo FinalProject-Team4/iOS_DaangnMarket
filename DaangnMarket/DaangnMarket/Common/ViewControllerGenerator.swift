@@ -88,7 +88,7 @@ class ViewControllerGenerator {
     case .chattingHistory:
       return UINavigationController(rootViewController: ChattingHistoryViewController())
     case .chatting:
-      return UINavigationController(rootViewController: ChatViewController())
+      return ChattingViewController()
     case .likeList:
       guard let likeListData = parameters["likeListData"] as? [Post] else { return nil }
       let likeListVC = LikeListViewController(likeListData: likeListData)
