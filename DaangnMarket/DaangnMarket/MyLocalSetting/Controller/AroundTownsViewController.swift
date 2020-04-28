@@ -21,6 +21,17 @@ class AroundTownsViewController: UIViewController {
   
   // MARK: Life Cycle
   
+  private var towns = [Town]()
+  
+  init(towns: [Town]) {
+    super.init(nibName: nil, bundle: nil)
+    self.towns = towns.reversed()
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     self.view.addSubview(aroundTownListTableView)
@@ -61,24 +72,26 @@ class AroundTownsViewController: UIViewController {
 
 extension AroundTownsViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    switch MyTownSetting.shared.isFirstTown {
-    case true:
-      return MyTownSetting.shared.firstAroundTownList.count
-    case false:
-      return MyTownSetting.shared.secondAroundTownList.count
-    }
+    return self.towns.count
+//    switch MyTownSetting.shared.isFirstTown {
+//    case true:
+//      return MyTownSetting.shared.firstAroundTownList.count
+//    case false:
+//      return MyTownSetting.shared.secondAroundTownList.count
+//    }
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "TownCell", for: indexPath)
-    
-    switch MyTownSetting.shared.isFirstTown {
-    case true:
-      cell.textLabel?.text = MyTownSetting.shared.firstAroundTownList[indexPath.row].dong
-      return cell
-    case false:
-      cell.textLabel?.text = MyTownSetting.shared.secondAroundTownList[indexPath.row].dong
-      return cell
-    }
+    cell.textLabel?.text = self.towns[indexPath.row].dong
+    return cell
+//    switch MyTownSetting.shared.isFirstTown {
+//    case true:
+//      cell.textLabel?.text = MyTownSetting.shared.firstAroundTownList[indexPath.row].dong
+//      return cell
+//    case false:
+//      cell.textLabel?.text = MyTownSetting.shared.secondAroundTownList[indexPath.row].dong
+//      return cell
+//    }
   }
 }

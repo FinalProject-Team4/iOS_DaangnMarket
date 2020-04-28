@@ -24,7 +24,7 @@ class AuthViewController: UIViewController {
   
   // MARK: Model
   
-  private lazy var authorizationManager = PhoneAuthorizationManager().then {
+  private lazy var phoneAuthManager = PhoneAuthorizationManager().then {
     $0.delegate = self
   }
   
@@ -154,7 +154,7 @@ extension AuthViewController: AuthInputFormDelegate {
       try PhoneAuthorizationManager.checkValidPhoneNumber(phoneNumber)
       
       let formatted = PhoneAuthorizationManager.convertValidFormat(phoneNumber)
-      self.authorizationManager.requestCode(phone: formatted) { (result) in
+      self.phoneAuthManager.requestCode(phone: formatted) { (result) in
         switch result {
         case .success(let success):
           self.upperAlert.show(message: success.localizedDescription)
@@ -174,7 +174,7 @@ extension AuthViewController: AuthInputFormDelegate {
   }
   
   func authInputForm(_ authInputForm: AuthInputForm, didSelectAuthorizationButton button: UIButton, verificationCode: String) {
-    self.authorizationManager.signIn(with: verificationCode) { (result) in
+    self.phoneAuthManager.signIn(with: verificationCode) { (result) in
       switch result {
       case .success(let idToken):
         API.default.request(.login(idToken: idToken)) { (result) in
@@ -182,8 +182,22 @@ extension AuthViewController: AuthInputFormDelegate {
           switch result {
           case .success(let userInfo):
             print("=================== User Info ====================\n", userInfo)
-            AuthorizationManager.shared.register(userInfo)
-            self.dismiss(animated: true)
+            API.default.requestUserTown(authToken: userInfo.authorization) { (result) in
+              switch result {
+              case .success(let userTonws):
+                userTonws.forEach {
+                  if $0.activated  {
+                    AuthorizationManager.shared.firstTown = $0
+                  } else {
+                    AuthorizationManager.shared.secondTown = $0
+                  }
+                }
+                AuthorizationManager.shared.register(userInfo)
+                self.dismiss(animated: true)
+              case .failure(let error):
+                self.presentAlert(title: "Login Error", message: error.localizedDescription)
+              }
+            }
           case .failure(let error) where error.responseCode == 401:
             ViewControllerGenerator.shared
               .make(.signUp, parameters: ["id_token": idToken])?

@@ -134,4 +134,40 @@ class API {
         }
     }
   }
+  
+  // MARK: User Town  
+
+  func requestRegisterUserTown(userTown: UserTown, authToken: String, completion: @escaping (Result<UserTown, AFError>) -> Void) {
+    let parameters: [String: String] = [
+      "locate": userTown.locate.id.description,
+      "distance": userTown.distance.description,
+      "verified": userTown.verified.description,
+      "activated": userTown.activated.description
+    ]
+    let header = HTTPHeader(name: "Authorization", value: authToken)
+    AF.request(DaangnURL.UserTown.register.url, method: .post, parameters: parameters, headers: HTTPHeaders([header]))
+      .validate()
+      .responseDecodable { (response: DataResponse<UserTown, AFError>) in
+        switch response.result {
+        case .success(let userTown):
+          completion(.success(userTown))
+        case .failure(let error):
+          completion(.failure(error))
+        }
+    }
+  }
+  
+  func requestUserTown(authToken: String, completion: @escaping (Result<[UserTown], AFError>) -> Void) {
+    let header = HTTPHeader(name: "Authorization", value: authToken)
+    AF.request(DaangnURL.UserTown.register.url, headers: HTTPHeaders([header]))
+      .validate()
+      .responseDecodable { (response: DataResponse<[UserTown], AFError>) in
+        switch response.result {
+        case .success(let userTowns):
+          completion(.success(userTowns))
+        case .failure(let error):
+          completion(.failure(error))
+        }
+    }
+  }
 }

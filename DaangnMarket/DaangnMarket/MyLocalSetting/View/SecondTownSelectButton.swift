@@ -14,6 +14,23 @@ class SecondTownSelectButton: UIButton {
   weak var delegate: DeleteButtonDelegate?
   let noti = NotificationCenter.default
   
+  override var isSelected: Bool {
+    didSet {
+      self.selectedSecondTownLabel.textColor = self.isSelected ?
+        UIColor.white :
+        UIColor.black
+      self.deleteSelectedSecondTownButton.tintColor = self.isSelected ?
+        .white :
+        UIColor(named: ColorReference.noResultImage.rawValue)
+      self.backgroundColor = self.isSelected ?
+        UIColor(named: ColorReference.daangnMain.rawValue) :
+        .white
+      self.layer.borderColor = self.isSelected ?
+        UIColor(named: ColorReference.daangnMain.rawValue)?.cgColor :
+        UIColor(named: ColorReference.noResultImage.rawValue)?.cgColor
+    }
+  }
+  
   // MARK: Views
   
   lazy var selectedSecondTownLabel = UILabel().then {
@@ -32,16 +49,22 @@ class SecondTownSelectButton: UIButton {
   override init(frame: CGRect) {
     super.init(frame: frame)
     setupSecondBtnConstraints()
-    observeAnotherTownNameNoti()
+    self.setupUI()
+//    observeAnotherTownNameNoti()
   }
   
-  deinit {
-    noti.removeObserver(
-      self,
-      name: NSNotification.Name("anotherTownSecondTownBtn"),
-      object: nil
-    )
+  private func setupUI() {
+    self.layer.borderWidth = 1
+    self.layer.cornerRadius = 5
   }
+  
+//  deinit {
+//    noti.removeObserver(
+//      self,
+//      name: NSNotification.Name("anotherTownSecondTownBtn"),
+//      object: nil
+//    )
+//  }
   
   func setupSecondBtnConstraints() {
     [selectedSecondTownLabel, deleteSelectedSecondTownButton].forEach { self.addSubview($0) }
@@ -58,24 +81,24 @@ class SecondTownSelectButton: UIButton {
     }
   }
   
-  private func observeAnotherTownNameNoti() {
-    noti.addObserver(
-      self,
-      selector: #selector(addAnotherTownNameToButton),
-      name: NSNotification.Name("anotherTownSecondTownBtn"),
-      object: nil
-    )
-  }
+//  private func observeAnotherTownNameNoti() {
+//    noti.addObserver(
+//      self,
+//      selector: #selector(addAnotherTownNameToButton),
+//      name: NSNotification.Name("anotherTownSecondTownBtn"),
+//      object: nil
+//    )
+//  }
   
   // MARK: Action
   
   @objc func didTapSecondTownDeleteButton(_ sender: UIButton) {
     self.delegate?.didTapDeleteButton(sender)
   }
-  @objc func addAnotherTownNameToButton() {
-    selectedSecondTownLabel.text = MyTownSetting.shared.secondSelectTown
-//    deleteSelectedSecondTownButton.isHidden = false
-  }
+//  @objc func addAnotherTownNameToButton() {
+//    selectedSecondTownLabel.text = MyTownSetting.shared.secondSelectTown
+////    deleteSelectedSecondTownButton.isHidden = false
+//  }
   
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")

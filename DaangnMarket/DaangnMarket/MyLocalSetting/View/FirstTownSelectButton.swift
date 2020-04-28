@@ -17,11 +17,28 @@ class FirstTownSelectButton: UIButton {
   weak var delegate: DeleteButtonDelegate?
   let noti = NotificationCenter.default
   
+  override var isSelected: Bool {
+    didSet {
+      self.selectedFirstTownLabel.textColor = self.isSelected ?
+        UIColor.white :
+        UIColor.black
+      self.deleteSelectedFirstTownButton.tintColor = self.isSelected ?
+        .white :
+        UIColor(named: ColorReference.noResultImage.rawValue)
+      self.backgroundColor = self.isSelected ?
+        UIColor(named: ColorReference.daangnMain.rawValue) :
+        .white
+      self.layer.borderColor = self.isSelected ?
+        UIColor(named: ColorReference.daangnMain.rawValue)?.cgColor :
+        UIColor(named: ColorReference.noResultImage.rawValue)?.cgColor
+    }
+  }
+  
   // MARK: Views
   
   lazy var selectedFirstTownLabel = UILabel().then {
-    guard let firstSelect = AuthorizationManager.shared.selectedTown else { fatalError("First Town Select Lable error") }
-    $0.text = firstSelect.dong
+    guard let firstTown = AuthorizationManager.shared.firstTown else { fatalError("First Town Select Lable error") }
+    $0.text = firstTown.locate.dong
     $0.textColor = .white
     $0.font = .systemFont(ofSize: 16, weight: .bold)
   }
@@ -37,12 +54,18 @@ class FirstTownSelectButton: UIButton {
   override init(frame: CGRect) {
     super.init(frame: frame)
     setupFirstBtnConstraints()
-    addObserve()
+    self.setupUI()
+//    addObserve()
   }
   
-  deinit {
-    noti.removeObserver(self, name: NSNotification.Name("FirstSelectTownCountView"), object: nil)
+  private func setupUI() {
+    self.layer.borderWidth = 1
+    self.layer.cornerRadius = 5
   }
+  
+//  deinit {
+//    noti.removeObserver(self, name: NSNotification.Name("FirstSelectTownCountView"), object: nil)
+//  }
   
   private func setupFirstBtnConstraints() {
     let inButtonSubUI = [selectedFirstTownLabel, deleteSelectedFirstTownButton]
@@ -61,14 +84,14 @@ class FirstTownSelectButton: UIButton {
   }
   
   // MARK: Notification Observer
-  private func addObserve() {
-    noti.addObserver(
-      self,
-      selector: #selector(changeFirstTownName),
-      name: NSNotification.Name("FirstSelectTownCountView"),
-      object: nil
-    )
-  }
+//  private func addObserve() {
+//    noti.addObserver(
+//      self,
+//      selector: #selector(changeFirstTownName),
+//      name: NSNotification.Name("FirstSelectTownCountView"),
+//      object: nil
+//    )
+//  }
   
   // MARK: Action
   
@@ -76,9 +99,9 @@ class FirstTownSelectButton: UIButton {
     self.delegate?.didTapDeleteButton(button)
   }
   
-  @objc private func changeFirstTownName() {
-    selectedFirstTownLabel.text = MyTownSetting.shared.firstSelectTown
-  }
+//  @objc private func changeFirstTownName() {
+//    selectedFirstTownLabel.text = MyTownSetting.shared.firstSelectTown
+//  }
   
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")

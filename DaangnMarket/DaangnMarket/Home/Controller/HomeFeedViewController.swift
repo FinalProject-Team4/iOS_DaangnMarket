@@ -26,7 +26,7 @@ class HomeFeedViewController: UIViewController {
   
   // MARK: Views
   
-  private lazy var customNaviBar = CutomNavigationBar().then {
+  lazy var customNaviBar = CutomNavigationBar().then {
     $0.backgroundColor = .white
     $0.layer.borderColor = UIColor.lightGray.cgColor
     $0.layer.borderWidth = 0.3
@@ -44,9 +44,7 @@ class HomeFeedViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.view.backgroundColor = .white
-    self.parameters = ["locate": 6_971]
-    requestPostData(url, self.parameters)
-    setTownsName()
+//    setTownsName()
     callDelegates()
     setupUI()
   }
@@ -56,11 +54,26 @@ class HomeFeedViewController: UIViewController {
 //    setTownsName()
     initTownName()
     navigationController?.navigationBar.isHidden = true
-    if AuthorizationManager.shared.userInfo == nil {
-      if isFirstAlert {
-        doFirstViewPresent()
-      }
+    
+    self.requestInitialPostList()
+    let manager = AuthorizationManager.shared
+    if manager.userInfo == nil, isFirstAlert {
+      doFirstViewPresent()
     }
+  }
+  
+  func requestInitialPostList() {
+    self.posts.removeAll()
+    let manager = AuthorizationManager.shared
+    if let firstTown = manager.firstTown, firstTown.activated {
+      print("Request First")
+      self.parameters = ["locate": firstTown.locate.id]
+    } else if let secondTown = manager.secondTown {
+      print("Request Second")
+      self.parameters = ["locate": secondTown.locate.id]
+    }
+    
+    requestPostData(url, self.parameters)
   }
   
   // MARK: Initialize
@@ -83,21 +96,31 @@ class HomeFeedViewController: UIViewController {
     }
   }
   
-  private func setTownsName() {
-    guard let selectedTown = AuthorizationManager.shared.selectedTown else { print("popover selectedTown"); return }
-      MyTownSetting.shared.towns["first"] = selectedTown.dong
-//    if !AuthorizationManager.shared.aroundTown.isEmpty {
-      guard let anotherTown = AuthorizationManager.shared.anotherTown else { print("popover anotherTown"); return }
-      MyTownSetting.shared.towns["second"] = anotherTown.dong
-//    }
-  }
+//  private func setTownsName() {
+//    guard let selectedTown = AuthorizationManager.shared.firstTown else { print("popover selectedTown"); return }
+//      MyTownSetting.shared.towns["first"] = selectedTown.dong
+////    if !AuthorizationManager.shared.aroundTown.isEmpty {
+//      guard let anotherTown = AuthorizationManager.shared.secondTown else { print("popover secondTown"); return }
+//      MyTownSetting.shared.towns["second"] = anotherTown.dong
+////    }
+//  }
   
+  // 좌상단 선택된 동네 이름 설정하기
   private func initTownName() {
-    if MyTownSetting.shared.isFirstTown {
-      customNaviBar.selectedTownButton.setTitle(MyTownSetting.shared.towns["first"], for: .normal)
-    } else {
-      customNaviBar.selectedTownButton.setTitle(MyTownSetting.shared.towns["second"], for: .normal)
+    var selected = ""
+    let manager = AuthorizationManager.shared
+    if let firstTown = manager.firstTown, firstTown.activated {
+      selected = firstTown.locate.dong
+    } else if let secondTown = manager.secondTown, secondTown.activated {
+      selected = secondTown.locate.dong
     }
+    customNaviBar.selectedTownButton.setTitle(selected, for: .normal)
+    
+//    if MyTownSetting.shared.isFirstTown {
+//      customNaviBar.selectedTownButton.setTitle(MyTownSetting.shared.towns["first"], for: .normal)
+//    } else {
+//      customNaviBar.selectedTownButton.setTitle(MyTownSetting.shared.towns["second"], for: .normal)
+//    }
   }
   
   // MARK: Request PostData
@@ -249,10 +272,11 @@ extension HomeFeedViewController: UIPopoverPresentationControllerDelegate {
 extension HomeFeedViewController: NavigationBarButtonDelegate {
   func navigationBarButton(_ naviBarButton: UIButton) {
     guard let popoverVC = ViewControllerGenerator.shared.make(.popover, parameters: ["target": self, "sender": naviBarButton]) as? PopoverViewController else { print("return"); return }
+    
     switch naviBarButton {
     case customNaviBar.selectedTownButton:
       popoverVC.modalPresentationStyle = .popover
-      popoverVC.delegate = self
+//      popoverVC.delegate = self
       present(popoverVC, animated: true)
     case customNaviBar.searchButton:
       guard let searchVC = ViewControllerGenerator.shared.make(.search) else { return }
@@ -281,17 +305,17 @@ extension HomeFeedViewController: NavigationBarButtonDelegate {
   }
 }
 
-// MARK: - SelectedTownName in NaviBar Delegate
-extension HomeFeedViewController: SelectedTownNameInNavibarDelegate {
-  func showSelectedTownName(_ isFirst: Bool) {
-//    defer {
-//      dismiss(animated: true)
+//// MARK: - SelectedTownName in NaviBar Delegate
+//extension HomeFeedViewController: SelectedTownNameInNavibarDelegate {
+//  func showSelectedTownName(_ isFirst: Bool) {
+////    defer {
+////      dismiss(animated: true)
+////    }
+//    switch isFirst {
+//    case true:
+//      customNaviBar.selectedTownButton.setTitle(MyTownSetting.shared.towns["first"], for: .normal)
+//    case false:
+//      customNaviBar.selectedTownButton.setTitle(MyTownSetting.shared.towns["second"], for: .normal)
 //    }
-    switch isFirst {
-    case true:
-      customNaviBar.selectedTownButton.setTitle(MyTownSetting.shared.towns["first"], for: .normal)
-    case false:
-      customNaviBar.selectedTownButton.setTitle(MyTownSetting.shared.towns["second"], for: .normal)
-    }
-  }
-}
+//  }
+//}

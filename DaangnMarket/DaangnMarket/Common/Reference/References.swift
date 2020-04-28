@@ -55,8 +55,8 @@ enum ColorReference: String {
 
 enum UserReference: String {
   case userInfo
-  case selectedTown
-  case anotherTown
+  case firstTown
+  case secondTown
   case firstTownByDistance
   case secondTownByDistance
 }
