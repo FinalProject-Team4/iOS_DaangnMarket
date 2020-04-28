@@ -27,6 +27,9 @@ class MyPageViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    print("MyPage.Token", AuthorizationManager.shared.userInfo?.authorization)
+    print("MyPage.UserInfo", AuthorizationManager.shared.userInfo)
+    print("MyPage.IsLogIn", AuthorizationManager.shared.userInfo != nil)
     self.requestOtherItems(self.otherItemsParameters)
     setupUI()
   }
@@ -34,7 +37,8 @@ class MyPageViewController: UIViewController {
   // MARK: Initialize
   
   init() {
-    self.otherItemsParameters = ["username": "test-user"]
+    let username = AuthorizationManager.shared.userInfo?.username ?? ""
+    self.otherItemsParameters = ["username": "\(username)"]
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -113,6 +117,24 @@ class MyPageViewController: UIViewController {
       }
     }
   }
+  
+  private func loginSignupMsg() {
+    let alert = DGAlertController(title: "회원가입 또는 로그인 후 이용할 수 있습니다.")
+    let loginSignup = DGAlertAction(title: "로그인/가입", style: .orange) {
+      self.dismiss(animated: true) {
+        guard let phoneAuthVC = ViewControllerGenerator.shared.make(.phoneAuth) else { return }
+        phoneAuthVC.modalPresentationStyle = .fullScreen
+        self.present(phoneAuthVC, animated: true)
+      }
+    }
+    let cancel = DGAlertAction(title: "취소", style: .cancel) {
+      self.dismiss(animated: false)
+    }
+    alert.addAction(loginSignup)
+    alert.addAction(cancel)
+    alert.modalPresentationStyle = .overFullScreen
+    present(alert, animated: false)
+  }
 }
 // MARK: - UITableViewDataSource
 
@@ -126,6 +148,9 @@ extension MyPageViewController: UITableViewDataSource {
     case 0:
       guard let cell = tableView.dequeueReusableCell(withIdentifier: MyPageUserInformTableViewCell.identifier, for: indexPath) as? MyPageUserInformTableViewCell else { return UITableViewCell() }
       cell.selectionStyle = .none
+      let username = AuthorizationManager.shared.userInfo?.username ?? ""
+      let useraddr = AuthorizationManager.shared.activatedTown?.locate.dong ?? ""
+      cell.configure(userName: username, userAddr: useraddr, isLogin: (AuthorizationManager.shared.userInfo != nil))
       cell.delegate = self
       cell.separatorInset = UIEdgeInsets.zero
       return cell
@@ -162,17 +187,20 @@ extension MyPageViewController: UITableViewDelegate {
 
 extension MyPageViewController: MyPageUserInformDelegate {
   func goToPage(tag: String) {
-    switch tag {
-    case "profileImageButton":
-      print("프로필 수정 페이지 띄우기")
-    case "showProfileButton":
-      
-      self.tabBarController?.tabBar.isHidden = true
-      guard let profilePageVC = ViewControllerGenerator.shared.make(.profilePage, parameters: ["ownSelf": true, "name": "라이언", "profileData": otherItems]) else { return }
-      self.navigationController?.pushViewController(profilePageVC, animated: true)
-      
-    default:
-      break
+    if AuthorizationManager.shared.userInfo == nil {
+      self.loginSignupMsg()
+    } else {
+      switch tag {
+      case "profileImageButton":
+        print("프로필 수정 페이지 띄우기")
+      case "showProfileButton":
+        let username = AuthorizationManager.shared.userInfo?.username ?? ""
+        self.tabBarController?.tabBar.isHidden = true
+        guard let profilePageVC = ViewControllerGenerator.shared.make(.profilePage, parameters: ["ownSelf": true, "name": "\(username)", "profileData": otherItems]) else { return }
+        self.navigationController?.pushViewController(profilePageVC, animated: true)
+      default:
+        break
+      }
     }
   }
 }
@@ -181,34 +209,42 @@ extension MyPageViewController: MyPageUserInformDelegate {
 
 extension MyPageViewController: MyPageListButtonDelegate {
   func moveToPage(tag: String) {
-    switch tag {
-    case "salesListButton":
-      guard let salesListVC = ViewControllerGenerator.shared.make(.salesList) else { return }
-      self.navigationController?.pushViewController(salesListVC, animated: true)
-    case "likeListButton":
-      guard let likeListVC = ViewControllerGenerator.shared.make(.likeList) else { return }
-      self.navigationController?.pushViewController(likeListVC, animated: true)
-    default:
-      break
+    if AuthorizationManager.shared.userInfo == nil {
+      self.loginSignupMsg()
+    } else {
+      switch tag {
+      case "salesListButton":
+        guard let salesListVC = ViewControllerGenerator.shared.make(.salesList) else { return }
+        self.navigationController?.pushViewController(salesListVC, animated: true)
+      case "likeListButton":
+        guard let likeListVC = ViewControllerGenerator.shared.make(.likeList) else { return }
+        self.navigationController?.pushViewController(likeListVC, animated: true)
+      default:
+        break
+      }
     }
   }
 }
 
 extension MyPageViewController: MyPageOptionButtonsTVCDelegate {
   func moveToPageForOption(tag: String) {
-    switch tag {
-    case "myTownSettingButton":
-      print("내 동네 설정 띄우기")
-    case "confirmMyTownButton":
-      
-      print("동네 인증하기 띄우기")
-      
-    case "gatheringButton":
-      
-      print("모아 보기 구현 안함")
-      
-    default:
-      print("default")
+    if AuthorizationManager.shared.userInfo == nil && tag != "myTownSettingButton" {
+      self.loginSignupMsg()
+    } else {
+      switch tag {
+      case "myTownSettingButton":
+        print("내 동네 설정 띄우기")
+      case "confirmMyTownButton":
+        
+        print("동네 인증하기 띄우기")
+        
+      case "gatheringButton":
+        
+        print("모아 보기 구현 안함")
+        
+      default:
+        print("default")
+      }
     }
   }
 }

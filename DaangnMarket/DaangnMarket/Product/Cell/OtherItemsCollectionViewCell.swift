@@ -59,6 +59,7 @@ class OtherItemsCollectionViewCell: UICollectionViewCell {
       .snp.makeConstraints {
         $0.bottom.equalTo(priceLabel.snp.top).offset(-spacing)
         $0.leading.equalTo(priceLabel)
+        $0.trailing.equalToSuperview()
     }
     self.imageView.then { self.contentView.addSubview($0) }
       .snp.makeConstraints {

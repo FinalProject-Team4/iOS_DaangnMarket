@@ -115,7 +115,6 @@ class ViewControllerGenerator {
     let mypageVC = UINavigationController(rootViewController: MyPageViewController()).then {
       $0.tabBarItem = UITabBarItem(title: "나의 당근", image: UIImage(systemName: "person"), tag: 4)
     }
-    
     return MainTabBarController().then {
       $0.viewControllers = [homeFeedVC, categoryVC, writeUseVC, chatVC, mypageVC]
       $0.tabBar.tintColor = .black
