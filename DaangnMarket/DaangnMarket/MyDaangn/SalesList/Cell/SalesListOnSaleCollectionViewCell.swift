@@ -11,7 +11,8 @@ import UIKit
 protocol SalesListOnSaleCVCDelegate: class {
   func onSaleOptionDelever()
   func moveToPage(onSale: Post)
-  func moveToEndOfSalePage()
+  func changeStateButton(itemPostID: Int, salesState: String)
+  func changeToEndOfSalesButton(itemPostID: Int, postTitle: String)
 }
 
 class SalesListOnSaleCollectionViewCell: UICollectionViewCell {
@@ -22,7 +23,7 @@ class SalesListOnSaleCollectionViewCell: UICollectionViewCell {
   
   // MARK: Views
   
-  private var salesListTableView = UITableView()
+  var salesListTableView = UITableView()
   private var refreshControl = UIRefreshControl().then {
     $0.tintColor = UIColor(named: ColorReference.daangnMain.rawValue)
   }
@@ -59,15 +60,17 @@ class SalesListOnSaleCollectionViewCell: UICollectionViewCell {
     }
   }
   
-  // MARK:  Interface
+  // MARK: Interface
   
   func configure(onSale: [Post]) {
     self.onSaleData = onSale
+    self.salesListTableView.reloadData()
   }
   
   // MARK: Action
   
   @objc func didPullrefreshControl(_ sender: Any) {
+    self.salesListTableView.reloadData()
     self.refreshControl.endRefreshing()
   }
 }
@@ -83,7 +86,6 @@ extension SalesListOnSaleCollectionViewCell: UITableViewDataSource {
     cell.delegate = self
     cell.selectionStyle = .none
     cell.configure(onSale: onSaleData[indexPath.row])
-    //cell.configure(isReserve: dummyData[indexPath.row])
     return cell
   }
 }
@@ -97,11 +99,16 @@ extension SalesListOnSaleCollectionViewCell: UITableViewDelegate {
 // MARK: - SalesListOnSaleTVCDelegate
 
 extension SalesListOnSaleCollectionViewCell: SalesListOnSaleTVCDelegate {
-  func endOfSalePage() {
-    delegate?.moveToEndOfSalePage()
-  }
-  
   func onSaleOption() {
     delegate?.onSaleOptionDelever()
+  }
+  
+  func stateChange(postID: Int, state: String) {
+    //여기서 받은 postID를 다시 ViewController로 넘겨주기!!!!
+    delegate?.changeStateButton(itemPostID: postID, salesState: state)
+  }
+  
+  func changeToEndOfSales(postID: Int, title: String) {
+    delegate?.changeToEndOfSalesButton(itemPostID: postID, postTitle: title)
   }
 }

@@ -29,6 +29,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound], completionHandler: { (_, _) in })
     application.registerForRemoteNotifications()
     
+    if let notification = launchOptions?[.remoteNotification] as? [String: AnyObject], let notiType = notification["type"] as? String {  
+      NotificationTrigger.default.type = NotificationType(rawValue: notiType)
+    }
     
     return true
   }
@@ -87,11 +90,21 @@ extension AppDelegate: MessagingDelegate {
 // MARK: - UNUserNotificationCenterDelegate
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
-  func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-    print(#function)
-  }
   
+  func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+    // Foreground에서 알림 도착
+
+    completionHandler([.alert, .badge, .sound])
+  }
+
   func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-    print(#function)
+    // Background 및 Foreground에서 알림 눌렀을 때 호출
+
+    if let notiType = response.notification.request.content.userInfo["type"] as? String {
+      print(#function, "Tap Push Notification")
+      NotificationTrigger.default.type = NotificationType(rawValue: notiType)
+      NotificationTrigger.default.trigger()
+      completionHandler()
+    }
   }
 }

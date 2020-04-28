@@ -10,7 +10,8 @@ import UIKit
 
 protocol SalesListOnSaleTVCDelegate: class {
   func onSaleOption()
-  func endOfSalePage()
+  func stateChange(postID: Int, state: String)
+  func changeToEndOfSales(postID: Int, title: String)
 }
 
 class SalesListOnSaleTableViewCell: UITableViewCell {
@@ -28,7 +29,7 @@ class SalesListOnSaleTableViewCell: UITableViewCell {
   private let verLine = UIView().then {
     $0.backgroundColor = UIColor(named: ColorReference.borderLine.rawValue)
   }
-  private let stateButton = UIButton().then {
+  private var stateButton = UIButton().then {
     $0.setTitleColor(.black, for: .normal)
     $0.titleLabel?.font = UIFont.systemFont(ofSize: 13)
   }
@@ -123,14 +124,18 @@ class SalesListOnSaleTableViewCell: UITableViewCell {
   // MARK: Interface
   
   func configure(onSale: Post) {
-    self.itemContentView.itemImageView.image = UIImage(named: "image4")
+    if onSale.photos.isEmpty {
+      self.itemContentView.itemImageView.image = UIImage(named: "DaangnDefaultItem")
+    } else {
+      self.itemContentView.itemImageView.kf.setImage(with: URL(string: onSale.photos[0]))
+    }
     self.itemContentView.titleLabel.text = onSale.title
-    self.itemContentView.addrTimeLabel.text = onSale.address
+    self.itemContentView.addrTimeLabel.text = "\(onSale.address) ･ \(PostData.shared.calculateDifferentTime(updated: onSale.created))"
     self.numberFormatter.numberStyle = .decimal
     self.itemContentView.priceLabel.text = "\(numberFormatter.string(from: NSNumber(value: onSale.price))!)원"
     self.itemContentView.postID = onSale.postId
     
-    if onSale.state == "reserved" {
+    if onSale.state == "reserve" {
       self.stateButton.setTitle("판매중으로 변경", for: .normal)
       self.itemContentView.reservedState(reserved: true)
     } else if onSale.state == "sales" {
@@ -140,34 +145,21 @@ class SalesListOnSaleTableViewCell: UITableViewCell {
   }
   
   // MARK: Action
-  
   @objc func didTapButton(_ sender: UIButton) {
-//    switch sender {
-//    case optionButton:
-//      delegate?.onSaleOption()
-//
-//    case stateButton:
-//      if stateButton.titleLabel?.text == "예약중으로 변경" {
-//        self.stateButton.setTitle("판매중으로 변경", for: .normal)
-//        self.itemContentView.reservedState(reserved: true)
-//        guard let indexOfData = sellerItemsData1.lastIndex(where: { (idx) -> Bool in
-//          idx.postId == self.itemContentView.postID }
-//          ) else { return }
-//        sellerItemsData1[indexOfData].state = "reserved"
-//      } else {
-//        guard let indexOfData = sellerItemsData1.lastIndex(where: { (idx) -> Bool in
-//          idx.postId == self.itemContentView.postID }
-//          ) else { return }
-//        sellerItemsData1[indexOfData].state = "slaes"
-//        self.stateButton.setTitle("예약중으로 변경", for: .normal)
-//        self.itemContentView.reservedState(reserved: false)
-//      }
-//
-//    case endOfSalesButton:
-//      delegate?.endOfSalePage()
-//
-//    default:
-//      break
-//    }
+    switch sender {
+    case optionButton:
+      delegate?.onSaleOption()
+      
+    case stateButton:
+      // 여기서 처리하지 말고, viewController에서 처리하고 재정렬된 값으로 reloadData하기!
+      // -> 이러면 상태값을 여기서 각각 바꿔 줄 필요가 없어! 그냥 state만 바꿔주고 reload만 하면 됨!
+      let nowState = stateButton.titleLabel?.text == "예약중으로 변경" ? "reserve" : "sales"
+      delegate?.stateChange(postID: self.itemContentView.postID, state: nowState)
+      
+    case endOfSalesButton:
+      delegate?.changeToEndOfSales(postID: self.itemContentView.postID, title: self.itemContentView.titleLabel.text!)
+    default:
+      break
+    }
   }
 }

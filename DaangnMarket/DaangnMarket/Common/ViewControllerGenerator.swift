@@ -65,8 +65,8 @@ class ViewControllerGenerator {
     case .findTown:
       return UINavigationController(rootViewController: FindMyTownViewController())
     case .productPost:
-      guard let postVCData = parameters["postData"] as? Post else { return nil }
-      let productPostVC = ProductPostViewController(postData: postVCData)
+      guard let postVCData = parameters["postID"] as? Int, let  postImgData = parameters["postPhotos"] as? [String] else { return nil }
+      let productPostVC = ProductPostViewController(postID: postVCData, postPhotos: postImgData)
       productPostVC.hidesBottomBarWhenPushed = true
       return productPostVC
     case .notification:
@@ -87,12 +87,10 @@ class ViewControllerGenerator {
     case .chatting:
       return UINavigationController(rootViewController: ChatViewController())
     case .likeList:
-      guard let likeListData = parameters["likeListData"] as? [Post] else { return nil }
-      let likeListVC = LikeListViewController(likeListData: likeListData)
+      let likeListVC = LikeListViewController()
       return likeListVC
     case .salesList:
-      guard let salesListData = parameters["salesListData"] as? [Post] else { return nil }
-      let salesListVC = SalesListViewController(salesListData: salesListData)
+      let salesListVC = SalesListViewController()
       return salesListVC
     case .search:
       return SearchViewController()
@@ -121,6 +119,7 @@ class ViewControllerGenerator {
     return MainTabBarController().then {
       $0.viewControllers = [homeFeedVC, categoryVC, writeUseVC, chatVC, mypageVC]
       $0.tabBar.tintColor = .black
+      NotificationTrigger.default.tabBarController = $0
     }
   }
   

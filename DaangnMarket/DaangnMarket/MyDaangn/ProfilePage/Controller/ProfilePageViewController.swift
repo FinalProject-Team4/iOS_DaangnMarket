@@ -20,7 +20,7 @@ class ProfilePageViewController: UIViewController {
   private var isUser = false
   private var profileName = ""
   private let titles = ["활동 뱃지", "판매상품", "동네생활", "받은 매너 평가", "받은 거래 후기"]
-  private var dummyData: [Post]
+  private var profilePageData: [Post]
   private var refreshControl = UIRefreshControl().then {
     $0.tintColor = UIColor(named: ColorReference.daangnMain.rawValue)
   }
@@ -30,7 +30,7 @@ class ProfilePageViewController: UIViewController {
   init(ownSelf: Bool, name: String, profileData: [Post]) {
     self.isUser = ownSelf
     self.profileName = name
-    self.dummyData = profileData
+    self.profilePageData = profileData
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -139,8 +139,6 @@ extension ProfilePageViewController: UITableViewDataSource {
     switch indexPath.row {
     case 0:
       guard let cell = profileTableView.dequeueReusableCell(withIdentifier: ProfileUserInformTableViewCell.identifier, for: indexPath) as? ProfileUserInformTableViewCell else { return UITableViewCell() }
-      //let temp = UserInform.shared.username == dummyData[0].username
-      //let temp = false
       cell.configure(isMyProfile: isUser, name: profileName)
       cell.selectionStyle = .none
       cell.separatorInset = UIEdgeInsets.zero
@@ -149,7 +147,7 @@ extension ProfilePageViewController: UITableViewDataSource {
       let cell = profileTableView.dequeueReusableCell(withIdentifier: "profileCell", for: indexPath)
       
       if indexPath.row == 2 {
-        let tempText = "\(titles[(indexPath.row) - 1]) \(dummyData.count)개"
+        let tempText = "\(titles[(indexPath.row) - 1]) \(profilePageData.count)개"
         cell.textLabel?.text = tempText
       } else {
         cell.textLabel?.text = titles[(indexPath.row) - 1]
@@ -185,7 +183,7 @@ extension ProfilePageViewController: UITableViewDelegate {
   }
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     if indexPath.row == 2 {
-      guard let sellingItemsVC = ViewControllerGenerator.shared.make(.sellingItems, parameters: ["sellingData": dummyData]) else { return }
+      guard let sellingItemsVC = ViewControllerGenerator.shared.make(.sellingItems, parameters: ["sellingData": profilePageData]) else { return }
       navigationController?.pushViewController(sellingItemsVC, animated: true)
     }
   }
