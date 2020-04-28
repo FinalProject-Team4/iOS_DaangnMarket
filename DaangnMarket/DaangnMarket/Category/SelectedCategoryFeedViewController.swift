@@ -17,6 +17,7 @@ class SelectedCategoryFeedViewController: UIViewController {
     $0.delegate = self
     $0.register(HomeFeedTableViewCell.self, forCellReuseIdentifier: "GoodsCell")
     $0.rowHeight = 136
+    $0.tableFooterView = UIView()
   }
   
   private lazy var indicator = UIActivityIndicatorView().then {
@@ -105,20 +106,21 @@ class SelectedCategoryFeedViewController: UIViewController {
       .filter { $0.korean == category }
       .map { $0.rawValue }
       .first ?? "other"
-    let url = URL(string: "http://13.125.217.34/post/list?category=\(category)&page=1&locate=6971")
+    let locate = AuthorizationManager.shared.firstTown?.locate.id
+    let distance = AuthorizationManager.shared.firstTown?.distance
+    let url = URL(string: "http://13.125.217.34/post/list?category=\(category)&locate=\(locate)&distance=\(distance)")
     firstRequest(url: url)
   }
   
   private func firstRequest(url: URL?) {
-    request(url: url)
-    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3 ) {
+    request(url: url) {
       self.indicator.stopAnimating()
       self.setupTableView()
       self.tableView.reloadData()
     }
   }
   
-  private func request(url: URL?) {
+  private func request(url: URL?, _ compeltion: @escaping () -> Void) {
     guard let url = url else { return }
     AF.request(url, method: .get)
       .validate()
@@ -133,6 +135,7 @@ class SelectedCategoryFeedViewController: UIViewController {
             self.tableView.isHidden = true
           }
           self.nextURL = URL(string: decodeResult.next ?? "")
+          compeltion()
         case .failure(let err):
           print(err.localizedDescription)
           self.upperAlert.show(message: err.localizedDescription)
