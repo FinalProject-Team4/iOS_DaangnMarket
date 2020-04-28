@@ -30,23 +30,51 @@ class LaunchViewController: UIViewController {
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     
-    if let selectedTown = AuthorizationManager.shared.selectedTown {
-      self.activityIndicator.startAnimating()
-      API.default.request(.distance(dongId: selectedTown.id)) { (result) in
-        switch result {
-        case .success(let towns):
-          self.activityIndicator.stopAnimating()
-          ViewControllerGenerator.shared.make(.default)?.do {
-            AuthorizationManager.shared.aroundTown = towns
-            UIApplication.shared.switchRootViewController($0)
-          }
-        case .failure(let error):
-          fatalError(error.localizedDescription)
-        }
-      }
-    } else {
+    var towns = [String: UserTown]()
+    if let firstTown = AuthorizationManager.shared.firstTown {
+      towns["first"] = firstTown
+    }
+    if let secondTown = AuthorizationManager.shared.secondTown {
+      towns["second"] = secondTown
+    }
+    
+    if towns.isEmpty {
       ViewControllerGenerator.shared.make(.initialStart)?.do {
         UIApplication.shared.switchRootViewController($0)
+      }
+    } else {
+      let group = DispatchGroup()
+      if let firstTown = towns["first"] {
+        group.enter()
+        API.default.request(.distance(dongId: firstTown.locate.id)) { result in
+          switch result {
+          case .success(let towns):
+            AuthorizationManager.shared.firstAroundTown = towns
+          case .failure(let error):
+            fatalError(error.localizedDescription)
+          }
+          group.leave()
+        }
+      }
+      
+      if let secondTown = towns["second"] {
+        group.enter()
+        API.default.request(.distance(dongId: secondTown.locate.id)) { result in
+          switch result {
+          case .success(let towns):
+            AuthorizationManager.shared.secondAroundTown = towns
+          case .failure(let error):
+            fatalError(error.localizedDescription)
+          }
+          group.leave()
+        }
+      }
+      
+      group.notify(queue: .main) {
+        self.activityIndicator.stopAnimating()
+        ViewControllerGenerator.shared.make(.default)?.do {
+          UIApplication.shared.switchRootViewController($0)
+        }
       }
     }
   }

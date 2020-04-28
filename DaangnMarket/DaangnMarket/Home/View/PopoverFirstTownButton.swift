@@ -9,6 +9,24 @@
 import UIKit
 
 class PopoverFirstTownButton: UIButton {
+  // MARK: Properties
+  
+  override var isSelected: Bool {
+    didSet {
+      self.townLabel.do {
+        $0.textColor = isSelected ?
+          .black :
+          UIColor(named: ColorReference.noResultImage.rawValue)
+        $0.font = .systemFont(ofSize: 16, weight: isSelected ? .bold : .regular)
+      }
+    }
+  }
+  
+  var text: String? {
+    get { return self.townLabel.text  }
+    set { self.townLabel.text = newValue }
+  }
+  
   // MARK: Views
   
   let townLabel = UILabel().then {
