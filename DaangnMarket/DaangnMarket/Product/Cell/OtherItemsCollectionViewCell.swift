@@ -30,6 +30,7 @@ class OtherItemsCollectionViewCell: UICollectionViewCell {
   // MARK: Properties
   
   private let viewWidth = UIScreen.main.bounds.width
+  let numberFormatter = NumberFormatter()
   
   // MARK: Initialize
   
@@ -42,24 +43,17 @@ class OtherItemsCollectionViewCell: UICollectionViewCell {
     fatalError("init(coder:) has not been implemented")
   }
   
-  
   private func setupUI() {
-    setupAttributes()
     setupConstraints()
   }
-  
-  private func setupAttributes() {
-    imageView.image = UIImage(named: "image1")
-    titleLabel.text = "환절기 가디건"
-    priceLabel.text = "25,000원"
-  }
-  
+
   private func setupConstraints() {
     let spacing: CGFloat = 10
     
     self.priceLabel.then { self.contentView.addSubview($0) }
       .snp.makeConstraints {
         $0.bottom.leading.trailing.equalToSuperview()
+        $0.width.equalTo(contentView)
     }
     self.titleLabel.then { self.contentView.addSubview($0) }
       .snp.makeConstraints {
@@ -75,9 +69,14 @@ class OtherItemsCollectionViewCell: UICollectionViewCell {
   
   // MARK: Interface
   
-  func configure(image: UIImage?, title: String, price: String) {
-    imageView.image = image
-    titleLabel.text = title
-    priceLabel.text = price
+  func configure(otherItemData: Post) {
+    if otherItemData.photos.isEmpty {
+      imageView.image = UIImage(named: "DaangnDefaultItem")
+    } else {
+      imageView.kf.setImage(with: URL(string: otherItemData.photos[0]))
+    }
+    self.titleLabel.text = otherItemData.title
+    self.numberFormatter.numberStyle = .decimal
+    self.priceLabel.text = "\(numberFormatter.string(from: NSNumber(value: otherItemData.price))!)원"
   }
 }

@@ -73,7 +73,7 @@ class PageTableViewCell: UITableViewCell {
 //  override func prepareForReuse() {
 //    super.prepareForReuse()
 //  }
-//  
+//
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
@@ -141,10 +141,15 @@ class PageTableViewCell: UITableViewCell {
     titleLabel.text = itemsData.title
     contentsLabel.text = itemsData.content
     priceLabel.text = "\(numberFormatter.string(from: NSNumber(value: itemsData.price))!)원"
-    addrTimeLabel.text = "\(itemsData.address) ・ \(itemsData.updated)"
+//    addrTimeLabel.text = "\(itemsData.address) ・ \(itemsData.updated)"
+    addrTimeLabel.text = "\(itemsData.address) ・ \(PostData.shared.calculateDifferentTime(updated: itemsData.created))"
     //itemImageView.image = UIImage(named: itemsData.postImageSet[0])
-    itemImageView.image = UIImage(named: "others2")
-    if itemsData.state == "done" {
+    if itemsData.photos.isEmpty {
+      self.itemImageView.image = UIImage(named: "DaangnDefaultItem")
+    } else {
+      self.itemImageView.kf.setImage(with: URL(string: itemsData.photos[0]))
+    }
+    if itemsData.state == "end" {
       addCloseDealingLabel()
     } else {
       stackView.removeArrangedSubview(closeDealingLabel)

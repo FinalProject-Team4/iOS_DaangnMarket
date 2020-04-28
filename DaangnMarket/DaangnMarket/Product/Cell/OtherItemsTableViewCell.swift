@@ -9,7 +9,7 @@
 import UIKit
 
 protocol OtherItemsTableViewCellDelegate: class {
-  func moveToPage()
+  func moveToPage(otherItem: Post)
 }
 
 class OtherItemsTableViewCell: UITableViewCell {
@@ -29,7 +29,11 @@ class OtherItemsTableViewCell: UITableViewCell {
   
   // MARK: Properties
   
-  var otherItems: [[String]] = []
+  var otherItems: [Post] = [] {
+    didSet {
+      self.collectionView.reloadData()
+    }
+  }
   private let viewWidth = UIScreen.main.bounds.width
   private let spacing: CGFloat = 16
   
@@ -76,7 +80,7 @@ class OtherItemsTableViewCell: UITableViewCell {
   }
   
   // MARK: Interface
-  func configure(items: [[String]], sellerName: String) {
+  func configure(items: [Post], sellerName: String) {
     self.otherItems = items
     sellerNameLabel.text = "\(sellerName)님의 판매 상품"
   }
@@ -85,13 +89,17 @@ class OtherItemsTableViewCell: UITableViewCell {
 
 extension OtherItemsTableViewCell: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return otherItems.count
+    if otherItems.count <= 4 {
+      return otherItems.count
+    } else {
+      return 4
+    }
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OtherItemsCollectionViewCell.identifier, for: indexPath) as? OtherItemsCollectionViewCell else { return UICollectionViewCell() }
     let item = otherItems[indexPath.row]
-    cell.configure(image: UIImage(named: item[0]), title: item[1], price: item[2])
+    cell.configure(otherItemData: item)
     return cell
   }
 }
@@ -112,6 +120,7 @@ extension OtherItemsTableViewCell: UICollectionViewDelegateFlowLayout {
     return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
   }
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    delegate?.moveToPage()
+    //print("클릭!!!!", otherItems[indexPath.item])
+    delegate?.moveToPage(otherItem: otherItems[indexPath.row])
   }
 }

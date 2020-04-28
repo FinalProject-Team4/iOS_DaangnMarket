@@ -34,9 +34,10 @@ struct Post: Codable {
   let viewCount: Int
   let created: String
   let updated: String
+  let created: String
+  let likes: Int
   let address: String
   let price: Int
-  let likes: Int
   let state: String
   let photos: [String]
 }
@@ -48,26 +49,7 @@ extension Post {
     case postId = "id"
     case username, title, content, category
     case viewCount = "view_count"
-//    case updated, price, state
-    case updated, created, address, price, state, likes
+    case updated, created, likes, address, price, state
     case photos
   }
 }
-
-//// MARK: PostImage
-//
-//struct PostImage: Codable {
-//  let imageId: Int
-//  let photo: String
-//  let postId: Int
-//}
-
-// MARK: Extention Post
-
-//extension PostImage {
-//  enum CodingKeys: String, CodingKey {
-//    case imageId = "id"
-//    case photo
-//    case postId = "post"
-//  }
-//}

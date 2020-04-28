@@ -25,19 +25,39 @@ class NotificationModel {
     }
   }
   
-  private var notiInfo: ActivityNotiInfo?
+  var userInfo: UserInfo
+  var nextURL: String?
   
   // MARK: Life Cycle
   
   init(userInfo: UserInfo) {
-    API.default.requestActivityNoti(token: userInfo.authorization) { (result) in
+    self.userInfo = userInfo
+    self.requestActivityNoti()
+  }
+  
+  func requestActivityNoti(completion: (() -> Void)? = nil) {
+    API.default.requestActivityNoti(token: self.userInfo.authorization) { (result) in
       switch result {
       case .success(let notiInfo):
-        self.notiInfo = notiInfo
+        self.nextURL = notiInfo.next
         self.notifications = notiInfo.results
       case .failure(let error):
         self.notifications = []
         print(error)
+      }
+      completion?()
+    }
+  }
+  
+  func requestNextActivityNoti() {
+    guard let nextURL = self.nextURL else { return }
+    API.default.requestNextActivityNoti(nextURL: nextURL, token: self.userInfo.authorization) { (result) in
+      switch result {
+      case .success(let notiInfo):
+        self.nextURL = notiInfo.next
+        self.notifications += notiInfo.results
+      case .failure(let error):
+        return print(error.localizedDescription)
       }
     }
   }

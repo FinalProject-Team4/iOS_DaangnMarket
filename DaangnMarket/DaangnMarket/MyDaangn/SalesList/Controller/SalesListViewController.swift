@@ -7,12 +7,24 @@
 //
 
 import UIKit
+import Alamofire
 
 class SalesListViewController: UIViewController {
-  
   // MARK: Property
   
   var tabMenuView = TabMenuView(menuTitles: ["판매중", "거래완료", "숨김"])
+  var allSalesData: [Post] = [] {
+    didSet {
+      print("allSalesData", allSalesData)
+    }
+  }
+  var onSaleData: [Post] = []
+  var endOfSaleData: [Post] = []
+  var hiddenData: [Post] = []
+  let headers: HTTPHeaders = ["Authorization": "Token 4a3bf06b91bcb6a0e430647cc67bc65d4657f221"]
+  let services = MyDaangnServiceManager.shared
+  var updateParameters = [String: String]()
+  var otherItemsParameters: Parameters = [String: Any]()
   
   // MARK: Views
   
@@ -29,8 +41,16 @@ class SalesListViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.otherItemsParameters = ["username": "test-user"]
+    self.requestOtherItems(self.otherItemsParameters)
     setupUI()
   }
+  
+  //  override func viewDidAppear(_ animated: Bool) {
+  //    super.viewDidAppear(animated)
+  //    setupUI()
+  //  }
+  
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     navigationController?.navigationBar.shadowImage = UIImage()
@@ -43,22 +63,21 @@ class SalesListViewController: UIViewController {
   
   // MARK: Initialize
   
-  init(salesListData: [Post]) {
-    super.init(nibName: nil, bundle: nil)
-    SalesListData.shared.hiddenData = []
-    SalesListData.shared.onSaleData = []
-    SalesListData.shared.endOfSaleData = []
-    for idx in 0..<salesListData.count {
-      if salesListData[idx].state == "done" {
-        SalesListData.shared.endOfSaleData.append(salesListData[idx])
+  func initData(salesData: [Post]) {
+    self.allSalesData = salesData
+    self.hiddenData = []
+    self.onSaleData = []
+    self.endOfSaleData = []
+    for idx in 0..<salesData.count {
+      if salesData[idx].state == "end" {
+        self.endOfSaleData.append(salesData[idx])
       } else {
-        SalesListData.shared.onSaleData.append(salesListData[idx])
+        self.onSaleData.append(salesData[idx])
       }
     }
-  }
-  
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
+    print("onSaleData", onSaleData)
+    print("endOfsaleData", endOfSaleData)
+    self.salesListCollectionView.reloadData()
   }
   
   private func setupUI() {
@@ -102,6 +121,34 @@ class SalesListViewController: UIViewController {
         $0.leading.trailing.bottom.equalTo(guide)
     }
   }
+  
+  func requestUpdate(_ parameters: [String: String], _ headers: HTTPHeaders) {
+    var updateData: [Post] = []
+    services.requestUpdate(parameters, headers) { [weak self] result in
+      guard self != nil else { return }
+      switch result {
+      case .success(let postData):
+        updateData.append(postData)
+      case .failure(let error):
+        print(error.localizedDescription)
+      }
+      self!.requestOtherItems(self!.otherItemsParameters)
+    }
+  }
+  
+  func requestOtherItems(_ parameters: Parameters) {
+    var updateData: [Post] = []
+    services.requestOtherItems(parameters) { [weak self] result in
+      guard self != nil else { return }
+      switch result {
+      case .success(let otherItemsData):
+        updateData.append(contentsOf: otherItemsData.results)
+        self?.initData(salesData: updateData)
+      case .failure(let error):
+        print(error.localizedDescription)
+      }
+    }
+  }
 }
 // MARK: - UICollectionViewDataSource
 
@@ -113,21 +160,32 @@ extension SalesListViewController: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     switch indexPath.item {
     case 0:
-      guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SalesListOnSaleCollectionViewCell.identifier, for: indexPath) as? SalesListOnSaleCollectionViewCell else { return UICollectionViewCell() }
-      cell.delegate = self
-      cell.configure(onSale: SalesListData.shared.onSaleData)
-      //cell.configure(self)
-      return cell
-    case 1:
-      guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SalesListEndOfSalesCollectionViewCell.identifier, for: indexPath) as? SalesListEndOfSalesCollectionViewCell else { return UICollectionViewCell() }
-      cell.configure(endOfSale: SalesListData.shared.endOfSaleData)
-      cell.delegate = self
-      return cell
+      if !self.onSaleData.isEmpty {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SalesListOnSaleCollectionViewCell.identifier, for: indexPath) as? SalesListOnSaleCollectionViewCell else { return UICollectionViewCell() }
+        cell.delegate = self
+        cell.configure(onSale: self.onSaleData)
+        return cell
+      } else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SalesListEmptyCollectionViewCell.identifier, for: indexPath) as? SalesListEmptyCollectionViewCell else { return UICollectionViewCell() }
+        cell.configure(message: "판매중인 게시글이 없습니당.")
+        return cell
+      }
       
+    case 1:
+      if !self.endOfSaleData.isEmpty {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SalesListEndOfSalesCollectionViewCell.identifier, for: indexPath) as? SalesListEndOfSalesCollectionViewCell else { return UICollectionViewCell() }
+        cell.configure(endOfSale: self.endOfSaleData)
+        cell.delegate = self
+        return cell
+      } else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SalesListEmptyCollectionViewCell.identifier, for: indexPath) as? SalesListEmptyCollectionViewCell else { return UICollectionViewCell() }
+        cell.configure(message: "거래완료 게시글이 없습니당.")
+        return cell
+      }
     case 2:
-      if !SalesListData.shared.hiddenData.isEmpty {
+      if !self.hiddenData.isEmpty {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SalesListHiddenCollectionViewCell.identifier, for: indexPath) as? SalesListHiddenCollectionViewCell else { return UICollectionViewCell() }
-        cell.configure(hidden: SalesListData.shared.hiddenData)
+        cell.configure(hidden: self.hiddenData)
         cell.delegate = self
         return cell
       } else {
@@ -178,12 +236,9 @@ extension SalesListViewController: TabMenuViewDelegate {
 // MARK: - SalesListOnSaleCVCDelegate
 
 extension SalesListViewController: SalesListOnSaleCVCDelegate {
-  func moveToEndOfSalePage() {
-    navigationController?.pushViewController(EndOfSaleViewController(), animated: true)
-  }
-  
   func moveToPage(onSale: Post) {
-    guard let productPostVC = ViewControllerGenerator.shared.make(.productPost, parameters: ["postData": onSale]) else { return }
+    print("username:", onSale.username)
+    guard let productPostVC = ViewControllerGenerator.shared.make(.productPost, parameters: ["postID": onSale.postId, "postPhotos": onSale.photos]) else { return }
     navigationController?.pushViewController(productPostVC, animated: true)
   }
   
@@ -209,14 +264,27 @@ extension SalesListViewController: SalesListOnSaleCVCDelegate {
     }
     self.present(alert, animated: true)
   }
+  
+  func changeStateButton(itemPostID: Int, salesState: String) {
+    self.updateParameters = ["post_id": "\(itemPostID)", "state": "\(salesState)"]
+    self.requestUpdate(self.updateParameters, self.headers)
+  }
+  
+  func changeToEndOfSalesButton(itemPostID: Int, postTitle: String) {
+    self.navigationController?.pushViewController(EndOfSaleViewController(title: postTitle), animated: true)
+    self.updateParameters = ["post_id": "\(itemPostID)", "state": "end"]
+    self.requestUpdate(self.updateParameters, self.headers)
+  }
 }
 // MARK: - SalesListEndOfSalesCVCDelegate
 
 extension SalesListViewController: SalesListEndOfSalesCVCDelegate {
-  func endOfSalesOptionDelever() {
+  func endOfSalesOptionDelever(itemPostID: Int) {
     let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
     let changeState = UIAlertAction(title: "판매중으로 변경", style: .default) { _ in
-      print("판매중으로 변경")
+      print("판매중으로 변경!!! & \(itemPostID)")
+      self.updateParameters = ["post_id": "\(itemPostID)", "state": "sales"]
+      self.requestUpdate(self.updateParameters, self.headers)
     }
     let hide = UIAlertAction(title: "숨기기", style: .default) { _ in
       print("숨기기")
@@ -234,7 +302,7 @@ extension SalesListViewController: SalesListEndOfSalesCVCDelegate {
   }
   
   func moveToPage(endOfSale: Post) {
-    guard let productPostVC = ViewControllerGenerator.shared.make(.productPost, parameters: ["postData": endOfSale]) else { return }
+    guard let productPostVC = ViewControllerGenerator.shared.make(.productPost, parameters: ["postID": endOfSale.postId, "postPhotos": endOfSale.photos]) else { return }
     navigationController?.pushViewController(productPostVC, animated: true)
   }
 }
@@ -263,4 +331,3 @@ extension SalesListViewController: SalesListHiddenCVCDelegate {
     navigationController?.pushViewController(productPostVC, animated: true)
   }
 }
-

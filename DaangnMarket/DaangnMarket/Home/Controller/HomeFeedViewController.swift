@@ -62,6 +62,11 @@ class HomeFeedViewController: UIViewController {
     }
   }
   
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    NotificationTrigger.default.trigger()
+  }
+  
   func requestInitialPostList() {
     self.posts.removeAll()
     let manager = AuthorizationManager.shared
@@ -263,7 +268,11 @@ extension HomeFeedViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tabBarController?.tabBar.isHidden = true
     navigationController?.navigationBar.shadowImage = .none
-    guard let productPostVC = ViewControllerGenerator.shared.make(.productPost, parameters: ["postData": posts[indexPath.row]]) else { return }
+    //posts[indexPath.row].postId
+    let post = posts[indexPath.row]
+    //post.photos [String]
+    guard let productPostVC = ViewControllerGenerator.shared.make(.productPost, parameters: ["postID": post.postId, "postPhotos": post.photos]) else { return }
+    
     navigationController?.pushViewController(productPostVC, animated: true)
   }
 }
@@ -280,10 +289,9 @@ extension HomeFeedViewController: UIPopoverPresentationControllerDelegate {
 
 extension HomeFeedViewController: NavigationBarButtonDelegate {
   func navigationBarButton(_ naviBarButton: UIButton) {
-    guard let popoverVC = ViewControllerGenerator.shared.make(.popover, parameters: ["target": self, "sender": naviBarButton]) as? PopoverViewController else { print("return"); return }
-    
     switch naviBarButton {
     case customNaviBar.selectedTownButton:
+      guard let popoverVC = ViewControllerGenerator.shared.make(.popover, parameters: ["target": self, "sender": naviBarButton]) as? PopoverViewController else { print("return"); return }
       popoverVC.modalPresentationStyle = .popover
 //      popoverVC.delegate = self
       present(popoverVC, animated: true)
