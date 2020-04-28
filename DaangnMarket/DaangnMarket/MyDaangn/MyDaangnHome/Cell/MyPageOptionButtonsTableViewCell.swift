@@ -8,7 +8,13 @@
 
 import UIKit
 
+protocol MyPageOptionButtonsTVCDelegate: class {
+  func moveToPageForOption(tag: String)
+}
+
 class MyPageOptionButtonsTableViewCell: UITableViewCell {
+  weak var delegate: MyPageOptionButtonsTVCDelegate?
+  
   // MARK: Views
   
   private let backView = UIView().then {
@@ -72,11 +78,11 @@ class MyPageOptionButtonsTableViewCell: UITableViewCell {
   @objc func didTapButton(_ sender: UIButton) {
     switch sender {
     case myTownSettingButton:
-      print("내 동네 설정 화면 띄우기")
+      delegate?.moveToPageForOption(tag: "myTownSettingButton")
     case confirmMyTownButton:
-      print("동네 인증하기 띄우기")
+      delegate?.moveToPageForOption(tag: "confirmMyTownButton")
     case gatheringButton:
-      print("모아보기")
+      delegate?.moveToPageForOption(tag: "gatheringButton")
     default:
       print("default")
     }

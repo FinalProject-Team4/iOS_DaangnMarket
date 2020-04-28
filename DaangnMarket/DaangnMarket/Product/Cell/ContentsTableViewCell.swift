@@ -84,10 +84,10 @@ class ContentsTableViewCell: UITableViewCell {
   
   // MARK: Interface
   
-  func configure(contents: [String]) {
-    titleLabel.text = contents[0]
-    informLabel.text = "\(contents[1])﹒\(contents[2])"
-    contentsLabel.text = contents[3]
-    countLabel.text = "관심 2﹒조회 10"
+  func configure(contentsData: Post) {
+    titleLabel.text = contentsData.title
+    informLabel.text = "\(PostData.shared.calculateDifferentTime(updated: contentsData.updated))﹒\(contentsData.category)"
+    contentsLabel.text = contentsData.content
+    countLabel.text = "관심 \(contentsData.likes)﹒조회 \(contentsData.viewCount)"
   }
 }

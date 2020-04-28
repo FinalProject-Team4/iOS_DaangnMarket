@@ -104,11 +104,8 @@ class SalesListHiddenTableViewCell: UITableViewCell {
   func configure(hiddenData: Post) {
     self.itemContentView.itemImageView.image = UIImage(named: "image4")
     self.itemContentView.titleLabel.text = hiddenData.title
-    self.itemContentView.addrTimeLabel.text = hiddenData.address
+    self.itemContentView.addrTimeLabel.text = "\(hiddenData.address) ･ \(PostData.shared.calculateDifferentTime(updated: hiddenData.created))"
     self.numberFormatter.numberStyle = .decimal
     self.itemContentView.priceLabel.text = "\(numberFormatter.string(from: NSNumber(value: hiddenData.price))!)원"
-    if hiddenData.viewCount == 6 {
-      self.itemContentView.completedDeal(isCompleted: true)
-    }
   }
 }

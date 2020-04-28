@@ -241,10 +241,10 @@ extension SelectedCategoryFeedViewController: UITableViewDelegate {
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    guard let productPVC = ViewControllerGenerator.shared.make(.productPost) else { return }
-    let addressTime = removeNotNeededTimeUnit(postData[indexPath.row].address, userUpdateTimes[indexPath.row])
-    PostData.shared.updated = addressTime.components(separatedBy: " • ")[1]
-    PostData.shared.saveData(postData[indexPath.row])
-    self.navigationController?.pushViewController(productPVC, animated: true)
+//    guard let productPVC = ViewControllerGenerator.shared.make(.productPost) else { return }
+//    let addressTime = removeNotNeededTimeUnit(postData[indexPath.row].address, userUpdateTimes[indexPath.row])
+//    PostData.shared.updated = addressTime.components(separatedBy: " • ")[1]
+//    PostData.shared.saveData(postData[indexPath.row])
+//    self.navigationController?.pushViewController(productPVC, animated: true)
   }
 }

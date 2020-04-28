@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class LikeListViewController: UIViewController {
   // MARK: Views
@@ -27,8 +28,12 @@ class LikeListViewController: UIViewController {
     $0.tintColor = UIColor(named: ColorReference.daangnMain.rawValue)
   }
   
-  // MARK: Model
-  private var likeData: [Post]
+  // MARK: Properties
+  
+  let service = MyDaangnServiceManager.shared
+  let headers: HTTPHeaders = ["Authorization": "Token 76ee860a4934435aaf1e5df9c885a800a0103ebf"]
+  var likeParameters: Parameters = [String: Any]()
+  private var likeData: [Post] = []
   
   // MARK: LifeCycle
   
@@ -44,19 +49,11 @@ class LikeListViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.requestLikeList(headers)
     setupUI()
   }
   
   // MARK: Initialize
-  
-  init(likeListData: [Post]) {
-    self.likeData = likeListData
-    super.init(nibName: nil, bundle: nil)
-  }
-  
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
   
   private func setupUI() {
     setupAttributes()
@@ -109,9 +106,48 @@ class LikeListViewController: UIViewController {
   // MARK: Action
   
   @objc func didPullrefreshControl(_ sender: Any) {
-    self.likeListTableView.reloadData()
+    self.requestLikeList(headers)
     self.refreshControl.endRefreshing()
   }
+  
+  func requestLikeList(_ headers: HTTPHeaders) {
+    self.likeData = []
+    service.requestLikeList(headers) { [weak self] result in
+      guard let self = self else { return }
+      switch result {
+      case .success(let likeListData):
+        let temp: [LikeList] = likeListData.results
+        for idx in 0..<temp.count {
+          self.likeData.append(temp[idx].post)
+        }
+        self.likeListTableView.reloadData()
+      case .failure(let error):
+        print(error.localizedDescription)
+      }
+    }
+  }
+  
+  func requestLikeButton(_ parameters: Parameters, _ headers: HTTPHeaders) {
+      AF.request(
+        "http://13.125.217.34/post/like/",
+        method: .post,
+        parameters: parameters,
+        headers: headers
+      )
+      .validate()
+        .responseJSON { response in
+          switch response.response?.statusCode {
+          case 200:
+            print("좋아요 해지")
+          case 201:
+            print("좋아요 추가")
+          default:
+            print("실패")
+      
+            self.likeListTableView.reloadData()
+          }
+      }
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -124,6 +160,7 @@ extension LikeListViewController: UITableViewDataSource {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: LikeListTableViewCell.identifier, for: indexPath) as? LikeListTableViewCell else { return UITableViewCell() }
     cell.separatorInset = UIEdgeInsets.zero
     cell.configure(likeData: self.likeData[indexPath.row])
+    cell.delegate = self
     return cell
   }
 }
@@ -131,8 +168,14 @@ extension LikeListViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension LikeListViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    guard let productPostVC = ViewControllerGenerator.shared.make(.productPost, parameters: ["postData": likeData[indexPath.row]]) else { return }
+    guard let productPostVC = ViewControllerGenerator.shared.make(.productPost, parameters: ["postID": likeData[indexPath.row].postId, "postPhotos": likeData[indexPath.row].photos]) else { return }
     navigationController?.pushViewController(productPostVC, animated: true)
   }
 }
 
+extension LikeListViewController: LikeListTVCDelegate {
+  func likeButton(postId: Int) {
+    self.likeParameters = ["post_id": "\(postId)"]
+    self.requestLikeButton(likeParameters, headers)
+  }
+}

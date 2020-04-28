@@ -118,4 +118,3 @@ class SalesListContentView: UIView {
     }
   }
 }
-

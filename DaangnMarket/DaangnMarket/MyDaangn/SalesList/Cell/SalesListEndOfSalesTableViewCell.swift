@@ -9,7 +9,7 @@
 import UIKit
 
 protocol SalesListEndOfSalesTVCDelegate: class {
-  func endOfSalesOption()
+  func endOfSalesOption(postID: Int)
 }
 
 class SalesListEndOfSalesTableViewCell: UITableViewCell {
@@ -96,16 +96,22 @@ class SalesListEndOfSalesTableViewCell: UITableViewCell {
   // MARK: Action
   
   @objc func didTapOptionButton(_ sender: UIButton) {
-    delegate?.endOfSalesOption()
+    delegate?.endOfSalesOption(postID: self.itemContentView.postID)
+    print("tvc:", itemContentView.postID)
   }
   
   // MARK: Interface
   
   func configure(endOfSale: Post) {
-    self.itemContentView.itemImageView.image = UIImage(named: "image4")
+    if endOfSale.photos.isEmpty {
+      self.itemContentView.itemImageView.image = UIImage(named: "DaangnDefaultItem")
+    } else {
+      self.itemContentView.itemImageView.kf.setImage(with: URL(string: endOfSale.photos[0]))
+    }
     self.itemContentView.titleLabel.text = endOfSale.title
-    self.itemContentView.addrTimeLabel.text = endOfSale.address
+    self.itemContentView.addrTimeLabel.text = "\(endOfSale.address) ･ \(PostData.shared.calculateDifferentTime(updated: endOfSale.created))"
     self.numberFormatter.numberStyle = .decimal
     self.itemContentView.priceLabel.text = "\(numberFormatter.string(from: NSNumber(value: endOfSale.price))!)원"
+    self.itemContentView.postID = endOfSale.postId
   }
 }

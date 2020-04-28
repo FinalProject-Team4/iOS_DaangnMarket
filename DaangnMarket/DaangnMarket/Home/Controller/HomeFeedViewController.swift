@@ -158,7 +158,7 @@ class HomeFeedViewController: UIViewController {
   private func calculateDifferentTime() {
     let currentTime = Date()
     for idx in 0..<posts.count {
-      let tempTime = posts[idx].updated.replacingOccurrences(of: "T", with: " ").components(separatedBy: ".")[0]
+      let tempTime = posts[idx].created.replacingOccurrences(of: "T", with: " ").components(separatedBy: ".")[0]
       let dateFormatter = DateFormatter()
       dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
       let updatedTime: Date = dateFormatter.date(from: tempTime) ?? currentTime
@@ -227,7 +227,11 @@ extension HomeFeedViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tabBarController?.tabBar.isHidden = true
     navigationController?.navigationBar.shadowImage = .none
-    guard let productPostVC = ViewControllerGenerator.shared.make(.productPost, parameters: ["postData": posts[indexPath.row]]) else { return }
+    //posts[indexPath.row].postId
+    let post = posts[indexPath.row]
+    //post.photos [String]
+    guard let productPostVC = ViewControllerGenerator.shared.make(.productPost, parameters: ["postID": post.postId, "postPhotos": post.photos]) else { return }
+    
     navigationController?.pushViewController(productPostVC, animated: true)
   }
 }
