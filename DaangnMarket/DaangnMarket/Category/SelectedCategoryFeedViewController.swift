@@ -106,8 +106,8 @@ class SelectedCategoryFeedViewController: UIViewController {
       .filter { $0.korean == category }
       .map { $0.rawValue }
       .first ?? "other"
-    let locate = AuthorizationManager.shared.firstTown?.locate.id
-    let distance = AuthorizationManager.shared.firstTown?.distance
+    let locate = AuthorizationManager.shared.activatedTown?.locate.id
+    let distance = AuthorizationManager.shared.activatedTown?.distance
     let url = URL(string: "http://13.125.217.34/post/list?category=\(category)&locate=\(locate)&distance=\(distance)")
     firstRequest(url: url)
   }
