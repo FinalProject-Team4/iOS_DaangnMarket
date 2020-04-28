@@ -7,20 +7,40 @@
 //
 
 import UIKit
+import Alamofire
 
 class MyPageViewController: UIViewController {
   // MARK: View
   
   private var myPageTableView = UITableView()
+  private var homeVC: UIViewController?
+  let service = MyDaangnServiceManager.shared
+  var otherItemsParameters: Parameters = [String: Any]()
+  var otherItems: [Post] = [] {
+    didSet {
+      print("otherItems", otherItems)
+      print("otherItems.count", otherItems.count)
+    }
+  }
   
   // MARK: Life Cycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.requestOtherItems(self.otherItemsParameters)
     setupUI()
   }
   
   // MARK: Initialize
+  
+  init() {
+    self.otherItemsParameters = ["username": "test-user"]
+    super.init(nibName: nil, bundle: nil)
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
   
   private func setupUI() {
     setupNavigationBar()
@@ -81,6 +101,18 @@ class MyPageViewController: UIViewController {
   @objc func didTapNaviSettingButton(_ sender: UIButton) {
     print("설정화면")
   }
+  
+  func requestOtherItems(_ parameters: Parameters) {
+    service.requestOtherItems(parameters) { [weak self] result in
+      guard let self = self else { return }
+      switch result {
+      case .success(let otherItemsData):
+        self.otherItems.append(contentsOf: otherItemsData.results)
+      case .failure(let error):
+        print(error.localizedDescription)
+      }
+    }
+  }
 }
 // MARK: - UITableViewDataSource
 
@@ -106,12 +138,14 @@ extension MyPageViewController: UITableViewDataSource {
     case 2:
       guard let cell = tableView.dequeueReusableCell(withIdentifier: MyPageOptionButtonsTableViewCell.identifier, for: indexPath) as? MyPageOptionButtonsTableViewCell else { return UITableViewCell() }
       cell.selectionStyle = .none
+      cell.delegate = self
       cell.separatorInset = UIEdgeInsets.zero
       return cell
     case 3:
       guard let cell = tableView.dequeueReusableCell(withIdentifier: MyPageSettingButtonsTableViewCell.identifier, for: indexPath) as? MyPageSettingButtonsTableViewCell else { return UITableViewCell() }
       cell.selectionStyle = .none
       cell.separatorInset = UIEdgeInsets.zero
+      cell.delegate = self
       return cell
     default:
       return UITableViewCell()
@@ -129,10 +163,14 @@ extension MyPageViewController: UITableViewDelegate {
 extension MyPageViewController: MyPageUserInformDelegate {
   func goToPage(tag: String) {
     switch tag {
+    case "profileImageButton":
+      print("프로필 수정 페이지 띄우기")
     case "showProfileButton":
+      
       self.tabBarController?.tabBar.isHidden = true
-//      guard let profilePageVC = ViewControllerGenerator.shared.make(.profilePage, parameters: ["ownSelf": true, "name": "라이언", "profileData": userItemsData]) else { return }
-//      self.navigationController?.pushViewController(profilePageVC, animated: true)
+      guard let profilePageVC = ViewControllerGenerator.shared.make(.profilePage, parameters: ["ownSelf": true, "name": "라이언", "profileData": otherItems]) else { return }
+      self.navigationController?.pushViewController(profilePageVC, animated: true)
+      
     default:
       break
     }
@@ -145,17 +183,47 @@ extension MyPageViewController: MyPageListButtonDelegate {
   func moveToPage(tag: String) {
     switch tag {
     case "salesListButton":
-      print("")
-      //let salesListVC = SalesListViewController()
-//      guard let salesListVC = ViewControllerGenerator.shared.make(.salesList, parameters: ["salesListData": sellerItemsData1]) else { return }
-//      self.navigationController?.pushViewController(salesListVC, animated: true)
+      guard let salesListVC = ViewControllerGenerator.shared.make(.salesList) else { return }
+      self.navigationController?.pushViewController(salesListVC, animated: true)
     case "likeListButton":
-      print("")
-//      let dummyData = PostData.shared.dummyData
-//      guard let likeListVC = ViewControllerGenerator.shared.make(.likeList, parameters: ["likeListData": dummyData]) else { return }
-      //self.navigationController?.pushViewController(likeListVC, animated: true)
+      guard let likeListVC = ViewControllerGenerator.shared.make(.likeList) else { return }
+      self.navigationController?.pushViewController(likeListVC, animated: true)
     default:
       break
+    }
+  }
+}
+
+extension MyPageViewController: MyPageOptionButtonsTVCDelegate {
+  func moveToPageForOption(tag: String) {
+    switch tag {
+    case "myTownSettingButton":
+      print("내 동네 설정 띄우기")
+    case "confirmMyTownButton":
+      
+      print("동네 인증하기 띄우기")
+      
+    case "gatheringButton":
+      
+      print("모아 보기 구현 안함")
+      
+    default:
+      print("default")
+    }
+  }
+}
+
+extension MyPageViewController: MyPageSettinButtonsTVCDelegate {
+  func moveToPageForSetting(tag: String) {
+    switch tag {
+    case "shareButton":
+      print("당근마켓 공유")
+    case "noticeButton":
+      print("공지사항")
+    case "settingButton":
+      print("설정")
+    default:
+      print("default")
     }
   }
 }

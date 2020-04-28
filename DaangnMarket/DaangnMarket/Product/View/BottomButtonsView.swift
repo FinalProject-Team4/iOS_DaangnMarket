@@ -8,13 +8,19 @@
 
 import UIKit
 
+protocol BottomButtonsDelegate: class {
+  func likeButton()
+}
+
 class BottomButtonsView: UIView {
-  // MARK: Views
+  weak var delegate: BottomButtonsDelegate?
   
-  private let heartButton = UIButton().then {
-    $0.setImage(UIImage(systemName: "heart"), for: .normal)
-    $0.tintColor = UIColor(named: ColorReference.noResultImage.rawValue)
-  }
+  // MARK: Views
+  var heartButton = UIButton()
+//  private var heartButton = UIButton().then {
+//    $0.setImage(UIImage(systemName: "heart"), for: .normal)
+//    $0.tintColor = UIColor(named: ColorReference.noResultImage.rawValue)
+//  }
   private let lineView = UIView().then {
     $0.backgroundColor = UIColor(named: ColorReference.borderLine.rawValue)
   }
@@ -32,6 +38,10 @@ class BottomButtonsView: UIView {
     $0.setTitleColor(UIColor(named: ColorReference.daangnMain.rawValue), for: .normal)
     $0.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13)
   }
+  private var stackView = UIStackView().then {
+    $0.axis = .vertical
+    $0.spacing = 8
+  }
   private let chatButton = DGButton().then {
     $0.setTitle("채팅으로 거래하기", for: .normal)
     $0.layer.cornerRadius = 5
@@ -44,7 +54,7 @@ class BottomButtonsView: UIView {
   // MARK: Properties
   
   var isNegociable = false
-  private var isFullHeart = false
+  //private var isFullHeart = false
   let numberFormatter = NumberFormatter()
   
   // MARK: Initializer
@@ -54,14 +64,16 @@ class BottomButtonsView: UIView {
     setupUI()
   }
   
-  convenience init(price: Int, nego: Bool) {
+  convenience init(postPrice: Int, nego: Bool) {
     self.init()
     self.numberFormatter.numberStyle = .decimal
-    // what the...
-    self.priceLabel.text = "\(numberFormatter.string(from: NSNumber(value: price))!)원"
-    //self.priceLabel.text = "\(price)"
+    self.priceLabel.text = "\(numberFormatter.string(from: NSNumber(value: postPrice))!)원"
     self.negociableButton.isHidden = !nego
     self.noNegociableLabel.isHidden = nego
+    stackView.addArrangedSubview(priceLabel)
+    stackView.addArrangedSubview(negociableButton)
+    stackView.addArrangedSubview(noNegociableLabel)
+    switchHeartButton(isFullHerat: false)
   }
   
   required init?(coder: NSCoder) {
@@ -84,7 +96,7 @@ class BottomButtonsView: UIView {
     let chatButtonWidth: CGFloat = 136
     let chatButtonHeight: CGFloat = 40
     let heartButtonSize: CGFloat = 24
-    guard let negociableButtonHeight = negociableButton.titleLabel?.intrinsicContentSize.height else { return }
+    // guard let negociableButtonHeight = negociableButton.titleLabel?.intrinsicContentSize.height else { return }
     
     self.chatButton.then { self.addSubview($0) }
       .snp.makeConstraints {
@@ -105,21 +117,10 @@ class BottomButtonsView: UIView {
         $0.leading.equalTo(heartButton.snp.trailing).offset(spacing)
         $0.centerY.equalTo(heartButton)
     }
-    self.priceLabel.then { self.addSubview($0) }
+    self.stackView.then { self.addSubview($0) }
       .snp.makeConstraints {
-        $0.top.equalTo(lineView)
         $0.leading.equalTo(lineView.snp.trailing).offset(spacing)
-    }
-    self.noNegociableLabel.then { self.addSubview($0) }
-      .snp.makeConstraints {
-        $0.bottom.equalTo(lineView)
-        $0.leading.equalTo(priceLabel)
-    }
-    self.negociableButton.then { self.addSubview($0) }
-      .snp.makeConstraints {
-        $0.leading.equalTo(priceLabel)
-        $0.height.equalTo(negociableButtonHeight)
-        $0.bottom.equalTo(noNegociableLabel)
+        $0.centerY.equalTo(lineView)
     }
     self.bottomLineView.then { self.addSubview($0) }
       .snp.makeConstraints {
@@ -130,16 +131,24 @@ class BottomButtonsView: UIView {
   }
   
   // MARK: Actions
-  
-  @objc private func didTapHeartButton(_ sender: Any) {
-    isFullHeart.toggle()
-    if isFullHeart == true {
-      heartButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-      heartButton.tintColor = UIColor(named: ColorReference.daangnMain.rawValue)
+  func switchHeartButton(isFullHerat: Bool) {
+    if isFullHerat {
+      self.heartButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+      self.heartButton.tintColor = UIColor(named: ColorReference.daangnMain.rawValue)
     } else {
       heartButton.setImage(UIImage(systemName: "heart"), for: .normal)
       heartButton.tintColor = .gray
     }
+  }
+  
+  
+  @objc private func didTapHeartButton(_ sender: Any) {
+    if heartButton.tintColor == .gray {
+      switchHeartButton(isFullHerat: true)
+    } else {
+      switchHeartButton(isFullHerat: false)
+    }
+    delegate?.likeButton()
   }
   
   @objc private func didTapNegociableButton(_ sender: Any) {

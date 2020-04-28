@@ -28,8 +28,8 @@ class HomeFeedViewController: UIViewController {
   
   lazy var customNaviBar = CutomNavigationBar().then {
     $0.backgroundColor = .white
-    $0.layer.borderColor = UIColor.lightGray.cgColor
-    $0.layer.borderWidth = 0.3
+//    $0.layer.borderColor = UIColor.lightGray.cgColor
+//    $0.layer.borderWidth = 0.3
   }
   
   private lazy var homeTableView = UITableView().then {
@@ -62,6 +62,11 @@ class HomeFeedViewController: UIViewController {
     }
   }
   
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    NotificationTrigger.default.trigger()
+  }
+  
   func requestInitialPostList() {
     self.posts.removeAll()
     let manager = AuthorizationManager.shared
@@ -87,8 +92,9 @@ class HomeFeedViewController: UIViewController {
   
   private func setupConstraints() {
     customNaviBar.snp.makeConstraints {
-      $0.top.leading.trailing.equalToSuperview()
-      $0.height.equalTo(92)
+      $0.top.equalToSuperview().offset(UINavigationBar.statusBarSize.height)
+      $0.size.equalTo(UINavigationBar.navigationBarSize)
+      $0.centerX.equalToSuperview()
     }
     homeTableView.snp.makeConstraints {
       $0.top.equalTo(customNaviBar.snp.bottom)
@@ -181,7 +187,7 @@ class HomeFeedViewController: UIViewController {
   private func calculateDifferentTime() {
     let currentTime = Date()
     for idx in 0..<posts.count {
-      let tempTime = posts[idx].updated.replacingOccurrences(of: "T", with: " ").components(separatedBy: ".")[0]
+      let tempTime = posts[idx].created.replacingOccurrences(of: "T", with: " ").components(separatedBy: ".")[0]
       let dateFormatter = DateFormatter()
       dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
       let updatedTime: Date = dateFormatter.date(from: tempTime) ?? currentTime
@@ -254,7 +260,11 @@ extension HomeFeedViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tabBarController?.tabBar.isHidden = true
     navigationController?.navigationBar.shadowImage = .none
-    guard let productPostVC = ViewControllerGenerator.shared.make(.productPost, parameters: ["postData": posts[indexPath.row]]) else { return }
+    //posts[indexPath.row].postId
+    let post = posts[indexPath.row]
+    //post.photos [String]
+    guard let productPostVC = ViewControllerGenerator.shared.make(.productPost, parameters: ["postID": post.postId, "postPhotos": post.photos]) else { return }
+    
     navigationController?.pushViewController(productPostVC, animated: true)
   }
 }
@@ -271,10 +281,9 @@ extension HomeFeedViewController: UIPopoverPresentationControllerDelegate {
 
 extension HomeFeedViewController: NavigationBarButtonDelegate {
   func navigationBarButton(_ naviBarButton: UIButton) {
-    guard let popoverVC = ViewControllerGenerator.shared.make(.popover, parameters: ["target": self, "sender": naviBarButton]) as? PopoverViewController else { print("return"); return }
-    
     switch naviBarButton {
     case customNaviBar.selectedTownButton:
+      guard let popoverVC = ViewControllerGenerator.shared.make(.popover, parameters: ["target": self, "sender": naviBarButton]) as? PopoverViewController else { print("return"); return }
       popoverVC.modalPresentationStyle = .popover
 //      popoverVC.delegate = self
       present(popoverVC, animated: true)
@@ -283,6 +292,9 @@ extension HomeFeedViewController: NavigationBarButtonDelegate {
       self.navigationController?.pushViewController(searchVC, animated: true)
     case customNaviBar.categoryFilterButton:
       print("카테고리선택")
+      let testVC = TownAuthorizationViewController(AuthorizationManager.shared.activatedTown!.locate.dong)
+      testVC.modalPresentationStyle = .overFullScreen
+      present(testVC, animated: true)
     case customNaviBar.notificationButton:
       guard
         let userInfo = AuthorizationManager.shared.userInfo,

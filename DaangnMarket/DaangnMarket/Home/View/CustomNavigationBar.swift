@@ -45,6 +45,7 @@ class CutomNavigationBar: UIView {
     $0.setImage(UIImage(systemName: "bell"), for: .normal)
     $0.tintColor = .black
     $0.addTarget(self, action: #selector(didTapButtonsInNaviBar(_:)), for: .touchUpInside)
+    NotificationTrigger.default.notiButton = $0
   }
   
   // MARK: Initialize
@@ -83,6 +84,22 @@ class CutomNavigationBar: UIView {
   
   @objc private func didTapButtonsInNaviBar(_ naviBarButton: UIButton) {
     self.delegate?.navigationBarButton(naviBarButton)
+  }
+  
+  @objc private func didReceiveNotificationResponse() {
+    self.delegate?.navigationBarButton(self.notificationButton)
+  }
+  
+  override func draw(_ rect: CGRect) {
+    // Draw Underbar
+    UIBezierPath().do {
+      $0.lineWidth = 0.3
+      $0.move(to: CGPoint(x: rect.minX, y: rect.maxY))
+      $0.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
+      $0.close()
+      UIColor(named: ColorReference.borderLine.rawValue)?.setStroke()
+      $0.stroke()
+    }
   }
   
   required init?(coder: NSCoder) {

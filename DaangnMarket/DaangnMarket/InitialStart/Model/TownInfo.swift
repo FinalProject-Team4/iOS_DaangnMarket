@@ -37,9 +37,9 @@ struct Town: Codable {
 }
 
 struct UserTown: Codable {
-  let user: String
+  var user: String
   var verified: Bool
   var activated: Bool
   var distance: Int
-  let locate: Town
+  var locate: Town
 }

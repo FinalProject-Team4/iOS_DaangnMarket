@@ -12,7 +12,7 @@ class UserProfileMannerTemperView: UIView {
   // MARK: Properties
   
   private let viewWidth = UIScreen.main.bounds.width
-  private let userMannerTemp = 47.2
+  private let userMannerTemp = 36.5
   
   // MARK: Views
   
@@ -24,7 +24,7 @@ class UserProfileMannerTemperView: UIView {
     $0.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
   }
   private let firstTemperatureLabel = UILabel().then {
-    $0.text = "첫 온도 42.7ºC"
+    $0.text = "첫 온도 36.5ºC"
     $0.font = UIFont(name: "Galvji", size: 12)
     $0.textColor = UIColor(named: ColorReference.subText.rawValue)
   }
@@ -107,7 +107,7 @@ class UserProfileMannerTemperView: UIView {
     self.firstTemperatureMark.then { self.addSubview($0) }
       .snp.makeConstraints {
         $0.bottom.equalTo(mannerTempBackView.snp.top).offset(8)
-        $0.leading.equalTo(mannerTempBackView).offset(backViewWidth / 100 * 36.5)
+        $0.leading.equalTo(mannerTempBackView).offset(backViewWidth / 100 * 36.5 - 5)
     }
     self.firstTemperatureLabel.then { self.addSubview($0) }
       .snp.makeConstraints {

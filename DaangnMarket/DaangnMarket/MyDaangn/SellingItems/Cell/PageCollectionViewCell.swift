@@ -44,13 +44,11 @@ class PageCollectionViewCell: UICollectionViewCell {
   
   private func setupUI() {
     self.insetsLayoutMarginsFromSafeArea = false
-    self.backgroundColor = .yellow
     setupTableView()
     setupConstraints()
   }
   
   private func setupTableView() {
-    pageTableView.contentInsetAdjustmentBehavior = .never
     pageTableView.backgroundColor = UIColor(named: ColorReference.backGray.rawValue)
     pageTableView.delegate = self
     pageTableView.dataSource = self

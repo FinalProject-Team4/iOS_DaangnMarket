@@ -51,6 +51,7 @@ class SellingItemsViewController: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     self.hidesBottomBarWhenPushed = false
+
     tabBarController?.tabBar.isHidden = false
     self.navigationController?.setNavigationBarHidden(false, animated: true)
     self.navigationController?.navigationBar.barStyle = .default
@@ -60,7 +61,7 @@ class SellingItemsViewController: UIViewController {
   
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
-    //self.hidesBottomBarWhenPushed = true
+    self.hidesBottomBarWhenPushed = true
     tabBarController?.tabBar.isHidden = true
     navigationController?.navigationBar.shadowImage = .none
   }
@@ -87,7 +88,6 @@ class SellingItemsViewController: UIViewController {
   
   private func setupCollectionView() {
     itemsCollectionView.contentInsetAdjustmentBehavior = .never
-    itemsCollectionView.backgroundColor = .red
     itemsCollectionView.delegate = self
     itemsCollectionView.dataSource = self
     itemsCollectionView.register(PageCollectionViewCell.self, forCellWithReuseIdentifier: PageCollectionViewCell.identifier)
@@ -175,7 +175,7 @@ extension SellingItemsViewController: TabMenuViewDelegate {
 
 extension SellingItemsViewController: PageCollectionVCDelegate {
   func moveToPage(itemData: Post) {
-    guard let productPostVC = ViewControllerGenerator.shared.make(.productPost, parameters: ["postData": itemData]) else { return }
+    guard let productPostVC = ViewControllerGenerator.shared.make(.productPost, parameters: ["postID": itemData.postId, "postPhotos": itemData.photos]) else { return }
     navigationController?.pushViewController(productPostVC, animated: true)
   }
-}         
+}

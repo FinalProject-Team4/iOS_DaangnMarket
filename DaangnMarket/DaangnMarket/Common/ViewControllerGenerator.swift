@@ -33,6 +33,7 @@ class ViewControllerGenerator {
     case sellingItems
     case notification
     case categoryFeed
+    case chattingHistory
     case chatting
     case search
     case salesList
@@ -66,8 +67,8 @@ class ViewControllerGenerator {
     case .findTown:
       return UINavigationController(rootViewController: FindMyTownViewController())
     case .productPost:
-      guard let postVCData = parameters["postData"] as? Post else { return nil }
-      let productPostVC = ProductPostViewController(postData: postVCData)
+      guard let postVCData = parameters["postID"] as? Int, let  postImgData = parameters["postPhotos"] as? [String] else { return nil }
+      let productPostVC = ProductPostViewController(postID: postVCData, postPhotos: postImgData)
       productPostVC.hidesBottomBarWhenPushed = true
       return productPostVC
     case .notification:
@@ -85,15 +86,15 @@ class ViewControllerGenerator {
     case .categoryFeed:
       guard let category = parameters["category"] as? String else { return nil }
       return SelectedCategoryFeedViewController(category: category)
+    case .chattingHistory:
+      return UINavigationController(rootViewController: ChattingHistoryViewController())
     case .chatting:
-      return UINavigationController(rootViewController: ChatViewController())
+      return ChattingViewController()
     case .likeList:
-      guard let likeListData = parameters["likeListData"] as? [Post] else { return nil }
-      let likeListVC = LikeListViewController(likeListData: likeListData)
+      let likeListVC = LikeListViewController()
       return likeListVC
     case .salesList:
-      guard let salesListData = parameters["salesListData"] as? [Post] else { return nil }
-      let salesListVC = SalesListViewController(salesListData: salesListData)
+      let salesListVC = SalesListViewController()
       return salesListVC
     case .search:
       return SearchViewController()
@@ -112,7 +113,7 @@ class ViewControllerGenerator {
     let writeUseVC = WriteClearViewController().then {
       $0.tabBarItem = UITabBarItem(title: "글쓰기", image: UIImage(systemName: "pencil"), tag: 2)
     }
-    let chatVC = UINavigationController(rootViewController: ChatViewController()).then {
+    let chatVC = UINavigationController(rootViewController: ChattingHistoryViewController()).then {
       $0.tabBarItem = UITabBarItem(title: "채팅", image: UIImage(systemName: "bubble.left.and.bubble.right"), tag: 3)
     }
     let mypageVC = UINavigationController(rootViewController: MyPageViewController()).then {
@@ -122,6 +123,7 @@ class ViewControllerGenerator {
     return MainTabBarController().then {
       $0.viewControllers = [homeFeedVC, categoryVC, writeUseVC, chatVC, mypageVC]
       $0.tabBar.tintColor = .black
+      NotificationTrigger.default.tabBarController = $0
     }
   }
   

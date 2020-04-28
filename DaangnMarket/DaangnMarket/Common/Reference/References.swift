@@ -26,17 +26,27 @@ enum ImageReference: String {
   case pencil
   case daangni = "DaangnLogo-Noti-Daangni"
   case badge = "Badge"
+  case scope = "Scope-1"
   
   enum Notification: String {
     case daangnLogo = "DaangnLogo-Noti"
     case daangni = "DaangnLogo-Noti-Daangni"
     case priceDown = "DaangnLogo-Noti-Down"
   }
+  
+  enum Chatting: String {
+    case more = "plus"
+    case menu = "menu"
+    case calendar = "calendar"
+    case enabledSend = "send_enabled"
+    case disabledSend = "send_disabled"
+    case emoticon = "emoticon"
+  }
 }
 
 enum ColorReference: String {
   case daangnMain = "DaangnColor_Main"
-  case item = "Item"
+  case item
   case borderLine = "BorderLine"
   case toastAlert = "ToastAlert"
   case upperAlert = "UpperAlert"
@@ -51,6 +61,13 @@ enum ColorReference: String {
   case backGray = "BackGray"
   case backLightGray = "BackLighGray"
   case reservedMark = "ReservedMark"
+  case warning = "Warning"
+  
+  enum Chatting: String {
+    case inputFieldBackground = "InputFieldBackground"
+    case borderLine = "ChatBorder"
+    case otherMessageBackground = "MessageBackground_Other"
+  }
 }
 
 enum UserReference: String {
