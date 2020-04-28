@@ -87,10 +87,18 @@
 		AC7AA10B2446D72800691D5E /* NotificationTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7AA10A2446D72800691D5E /* NotificationTableView.swift */; };
 		AC7AA10E2446DEAC00691D5E /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7AA10D2446DEAC00691D5E /* NotificationCell.swift */; };
 		AC829F4724347FDC00D0623A /* NumberField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC829F4624347FDC00D0623A /* NumberField.swift */; };
-		AC8C0C83244AF37E00C1FB51 /* ChattingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0C82244AF37E00C1FB51 /* ChattingCell.swift */; };
-		AC8C0C85244B12C300C1FB51 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0C84244B12C300C1FB51 /* ProfileView.swift */; };
+		AC8C0C83244AF37E00C1FB51 /* ChattingHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0C82244AF37E00C1FB51 /* ChattingHistoryCell.swift */; };
+		AC8C0C85244B12C300C1FB51 /* ProfileThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0C84244B12C300C1FB51 /* ProfileThumbnailView.swift */; };
 		AC8C0C88244C684700C1FB51 /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0C87244C684700C1FB51 /* ChatModel.swift */; };
 		AC8C0D2D2451E3B300C1FB51 /* ActivityNotiInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0D2C2451E3B300C1FB51 /* ActivityNotiInfo.swift */; };
+		AC8C0D12244F0F1900C1FB51 /* ChattingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0D11244F0F1900C1FB51 /* ChattingViewController.swift */; };
+		AC8C0D18244F2D9100C1FB51 /* ChattingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0D17244F2D9100C1FB51 /* ChattingCell.swift */; };
+		AC8C0D1A244F2E0B00C1FB51 /* MessageField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0D19244F2E0B00C1FB51 /* MessageField.swift */; };
+		AC8C0D1C2450AA2600C1FB51 /* ChattingTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0D1B2450AA2600C1FB51 /* ChattingTableView.swift */; };
+		AC8C0D1E2450BCCA00C1FB51 /* ProductPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0D1D2450BCCA00C1FB51 /* ProductPreview.swift */; };
+		AC8C0D232450DAD700C1FB51 /* MyMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0D222450DAD700C1FB51 /* MyMessageView.swift */; };
+		AC8C0D252450DEE800C1FB51 /* OtherMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0D242450DEE800C1FB51 /* OtherMessageView.swift */; };
+		AC8C0D272451685300C1FB51 /* ChattingDateIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C0D262451685300C1FB51 /* ChattingDateIndicator.swift */; };
 		ACB2B60324333763002FAF27 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B60224333763002FAF27 /* AuthViewController.swift */; };
 		ACB2B6072433472B002FAF27 /* AuthDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B6062433472B002FAF27 /* AuthDescriptionView.swift */; };
 		ACB2B60924334813002FAF27 /* NSMutableAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B60824334813002FAF27 /* NSMutableAttributedString+Extension.swift */; };
@@ -107,7 +115,7 @@
 		ACCD94D72429F81D00153545 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD94D62429F81D00153545 /* CategoryViewController.swift */; };
 		ACCD94D92429F84200153545 /* ProductPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD94D82429F84200153545 /* ProductPostViewController.swift */; };
 		ACCD94DB2429F86B00153545 /* WriteUsedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD94DA2429F86B00153545 /* WriteUsedViewController.swift */; };
-		ACCD94DD2429F87900153545 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD94DC2429F87900153545 /* ChatViewController.swift */; };
+		ACCD94DD2429F87900153545 /* ChattingHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD94DC2429F87900153545 /* ChattingHistoryViewController.swift */; };
 		ACCD94DF2429F89200153545 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD94DE2429F89200153545 /* MyPageViewController.swift */; };
 		ACCD94E4242A19DD00153545 /* InitialStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD94E3242A19DD00153545 /* InitialStartViewController.swift */; };
 		ACCD94EA242A238300153545 /* FindMyTownViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCD94E9242A238300153545 /* FindMyTownViewController.swift */; };
@@ -261,10 +269,18 @@
 		AC7AA10A2446D72800691D5E /* NotificationTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableView.swift; sourceTree = "<group>"; };
 		AC7AA10D2446DEAC00691D5E /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
 		AC829F4624347FDC00D0623A /* NumberField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberField.swift; sourceTree = "<group>"; };
-		AC8C0C82244AF37E00C1FB51 /* ChattingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingCell.swift; sourceTree = "<group>"; };
-		AC8C0C84244B12C300C1FB51 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		AC8C0C82244AF37E00C1FB51 /* ChattingHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingHistoryCell.swift; sourceTree = "<group>"; };
+		AC8C0C84244B12C300C1FB51 /* ProfileThumbnailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileThumbnailView.swift; sourceTree = "<group>"; };
 		AC8C0C87244C684700C1FB51 /* ChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
 		AC8C0D2C2451E3B300C1FB51 /* ActivityNotiInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityNotiInfo.swift; sourceTree = "<group>"; };
+		AC8C0D11244F0F1900C1FB51 /* ChattingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingViewController.swift; sourceTree = "<group>"; };
+		AC8C0D17244F2D9100C1FB51 /* ChattingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChattingCell.swift; sourceTree = "<group>"; };
+		AC8C0D19244F2E0B00C1FB51 /* MessageField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageField.swift; sourceTree = "<group>"; };
+		AC8C0D1B2450AA2600C1FB51 /* ChattingTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingTableView.swift; sourceTree = "<group>"; };
+		AC8C0D1D2450BCCA00C1FB51 /* ProductPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductPreview.swift; sourceTree = "<group>"; };
+		AC8C0D222450DAD700C1FB51 /* MyMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMessageView.swift; sourceTree = "<group>"; };
+		AC8C0D242450DEE800C1FB51 /* OtherMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherMessageView.swift; sourceTree = "<group>"; };
+		AC8C0D262451685300C1FB51 /* ChattingDateIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChattingDateIndicator.swift; sourceTree = "<group>"; };
 		ACB2B60224333763002FAF27 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		ACB2B6062433472B002FAF27 /* AuthDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDescriptionView.swift; sourceTree = "<group>"; };
 		ACB2B60824334813002FAF27 /* NSMutableAttributedString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Extension.swift"; sourceTree = "<group>"; };
@@ -281,7 +297,7 @@
 		ACCD94D62429F81D00153545 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		ACCD94D82429F84200153545 /* ProductPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductPostViewController.swift; sourceTree = "<group>"; };
 		ACCD94DA2429F86B00153545 /* WriteUsedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteUsedViewController.swift; sourceTree = "<group>"; };
-		ACCD94DC2429F87900153545 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		ACCD94DC2429F87900153545 /* ChattingHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingHistoryViewController.swift; sourceTree = "<group>"; };
 		ACCD94DE2429F89200153545 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		ACCD94E3242A19DD00153545 /* InitialStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialStartViewController.swift; sourceTree = "<group>"; };
 		ACCD94E9242A238300153545 /* FindMyTownViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindMyTownViewController.swift; sourceTree = "<group>"; };
@@ -646,8 +662,13 @@
 		AC8C0C80244AF32600C1FB51 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				AC8C0C82244AF37E00C1FB51 /* ChattingCell.swift */,
-				AC8C0C84244B12C300C1FB51 /* ProfileView.swift */,
+				AC8C0C84244B12C300C1FB51 /* ProfileThumbnailView.swift */,
+				AC8C0D19244F2E0B00C1FB51 /* MessageField.swift */,
+				AC8C0D1B2450AA2600C1FB51 /* ChattingTableView.swift */,
+				AC8C0D1D2450BCCA00C1FB51 /* ProductPreview.swift */,
+				AC8C0D222450DAD700C1FB51 /* MyMessageView.swift */,
+				AC8C0D262451685300C1FB51 /* ChattingDateIndicator.swift */,
+				AC8C0D242450DEE800C1FB51 /* OtherMessageView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -655,7 +676,8 @@
 		AC8C0C81244AF32A00C1FB51 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				ACCD94DC2429F87900153545 /* ChatViewController.swift */,
+				ACCD94DC2429F87900153545 /* ChattingHistoryViewController.swift */,
+				AC8C0D11244F0F1900C1FB51 /* ChattingViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -666,6 +688,15 @@
 				AC8C0C87244C684700C1FB51 /* ChatModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		AC8C0D1F2450D0C700C1FB51 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				AC8C0C82244AF37E00C1FB51 /* ChattingHistoryCell.swift */,
+				AC8C0D17244F2D9100C1FB51 /* ChattingCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		ACB2B60124333742002FAF27 /* Authorization */ = {
@@ -753,6 +784,7 @@
 		ACCD94D32429F5E400153545 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				AC8C0D1F2450D0C700C1FB51 /* Cell */,
 				AC8C0C86244C683D00C1FB51 /* Model */,
 				AC8C0C81244AF32A00C1FB51 /* Controller */,
 				AC8C0C80244AF32600C1FB51 /* View */,
@@ -1322,20 +1354,23 @@
 				A6595AC12451F70200DDCAA5 /* CALayer+Extension.swift in Sources */,
 				AC7AA1002445D62900691D5E /* ActivityNotificationCell.swift in Sources */,
 				DEE5BBCE2450B102009410CA /* MyProfileImageButton.swift in Sources */,
+				AC8C0D1A244F2E0B00C1FB51 /* MessageField.swift in Sources */,
 				ACCC9755242B490E008F95DE /* Identifiable.swift in Sources */,
 				ACFB7D3A242CCE9200E47F97 /* UIDevice+Extension.swift in Sources */,
 				A62D97E4242B403E006F1722 /* WriteTablePriceCell.swift in Sources */,
 				A6FB7195243755770092A5F1 /* DGAlertAction.swift in Sources */,
 				DEE5BBD02450B19D009410CA /* MyPageListButtonsTableViewCell.swift in Sources */,
 				AD7ABAB42443FFB000520C28 /* AroundTownsViewController.swift in Sources */,
+				AC8C0D272451685300C1FB51 /* ChattingDateIndicator.swift in Sources */,
 				A6C1E36B243B38AF00A6FF32 /* WriteTypeButtonView.swift in Sources */,
 				AC8C0D2D2451E3B300C1FB51 /* ActivityNotiInfo.swift in Sources */,
 				ACB2B60924334813002FAF27 /* NSMutableAttributedString+Extension.swift in Sources */,
 				ACCD94D72429F81D00153545 /* CategoryViewController.swift in Sources */,
 				AD9EAF1A24509BE8000D8BCD /* PopoverFirstTownButton.swift in Sources */,
 				AC829F4724347FDC00D0623A /* NumberField.swift in Sources */,
-				AC8C0C85244B12C300C1FB51 /* ProfileView.swift in Sources */,
-				AC8C0C83244AF37E00C1FB51 /* ChattingCell.swift in Sources */,
+				AC8C0D252450DEE800C1FB51 /* OtherMessageView.swift in Sources */,
+				AC8C0C85244B12C300C1FB51 /* ProfileThumbnailView.swift in Sources */,
+				AC8C0C83244AF37E00C1FB51 /* ChattingHistoryCell.swift in Sources */,
 				AC52A4FD243C495600DB4FB6 /* OtherItemsTableViewCell.swift in Sources */,
 				AC52A4FC243C495600DB4FB6 /* ContentsTableViewCell.swift in Sources */,
 				A63F37C224359B5D002C0D9B /* KeywordTableViewCell.swift in Sources */,
@@ -1353,6 +1388,7 @@
 				AD37AA13244F21B100D24EDD /* PopoverSecondTownButton.swift in Sources */,
 				DEE5BBF22450C2DA009410CA /* SalesListOnSaleCollectionViewCell.swift in Sources */,
 				A6FB7193243731560092A5F1 /* DGAlertController.swift in Sources */,
+				AC8C0D12244F0F1900C1FB51 /* ChattingViewController.swift in Sources */,
 				AC7AA10B2446D72800691D5E /* NotificationTableView.swift in Sources */,
 				A63F37C0243596EF002C0D9B /* WriteKeywordViewController.swift in Sources */,
 				AC52A50C243D90D000DB4FB6 /* LaunchViewController.swift in Sources */,
@@ -1379,6 +1415,8 @@
 				A621CB37244CA0D100BBFA4E /* SearchTownInfoView.swift in Sources */,
 				A6595ABD2451F6B300DDCAA5 /* UITableViewCell+Extension.swift in Sources */,
 				AD5DC679243F5DF200A4A5A4 /* CustomNavigationBar.swift in Sources */,
+				AC8C0D1C2450AA2600C1FB51 /* ChattingTableView.swift in Sources */,
+				A63F37C42435CB87002C0D9B /* Extension.swift in Sources */,
 				A6C1E369243B1AC800A6FF32 /* WriteTypeViewController.swift in Sources */,
 				A63F37BA24344C39002C0D9B /* SelectedImageView.swift in Sources */,
 				A621CB39244CA0F900BBFA4E /* SearchPersonView.swift in Sources */,
@@ -1386,6 +1424,7 @@
 				AD7BEF772444811300F72831 /* CustomSlider.swift in Sources */,
 				9A6536C72442738A00301D01 /* SellingItemsViewController.swift in Sources */,
 				ACCD94DD2429F87900153545 /* ChatViewController.swift in Sources */,
+				ACCD94DD2429F87900153545 /* ChattingHistoryViewController.swift in Sources */,
 				A62D97E0242B401B006F1722 /* WriteTableTitleCell.swift in Sources */,
 				A621CB29244C970E00BBFA4E /* ContentSearchScrollView.swift in Sources */,
 				A62D97E8242B5FDC006F1722 /* AddImageView.swift in Sources */,
@@ -1447,10 +1486,12 @@
 				ACCD94EE242A23B800153545 /* DaangnAnimationView.swift in Sources */,
 				DEE5BBF42450C36A009410CA /* SalesListEndOfSalesTableViewCell.swift in Sources */,
 				ADD05135242C4FC000312DF1 /* Service.swift in Sources */,
+				AC8C0D1E2450BCCA00C1FB51 /* ProductPreview.swift in Sources */,
 				ACCD94DB2429F86B00153545 /* WriteUsedViewController.swift in Sources */,
 				ACCC975B242B6DB0008F95DE /* API.swift in Sources */,
 				ACEE24CE243706380044D573 /* UIViewController+Extension.swift in Sources */,
 				AC52A500243C495600DB4FB6 /* CustomNavigationBarView.swift in Sources */,
+				AC8C0D232450DAD700C1FB51 /* MyMessageView.swift in Sources */,
 				AD6EBFB5243B1D70003F01CA /* TownCountView.swift in Sources */,
 				ACCC9753242B48D6008F95DE /* TownAddressCell.swift in Sources */,
 				AC7AA1012445D62900691D5E /* DGSegmentedControl.swift in Sources */,
@@ -1459,6 +1500,7 @@
 				AC52A4D624384C1F00DB4FB6 /* AuthInputForm.swift in Sources */,
 				ACB2B60324333763002FAF27 /* AuthViewController.swift in Sources */,
 				AC52A4ED243B116F00DB4FB6 /* ViewControllerGenerator.swift in Sources */,
+				AC8C0D18244F2D9100C1FB51 /* ChattingCell.swift in Sources */,
 				ACEE24CC2435CA1B0044D573 /* DGUpperAlert.swift in Sources */,
 				DEE5BBF02450C250009410CA /* SalesListHiddenCollectionViewCell.swift in Sources */,
 				DEE5BBE72450BCE1009410CA /* LikeListTableViewCell.swift in Sources */,

@@ -8,12 +8,12 @@
 
 import UIKit
 
-class ChatHistoryViewController: UIViewController {
+class ChattingHistoryViewController: UIViewController {
   // MARK: Views
   
   private lazy var chatTableView = UITableView().then {
     $0.tableFooterView = UIView()
-    $0.register(ChattingCell.self, forCellReuseIdentifier: ChattingCell.identifier)
+    $0.register(ChattingHistoryCell.self, forCellReuseIdentifier: ChattingHistoryCell.identifier)
     $0.dataSource = self
     $0.delegate = self
     $0.separatorInset = .zero
@@ -52,13 +52,13 @@ class ChatHistoryViewController: UIViewController {
 
 // MARK: - UITableViewDataSource
 
-extension ChatHistoryViewController: UITableViewDataSource {
+extension ChattingHistoryViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return self.model.chatList.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = tableView.dequeueReusableCell(withIdentifier: ChattingCell.identifier, for: indexPath) as? ChattingCell else { return UITableViewCell() }
+    guard let cell = tableView.dequeueReusableCell(withIdentifier: ChattingHistoryCell.identifier, for: indexPath) as? ChattingHistoryCell else { return UITableViewCell() }
     cell.configure(chatInfo: self.model.chatList[indexPath.row])
     return cell
   }
@@ -66,7 +66,12 @@ extension ChatHistoryViewController: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 
-extension ChatHistoryViewController: UITableViewDelegate {
+extension ChattingHistoryViewController: UITableViewDelegate {
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    guard let vc = ViewControllerGenerator.shared.make(.chatting) else { return }
+    self.navigationController?.pushViewController(vc, animated: true)
+  }
+  
   func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
     let bookmarkTitle = self.model.chatList[indexPath.row].isBookmarked ? "즐겨찾기\n해제" : "즐겨찾기"
     let bookmarkAction = UIContextualAction(style: .normal, title: bookmarkTitle) { (_, _, actionPerformed) in

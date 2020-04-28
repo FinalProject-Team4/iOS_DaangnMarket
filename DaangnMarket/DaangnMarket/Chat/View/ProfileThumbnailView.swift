@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileView: UIView {
+class ProfileThumbnailView: UIView {
   // MARK: Interface
   
   var profileImage: UIImage? {
