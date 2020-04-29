@@ -52,8 +52,6 @@ class HomeFeedViewController: UIViewController {
     super.viewWillAppear(animated)
     initTownName()
     navigationController?.navigationBar.isHidden = true
-    navigationController?.interactivePopGestureRecognizer?.delegate = nil
-    navigationController
     
     self.requestInitialPostList()
     let manager = AuthorizationManager.shared
