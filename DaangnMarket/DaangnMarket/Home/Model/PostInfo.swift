@@ -32,8 +32,8 @@ struct Post: Codable {
   let content: String
   let category: String
   let viewCount: Int
-  let updated: String
   let created: String
+  let updated: String
   let likes: Int
   let address: String
   let price: Int

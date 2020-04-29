@@ -112,7 +112,7 @@ class SearchViewController: UIViewController {
   }
   
   private func setupAttributes() {
-    self.tabBarController?.tabBar.isHidden = true
+//    self.tabBarController?.tabBar.isHidden = true
     view.backgroundColor = UIColor(named: ColorReference.lightBackground.rawValue)
     [segementView, searchListTableView, contentScrollView].forEach { view.addSubview($0) }
   }

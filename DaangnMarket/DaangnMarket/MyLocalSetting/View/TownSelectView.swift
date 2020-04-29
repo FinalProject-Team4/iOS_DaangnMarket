@@ -155,7 +155,7 @@ class TownSelectView: UIView {
     
     switch sender {
     case firstTownSelectBtn:
-      self.setupFirstTown()
+      self.setupAroundViewFirstTown()
       
 //      MyTownSetting.shared.register(isFirstTown: true)
 //      noti.post(
@@ -167,7 +167,7 @@ class TownSelectView: UIView {
 //      changeBtnColor(firstTownSelectBtn)
       willDisplayUpperAlert(.firstBtn)
     case secondTownSelectBtn:
-      self.setupSecondTown()
+      self.setupAroundViewAboutSecondTown()
       
 //      MyTownSetting.shared.register(isFirstTown: false)
 //      noti.post(
@@ -185,7 +185,7 @@ class TownSelectView: UIView {
     changeBtnColor(sender)
   }
   
-  func setupFirstTown() {
+  func setupAroundViewFirstTown() {
     let manager = AuthorizationManager.shared
     guard let firstTown = manager.firstTown else { return }
     
@@ -211,20 +211,22 @@ class TownSelectView: UIView {
         "근처 동네 \(filtered.count)개",
         fontSize: 17
     )
-    self.superview?
+    let countView = self.superview?
       .subviews
       .compactMap { $0 as? MyTownAroundView }
       .first?
       .townCountView
-      .aroundTownCountBtn
+      
+    countView?.aroundTownCountBtn
       .setAttributedTitle(townCount, for: .normal)
+    countView?.aroundTowns = filtered
     
     // Activate 상태 설정
     manager.updateFirstTown(activated: true)
     manager.updateSecondTown(activated: false)
   }
   
-  func setupSecondTown() {
+  func setupAroundViewAboutSecondTown() {
     let manager = AuthorizationManager.shared
     guard let secondTown = manager.secondTown else { return }
     
@@ -250,13 +252,15 @@ class TownSelectView: UIView {
         "근처 동네 \(filtered.count)개",
         fontSize: 17
     )
-    self.superview?
+    let countView = self.superview?
       .subviews
       .compactMap { $0 as? MyTownAroundView }
       .first?
       .townCountView
-      .aroundTownCountBtn
+      
+    countView?.aroundTownCountBtn
       .setAttributedTitle(townCount, for: .normal)
+    countView?.aroundTowns = filtered
     
     // Activate 상태 설정
     manager.updateFirstTown(activated: false)
@@ -272,8 +276,8 @@ class TownSelectView: UIView {
     self.secondTownSelectBtn.isSelected = sender is SecondTownSelectButton
 //    switch sender {
 //    case firstTownSelectBtn:
-////      changeSelectedTownBtnColor(firstTownSelectBtn)
-////      changeUnSelectedTownBtnColor(secondTownSelectBtn)
+//      changeSelectedTownBtnColor(firstTownSelectBtn)
+//      changeUnSelectedTownBtnColor(secondTownSelectBtn)
 //    case secondTownSelectBtn:
 //      if !MyTownSetting.shared.secondSelectTown.isEmpty {
 //        changeSelectedTownBtnColor(secondTownSelectBtn)

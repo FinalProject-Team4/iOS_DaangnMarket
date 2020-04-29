@@ -203,7 +203,7 @@ class MyTownAroundView: UIView {
   // MARK: Action
   
   @objc private func slideAction(_ sender: UISlider) {
-    print("slider value :", sender.value)
+//    print("slider value :", sender.value)
     self.changeImageAlpha(CGFloat(sender.value))
     
     // 근처 동네 개수 바꾸기 위함

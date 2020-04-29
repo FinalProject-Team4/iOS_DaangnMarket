@@ -125,7 +125,6 @@ class TownCountView: UIView {
         fontSize: 17
     )
     self.aroundTownCountBtn.setAttributedTitle(townCount, for: .normal)
-    
     // 데이터 update
   }
   
