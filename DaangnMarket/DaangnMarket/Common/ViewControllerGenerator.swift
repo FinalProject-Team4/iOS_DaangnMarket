@@ -33,6 +33,7 @@ class ViewControllerGenerator {
     case sellingItems
     case notification
     case categoryFeed
+    case chattingHistory
     case chatting
     case search
     case salesList
@@ -59,7 +60,8 @@ class ViewControllerGenerator {
         let sender = parameters["sender"] as? UIView else { return nil }
       return self.makePopoverController(homeVC, sender)
     case .writeUsed:
-      return UINavigationController(rootViewController: WriteUsedViewController())
+      guard let idToken = parameters["id_token"] as? String else { return nil }
+      return UINavigationController(rootViewController: WriteUsedViewController(token: idToken))
     case .townShow:
       return UINavigationController(rootViewController: ChooseTownToShowViewController())
     case .findTown:
@@ -84,8 +86,10 @@ class ViewControllerGenerator {
     case .categoryFeed:
       guard let category = parameters["category"] as? String else { return nil }
       return SelectedCategoryFeedViewController(category: category)
+    case .chattingHistory:
+      return UINavigationController(rootViewController: ChattingHistoryViewController())
     case .chatting:
-      return UINavigationController(rootViewController: ChatViewController())
+      return ChattingViewController()
     case .likeList:
       let likeListVC = LikeListViewController()
       return likeListVC
@@ -109,7 +113,7 @@ class ViewControllerGenerator {
     let writeUseVC = WriteClearViewController().then {
       $0.tabBarItem = UITabBarItem(title: "글쓰기", image: UIImage(systemName: "pencil"), tag: 2)
     }
-    let chatVC = UINavigationController(rootViewController: ChatViewController()).then {
+    let chatVC = UINavigationController(rootViewController: ChattingHistoryViewController()).then {
       $0.tabBarItem = UITabBarItem(title: "채팅", image: UIImage(systemName: "bubble.left.and.bubble.right"), tag: 3)
     }
     let mypageVC = UINavigationController(rootViewController: MyPageViewController()).then {

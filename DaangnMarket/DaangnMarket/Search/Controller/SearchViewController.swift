@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 
 struct SearchResult: Decodable {
-  let results: [SearchResultPost]
+  let results: [Post]
 }
 
 struct SearchResultPost: Decodable {
@@ -18,6 +18,7 @@ struct SearchResultPost: Decodable {
   let username: String
   let title: String
   let content: String
+  let adress: String
   let category: String
   let viewCount: Int
   let updated: String
@@ -26,7 +27,7 @@ struct SearchResultPost: Decodable {
   let photos: [String]
   
   enum CodingKeys: String, CodingKey {
-    case username, title, content, category, updated, price, photos
+    case username, title, content, adress, category, updated, price, photos
     case userID = "id"
     case viewCount = "view_count"
     case showedLocates = "showed_locates"
@@ -40,8 +41,9 @@ class SearchViewController: UIViewController {
       searchListTableView.reloadData()
     }
   }
-  
+  var searchTask: DataRequest?
   var resultPost: [SearchResultPost] = []
+  var userLocate = AuthorizationManager.shared.activatedTown?.locate.id
   
   // MARK: Views
   private lazy var searchBar = UISearchBar().then {
@@ -125,7 +127,7 @@ class SearchViewController: UIViewController {
     }
     contentScrollView.snp.makeConstraints {
       $0.top.equalTo(segementView.snp.bottom)
-      $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+      $0.leading.trailing.bottom.equalToSuperview()
     }
   }
   
@@ -134,8 +136,8 @@ class SearchViewController: UIViewController {
       .default
       .addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
     NotificationCenter
-    .default
-    .addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+      .default
+      .addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     NotificationCenter
       .default
       .addObserver(self, selector: #selector(addHistoryKeyword), name: .addHistoryKeyword, object: nil)
@@ -158,7 +160,8 @@ class SearchViewController: UIViewController {
       $0.bottom.equalTo(self.view.safeAreaLayoutGuide).offset(-diff)
     }
     contentScrollView.snp.updateConstraints {
-      $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-diff)
+      $0.bottom.equalToSuperview()
+        .offset(-diff)
     }
   }
   
@@ -167,7 +170,7 @@ class SearchViewController: UIViewController {
       $0.bottom.equalTo(view.safeAreaLayoutGuide)
     }
     contentScrollView.snp.updateConstraints {
-      $0.bottom.equalTo(view.safeAreaLayoutGuide)
+      $0.bottom.equalToSuperview()
     }
   }
   
@@ -181,26 +184,27 @@ class SearchViewController: UIViewController {
   }
   
   @objc private func removeHistoryKeyword() {
-//    contentScrollView.reloadHistoryItem(SearchHistory.shared.history)
+    //    contentScrollView.reloadHistoryItem(SearchHistory.shared.history)
   }
   
   // MARK: Methods
   private func searchingForData(searchText: String) {
     var list: [String] = []
-    let params: Parameters = ["word": searchText, "locate": 7_967]
+    let params: Parameters = ["word": searchText, "locate": userLocate!]
     guard let url = URL(string: "http://13.125.217.34/post/search/") else { return }
-    AF.request(url, method: .get, parameters: params)
-      .validate()
-      .responseJSON { response in
-        switch response.result {
-        case .success:
-          guard let responseData = response.data else { return }
-          guard let decodeResult = try? JSONDecoder().decode(SearchResult.self, from: responseData) else { return }
-          decodeResult.results.forEach { list.append($0.title) }
-          self.searchResultsList = Array(Set(list))
-        case .failure(let err):
-          print(err.localizedDescription)
-        }
+    searchTask =
+      AF.request(url, method: .get, parameters: params)
+        .validate()
+        .responseJSON { response in
+          switch response.result {
+          case .success:
+            guard let responseData = response.data else { return }
+            guard let decodeResult = try? JSONDecoder().decode(SearchResult.self, from: responseData) else { return }
+            decodeResult.results.forEach { list.append($0.title) }
+            self.searchResultsList = Array(Set(list))
+          case .failure(let err):
+            print(err.localizedDescription)
+          }
     }
   }
   
@@ -210,7 +214,7 @@ class SearchViewController: UIViewController {
       contentScrollView.searchStatus(.fail)
       searchListTableView.isHidden = true
     } else {
-      let params: Parameters = ["word": searchText, "locate": 7_967]
+      let params: Parameters = ["word": searchText, "locate": userLocate!]
       guard let url = URL(string: "http://13.125.217.34/post/search/") else { return }
       AF.request(url, method: .get, parameters: params)
         .validate()
@@ -241,6 +245,7 @@ extension SearchViewController: UISearchBarDelegate {
       contentScrollView.searchStatus(.standBy)
       searchListTableView.isHidden = true
     } else {
+      searchTask?.cancel()
       searchingForData(searchText: searchText)
       contentScrollView.searchStatus(.searching)
       searchListTableView.isHidden = false
