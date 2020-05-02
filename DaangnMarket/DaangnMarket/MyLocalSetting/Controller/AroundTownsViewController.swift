@@ -25,7 +25,7 @@ class AroundTownsViewController: UIViewController {
   
   init(towns: [Town]) {
     super.init(nibName: nil, bundle: nil)
-    self.towns = towns.reversed()
+    self.towns = towns
   }
   
   required init?(coder: NSCoder) {
@@ -47,20 +47,21 @@ class AroundTownsViewController: UIViewController {
   // MARK: Method
   
   private func setupNaviBar() {
-    defineNavigationTitle()
+//    defineNavigationTitle()
     self.navigationItem.leftBarButtonItem = .init(image: UIImage(systemName: "arrow.left"),
                                                   style: .plain,
                                                   target: self,
                                                   action: #selector(didTapLeftBarButton))
+    self.navigationItem.title = "근처 동네 \(towns.count)개"
   }
-  private func defineNavigationTitle() {
-    switch MyTownSetting.shared.isFirstTown {
-    case true:
-      self.navigationItem.title = "근처 동네 \(MyTownSetting.shared.numberOfAroundTownByFirst.0)개"
-    case false:
-      self.navigationItem.title = "근처 동네 \(MyTownSetting.shared.numberOfAroundTownBySecond.0)개"
-    }
-  }
+//  private func defineNavigationTitle() {
+//    switch MyTownSetting.shared.isFirstTown {
+//    case true:
+//      self.navigationItem.title = "근처 동네 \(MyTownSetting.shared.numberOfAroundTownByFirst.0)개"
+//    case false:
+//      self.navigationItem.title = "근처 동네 \(MyTownSetting.shared.numberOfAroundTownBySecond.0)개"
+//    }
+//  }
 
 // MARK: Action
  

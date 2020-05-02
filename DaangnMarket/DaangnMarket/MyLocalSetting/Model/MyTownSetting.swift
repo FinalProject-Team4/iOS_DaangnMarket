@@ -61,7 +61,7 @@ class MyTownSetting {
   
   enum DeleteTown {
     case oneTown
-    case towTown
+    case twoTown
   }
   
   enum UpperAlerCallBtn {

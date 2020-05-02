@@ -158,6 +158,7 @@
 		ADDF1822243D965100CA5205 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDF1821243D965100CA5205 /* WelcomeView.swift */; };
 		ADE2AA5124505E6D00CC8E72 /* PopoverTownSettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE2AA5024505E6C00CC8E72 /* PopoverTownSettingButton.swift */; };
 		ADE2AA5324505EE400CC8E72 /* SecondTownSetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE2AA5224505EE400CC8E72 /* SecondTownSetButton.swift */; };
+		ADF93FAE245819F500248BF4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ADF93FAD245819F500248BF4 /* GoogleService-Info.plist */; };
 		DE4B705A24447EC1001BC5D8 /* UserProfileImageNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4B705924447EC1001BC5D8 /* UserProfileImageNameView.swift */; };
 		DE4B705C24447ED8001BC5D8 /* UserProfileMannerTemperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4B705B24447ED8001BC5D8 /* UserProfileMannerTemperView.swift */; };
 		DE4B705E24447EF0001BC5D8 /* UserProfilePercentageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4B705D24447EF0001BC5D8 /* UserProfilePercentageView.swift */; };
@@ -348,6 +349,7 @@
 		ADDF1821243D965100CA5205 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		ADE2AA5024505E6C00CC8E72 /* PopoverTownSettingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverTownSettingButton.swift; sourceTree = "<group>"; };
 		ADE2AA5224505EE400CC8E72 /* SecondTownSetButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondTownSetButton.swift; sourceTree = "<group>"; };
+		ADF93FAD245819F500248BF4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DE4B705924447EC1001BC5D8 /* UserProfileImageNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileImageNameView.swift; sourceTree = "<group>"; };
 		DE4B705B24447ED8001BC5D8 /* UserProfileMannerTemperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileMannerTemperView.swift; sourceTree = "<group>"; };
 		DE4B705D24447EF0001BC5D8 /* UserProfilePercentageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePercentageView.swift; sourceTree = "<group>"; };
@@ -461,7 +463,7 @@
 				A62D96B42424A442006F1722 /* LaunchScreen.storyboard */,
 				ACBD478624589CAF008C322C /* GoogleService-Info.plist */,
 				A62D96B72424A442006F1722 /* Info.plist */,
-				A632D8E524571B7600E3A63B /* GoogleService-Info.plist */,
+				ADF93FAD245819F500248BF4 /* GoogleService-Info.plist */,
 				AC52A50B243D90D000DB4FB6 /* LaunchViewController.swift */,
 			);
 			path = DaangnMarket;
@@ -1317,7 +1319,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ACCD94CE2429E59500153545 /* .swiftlint.yml in Resources */,
-				A632D8E624571B7600E3A63B /* GoogleService-Info.plist in Resources */,
+				ADF93FAE245819F500248BF4 /* GoogleService-Info.plist in Resources */,
 				A62D96B62424A442006F1722 /* LaunchScreen.storyboard in Resources */,
 				A62D96B32424A442006F1722 /* Assets.xcassets in Resources */,
 			);

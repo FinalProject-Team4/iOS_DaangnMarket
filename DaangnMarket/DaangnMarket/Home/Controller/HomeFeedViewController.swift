@@ -44,14 +44,12 @@ class HomeFeedViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.view.backgroundColor = .white
-//    setTownsName()
     callDelegates()
     setupUI()
   }
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-//    setTownsName()
     initTownName()
     navigationController?.navigationBar.isHidden = true
     
@@ -102,15 +100,6 @@ class HomeFeedViewController: UIViewController {
     }
   }
   
-//  private func setTownsName() {
-//    guard let selectedTown = AuthorizationManager.shared.firstTown else { print("popover selectedTown"); return }
-//      MyTownSetting.shared.towns["first"] = selectedTown.dong
-////    if !AuthorizationManager.shared.aroundTown.isEmpty {
-//      guard let anotherTown = AuthorizationManager.shared.secondTown else { print("popover secondTown"); return }
-//      MyTownSetting.shared.towns["second"] = anotherTown.dong
-////    }
-//  }
-  
   // 좌상단 선택된 동네 이름 설정하기
   private func initTownName() {
     var selected = ""
@@ -121,12 +110,6 @@ class HomeFeedViewController: UIViewController {
       selected = secondTown.locate.dong
     }
     customNaviBar.selectedTownButton.setTitle(selected, for: .normal)
-    
-//    if MyTownSetting.shared.isFirstTown {
-//      customNaviBar.selectedTownButton.setTitle(MyTownSetting.shared.towns["first"], for: .normal)
-//    } else {
-//      customNaviBar.selectedTownButton.setTitle(MyTownSetting.shared.towns["second"], for: .normal)
-//    }
   }
   
   // MARK: Request PostData
@@ -138,7 +121,7 @@ class HomeFeedViewController: UIViewController {
       case .success(let postInfoData):
         self.posts += postInfoData.results
         self.nextPageURL = postInfoData.next
-        self.calculateDifferentTime()
+//        self.calculateDifferentTime()
       case .failure(let error):
         print(error.localizedDescription)
       }
@@ -155,53 +138,7 @@ class HomeFeedViewController: UIViewController {
      homeTableView.delegate = self
      self.customNaviBar.delegate = self
    }
-  
-  private func cellPostGoodsImage(_ cell: HomeFeedTableViewCell, _ indexPath: IndexPath) {
-//    if posts[indexPath.row].photos.isEmpty {
-////    if posts[indexPath.row].postImageSet.isEmpty {
-//      cell.goodsImageView.image = UIImage(named: "DaanggnMascot")
-//    } else {
-//      cell.goodsImageView.kf.setImage(with: URL(string: posts[indexPath.row].photos[0]))
-////      cell.goodsImageView.kf.setImage(with: URL(string: posts[indexPath.row].postImageSet[0].photo))
-//    }
-  }
-  
-  func removeNotNeededTimeUnit(_ address: String, _ userUpdateTimes: DateComponents) -> String {
-    var updateTime = String()
-    if userUpdateTimes.day != 0 {
-      if userUpdateTimes.day == 1 {
-        updateTime += "\(address) • 어제"
-      } else {
-        updateTime += "\(address) • \(userUpdateTimes.day!)일 전"
-      }
-    } else if userUpdateTimes.hour != 0 {
-      updateTime += "\(address) • \(userUpdateTimes.hour!)시간 전"
-    } else if userUpdateTimes.minute != 0 {
-      updateTime += "\(address) • \(userUpdateTimes.minute!)분 전"
-    } else if userUpdateTimes.second != 0 {
-      updateTime += "\(address) • \(userUpdateTimes.second!)초 전"
-    }
-    return updateTime
-  }
-  
-  private func calculateDifferentTime() {
-    let currentTime = Date()
-    for idx in 0..<posts.count {
-      let tempTime = posts[idx].created.replacingOccurrences(of: "T", with: " ").components(separatedBy: ".")[0]
-      let dateFormatter = DateFormatter()
-      dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-      let updatedTime: Date = dateFormatter.date(from: tempTime) ?? currentTime
-      let calculrate = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)
-      guard let compareTime = calculrate?.components(
-        [.day, .hour, .minute, .second],
-        from: updatedTime,
-        to: currentTime,
-        options: []
-      )
-      else { fatalError("castin error") }
-      userUpdateTimes.append(compareTime)
-    }
-  }
+
   
   // MARK: Present
   
@@ -230,13 +167,8 @@ extension HomeFeedViewController: UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: "GoodsCell", for: indexPath) as? HomeFeedTableViewCell else { fatalError("faile type casting") }
-//    cellPostGoodsImage(cell, indexPath)
-    
+
     cell.setupHomeFeedCell(posts: posts, indexPath: indexPath)
-    
-//    cell.goodsName.text = "\(posts[indexPath.row].title)"
-//    cell.goodsPrice.text = "\(posts[indexPath.row].price)"
-//    cell.sellerLoctionAndTime.text = removeNotNeededTimeUnit(posts[indexPath.row].address, userUpdateTimes[indexPath.row])
     
     return cell
   }
@@ -258,11 +190,9 @@ extension HomeFeedViewController: UITableViewDataSource {
 
 extension HomeFeedViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    tabBarController?.tabBar.isHidden = true
+//    tabBarController?.tabBar.isHidden = true
     navigationController?.navigationBar.shadowImage = .none
-    //posts[indexPath.row].postId
     let post = posts[indexPath.row]
-    //post.photos [String]
     guard let productPostVC = ViewControllerGenerator.shared.make(.productPost, parameters: ["postID": post.postId, "postPhotos": post.photos]) else { return }
     
     navigationController?.pushViewController(productPostVC, animated: true)
@@ -285,7 +215,6 @@ extension HomeFeedViewController: NavigationBarButtonDelegate {
     case customNaviBar.selectedTownButton:
       guard let popoverVC = ViewControllerGenerator.shared.make(.popover, parameters: ["target": self, "sender": naviBarButton]) as? PopoverViewController else { print("return"); return }
       popoverVC.modalPresentationStyle = .popover
-//      popoverVC.delegate = self
       present(popoverVC, animated: true)
     case customNaviBar.searchButton:
       guard let searchVC = ViewControllerGenerator.shared.make(.search) else { return }
@@ -316,18 +245,3 @@ extension HomeFeedViewController: NavigationBarButtonDelegate {
     }
   }
 }
-
-//// MARK: - SelectedTownName in NaviBar Delegate
-//extension HomeFeedViewController: SelectedTownNameInNavibarDelegate {
-//  func showSelectedTownName(_ isFirst: Bool) {
-////    defer {
-////      dismiss(animated: true)
-////    }
-//    switch isFirst {
-//    case true:
-//      customNaviBar.selectedTownButton.setTitle(MyTownSetting.shared.towns["first"], for: .normal)
-//    case false:
-//      customNaviBar.selectedTownButton.setTitle(MyTownSetting.shared.towns["second"], for: .normal)
-//    }
-//  }
-//}

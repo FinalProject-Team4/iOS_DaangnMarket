@@ -98,7 +98,8 @@ class AuthorizationManager: Then {
       UserDefaults.standard.remove(forKey: key)
     } else {
       UserDefaults.standard.swapAt(.firstTown, .secondTown)
-      self.removeTown(forKey: .secondTown)
+//      self.removeTown(forKey: .secondTown)
+      UserDefaults.standard.remove(forKey: .secondTown)
     }
   }
   
