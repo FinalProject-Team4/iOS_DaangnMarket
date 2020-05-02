@@ -12,4 +12,7 @@ target 'DaangnMarket' do
   pod 'Alamofire'
   pod 'SwiftLint'
 
+  pod 'Firebase/Analytics'  
+  pod 'Firebase/Auth'
+  pod 'Firebase/Messaging'
 end

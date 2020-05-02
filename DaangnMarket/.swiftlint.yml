@@ -19,11 +19,13 @@ disabled_rules:
   - redundant_set_access_control
   - superfluous_disable_command
   - todo
+  - trailing_whitespace
   - trailing_newline
   - unused_control_flow_label
   - valid_ibinspectable
   - vertical_whitespace
   - xctfail_message
+  
 
 opt_in_rules:
   - closure_body_length
@@ -79,3 +81,6 @@ excluded:
   - Pods
   - DaangnMarket/AppDelegate.swift
   - DaangnMarket/SceneDelegate.swift
+  - DaangnMarket/InitialStart/Model/TownInfo.swift
+  - DaangnMarket/Test
+  - DaangnMarket/Common/Extensions
