@@ -1,4 +1,4 @@
-# <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/75/e9/80/75e980ec-7ffb-35b1-bf2a-4c9caba367aa/AppIcon-0-0-1x_U007emarketing-0-0-0-5-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/460x0w.png" width="5%">DaangnMarket Clone 
+# <img src="assets/daangn.png" width="8%">DaangnMarket Clone 
 > 패스트캠퍼스 iOS School에서 진행했던 Backend School과의 협업 프로젝트입니다.
 
 ## Description
