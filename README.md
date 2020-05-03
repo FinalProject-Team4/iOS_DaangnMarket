@@ -35,13 +35,12 @@
 
 ### UI
 
-- Custom alert UI : Toast 알림 및 상단에서 내려오는 알림
+- Custom alert : Toast 알림(`DGToastAlert`) 및 상단에서 내려오는 알림(`DGUpperAlert`)
 
-  |          `DGToastAlert`           |          `DGUpperAlert`           |
-  | :-------------------------------: | :-------------------------------: |
-  | <img src="assets/toastalert.gif"> | <img src="assets/upperalert.gif"> |
-
-  
+  <p>
+    <img src="assets/alert-toast.gif" width="40%">
+    <img src="assets/alert-upper.gif" width="40%">
+  </p>
 
 - 채팅 UI
 
