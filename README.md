@@ -20,16 +20,29 @@
   - iOS팀 팀장 역할을 맡아 프로젝트 기획, 일정 관리, Backend와의 커뮤니케이션, 원활한 협업을 위한 팀 내 Git 강의 및 Git 관련 trouble shooting 등을 주도함
   - SwiftLint를 적용하기 위해 팀원 모두와 document를 정독하고 코드 스타일을 
 
-## 설계
+## Design
 
 - Flow Chart
 - WireFrame
 
-## 구현
+## Implementation
+
+### Feature
 
 - 위치기반 동네 설정 및 주변 동네 범위 설정
 - 문자 인증
 - 푸시 알림
+
+### UI
+
+- Custom alert UI : Toast 알림 및 상단에서 내려오는 알림
+
+  |          `DGToastAlert`           |          `DGUpperAlert`           |
+  | :-------------------------------: | :-------------------------------: |
+  | <img src="assets/toastalert.gif"> | <img src="assets/upperalert.gif"> |
+
+  
+
 - 채팅 UI
 
 ## 협업
