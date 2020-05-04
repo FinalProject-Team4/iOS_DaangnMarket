@@ -130,7 +130,7 @@ class SalesListOnSaleTableViewCell: UITableViewCell {
       self.itemContentView.itemImageView.kf.setImage(with: URL(string: onSale.photos[0]))
     }
     self.itemContentView.titleLabel.text = onSale.title
-    self.itemContentView.addrTimeLabel.text = "\(onSale.address) ･ \(PostData.shared.calculateDifferentTime(updated: onSale.created))"
+    self.itemContentView.addrTimeLabel.text = "\(PostData.shared.addressFilter(address: onSale.address)) ･ \(PostData.shared.calculateDifferentTime(updated: onSale.created))"
     self.numberFormatter.numberStyle = .decimal
     self.itemContentView.priceLabel.text = "\(numberFormatter.string(from: NSNumber(value: onSale.price))!)원"
     self.itemContentView.postID = onSale.postId

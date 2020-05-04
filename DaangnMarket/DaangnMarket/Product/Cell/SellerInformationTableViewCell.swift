@@ -91,6 +91,6 @@ class SellerInformationTableViewCell: UITableViewCell {
   func configure(image: UIImage?, sellerId: String, addr: String) {
     sellerImageView.image = image
     idLabel.text = sellerId
-    addrLabel.text = addr
+    addrLabel.text = PostData.shared.addressFilter(address: addr)
   }
 }
