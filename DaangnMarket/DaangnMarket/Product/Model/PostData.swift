@@ -42,5 +42,16 @@ class PostData {
     }
     return updateTime
   }
+  
+  func addressFilter(address: String) -> String {
+    var result = String()
+   if address != "None" {
+     result = address.components(separatedBy: "구 ")[1]
+     print()
+   } else {
+     result = "패캠동"
+   }
+   return result
+  }
 }
   

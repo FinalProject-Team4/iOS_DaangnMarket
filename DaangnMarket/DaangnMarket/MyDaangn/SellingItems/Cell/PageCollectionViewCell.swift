@@ -18,7 +18,7 @@ class PageCollectionViewCell: UICollectionViewCell {
   weak var delegate: PageCollectionVCDelegate?
   
   static let identifier = "pageCollectionCell"
-  var dummyData: [Post] = []
+  var sellingItemsData: [Post] = []
   private var refreshControl = UIRefreshControl().then {
     $0.tintColor = UIColor(named: ColorReference.daangnMain.rawValue)
   }
@@ -39,10 +39,11 @@ class PageCollectionViewCell: UICollectionViewCell {
   }
   
   func configure(pageData: [Post]) {
-    self.dummyData = pageData
+    self.sellingItemsData = pageData
   }
   
   private func setupUI() {
+    pageTableView.backgroundColor = UIColor(named: ColorReference.backGray.rawValue)
     self.insetsLayoutMarginsFromSafeArea = false
     setupTableView()
     setupConstraints()
@@ -75,13 +76,13 @@ class PageCollectionViewCell: UICollectionViewCell {
 
 extension PageCollectionViewCell: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return dummyData.count
+    return sellingItemsData.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: PageTableViewCell.identifier, for: indexPath) as? PageTableViewCell else { return UITableViewCell() }
     cell.selectionStyle = .none
-    cell.configure(itemsData: dummyData[indexPath.row])
+    cell.configure(itemsData: sellingItemsData[indexPath.row])
     return cell
   }
 }
@@ -90,6 +91,6 @@ extension PageCollectionViewCell: UITableViewDataSource {
 
 extension PageCollectionViewCell: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    delegate?.moveToPage(itemData: dummyData[indexPath.row])
+    delegate?.moveToPage(itemData: sellingItemsData[indexPath.row])
   }
 }
