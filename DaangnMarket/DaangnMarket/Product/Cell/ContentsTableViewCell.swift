@@ -86,7 +86,7 @@ class ContentsTableViewCell: UITableViewCell {
   
   func configure(contentsData: Post) {
     titleLabel.text = contentsData.title
-    informLabel.text = "\(PostData.shared.calculateDifferentTime(updated: contentsData.updated))﹒\(contentsData.category)"
+    informLabel.text = "\(PostData.shared.calculateDifferentTime(updated: contentsData.created))﹒\(contentsData.category)"
     contentsLabel.text = contentsData.content
     countLabel.text = "관심 \(contentsData.likes)﹒조회 \(contentsData.viewCount)"
   }

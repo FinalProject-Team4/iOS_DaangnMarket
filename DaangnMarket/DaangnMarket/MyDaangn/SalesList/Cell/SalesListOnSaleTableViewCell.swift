@@ -145,6 +145,7 @@ class SalesListOnSaleTableViewCell: UITableViewCell {
   }
   
   // MARK: Action
+  
   @objc func didTapButton(_ sender: UIButton) {
     switch sender {
     case optionButton:

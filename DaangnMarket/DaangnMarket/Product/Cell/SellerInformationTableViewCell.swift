@@ -85,6 +85,7 @@ class SellerInformationTableViewCell: UITableViewCell {
     }
   }
   
+  
   // MARK: Interface
   
   func configure(image: UIImage?, sellerId: String, addr: String) {
