@@ -45,7 +45,7 @@
 - 채팅 UI
 
   <p>
-    <img src="assets/chatui.gif" width="40%">
+    <img src="assets/chat.gif" width="40%">
   </p>
 
   
