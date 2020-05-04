@@ -420,6 +420,7 @@ extension ProductPostViewController: BottomButtonsDelegate {
     } else {
       self.likeParameters = ["post_id": "\(productPostData[0].postId)"]
       self.requestLikeButton(likeParameters, httpHeaders)
+    DGToastAlert(message: "관심 목록에 추가되었어요.").show(at: .bottom, from: self.view)
     }
   }
 }

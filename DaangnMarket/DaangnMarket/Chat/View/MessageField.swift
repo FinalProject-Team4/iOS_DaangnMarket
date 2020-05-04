@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol MessageFieldDelegate: class {
+  func messageField(_ messageField: MessageField, shouldSendMessage message: String) -> Bool
+}
+
 class MessageField: UIView {
   // MARK: Views
   
@@ -47,6 +51,10 @@ class MessageField: UIView {
     $0.setBackgroundImage(UIImage(named: ImageReference.Chatting.disabledSend.rawValue), for: .disabled)
     $0.addTarget(self, action: #selector(didTapSendButton(_:)), for: .touchUpInside)
   }
+  
+  // MARK: Properties
+  
+  weak var delegate: MessageFieldDelegate?
   
   // MARK: Life Cycle
   
@@ -138,7 +146,11 @@ class MessageField: UIView {
   // MARK: Actions
   
   @objc private func didTapSendButton(_ sender: UIButton) {
-    print(#function)
+    guard let shouldSend = self.delegate?.messageField(self, shouldSendMessage: self.messageInputField.text) else { return }
+    if shouldSend {
+      self.messageInputField.text = ""
+      sender.isEnabled = false
+    }
   }
   
   @objc private func didTapMoreButton(_ sender: UIButton) {

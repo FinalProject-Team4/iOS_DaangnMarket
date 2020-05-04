@@ -17,12 +17,14 @@ class ChattingViewController: UIViewController {
     $0.dataSource = self
     $0.delegate = self
   }
-  private let messageField = MessageField()
+  private lazy var messageField = MessageField().then {
+    $0.delegate = self
+  }
   private let productPreview = ProductPreview()
   
   // MARK: Model
   
-  private let messages: [Message] = [
+  private var messages: [Message] = [
     .init(user: "device", message: "#1 Some message for test", date: "2020-04-01 09:50:43"),
     .init(user: "device", message: "#2 Some message for test", date: "2020-04-01 09:50:43"),
     .init(user: "device", message: "#3 Some message for test", date: "2020-04-01 09:50:43"),
@@ -55,13 +57,13 @@ class ChattingViewController: UIViewController {
   
   private let product = Post(
     postId: 1,
-    username: "you",
+    username: "Seller",
     title: "펜탁스-A 50mm F1.2팔아요",
     content: "팝니다팔아요",
     category: "digital",
     viewCount: 10,
-    updated: "",
     created: "",
+    updated: "",
     likes: 1,
     address: "성수",
     price: 450_000,
@@ -70,6 +72,7 @@ class ChattingViewController: UIViewController {
   )
   
   private var dateIndicatables = [(date: String, row: Int)]()
+  private var timeIndicatables = [(time: String, row: Int)]()
   
   // MARK: Life Cycle
   
@@ -238,4 +241,28 @@ extension ChattingViewController: UITableViewDelegate {
 //    guard let cell = cell as? ChattingCell else { return }
 //    cell.removeConstraints()
 //  }
+}
+
+// MARK: - MessageFieldDelegate
+
+extension ChattingViewController: MessageFieldDelegate {
+  func messageField(_ messageField: MessageField, shouldSendMessage message: String) -> Bool {
+    let user: String
+    #if targetEnvironment(simulator)
+    user = "simulator"
+    #else
+    user = "device"
+    #endif
+    
+    let formatter = DateFormatter().then {
+      $0.locale = .init(identifier: "ko_kr")
+      $0.dateFormat = "yyyy-MM-dd hh:mm:ss"
+    }
+    let message = Message(user: user, message: message, date: formatter.string(from: Date()))
+    self.messages.append(message)
+    let insertPath = IndexPath(row: self.messages.count - 1, section: 0)
+    self.chattingTableView.reloadData()
+    self.chattingTableView.scrollToRow(at: insertPath, at: .bottom, animated: true)
+    return true
+  }
 }

@@ -12,8 +12,14 @@ class MyMessageView: UIView {
   // MARK: Interface
   
   func configure(message: String, time: String) {
-    let components = time.components(separatedBy: ":")
-    self.timeLabel.text = "오후 \(components[0]):\(components[1])"
+    let formatter = DateFormatter().then {
+      $0.locale = .init(identifier: "ko_kr")
+    }
+    formatter.dateFormat = "hh:mm:ss"
+    guard let date = formatter.date(from: time) else { return }
+    formatter.dateFormat = "a hh:mm"
+    
+    self.timeLabel.text = formatter.string(from: date)
     self.messageLabel.text = message
   }
   
