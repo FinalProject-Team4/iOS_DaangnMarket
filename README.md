@@ -68,7 +68,11 @@
     <img src="assets/workboard.png">
   </p>
 
-- Notion : Trouble Shooting, 회의 일정 등 관리
+- Notion : 회의 및 trouble shooting 관리
+
+  <p>
+    <img src="assets/troubleshooting.png">
+  </p>
 
 - Slack : Web hook 기능을 통해 commit, issue, pull request 등을 실시간으로 알림받고 대응
 
