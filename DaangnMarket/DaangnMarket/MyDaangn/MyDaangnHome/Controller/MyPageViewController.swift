@@ -11,25 +11,21 @@ import Alamofire
 
 class MyPageViewController: UIViewController {
   // MARK: View
-  
   private var myPageTableView = UITableView()
   private var homeVC: UIViewController?
   let service = MyDaangnServiceManager.shared
   var otherItemsParameters: Parameters = [String: Any]()
-  var otherItems: [Post] = [] {
-    didSet {
-      print("otherItems", otherItems)
-      print("otherItems.count", otherItems.count)
-    }
-  }
+  var otherItems: [Post] = []
   
   // MARK: Life Cycle
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    self.myPageTableView.reloadData()
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
-    print("MyPage.Token", AuthorizationManager.shared.userInfo?.authorization)
-    print("MyPage.UserInfo", AuthorizationManager.shared.userInfo)
-    print("MyPage.IsLogIn", AuthorizationManager.shared.userInfo != nil)
     self.requestOtherItems(self.otherItemsParameters)
     setupUI()
   }
@@ -235,13 +231,9 @@ extension MyPageViewController: MyPageOptionButtonsTVCDelegate {
       case "myTownSettingButton":
         print("내 동네 설정 띄우기")
       case "confirmMyTownButton":
-        
         print("동네 인증하기 띄우기")
-        
       case "gatheringButton":
-        
-        print("모아 보기 구현 안함")
-        
+        print("모아 보기 구현 안함")        
       default:
         print("default")
       }

@@ -118,6 +118,10 @@ class MyPageUserInformTableViewCell: UITableViewCell {
       self.profileImageButton.cameraImage.isHidden = true
     } else {
       self.profileImageButton.profileImageView.image = UIImage(named: "sellerImage1")
+      self.loginButton.isHidden = true
+      self.nameAddrStackView.removeArrangedSubview(loginButton)
+      self.userNameLabel.isHidden = false
+      self.addressLabel.isHidden = false
     }
     
     self.userNameLabel.text = userName
