@@ -128,7 +128,7 @@ class PageTableViewCell: UITableViewCell {
     self.chatLikeView.then { self.backView.addSubview($0) }
       .snp.makeConstraints {
         $0.trailing.equalToSuperview().offset(-spacing)
-        $0.bottom.equalToSuperview()
+        $0.bottom.equalTo(addrTimeLabel)
     }
   }
   
@@ -141,9 +141,7 @@ class PageTableViewCell: UITableViewCell {
     titleLabel.text = itemsData.title
     contentsLabel.text = itemsData.content
     priceLabel.text = "\(numberFormatter.string(from: NSNumber(value: itemsData.price))!)원"
-//    addrTimeLabel.text = "\(itemsData.address) ・ \(itemsData.updated)"
     addrTimeLabel.text = "\(PostData.shared.addressFilter(address: itemsData.address)) ・ \(PostData.shared.calculateDifferentTime(updated: itemsData.created))"
-    //itemImageView.image = UIImage(named: itemsData.postImageSet[0])
     if itemsData.photos.isEmpty {
       self.itemImageView.image = UIImage(named: "DaangnDefaultItem")
     } else {
@@ -155,6 +153,8 @@ class PageTableViewCell: UITableViewCell {
       stackView.removeArrangedSubview(closeDealingLabel)
       closeDealingLabel.isHidden = true
     }
+    
+    self.chatLikeView.configure(chat: 0, like: itemsData.likes)
   }
   
   // MARK: Action
