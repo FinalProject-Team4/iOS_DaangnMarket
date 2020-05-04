@@ -22,47 +22,52 @@
 
 ## Design
 
-- Flow Chart
+- Flow chart : 초기 기획 단계에서 앱의 전체 흐름과 구현에서 제외할 부분을 파악함
 
   <p>
-    <img src="assets/flowchart.gif" width="80%">
+    <img src="assets/flowchart.png" width="80%">
   </p>
 
-- WireFrame
+- Wire frame : 앱 UI를 분석하고 flow chart를 구체화함
 
   <p>
-    <img src="assets/wireframe.gif" width="80%">
+    <img src="assets/wireframe.png" width="80%">
   </p>
 
 ## Implementation
 
-### Feature
+### Feature
 
-- 위치기반 동네 설정
-- 문자 인증
-- 푸시 알림
+- 동네 설정 및 문자 인증 기능 구현
+  | 동네 설정 | 문자 인증 |
+  | :-------: | :-----------: |
+  | <img src="assets/townsetting.gif"> | <img src="assets/auth.gif"> |
+
+- 푸시알림 및 채팅 구현
+  
+  > 채팅은 UI 완성 후 backend와 작업중입니다.
+  
+  | 푸시 알림 | 채팅 |
+  | :-------: | :-----------: |
+  | <img src="assets/townsetting.gif"> | <img src="assets/chat.gif"> |
 
 ### UI
 
-- Custom alert : Toast 알림(`DGToastAlert`) 및 상단에서 내려오는 알림(`DGUpperAlert`)
-
-  <p>
-    <img src="assets/alert-toast.gif" width="40%">
-    <img src="assets/alert-upper.gif" width="40%">
-  </p>
-
-- 채팅 UI
-
-  <p>
-    <img src="assets/chat.gif" width="40%">
-  </p>
-
-  
+- Custom alert : Toast 알림(`DGToastAlert`) 및 상단에서 내려오는 알림(`DGUpperAlert`)을 직접 구현
+	| 동네 설정 | 전화번호 인증 |
+	| :-------: | :-----------: |
+	| <img src="assets/toastalert.gif"> | <img src="assets/upperalert.gif"> |
 
 ## 협업
 
-- Project Board : Github에서 issue로 등록한 작업을 기준으로 project board에서 진행 상황 및 일정 공유
+- Github Project : Github에서 issue로 등록한 작업을 기준으로 project board에서 진행 상황 및 일정 공유
+
+  <p>
+    <img src="assets/workboard.png">
+  </p>
+
 - Notion : Trouble Shooting, 회의 일정 등 관리
+
 - Slack : Web hook 기능을 통해 commit, issue, pull request 등을 실시간으로 알림받고 대응
 
 ## Trouble Shooting
