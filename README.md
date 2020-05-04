@@ -44,6 +44,12 @@
 
 - 채팅 UI
 
+  <p>
+    <img src="assets/chatui.gif" width="40%">
+  </p>
+
+  
+
 ## 협업
 
 - Project Board : Github에서 issue로 등록한 작업을 기준으로 project board에서 진행 상황 및 일정 공유
