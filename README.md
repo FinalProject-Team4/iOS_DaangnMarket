@@ -36,27 +36,29 @@
 
 ## Implementation
 
-### Feature
+### Feature
 
 - 동네 설정 및 문자 인증 기능 구현
-  | 동네 설정 | 문자 인증 |
-  | :-------: | :-----------: |
-  | <img src="assets/townsetting.gif"> | <img src="assets/auth.gif"> |
-
-- 푸시알림 및 채팅 구현
+  <p>
+    <img src="assets/townsetting.gif" width="40%">
+    <img src="assets/auth.gif" width="40%">
+  </p>
   
+- 푸시알림 및 채팅 구현
   > 채팅은 UI 완성 후 backend와 작업중입니다.
   
-  | 푸시 알림 | 채팅 |
-  | :-------: | :-----------: |
-  | <img src="assets/townsetting.gif"> | <img src="assets/chat.gif"> |
+  <p>
+    <img src="assets/townsetting.gif" width="40%">
+    <img src="assets/chat.gif" width="40%">
+  </p>
 
 ### UI
 
 - Custom alert : Toast 알림(`DGToastAlert`) 및 상단에서 내려오는 알림(`DGUpperAlert`)을 직접 구현
-	| 동네 설정 | 전화번호 인증 |
-	| :-------: | :-----------: |
-	| <img src="assets/toastalert.gif"> | <img src="assets/upperalert.gif"> |
+  <p>
+    <img src="assets/toastalert.gif" width="40%">
+    <img src="assets/upperalert.gif" width="40%">
+  </p>
 
 ## 협업
 
