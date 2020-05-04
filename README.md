@@ -17,8 +17,8 @@
   - 채팅 UI 구현(기능은 Backend와 함께 계속 개발중)
   - 재사용되는 custom view를 추상화하여 팀원 모두가 사용할 수 있도록 제공(`DGUpperAlert`, `DGToastAlert`, `DGNavigationBar` 등)
   - 서버에 데이터를 요청하는 작업을 `API` class로 추상화 및 모듈화
-  - iOS팀 팀장 역할을 맡아 프로젝트 기획, 일정 관리, Backend와의 커뮤니케이션, 원활한 협업을 위한 팀 내 Git 강의 및 Git 관련 trouble shooting 등을 주도함
-  - SwiftLint를 적용하기 위해 팀원 모두와 document를 정독하고 코드 스타일을 
+  - iOS팀 팀장 역할을 맡아 프로젝트 기획, 일정 관리, Backend와의 커뮤니케이션, 원활한 협업을 위한 팀 내 Git 강의 및 Git 관련 trouble shooting 등을 주도
+  - SwiftLint의 규칙들을 정독하고 팀원들과 상의하여 선별적으로 적용
 
 ## Design
 
@@ -38,7 +38,7 @@
 
 ### Feature
 
-- 위치기반 동네 설정 및 주변 동네 범위 설정
+- 위치기반 동네 설정
 - 문자 인증
 - 푸시 알림
 
