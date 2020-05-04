@@ -23,7 +23,16 @@
 ## Design
 
 - Flow Chart
+
+  <p>
+    <img src="assets/flowchart.gif" width="80%">
+  </p>
+
 - WireFrame
+
+  <p>
+    <img src="assets/wireframe.gif" width="80%">
+  </p>
 
 ## Implementation
 
