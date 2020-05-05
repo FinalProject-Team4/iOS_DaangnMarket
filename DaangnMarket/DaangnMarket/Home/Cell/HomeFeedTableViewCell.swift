@@ -101,7 +101,7 @@ class HomeFeedTableViewCell: UITableViewCell {
   }
   
   // MARK: Method
-  private func removeNotNeededTimeUnit(_ address: String, _ userUpdateTimes: DateComponents) -> String {
+  private func removeNotNeededTimeUnit(_ address: String, _ userUpdateTimes: DateComponents) -> String {    
     var updateTime = String()
     var filteredAddress = String()
     if address != "None" {

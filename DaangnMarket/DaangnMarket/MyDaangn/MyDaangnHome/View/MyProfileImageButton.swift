@@ -11,12 +11,12 @@ import UIKit
 class MyProfileImageButton: UIButton {
   // MARK: Views
   
-  private let profileImageView = UIImageView().then {
+  var profileImageView = UIImageView().then {
     $0.layer.cornerRadius = 32
     $0.contentMode = .scaleAspectFit
     $0.clipsToBounds = true
   }
-  private let cameraImage = UIButton().then {
+  let cameraImage = UIButton().then {
     $0.setImage(UIImage(systemName: "camera.fill"), for: .normal)
     $0.layer.borderColor = UIColor.lightGray.cgColor
     $0.layer.borderWidth = 1

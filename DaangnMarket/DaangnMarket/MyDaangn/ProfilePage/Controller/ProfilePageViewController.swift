@@ -145,7 +145,6 @@ extension ProfilePageViewController: UITableViewDataSource {
       return cell
     default:
       let cell = profileTableView.dequeueReusableCell(withIdentifier: "profileCell", for: indexPath)
-      
       if indexPath.row == 2 {
         let tempText = "\(titles[(indexPath.row) - 1]) \(profilePageData.count)개"
         cell.textLabel?.text = tempText

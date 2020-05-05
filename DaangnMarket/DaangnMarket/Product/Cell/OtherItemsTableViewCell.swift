@@ -68,7 +68,7 @@ class OtherItemsTableViewCell: UITableViewCell {
       .snp.makeConstraints {
         $0.top.equalTo(sellerNameLabel.snp.bottom).offset(spacing)
         $0.leading.trailing.equalTo(self).inset(spacing)
-        $0.bottom.equalTo(self)
+        $0.bottom.equalTo(self).priority(900)
     }
     self.topLineView.then { self.addSubview($0) }
       .snp.makeConstraints {

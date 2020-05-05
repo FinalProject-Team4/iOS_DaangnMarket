@@ -18,7 +18,7 @@ class AuthorizationManager: Then {
   
   // MARK: Interface - Town
   
-//  var aroundTown = [Town]()
+  //  var aroundTown = [Town]()
   
   var firstAroundTown = [Town]()
   var secondAroundTown = [Town]()
@@ -98,7 +98,7 @@ class AuthorizationManager: Then {
       UserDefaults.standard.remove(forKey: key)
     } else {
       UserDefaults.standard.swapAt(.firstTown, .secondTown)
-//      self.removeTown(forKey: .secondTown)
+      //      self.removeTown(forKey: .secondTown)
       UserDefaults.standard.remove(forKey: .secondTown)
     }
   }
@@ -106,7 +106,7 @@ class AuthorizationManager: Then {
   // MARK: Interface - UserInfo
   
   var userInfo: UserInfo? {
-    return UserDefaults.standard.object(UserInfo.self, forKey: .userInfo)
+      return UserDefaults.standard.object(UserInfo.self, forKey: .userInfo)
   }
   
   func register(_ userInfo: UserInfo) {

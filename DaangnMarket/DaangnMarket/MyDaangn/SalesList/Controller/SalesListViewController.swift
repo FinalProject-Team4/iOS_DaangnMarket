@@ -21,7 +21,8 @@ class SalesListViewController: UIViewController {
   var onSaleData: [Post] = []
   var endOfSaleData: [Post] = []
   var hiddenData: [Post] = []
-  let headers: HTTPHeaders = ["Authorization": "Token 4a3bf06b91bcb6a0e430647cc67bc65d4657f221"]
+  //let headers: HTTPHeaders = ["Authorization": "Token 4a3bf06b91bcb6a0e430647cc67bc65d4657f221"]
+  var headers: HTTPHeaders
   let services = MyDaangnServiceManager.shared
   var updateParameters = [String: String]()
   var otherItemsParameters: Parameters = [String: Any]()
@@ -41,7 +42,6 @@ class SalesListViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.otherItemsParameters = ["username": "test-user"]
     self.requestOtherItems(self.otherItemsParameters)
     setupUI()
   }
@@ -62,6 +62,17 @@ class SalesListViewController: UIViewController {
   }
   
   // MARK: Initialize
+  init() {
+    let username = AuthorizationManager.shared.userInfo?.username ?? ""
+    let tokenID = AuthorizationManager.shared.userInfo?.authorization ?? ""
+    self.otherItemsParameters = ["username": "\(username)"]
+    self.headers = ["Authorization": "\(tokenID)"]
+    super.init(nibName: nil, bundle: nil)
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
   
   func initData(salesData: [Post]) {
     self.allSalesData = salesData
@@ -75,8 +86,6 @@ class SalesListViewController: UIViewController {
         self.onSaleData.append(salesData[idx])
       }
     }
-    print("onSaleData", onSaleData)
-    print("endOfsaleData", endOfSaleData)
     self.salesListCollectionView.reloadData()
   }
   
