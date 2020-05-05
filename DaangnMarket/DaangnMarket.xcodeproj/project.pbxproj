@@ -108,6 +108,8 @@
 		ACB2B60924334813002FAF27 /* NSMutableAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB2B60824334813002FAF27 /* NSMutableAttributedString+Extension.swift */; };
 		ACB600A424486A0700315DEA /* KeywordNotificationHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB600A324486A0700315DEA /* KeywordNotificationHeader.swift */; };
 		ACBD477F2457FAA9008C322C /* NotificationTrigger.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACBD477E2457FAA9008C322C /* NotificationTrigger.swift */; };
+		ACBD4813245FFB18008C322C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACBD4812245FFB18008C322C /* GoogleService-Info.plist */; };
+		ACBD483724600ADF008C322C /* DGActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACBD483624600ADF008C322C /* DGActivityIndicator.swift */; };
 		ACCC9750242B31CB008F95DE /* TownSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCC974F242B31CB008F95DE /* TownSearchBar.swift */; };
 		ACCC9753242B48D6008F95DE /* TownAddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCC9752242B48D6008F95DE /* TownAddressCell.swift */; };
 		ACCC9755242B490E008F95DE /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCC9754242B490E008F95DE /* Identifiable.swift */; };
@@ -155,7 +157,6 @@
 		ADE2AA5124505E6D00CC8E72 /* PopoverTownSettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE2AA5024505E6C00CC8E72 /* PopoverTownSettingButton.swift */; };
 		ADE2AA5324505EE400CC8E72 /* SecondTownSetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE2AA5224505EE400CC8E72 /* SecondTownSetButton.swift */; };
 		DE47648D2458B3BA000A0CBA /* LikeListEmptyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE47648C2458B3BA000A0CBA /* LikeListEmptyTableViewCell.swift */; };
-		DE47648F2458C36C000A0CBA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DE47648E2458C36C000A0CBA /* GoogleService-Info.plist */; };
 		DE4B705A24447EC1001BC5D8 /* UserProfileImageNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4B705924447EC1001BC5D8 /* UserProfileImageNameView.swift */; };
 		DE4B705C24447ED8001BC5D8 /* UserProfileMannerTemperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4B705B24447ED8001BC5D8 /* UserProfileMannerTemperView.swift */; };
 		DE4B705E24447EF0001BC5D8 /* UserProfilePercentageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4B705D24447EF0001BC5D8 /* UserProfilePercentageView.swift */; };
@@ -294,6 +295,8 @@
 		ACB2B60824334813002FAF27 /* NSMutableAttributedString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Extension.swift"; sourceTree = "<group>"; };
 		ACB600A324486A0700315DEA /* KeywordNotificationHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordNotificationHeader.swift; sourceTree = "<group>"; };
 		ACBD477E2457FAA9008C322C /* NotificationTrigger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTrigger.swift; sourceTree = "<group>"; };
+		ACBD4812245FFB18008C322C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
+		ACBD483624600ADF008C322C /* DGActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DGActivityIndicator.swift; sourceTree = "<group>"; };
 		ACCC974F242B31CB008F95DE /* TownSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownSearchBar.swift; sourceTree = "<group>"; };
 		ACCC9752242B48D6008F95DE /* TownAddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownAddressCell.swift; sourceTree = "<group>"; };
 		ACCC9754242B490E008F95DE /* Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
@@ -343,7 +346,6 @@
 		ADE2AA5024505E6C00CC8E72 /* PopoverTownSettingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverTownSettingButton.swift; sourceTree = "<group>"; };
 		ADE2AA5224505EE400CC8E72 /* SecondTownSetButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondTownSetButton.swift; sourceTree = "<group>"; };
 		DE47648C2458B3BA000A0CBA /* LikeListEmptyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeListEmptyTableViewCell.swift; sourceTree = "<group>"; };
-		DE47648E2458C36C000A0CBA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DE4B705924447EC1001BC5D8 /* UserProfileImageNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileImageNameView.swift; sourceTree = "<group>"; };
 		DE4B705B24447ED8001BC5D8 /* UserProfileMannerTemperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileMannerTemperView.swift; sourceTree = "<group>"; };
 		DE4B705D24447EF0001BC5D8 /* UserProfilePercentageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePercentageView.swift; sourceTree = "<group>"; };
@@ -456,7 +458,7 @@
 				A62D96B22424A442006F1722 /* Assets.xcassets */,
 				A62D96B42424A442006F1722 /* LaunchScreen.storyboard */,
 				A62D96B72424A442006F1722 /* Info.plist */,
-				DE47648E2458C36C000A0CBA /* GoogleService-Info.plist */,
+				ACBD4812245FFB18008C322C /* GoogleService-Info.plist */,
 				AC52A50B243D90D000DB4FB6 /* LaunchViewController.swift */,
 			);
 			path = DaangnMarket;
@@ -914,6 +916,7 @@
 				ACFB7D33242C876800E47F97 /* DGToastAlert.swift */,
 				ACFB7D3B242CCFF000E47F97 /* DGNavigationBar.swift */,
 				ACEE24CB2435CA1B0044D573 /* DGUpperAlert.swift */,
+				ACBD483624600ADF008C322C /* DGActivityIndicator.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1313,7 +1316,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ACCD94CE2429E59500153545 /* .swiftlint.yml in Resources */,
-				DE47648F2458C36C000A0CBA /* GoogleService-Info.plist in Resources */,
+				ACBD4813245FFB18008C322C /* GoogleService-Info.plist in Resources */,
 				A62D96B62424A442006F1722 /* LaunchScreen.storyboard in Resources */,
 				A62D96B32424A442006F1722 /* Assets.xcassets in Resources */,
 			);
@@ -1404,6 +1407,7 @@
 				ACB2B60924334813002FAF27 /* NSMutableAttributedString+Extension.swift in Sources */,
 				ACCD94D72429F81D00153545 /* CategoryViewController.swift in Sources */,
 				AD9EAF1A24509BE8000D8BCD /* PopoverFirstTownButton.swift in Sources */,
+				ACBD483724600ADF008C322C /* DGActivityIndicator.swift in Sources */,
 				AC829F4724347FDC00D0623A /* NumberField.swift in Sources */,
 				AC8C0D252450DEE800C1FB51 /* OtherMessageView.swift in Sources */,
 				AC8C0C85244B12C300C1FB51 /* ProfileThumbnailView.swift in Sources */,

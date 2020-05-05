@@ -40,6 +40,7 @@ class ConfigProfileViewController: UIViewController {
     $0.font = .systemFont(ofSize: 13)
     $0.text = "프로필 사진과 닉네임을 입력해주세요."
   }
+  private let activityIndicator = DGActivityIndicator()
   
   // MARK: Properties
   
@@ -113,6 +114,12 @@ class ConfigProfileViewController: UIViewController {
           .offset(14)
         $0.centerX.equalToSuperview()
     }
+    
+    self.activityIndicator
+      .then { self.view.addSubview($0) }
+      .snp.makeConstraints {
+        $0.center.equalToSuperview()
+    }
   }
   
   // MARK: Actions
@@ -121,6 +128,7 @@ class ConfigProfileViewController: UIViewController {
     guard let username = self.username else { return }
     let imageData = self.profileImage?.jpegData(compressionQuality: 0.2)
     
+    self.activityIndicator.startAnimating()
     API.default.request(.signUp(idToken: self.idToken, username: username, avatar: imageData)) { (result) in
       switch result {
       case .success(let userInfo):
@@ -130,6 +138,7 @@ class ConfigProfileViewController: UIViewController {
         guard var selected = AuthorizationManager.shared.firstTown else { return }
         selected.user = userInfo.username
         API.default.requestRegisterUserTown(userTown: selected, authToken: userInfo.authorization) { (result) in
+          defer { self.activityIndicator.stopAnimating() }
           switch result {
           case .success(let userTown):
             AuthorizationManager.shared.firstTown = userTown
@@ -142,6 +151,7 @@ class ConfigProfileViewController: UIViewController {
           }
         }
       case .failure(let error):
+        self.activityIndicator.stopAnimating()
         self.presentAlert(title: "Sign Up Error", message: error.localizedDescription)
       }
     }
