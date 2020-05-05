@@ -134,6 +134,7 @@ class ConfigProfileViewController: UIViewController {
       case .success(let userInfo):
         print("=================== User Info ====================\n", userInfo)
         
+        // 선택된 동네의 주변 동네 리스트 가져오기
         // SignUp할 때는 선택할 수 있는 동네가 1개로 제한됨
         guard var selected = AuthorizationManager.shared.firstTown else { return }
         selected.user = userInfo.username
@@ -141,11 +142,23 @@ class ConfigProfileViewController: UIViewController {
           defer { self.activityIndicator.stopAnimating() }
           switch result {
           case .success(let userTown):
-            AuthorizationManager.shared.firstTown = userTown
-            self.navigationController?
-              .presentingViewController?
-              .presentingViewController?
-              .dismiss(animated: true)
+            // GCM Token 등록하기
+            if let fcmToken = AuthorizationManager.shared.fcmToken {
+              API.default.requestPushKeyRegister(authToken: userInfo.authorization, fcmToken: fcmToken) { (result) in
+                switch result {
+                case .success(_):
+                  AuthorizationManager.shared.firstTown = userTown
+                  self.navigationController?
+                    .presentingViewController?
+                    .presentingViewController?
+                    .dismiss(animated: true)
+                case .failure(let error):
+                  self.presentAlert(title: "Register FCM Token Error", message: error.localizedDescription)
+                }
+              }
+            } else {
+              self.presentAlert(title: "No FCM Token Error")
+            }
           case .failure(let error):
             self.presentAlert(title: "Register User Town Error", message: error.localizedDescription)
           }

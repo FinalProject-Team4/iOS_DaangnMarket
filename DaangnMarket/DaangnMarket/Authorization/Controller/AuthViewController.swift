@@ -195,7 +195,7 @@ extension AuthViewController: AuthInputFormDelegate {
               switch result {
               case .success(let userTonws):
                 userTonws.forEach {
-                  if $0.activated  {
+                  if $0.activated {
                     AuthorizationManager.shared.firstTown = $0
                   } else {
                     AuthorizationManager.shared.secondTown = $0
@@ -203,6 +203,27 @@ extension AuthViewController: AuthInputFormDelegate {
                 }
                 AuthorizationManager.shared.register(userInfo)
                 self.dismiss(animated: true)
+//                // GCM Token 등록하기
+//                if let fcmToken = AuthorizationManager.shared.fcmToken {
+//                  API.default.requestPushKeyRegister(authToken: userInfo.authorization, fcmToken: fcmToken) { (result) in
+//                    switch result {
+//                    case .success(_):
+//                      userTonws.forEach {
+//                        if $0.activated {
+//                          AuthorizationManager.shared.firstTown = $0
+//                        } else {
+//                          AuthorizationManager.shared.secondTown = $0
+//                        }
+//                      }
+//                      AuthorizationManager.shared.register(userInfo)
+//                      self.dismiss(animated: true)
+//                    case .failure(let error):
+//                      self.presentAlert(title: "Register FCM Token Error", message: error.localizedDescription)
+//                    }
+//                  }
+//                } else {
+//                  self.presentAlert(title: "No FCM Token Error")
+//                }
               case .failure(let error):
                 self.presentAlert(title: "Login Error", message: error.localizedDescription)
               }
