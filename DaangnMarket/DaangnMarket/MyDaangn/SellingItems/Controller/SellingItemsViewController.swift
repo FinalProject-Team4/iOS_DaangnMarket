@@ -40,8 +40,6 @@ class SellingItemsViewController: UIViewController {
         completedData.append(idx)
       }
     }
-    print("onSale", onSaleData.count)
-    print("completedData:", completedData.count)
   }
   
   required init?(coder: NSCoder) {
@@ -91,6 +89,7 @@ class SellingItemsViewController: UIViewController {
     itemsCollectionView.delegate = self
     itemsCollectionView.dataSource = self
     itemsCollectionView.register(PageCollectionViewCell.self, forCellWithReuseIdentifier: PageCollectionViewCell.identifier)
+    itemsCollectionView.register(SalesListEmptyCollectionViewCell.self, forCellWithReuseIdentifier: SalesListEmptyCollectionViewCell.identifier)
   }
   
   private func setupConstraints() {
@@ -119,20 +118,38 @@ extension SellingItemsViewController: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     switch indexPath.item {
     case 0:
+      if !self.itemsData.isEmpty {
       guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PageCollectionViewCell.identifier, for: indexPath) as? PageCollectionViewCell else { return UICollectionViewCell() }
       cell.configure(pageData: itemsData)
       cell.delegate = self
       return cell
+      } else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SalesListEmptyCollectionViewCell.identifier, for: indexPath) as? SalesListEmptyCollectionViewCell else { return UICollectionViewCell() }
+        cell.configure(message: "판매중인 게시글이 없습니당.")
+        return cell
+      }
     case 1:
+      if !self.onSaleData.isEmpty {
       guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PageCollectionViewCell.identifier, for: indexPath) as? PageCollectionViewCell else { return UICollectionViewCell() }
       cell.configure(pageData: onSaleData)
       cell.delegate = self
       return cell
+      } else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SalesListEmptyCollectionViewCell.identifier, for: indexPath) as? SalesListEmptyCollectionViewCell else { return UICollectionViewCell() }
+        cell.configure(message: "거래중인 게시글이 없습니당.")
+        return cell
+      }
     case 2:
+      if !self.completedData.isEmpty {
       guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PageCollectionViewCell.identifier, for: indexPath) as? PageCollectionViewCell else { return UICollectionViewCell() }
       cell.configure(pageData: completedData)
       cell.delegate = self
       return cell
+      } else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SalesListEmptyCollectionViewCell.identifier, for: indexPath) as? SalesListEmptyCollectionViewCell else { return UICollectionViewCell() }
+        cell.configure(message: "거래완료된 게시글이 없습니당.")
+        return cell
+      }
     default:
       return UICollectionViewCell()
     }

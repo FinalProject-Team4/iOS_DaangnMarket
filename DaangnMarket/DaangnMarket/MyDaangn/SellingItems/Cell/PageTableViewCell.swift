@@ -142,7 +142,7 @@ class PageTableViewCell: UITableViewCell {
     contentsLabel.text = itemsData.content
     priceLabel.text = "\(numberFormatter.string(from: NSNumber(value: itemsData.price))!)원"
 //    addrTimeLabel.text = "\(itemsData.address) ・ \(itemsData.updated)"
-    addrTimeLabel.text = "\(itemsData.address) ・ \(PostData.shared.calculateDifferentTime(updated: itemsData.created))"
+    addrTimeLabel.text = "\(PostData.shared.addressFilter(address: itemsData.address)) ・ \(PostData.shared.calculateDifferentTime(updated: itemsData.created))"
     //itemImageView.image = UIImage(named: itemsData.postImageSet[0])
     if itemsData.photos.isEmpty {
       self.itemImageView.image = UIImage(named: "DaangnDefaultItem")

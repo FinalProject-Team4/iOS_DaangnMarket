@@ -156,6 +156,7 @@
 		ADDF1822243D965100CA5205 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDF1821243D965100CA5205 /* WelcomeView.swift */; };
 		ADE2AA5124505E6D00CC8E72 /* PopoverTownSettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE2AA5024505E6C00CC8E72 /* PopoverTownSettingButton.swift */; };
 		ADE2AA5324505EE400CC8E72 /* SecondTownSetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE2AA5224505EE400CC8E72 /* SecondTownSetButton.swift */; };
+		DE47648D2458B3BA000A0CBA /* LikeListEmptyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE47648C2458B3BA000A0CBA /* LikeListEmptyTableViewCell.swift */; };
 		DE4B705A24447EC1001BC5D8 /* UserProfileImageNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4B705924447EC1001BC5D8 /* UserProfileImageNameView.swift */; };
 		DE4B705C24447ED8001BC5D8 /* UserProfileMannerTemperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4B705B24447ED8001BC5D8 /* UserProfileMannerTemperView.swift */; };
 		DE4B705E24447EF0001BC5D8 /* UserProfilePercentageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4B705D24447EF0001BC5D8 /* UserProfilePercentageView.swift */; };
@@ -344,6 +345,7 @@
 		ADDF1821243D965100CA5205 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		ADE2AA5024505E6C00CC8E72 /* PopoverTownSettingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverTownSettingButton.swift; sourceTree = "<group>"; };
 		ADE2AA5224505EE400CC8E72 /* SecondTownSetButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondTownSetButton.swift; sourceTree = "<group>"; };
+		DE47648C2458B3BA000A0CBA /* LikeListEmptyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeListEmptyTableViewCell.swift; sourceTree = "<group>"; };
 		DE4B705924447EC1001BC5D8 /* UserProfileImageNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileImageNameView.swift; sourceTree = "<group>"; };
 		DE4B705B24447ED8001BC5D8 /* UserProfileMannerTemperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileMannerTemperView.swift; sourceTree = "<group>"; };
 		DE4B705D24447EF0001BC5D8 /* UserProfilePercentageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePercentageView.swift; sourceTree = "<group>"; };
@@ -1222,6 +1224,7 @@
 			isa = PBXGroup;
 			children = (
 				DEE5BBE62450BCE1009410CA /* LikeListTableViewCell.swift */,
+				DE47648C2458B3BA000A0CBA /* LikeListEmptyTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1484,6 +1487,7 @@
 				DEB8887A24508CA900EAE363 /* profileData.swift in Sources */,
 				A639493D24486AB300832F4E /* HistoryKeywordsView.swift in Sources */,
 				ADAA12BF2433214000A692A0 /* PopoverViewController.swift in Sources */,
+				DE47648D2458B3BA000A0CBA /* LikeListEmptyTableViewCell.swift in Sources */,
 				AC52A4E12439A53000DB4FB6 /* ConfigProfileViewController.swift in Sources */,
 				AC52A4EF243B426A00DB4FB6 /* UserDefaults+Extension.swift in Sources */,
 				AD677861242A21ED00CFEB86 /* FirstAlertViewController.swift in Sources */,

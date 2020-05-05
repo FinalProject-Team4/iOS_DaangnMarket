@@ -30,6 +30,12 @@ class MyPageUserInformTableViewCell: UITableViewCell {
     $0.axis = .vertical
     $0.spacing = 5
   }
+  private let loginButton = UIButton().then {
+    $0.setTitle("로그인 하기", for: .normal)
+    $0.setTitleColor(UIColor(named: ColorReference.daangnMain.rawValue), for: .normal)
+    $0.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+  }
+  
   private let showProfileButton = UIButton().then {
     $0.setTitle("프로필 보기", for: .normal)
     $0.setTitleColor(.black, for: .normal)
@@ -56,11 +62,9 @@ class MyPageUserInformTableViewCell: UITableViewCell {
   }
   
   private func setupAttributes() {
-    userNameLabel.text = "라이언"
-    addressLabel.text = "흥인동"
     nameAddrStackView.addArrangedSubview(userNameLabel)
     nameAddrStackView.addArrangedSubview(addressLabel)
-    [profileImageButton, showProfileButton].forEach {
+    [profileImageButton, showProfileButton, loginButton].forEach {
       $0.addTarget(self, action: #selector(didTapButton(_:)), for: .touchUpInside)
     }
   }
@@ -94,16 +98,33 @@ class MyPageUserInformTableViewCell: UITableViewCell {
   @objc func didTapButton(_ sender: UIButton) {
     switch sender {
     case profileImageButton:
+      delegate?.goToPage(tag: "profileImageButton")
       print("profile사진 수정 페이지 띄우기")
     case showProfileButton:
       delegate?.goToPage(tag: "showProfileButton")
+    case loginButton:
+      delegate?.goToPage(tag: "loginButton")
     default:
       print("default")
     }
   }
   
-//  func configure(userData: Post) {
-//    self.userNameLabel.text = userData.username
-//    self.addressLabel.text = userData.address
-//  }
+  func configure(userName: String, userAddr: String, isLogin: Bool) {
+    if !isLogin {
+      self.userNameLabel.isHidden = true
+      self.addressLabel.isHidden = true
+      self.nameAddrStackView.addArrangedSubview(loginButton)
+      self.profileImageButton.profileImageView.image = UIImage(named: "ProfileImage-Default")
+      self.profileImageButton.cameraImage.isHidden = true
+    } else {
+      self.profileImageButton.profileImageView.image = UIImage(named: "sellerImage1")
+      self.loginButton.isHidden = true
+      self.nameAddrStackView.removeArrangedSubview(loginButton)
+      self.userNameLabel.isHidden = false
+      self.addressLabel.isHidden = false
+    }
+    
+    self.userNameLabel.text = userName
+    self.addressLabel.text = userAddr
+  }
 }
