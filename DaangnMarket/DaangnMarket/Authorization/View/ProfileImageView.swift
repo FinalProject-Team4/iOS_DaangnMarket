@@ -17,7 +17,7 @@ class ProfileImageView: UIView {
   
   // MARK: Views
   
-  private let imageView = UIImageView(systemName: ImageReference.profileDefault.rawValue).then {
+  private let imageView = UIImageView(named: ImageReference.profileDefault.rawValue).then {
     $0.contentMode = .scaleAspectFit
     $0.tintColor = UIColor(white: 0.9, alpha: 1)
     $0.clipsToBounds = true
