@@ -44,11 +44,15 @@
     <img src="assets/auth.gif" width="40%">
   </p>
   
-- 푸시알림 및 채팅 구현
-  > 채팅은 UI 완성 후 backend와 작업중입니다.
-  
+- 푸시알림
   <p>
-    <img src="assets/townsetting.gif" width="40%">
+    <img src="assets/noti-foreground.gif" width="40%">
+    <img src="assets/noti-terminate.gif" width="40%">
+  </p>
+  
+- 채팅
+  > 채팅은 UI 완성 후 backend와 작업중입니다.
+  <p>
     <img src="assets/chat.gif" width="40%">
   </p>
 
