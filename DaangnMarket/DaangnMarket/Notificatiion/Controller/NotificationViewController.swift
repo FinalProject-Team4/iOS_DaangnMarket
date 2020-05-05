@@ -167,14 +167,16 @@ extension NotificationViewController: UITableViewDataSource {
   }
   
   private func activityCell(_ tableView: UITableView, for indexPath: IndexPath) -> UITableViewCell {
+    let sortedNotis = Array(self.model.notifications.reversed())
     return self.notificationTableView
+      
       .dequeueCell(.activity, for: indexPath)
       .then {
         $0.delegate = self
         $0.configure(
           thumbnail: UIImage(named: self.model.thumbnails[0].rawValue),
-          content: self.model.notifications[indexPath.row].body,
-          date: "\(indexPath.row + 1)시간 전"
+          content: sortedNotis[indexPath.row].body,
+          date: sortedNotis[indexPath.row].created
         )
     }
   }
@@ -214,7 +216,7 @@ extension NotificationViewController: UITableViewDelegate {
 
 extension NotificationViewController: NotificationTableViewDelegate {
   func activityTableView(_ tableView: UITableView, didStartRefreshControl refreshControl: UIRefreshControl) {
-    self.model.requestActivityNoti() { refreshControl.endRefreshing() }
+    self.model.requestActivityNoti { refreshControl.endRefreshing() }
   }
   
   func keywordTableView(_ tableView: UITableView, didStartRefreshControl refreshControl: UIRefreshControl) {

@@ -40,13 +40,20 @@ class NotificationModel {
       switch result {
       case .success(let notiInfo):
         self.nextURL = notiInfo.next
-        self.notifications = notiInfo.results
+        self.notifications = notiInfo.results.map { self.parseCreatedDate(from: $0) }
       case .failure(let error):
         self.notifications = []
         print(error)
       }
       completion?()
     }
+  }
+  
+  private func parseCreatedDate(from noti: ActivityNoti) -> ActivityNoti {
+    let dateAndTime = noti.created.components(separatedBy: ".").first ?? ""
+    let formmedDate = dateAndTime.replacingOccurrences(of: "T", with: " ")
+    let newNoti = ActivityNoti(sender: noti.sender, receiver: noti.receiver, title: noti.title, body: noti.body, created: formmedDate)
+    return newNoti
   }
   
   func requestNextActivityNoti() {
