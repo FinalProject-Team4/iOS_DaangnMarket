@@ -66,9 +66,10 @@
 
 ## 협업
 
-- Github Project : Github에서 issue로 등록한 작업을 기준으로 project board에서 진행 상황 및 일정 공유
+- [Github](https://github.com/FinalProject-Team4https://github.com/FinalProject-Team4) : 해야 할 작업 단위로 issue를 등록하고 [project board](https://github.com/orgs/FinalProject-Team4/projects/4)에서 진행 상황을 파악하여 일정 관리
 
   <p>
+    <img src="assets/github.png">
     <img src="assets/workboard.png">
   </p>
 
@@ -78,12 +79,34 @@
     <img src="assets/troubleshooting.png">
   </p>
 
-- Slack : Web hook 기능을 통해 commit, issue, pull request 등을 실시간으로 알림받고 대응
+- Slack : Web hook 기능을 통해 Github의 commit, issue, pull request 등을 실시간으로 알림받고 대응
+
+  <p>
+    <img src="assets/webhook.png" width="90%">
+  </p>
 
 ## Trouble Shooting
 
-- `UITextView`에 입력된 텍스트가 줄바꿈이 될 때 `UITableViewCell`의 높이가 유동적으로 늘어나지 못하는 문제
-- Chatting UI 구현 시 `UITableViewCell`이 text 크기에 맞게 줄어들지 않는 문제
+- 효율적으로 협업할 수 있는 환경 구축
+  - miro를 사용해 flowchart 제작 : 웹 기반으로 실행되어 접근성이 좋고 동시 작업이 가능함
+  - Adobe XD를 사용해 wireframe 제작 : 사용하기 쉽고 다른 팀원의 수정 사항이 빠르게 반영되어 공유 작업하기 좋음
+  - Github Organization에 backend와 iOS 팀의 프로젝트를 함께 관리하여 전체 진행 상황을 공유함
+  - 효율적인 일정 관리 및 업무 분배를 위해 맡은 기능을 issue로 등록하고 markdown으로 task list를 작성하여 progress bar로 진행 상황을 공유하여 쉽게 파악할 수 있도록 함
+  - Issue마다 팀 label 및 기능개발(feat), 버그수정(bug) 등 작업 종류 label을 붙여서 팀별로 어떤 작업을 하는지 파악함
+- 다수의 팀원이 하나의 repository에서 개발할 때 발생할 수 있는 문제들을 최소화할 수 있는 방법이 필요함
+  - 팀원들이 develop branch를 각자의 repository로 folk해서 개발하고 pull request를 요청하여 테스트가 완료된 코드를 upstream repository에 반영함
+  - 여러 가지 feature들을 동시에 개발하고 테스트하기 위해 Git-Flow의 branch 전략을 적용하여 feature branch에서 개발 진행 후 완성된 기능을 develop으로 merge함
+- `UITextView`에 입력된 텍스트가 줄바꿈이 될 때 `UITableViewCell`의 높이가 유동적으로 조절되지 못하는 문제
+  - `UITextField`과 달리 `UITextView`는 여러 줄의 텍스트를 입력함에 따라 content size가 그에 맞게 늘어나지 않으므로, 직접 입력된 text에 맞는 `UITextView`의 크기를 조절해야함
+  - Text가 입력될 때 `sizeThatFit(_:)`를 통해 입력된 텍스트에 딱 맞는 textView의 크기를 계산하여 constraint를 적용함
+  - `UITableView`의 `beginUpdates()`와 `endUpdates()`를 사용하여 텍스트가 입력될 때 마다 `UITextView`의 높이 변화에 따라 Cell이 높이를 동적으로 update 하도록 함
+- Chatting UI 구현 시 `UITableViewCell`이 message 크기에 맞게 줄어들지 않는 문제
+  - `init(style:reuseIdentifier:)`에서 AutoLayout 적용 시 늘어났던 message view의 크기가 재사용되어 content 크기에 맞게 줄어들지 않음
+  - `prepareForReuse()`에서 cell이 재사용 될 때 마다 message view의 크기를 최소로 조절하도록 함
+- App이 terminate 상태일 때 푸시 알림을 터치하여 알림 페이지까지 들어가지 못하는 문제
+  - App이 종료된 상태에서 push notification을 누르면 `application(_:didFinishLaunchingWithOptions)`에서 `launchOptions?[.remoteNotification]`으로 noti 정보를 가져옴
+  - 하지만, `UserNotificationCenterDelegate`에서 `userNotificationcenter(_:didReceive:withCompleetionHandleer:)`를 구현하는 경우 `launchOptions`를 사용할 수 없고, push notification을 선택하는 동작은 모두 `didReceive` delegate method에서 이루어진다.
+  - `NotificationTrigger` class를 사용하여 `didReceive` method가 호출되었을 때 앱의 상태(notRunning, foreground, background)에 따라 알림페이지로 이동시키는 trigger를 발생시켜서 해결
 
 ---
 
