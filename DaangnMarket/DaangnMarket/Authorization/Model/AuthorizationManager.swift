@@ -112,4 +112,16 @@ class AuthorizationManager: Then {
   func register(_ userInfo: UserInfo) {
     UserDefaults.standard.set(userInfo, forKey: .userInfo)
   }
+  
+  // MARK: Interface - Notification
+  
+  var fcmToken: String? {
+    get {
+      return UserDefaults.standard.string(forKey: "fcmToken")
+    }
+    set {
+      guard let token = newValue else { return }
+      UserDefaults.standard.set(token, forKey: "fcmToken")
+    }
+  }
 }

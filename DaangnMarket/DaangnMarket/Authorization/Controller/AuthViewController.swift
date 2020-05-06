@@ -21,6 +21,7 @@ class AuthViewController: UIViewController {
     $0.delegate = self
   }
   private lazy var upperAlert = DGUpperAlert()
+  private let activityIndicator = DGActivityIndicator()
   
   // MARK: Model
   
@@ -96,6 +97,12 @@ class AuthViewController: UIViewController {
           .offset(padding)
         $0.leading.trailing.equalTo(self.authDescription)
         $0.bottom.equalToSuperview()
+    }
+    
+    self.activityIndicator
+      .then { self.view.addSubview($0) }
+      .snp.makeConstraints {
+        $0.center.equalToSuperview()
     }
   }
   
@@ -174,6 +181,7 @@ extension AuthViewController: AuthInputFormDelegate {
   }
   
   func authInputForm(_ authInputForm: AuthInputForm, didSelectAuthorizationButton button: UIButton, verificationCode: String) {
+    self.activityIndicator.startAnimating()
     self.phoneAuthManager.signIn(with: verificationCode) { (result) in
       switch result {
       case .success(let idToken):
@@ -183,10 +191,11 @@ extension AuthViewController: AuthInputFormDelegate {
           case .success(let userInfo):
             print("=================== User Info ====================\n", userInfo)
             API.default.requestUserTown(authToken: userInfo.authorization) { (result) in
+              defer { self.activityIndicator.stopAnimating() }
               switch result {
               case .success(let userTonws):
                 userTonws.forEach {
-                  if $0.activated  {
+                  if $0.activated {
                     AuthorizationManager.shared.firstTown = $0
                   } else {
                     AuthorizationManager.shared.secondTown = $0
@@ -194,11 +203,33 @@ extension AuthViewController: AuthInputFormDelegate {
                 }
                 AuthorizationManager.shared.register(userInfo)
                 self.dismiss(animated: true)
+//                // GCM Token 등록하기
+//                if let fcmToken = AuthorizationManager.shared.fcmToken {
+//                  API.default.requestPushKeyRegister(authToken: userInfo.authorization, fcmToken: fcmToken) { (result) in
+//                    switch result {
+//                    case .success(_):
+//                      userTonws.forEach {
+//                        if $0.activated {
+//                          AuthorizationManager.shared.firstTown = $0
+//                        } else {
+//                          AuthorizationManager.shared.secondTown = $0
+//                        }
+//                      }
+//                      AuthorizationManager.shared.register(userInfo)
+//                      self.dismiss(animated: true)
+//                    case .failure(let error):
+//                      self.presentAlert(title: "Register FCM Token Error", message: error.localizedDescription)
+//                    }
+//                  }
+//                } else {
+//                  self.presentAlert(title: "No FCM Token Error")
+//                }
               case .failure(let error):
                 self.presentAlert(title: "Login Error", message: error.localizedDescription)
               }
             }
           case .failure(let error) where error.responseCode == 401:
+            self.activityIndicator.stopAnimating()
             ViewControllerGenerator.shared
               .make(.signUp, parameters: ["id_token": idToken])?
               .do {
@@ -206,10 +237,12 @@ extension AuthViewController: AuthInputFormDelegate {
                 self.present($0, animated: true)
             }
           case .failure(let error):
+            self.activityIndicator.stopAnimating()
             self.presentAlert(title: "Login Error", message: error.localizedDescription)
           }
         }
       case .failure(let error):
+        self.activityIndicator.stopAnimating()
         self.presentAlert(title: "Auth Error", message: error.localizedDescription)
       }
     }
