@@ -24,16 +24,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     self.window = UIWindow(frame: UIScreen.main.bounds)
     self.window?.rootViewController = ViewControllerGenerator.shared.make(.launch)
     self.window?.makeKeyAndVisible()
+    
     UNUserNotificationCenter.current().delegate = self
     Messaging.messaging().delegate = self
     UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound], completionHandler: { (_, _) in })
     application.registerForRemoteNotifications()
     
-    if let notification = launchOptions?[.remoteNotification] as? [String: AnyObject], let notiType = notification["type"] as? String {  
-      NotificationTrigger.default.type = NotificationType(rawValue: notiType)
-    }
+    NotificationTrigger.default.receiveState = .notRunning
     
     return true
+  }
+  
+  func applicationWillEnterForeground(_ application: UIApplication) {
+    NotificationTrigger.default.receiveState = .foreground
+  }
+  
+  func applicationDidEnterBackground(_ application: UIApplication) {
+    NotificationTrigger.default.receiveState = .background
   }
   
   // MARK: Notification
@@ -104,9 +111,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     // Background 및 Foreground에서 알림 눌렀을 때 호출
 
     if let notiType = response.notification.request.content.userInfo["type"] as? String {
-      print(#function, "Tap Push Notification")
       NotificationTrigger.default.type = NotificationType(rawValue: notiType)
-      NotificationTrigger.default.trigger()
       completionHandler()
     }
   }
