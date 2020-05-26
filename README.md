@@ -9,7 +9,7 @@
   - Framework : UIKit, CoreLocation
   - Service : FCM, APNs, Firebase Authorization(Phone)
   - Library : Then, Alamofire, SnapKit, KingFisher, SwiftLint
-- Members : 4명 (LoC<sup id="sup1">[1](#footnote1)</sup> 90%)
+- Members : 4명 (LoC<sup id="sup1">[1](#footnote1)</sup> 40%)
 - Part
   - Firebase Authorization 서비스를 활용한 문자 인증 서비스 구현
   - FCM 및 APNs를 사용한 푸시 알림 구현
