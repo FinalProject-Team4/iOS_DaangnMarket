@@ -28,29 +28,86 @@
 
 ## 주요 기능
 
-- 위치기반 동네 설정
+- 내 동네 설정 및 문자 인증, 로그인
+
+  <p>
+    <img src="images/townsetting.gif" width="40%">
+    <img src="images/auth.gif" width="40%">
+  </p>  
+
 - 게시글이 노출되는 동네 범위 설정
+
 - 게시글 피드 및 카테고리별 목록 조회
+
 - 중고거래 글쓰기
+
 - 판매 상품 페이지 조회
-- Firebase Authorization을 사용하여 전화번호 로그인/인증 및 회원가입
+
 - FCM을 사용하여 Push Notification 구현
+
+  <p>
+    <img src="images/noti-foreground.gif" width="40%">
+    <img src="images/noti-terminate.gif" width="40%">
+  </p>  
+
 - 채팅(Backend와 함께 추가 구현 중)
+
+  <p>
+    <img src="images/chat.gif" width="40%">
+  </p>
+
+  
 
 ## 사용 Tool
 
 ### 기획
 
 - Wireframe 제작을 위해 Adobe XD 사용
+
+  <p>
+    <img src="images/wireframe.png">
+  </p>
+
 - App 흐름을 파악하기 위해 Flow Chart 제작. [Miro](https://miro.com)를 사용하여 팀원들과 실시간으로 협업
 
-### 개발
+  <p>
+    <img src="images/flowchart.png">
+  </p>
+
+  
 
 ### 개발
 
 - GUI 툴(GitKraken)을 통해 git을 보다 직관적으로 사용하여 실수를 줄임
 
+  <p>
+    <img src="images/gitkraken.png">
+  </p
+
+- Postman을 사용하여 backend 팀으로부터 받은 REST API를 테스트
+
+  <p>
+    <img src="images/postman.png">
+  </p>
+
 ### 협업
 
 - Github issue와 project board를 사용하여 팀원별로 맡은 작업과 진행상황을 효율적으로 파악
-- Notion, Slack을 사용하여 팀원들과 커뮤니케이션
+
+  <p>
+    <img src="images/workboard.png">
+  </p>  
+
+- Slack의 web hook 기능을 사용하여 Github issue, pull request 등을 알림으로 받아서 빠르게 대응
+
+  <p>
+    <img src="images/webhook.png">
+  </p>
+
+- Notion을 사용하여 커뮤니케이션 및 troubleshooting 진행
+
+  <p>
+    <img src="images/troubleshooting.png">
+  </p>
+  
+
