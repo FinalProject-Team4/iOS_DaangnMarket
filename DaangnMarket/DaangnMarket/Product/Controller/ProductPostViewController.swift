@@ -24,6 +24,7 @@ class ProductPostViewController: UIViewController {
     }
   }
   let viewWidth = UIScreen.main.bounds.width
+  var homeVC: UIViewController?
   
   let postService = ProductPostServiceManager.shared
   let myService = MyDaangnServiceManager.shared
@@ -35,12 +36,12 @@ class ProductPostViewController: UIViewController {
       self.tableView.reloadData()
     }
   }
-  let headers: HTTPHeaders = ["Authorization": "Token 76ee860a4934435aaf1e5df9c885a800a0103ebf"]
+  var httpHeaders: HTTPHeaders
   private var likeData: [Int] = []
   
   // MARK: Views
   
-  lazy var bottomButtons = BottomButtonsView(postPrice: productPostData[0].price, nego: false)
+  lazy var bottomButtons = BottomButtonsView(postPrice: productPostData[0].price, nego: false, isLogin: (AuthorizationManager.shared.userInfo != nil))
   lazy var navigationBar = CustomNavigationBarView()
   private let tableView = UITableView().then {
     $0.backgroundColor = .white
@@ -89,6 +90,8 @@ class ProductPostViewController: UIViewController {
   init(postID: Int, postPhotos: [String]) {
     self.productPostID = postID
     self.imageSet = postPhotos
+    let nowHeader = AuthorizationManager.shared.userInfo?.authorization ?? ""
+    self.httpHeaders = ["Authorization": "\(nowHeader)"]
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -200,12 +203,12 @@ class ProductPostViewController: UIViewController {
     }
   }
   
-  func requestLikeButton(_ parameters: Parameters) {
+  func requestLikeButton(_ parameters: Parameters, _ headers: HTTPHeaders) {
     AF.request(
       "http://13.125.217.34/post/like/",
       method: .post,
       parameters: parameters,
-      headers: ["Authorization": "Token 76ee860a4934435aaf1e5df9c885a800a0103ebf"]
+      headers: headers
     )
       .validate()
       .responseJSON { response in
@@ -235,6 +238,7 @@ class ProductPostViewController: UIViewController {
   }
   
   func requestLikeList(_ headers: HTTPHeaders) {
+    print("LikeList.headers", headers)
     self.likeData = []
     myService.requestLikeList(headers) { [weak self] result in
       guard let self = self else { return }
@@ -263,12 +267,30 @@ class ProductPostViewController: UIViewController {
         print(error.localizedDescription)
       }
       DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-        self.requestLikeList(self.headers)
+        self.requestLikeList(self.httpHeaders)
         self.otherItemsParameters = ["username": "\(self.productPostData[0].username)"]
         self.requestOtherItems(self.otherItemsParameters)
         self.setupUI()
       }
     }
+  }
+  
+  private func loginSignupMsg() {
+    let alert = DGAlertController(title: "회원가입 또는 로그인 후 이용할 수 있습니다.")
+    let loginSignup = DGAlertAction(title: "로그인/가입", style: .orange) {
+      self.dismiss(animated: true) {
+        guard let phoneAuthVC = ViewControllerGenerator.shared.make(.phoneAuth) else { return }
+        phoneAuthVC.modalPresentationStyle = .fullScreen
+        self.present(phoneAuthVC, animated: true)
+      }
+    }
+    let cancel = DGAlertAction(title: "취소", style: .cancel) {
+      self.dismiss(animated: false)
+    }
+    alert.addAction(loginSignup)
+    alert.addAction(cancel)
+    alert.modalPresentationStyle = .overFullScreen
+    present(alert, animated: false)
   }
 }
 // MARK: - UITableViewDataSouce
@@ -353,8 +375,12 @@ extension ProductPostViewController: UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     if indexPath.section == 0 {
-      guard let profilePageVC = ViewControllerGenerator.shared.make(.profilePage, parameters: ["ownSelf": false, "name": productPostData[0].username, "profileData": self.otherItems]) else { return }
-      navigationController?.pushViewController(profilePageVC, animated: true)
+      if AuthorizationManager.shared.userInfo == nil {
+        self.loginSignupMsg()
+      } else {
+        guard let profilePageVC = ViewControllerGenerator.shared.make(.profilePage, parameters: ["ownSelf": false, "name": productPostData[0].username, "profileData": self.otherItems]) else { return }
+        navigationController?.pushViewController(profilePageVC, animated: true)
+      }
     }
   }
 }
@@ -388,13 +414,13 @@ extension ProductPostViewController: OtherItemsTableViewCellDelegate {
 }
 
 extension ProductPostViewController: BottomButtonsDelegate {
-  func popUpMessage() {
-    //self.loginSignupMsg()
-  }
-  
   func likeButton() {
-    // self.likeParameters = ["post_id": String(postData1.postId)]
-    self.likeParameters = ["post_id": "\(productPostData[0].postId)"]
-    self.requestLikeButton(likeParameters)
+    if AuthorizationManager.shared.userInfo == nil {
+      self.loginSignupMsg()
+    } else {
+      self.likeParameters = ["post_id": "\(productPostData[0].postId)"]
+      self.requestLikeButton(likeParameters, httpHeaders)
+    DGToastAlert(message: "관심 목록에 추가되었어요.").show(at: .bottom, from: self.view)
+    }
   }
 }

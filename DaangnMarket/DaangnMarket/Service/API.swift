@@ -152,14 +152,14 @@ class API {
   // MARK: User Town  
 
   func requestRegisterUserTown(userTown: UserTown, authToken: String, completion: @escaping (Result<UserTown, AFError>) -> Void) {
-    let parameters: [String: String] = [
+    let parameters: Parameters = [
       "locate": userTown.locate.id.description,
       "distance": userTown.distance.description,
-      "verified": userTown.verified.description,
-      "activated": userTown.activated.description
+      "verified": userTown.verified,
+      "activated": userTown.activated
     ]
     let header = HTTPHeader(name: "Authorization", value: authToken)
-    AF.request(DaangnURL.UserTown.register.url, method: .post, parameters: parameters, headers: HTTPHeaders([header]))
+    AF.request(DaangnURL.UserTown.register.url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: HTTPHeaders([header]))
       .validate()
       .responseDecodable { (response: DataResponse<UserTown, AFError>) in
         switch response.result {

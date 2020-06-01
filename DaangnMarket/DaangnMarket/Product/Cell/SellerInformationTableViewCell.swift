@@ -66,14 +66,14 @@ class SellerInformationTableViewCell: UITableViewCell {
         $0.top.equalTo(sellerImageView)
         $0.leading.equalTo(sellerImageView.snp.trailing).offset(spacing / 2)
     }
+    self.mannerTempView.then { self.addSubview($0) }
+      .snp.makeConstraints {
+        $0.top.trailing.equalTo(self)
+    }
     self.addrLabel.then { self.addSubview($0) }
       .snp.makeConstraints {
         $0.leading.equalTo(idLabel)
         $0.bottom.equalTo(sellerImageView)
-    }
-    self.mannerTempView.then { self.addSubview($0) }
-      .snp.makeConstraints {
-        $0.top.trailing.equalTo(self)
     }
     
     self.bottomLineView.then { self.addSubview($0) }
@@ -85,11 +85,12 @@ class SellerInformationTableViewCell: UITableViewCell {
     }
   }
   
+  
   // MARK: Interface
   
   func configure(image: UIImage?, sellerId: String, addr: String) {
     sellerImageView.image = image
     idLabel.text = sellerId
-    addrLabel.text = addr
+    addrLabel.text = PostData.shared.addressFilter(address: addr)
   }
 }

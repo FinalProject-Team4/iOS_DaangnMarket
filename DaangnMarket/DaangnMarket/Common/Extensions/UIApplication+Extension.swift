@@ -16,6 +16,7 @@ extension UIApplication {
   func switchRootViewController(_ viewController: UIViewController) {
     guard let window = self.appDelegate.window else { return }
     window.rootViewController = viewController
+    UIView.transition(with: window, duration: 0.45, options: .transitionCrossDissolve, animations: nil)
   }
 }
 

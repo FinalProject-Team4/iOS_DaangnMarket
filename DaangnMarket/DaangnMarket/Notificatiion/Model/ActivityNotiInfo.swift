@@ -20,4 +20,5 @@ struct ActivityNoti: Codable {
   let receiver: String
   let title: String
   let body: String
+  var created: String
 }

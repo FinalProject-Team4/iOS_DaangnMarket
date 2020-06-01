@@ -54,7 +54,7 @@ class BottomButtonsView: UIView {
   // MARK: Properties
   
   var isNegociable = false
-  //private var isFullHeart = false
+  //private var isLoginUser = false
   let numberFormatter = NumberFormatter()
   
   // MARK: Initializer
@@ -64,15 +64,17 @@ class BottomButtonsView: UIView {
     setupUI()
   }
   
-  convenience init(postPrice: Int, nego: Bool) {
+  convenience init(postPrice: Int, nego: Bool, isLogin: Bool) {
     self.init()
     self.numberFormatter.numberStyle = .decimal
     self.priceLabel.text = "\(numberFormatter.string(from: NSNumber(value: postPrice))!)원"
     self.negociableButton.isHidden = !nego
     self.noNegociableLabel.isHidden = nego
     stackView.addArrangedSubview(priceLabel)
-    stackView.addArrangedSubview(negociableButton)
-    stackView.addArrangedSubview(noNegociableLabel)
+    if isLogin {
+      stackView.addArrangedSubview(negociableButton)
+      stackView.addArrangedSubview(noNegociableLabel)
+    }
     switchHeartButton(isFullHerat: false)
   }
   
@@ -143,10 +145,12 @@ class BottomButtonsView: UIView {
   
   
   @objc private func didTapHeartButton(_ sender: Any) {
-    if heartButton.tintColor == .gray {
-      switchHeartButton(isFullHerat: true)
-    } else {
-      switchHeartButton(isFullHerat: false)
+    if AuthorizationManager.shared.userInfo != nil {
+      if heartButton.tintColor == .gray {
+        switchHeartButton(isFullHerat: true)
+      } else {
+        switchHeartButton(isFullHerat: false)
+      }
     }
     delegate?.likeButton()
   }

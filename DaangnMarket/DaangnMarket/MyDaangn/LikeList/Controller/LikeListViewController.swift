@@ -31,7 +31,7 @@ class LikeListViewController: UIViewController {
   // MARK: Properties
   
   let service = MyDaangnServiceManager.shared
-  let headers: HTTPHeaders = ["Authorization": "Token 76ee860a4934435aaf1e5df9c885a800a0103ebf"]
+  let headers: HTTPHeaders
   var likeParameters: Parameters = [String: Any]()
   private var likeData: [Post] = []
   
@@ -54,6 +54,15 @@ class LikeListViewController: UIViewController {
   }
   
   // MARK: Initialize
+  init() {
+    let tokenID = AuthorizationManager.shared.userInfo?.authorization ?? ""
+    self.headers = ["Authorization": "\(tokenID)"]
+    super.init(nibName: nil, bundle: nil)
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
   
   private func setupUI() {
     setupAttributes()
@@ -62,6 +71,7 @@ class LikeListViewController: UIViewController {
   
   private func setupAttributes() {
     view.backgroundColor = .white
+    self.likeListTableView.backgroundColor = UIColor(named: ColorReference.backGray.rawValue)
     setupNavigationBar()
     setupTableView()
   }
@@ -77,6 +87,7 @@ class LikeListViewController: UIViewController {
     self.likeListTableView.delegate = self
     self.likeListTableView.dataSource = self
     self.likeListTableView.register(LikeListTableViewCell.self, forCellReuseIdentifier: LikeListTableViewCell.identifier)
+    self.likeListTableView.register(LikeListEmptyTableViewCell.self, forCellReuseIdentifier: LikeListEmptyTableViewCell.identifier)
     self.likeListTableView.refreshControl = self.refreshControl
     self.refreshControl.addTarget(self, action: #selector(didPullrefreshControl(_:)), for: .valueChanged)
   }
@@ -128,40 +139,59 @@ class LikeListViewController: UIViewController {
   }
   
   func requestLikeButton(_ parameters: Parameters, _ headers: HTTPHeaders) {
-      AF.request(
-        "http://13.125.217.34/post/like/",
-        method: .post,
-        parameters: parameters,
-        headers: headers
-      )
+    AF.request(
+      "http://13.125.217.34/post/like/",
+      method: .post,
+      parameters: parameters,
+      headers: headers
+    )
       .validate()
-        .responseJSON { response in
-          switch response.response?.statusCode {
-          case 200:
-            print("좋아요 해지")
-          case 201:
-            print("좋아요 추가")
-          default:
-            print("실패")
-      
-            self.likeListTableView.reloadData()
-          }
-      }
+      .responseJSON { response in
+        switch response.response?.statusCode {
+        case 200:
+          print("좋아요 해지")
+        case 201:
+          print("좋아요 추가")
+        default:
+          print("실패")
+          
+          self.likeListTableView.reloadData()
+        }
     }
+  }
 }
 
 // MARK: - UITableViewDataSource
+
 extension LikeListViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return self.likeData.count
+    if self.likeData.isEmpty {
+      return 1
+    } else {
+      return self.likeData.count
+    }
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = tableView.dequeueReusableCell(withIdentifier: LikeListTableViewCell.identifier, for: indexPath) as? LikeListTableViewCell else { return UITableViewCell() }
-    cell.separatorInset = UIEdgeInsets.zero
-    cell.configure(likeData: self.likeData[indexPath.row])
-    cell.delegate = self
-    return cell
+    switch self.likeData.count {
+    case 0:
+      guard let cell = tableView.dequeueReusableCell(withIdentifier: LikeListEmptyTableViewCell.identifier, for: indexPath) as? LikeListEmptyTableViewCell else { return UITableViewCell() }
+      cell.separatorInset = UIEdgeInsets.zero
+      return cell
+    default:
+      guard let cell = tableView.dequeueReusableCell(withIdentifier: LikeListTableViewCell.identifier, for: indexPath) as? LikeListTableViewCell else { return UITableViewCell() }
+      cell.separatorInset = UIEdgeInsets.zero
+      cell.configure(likeData: self.likeData[indexPath.row])
+      cell.delegate = self
+      return cell
+    }
+  }
+  
+  func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    let clearView = UIView()
+    clearView.backgroundColor = .clear
+    clearView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 10)
+    return clearView
   }
 }
 

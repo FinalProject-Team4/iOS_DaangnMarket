@@ -40,6 +40,7 @@ class ConfigProfileViewController: UIViewController {
     $0.font = .systemFont(ofSize: 13)
     $0.text = "프로필 사진과 닉네임을 입력해주세요."
   }
+  private let activityIndicator = DGActivityIndicator()
   
   // MARK: Properties
   
@@ -113,6 +114,12 @@ class ConfigProfileViewController: UIViewController {
           .offset(14)
         $0.centerX.equalToSuperview()
     }
+    
+    self.activityIndicator
+      .then { self.view.addSubview($0) }
+      .snp.makeConstraints {
+        $0.center.equalToSuperview()
+    }
   }
   
   // MARK: Actions
@@ -121,27 +128,43 @@ class ConfigProfileViewController: UIViewController {
     guard let username = self.username else { return }
     let imageData = self.profileImage?.jpegData(compressionQuality: 0.2)
     
+    self.activityIndicator.startAnimating()
     API.default.request(.signUp(idToken: self.idToken, username: username, avatar: imageData)) { (result) in
       switch result {
       case .success(let userInfo):
         print("=================== User Info ====================\n", userInfo)
         
+        // 선택된 동네의 주변 동네 리스트 가져오기
         // SignUp할 때는 선택할 수 있는 동네가 1개로 제한됨
         guard var selected = AuthorizationManager.shared.firstTown else { return }
         selected.user = userInfo.username
         API.default.requestRegisterUserTown(userTown: selected, authToken: userInfo.authorization) { (result) in
+          defer { self.activityIndicator.stopAnimating() }
           switch result {
           case .success(let userTown):
-            AuthorizationManager.shared.firstTown = userTown
-            self.navigationController?
-              .presentingViewController?
-              .presentingViewController?
-              .dismiss(animated: true)
+            // GCM Token 등록하기
+            if let fcmToken = AuthorizationManager.shared.fcmToken {
+              API.default.requestPushKeyRegister(authToken: userInfo.authorization, fcmToken: fcmToken) { (result) in
+                switch result {
+                case .success(_):
+                  AuthorizationManager.shared.firstTown = userTown
+                  self.navigationController?
+                    .presentingViewController?
+                    .presentingViewController?
+                    .dismiss(animated: true)
+                case .failure(let error):
+                  self.presentAlert(title: "Register FCM Token Error", message: error.localizedDescription)
+                }
+              }
+            } else {
+              self.presentAlert(title: "No FCM Token Error")
+            }
           case .failure(let error):
             self.presentAlert(title: "Register User Town Error", message: error.localizedDescription)
           }
         }
       case .failure(let error):
+        self.activityIndicator.stopAnimating()
         self.presentAlert(title: "Sign Up Error", message: error.localizedDescription)
       }
     }

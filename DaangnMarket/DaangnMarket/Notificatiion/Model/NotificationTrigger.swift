@@ -12,6 +12,10 @@ enum NotificationType: String {
   case notice, chat
 }
 
+enum NotificationReceiveState: String {
+  case notRunning, background, foreground
+}
+
 class NotificationTrigger {
   static let `default` = NotificationTrigger()
   
@@ -20,16 +24,33 @@ class NotificationTrigger {
   var tabBarController: MainTabBarController?
   var notiButton: UIButton?
 
-  var type: NotificationType?
+  var receiveState: NotificationReceiveState = .notRunning
+  var type: NotificationType? {
+    didSet {
+      if self.type != nil, self.receiveState != .notRunning {
+        self.trigger()
+      }
+    }
+  }
   
   func trigger() {
-    guard let type = self.type else { return }
-    defer { self.type = nil }
+    defer {
+      self.type = nil
+      self.receiveState = .foreground
+    }
     
-    tabBarController?.selectedIndex = 0
+    guard
+      let tabBarController = self.tabBarController,
+      let notiButton = self.notiButton,
+      let type = self.type
+      else { return print("Cannot Trigger") }
+    
+    tabBarController.selectedIndex = 0
+    
     switch type {
     case .notice:
-      notiButton?.sendActions(for: .touchUpInside)
+      notiButton.sendActions(for: .touchUpInside)
+      print("Show to notice")
     case .chat:
       print("Show to Chat")
       return

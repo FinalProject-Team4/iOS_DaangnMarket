@@ -19,8 +19,35 @@ class ActivityNotificationCell: NotificationCell {
   override func configure(thumbnail: UIImage?, content: String, date: String) -> Self {
     self.contentLabel.text = content
     self.thumbnailImageView.image = thumbnail
-    self.dateLabel.text = date
+    self.dateLabel.text = self.updatedTime(from: date)
     return self
+  }
+  
+  private func updatedTime(from date: String) -> String {
+    let current = Date()
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+    let created: Date = dateFormatter.date(from: date) ?? current
+    let calendar = NSCalendar(calendarIdentifier: .gregorian)
+    guard let interval = calendar?.components(
+      [.day, .hour, .minute, .second],
+      from: created,
+      to: current,
+      options: []
+    )
+    else { fatalError("calendar components error") }
+    
+    if interval.day != 0 {
+      return interval.day == 1 ? "어제" : "\(interval.day!)일 전"
+    } else if interval.hour != 0 {
+      return "\(interval.hour!)시간 전"
+    } else if interval.minute != 0 {
+      return "\(interval.minute!)분 전"
+    } else if interval.second != 0 {
+      return "\(interval.second!)초 전"
+    } else {
+      return "지금"
+    }
   }
   
   func setEditMode(_ editMode: Bool) {
