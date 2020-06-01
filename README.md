@@ -39,7 +39,18 @@
 
 - 게시글 피드 및 카테고리별 목록 조회
 
+  <p>
+    <img src="images/search.gif" width="40%">
+    <img src="images/category.gif" width="40%">
+  </p>  
+
 - 중고거래 글쓰기
+
+  <p>
+    <img src="images/writting1.gif" width="40%">
+    <img src="images/writting2.gif" width="40%">
+    <img src="images/writting3.gif" width="40%">
+  </p>  
 
 - 판매 상품 페이지 조회
 
