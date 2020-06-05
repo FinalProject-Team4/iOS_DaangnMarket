@@ -27,13 +27,12 @@ class PageTableViewCell: UITableViewCell {
   private let titleLabel = UILabel().then {
     $0.textColor = .black
     $0.numberOfLines = 2
-    $0.font = UIFont(name: "AppleSystemUIFont", size: 17)
-    $0.font = UIFont.boldSystemFont(ofSize: 17)
+    $0.font = UIFont.boldSystemFont(ofSize: 16)
   }
   private let contentsLabel = UILabel().then {
     $0.textColor = .black
-    $0.font = UIFont(name: "AppleSystemUIFont", size: 15)
-    $0.numberOfLines = 2
+    $0.font = UIFont.systemFont(ofSize: 14)
+    $0.numberOfLines = 0
   }
   private let closeDealingLabel = UILabel().then {
     $0.textColor = .white
@@ -47,8 +46,8 @@ class PageTableViewCell: UITableViewCell {
   }
   private let priceLabel = UILabel().then {
     $0.textColor = .black
-    $0.font = UIFont(name: "AppleSystemUIFont", size: 17)
-    $0.font = UIFont.boldSystemFont(ofSize: 17)
+    $0.font = UIFont(name: "AppleSystemUIFont", size: 15)
+    $0.font = UIFont.boldSystemFont(ofSize: 15)
   }
   private var stackView = UIStackView().then {
     $0.axis = .horizontal
@@ -70,10 +69,6 @@ class PageTableViewCell: UITableViewCell {
     setupUI()
   }
   
-//  override func prepareForReuse() {
-//    super.prepareForReuse()
-//  }
-//
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
@@ -97,12 +92,23 @@ class PageTableViewCell: UITableViewCell {
         $0.top.bottom.equalToSuperview().inset(5)
         $0.leading.trailing.equalToSuperview()
     }
-    
     self.itemImageView.then { self.backView.addSubview($0) }
       .snp.makeConstraints {
         $0.top.leading.equalToSuperview().offset(spacing)
         $0.width.height.equalTo(itemImageSize)
     }
+    self.addrTimeLabel.then { self.backView.addSubview($0) }
+      .snp.makeConstraints {
+        $0.top.equalTo(itemImageView.snp.bottom).offset(spacing / 2)
+        $0.leading.equalTo(itemImageView)
+        $0.bottom.equalToSuperview().offset(-spacing / 2)
+    }
+    self.stackView.then { self.backView.addSubview($0) }
+      .snp.makeConstraints {
+        $0.leading.equalTo(itemImageView.snp.trailing).offset(spacing)
+        $0.bottom.equalTo(itemImageView.snp.bottom).offset(-spacing / 4)
+    }
+
     self.titleLabel.then { self.backView.addSubview($0) }
       .snp.makeConstraints {
         $0.top.equalTo(itemImageView)
@@ -110,20 +116,10 @@ class PageTableViewCell: UITableViewCell {
     }
     self.contentsLabel.then { self.backView.addSubview($0) }
       .snp.makeConstraints {
-        $0.top.equalTo(titleLabel.snp.bottom).offset(spacing / 2)
+        $0.top.equalTo( titleLabel.snp.bottom).offset(spacing / 2)
         $0.leading.equalTo(titleLabel)
         $0.trailing.equalToSuperview().offset(-spacing)
-    }
-    self.stackView.then { self.backView.addSubview($0) }
-      .snp.makeConstraints {
-        $0.top.equalTo(contentsLabel.snp.bottom).offset(spacing / 2)
-        $0.leading.equalTo(contentsLabel)
-    }
-    self.addrTimeLabel.then { self.backView.addSubview($0) }
-      .snp.makeConstraints {
-        $0.top.equalTo(itemImageView.snp.bottom).offset(spacing / 2)
-        $0.leading.equalTo(itemImageView)
-        $0.bottom.equalToSuperview().offset(-spacing / 2)
+        $0.bottom.equalTo(stackView.snp.top).offset(-spacing / 2)
     }
     self.chatLikeView.then { self.backView.addSubview($0) }
       .snp.makeConstraints {
