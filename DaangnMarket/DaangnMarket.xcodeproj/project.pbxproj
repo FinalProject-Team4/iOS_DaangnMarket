@@ -1284,7 +1284,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1150;
 				ORGANIZATIONNAME = Jisng;
 				TargetAttributes = {
 					A62D96A52424A440006F1722 = {
@@ -1463,7 +1463,6 @@
 				DEE5BBCC2450B0D8009410CA /* MyPageSettingButton.swift in Sources */,
 				AD7BEF772444811300F72831 /* CustomSlider.swift in Sources */,
 				9A6536C72442738A00301D01 /* SellingItemsViewController.swift in Sources */,
-				ACCD94DD2429F87900153545 /* ChattingHistoryViewController.swift in Sources */,
 				ACCD94DD2429F87900153545 /* ChattingHistoryViewController.swift in Sources */,
 				A62D97E0242B401B006F1722 /* WriteTableTitleCell.swift in Sources */,
 				A6595AA0244EDCD300DDCAA5 /* TownAuthorizationViewController.swift in Sources */,

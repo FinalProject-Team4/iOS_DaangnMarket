@@ -64,7 +64,6 @@ class ProfilePageViewController: UIViewController {
     setupTableView()
     setupConstraints()
   }
-  
   private func setupNavigationBar() {
     self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
     self.navigationController?.navigationBar.backgroundColor = .white
@@ -76,24 +75,16 @@ class ProfilePageViewController: UIViewController {
       $0.setImage(UIImage(systemName: "square.and.arrow.up"), for: .normal)
       $0.imageView?.contentMode = .scaleAspectFit
       $0.tintColor = .black
-      $0.frame = CGRect(x: 0, y: 0, width: 22, height: 22)
-    }
-    let blankButton = UIButton().then {
-      $0.setImage(UIImage(), for: .normal)
-      $0.imageView?.contentMode = .scaleAspectFit
-      $0.tintColor = .white
-      $0.frame = CGRect(x: 0, y: 0, width: 5, height: 10)
     }
     let otherOptionButton = UIButton().then {
       let image = UIImage(named: "menu")?.withRenderingMode(.alwaysTemplate)
-      let size: CGFloat = 17
+      let size: CGFloat = 23
       $0.setImage(image, for: .normal)
       $0.imageView?.contentMode = .scaleAspectFit
       $0.tintColor = .black
-      $0.frame = CGRect(x: 0, y: 0, width: 15, height: 15)
       $0.imageEdgeInsets = UIEdgeInsets(top: size, left: size, bottom: size, right: size)
     }
-    navigationItem.rightBarButtonItems = [UIBarButtonItem(customView: otherOptionButton), UIBarButtonItem(customView: blankButton), UIBarButtonItem(customView: shareOptionButton)]
+    navigationItem.rightBarButtonItems = [UIBarButtonItem(customView: otherOptionButton), UIBarButtonItem(customView: shareOptionButton)]
   }
   
   private func setupTableView() {
