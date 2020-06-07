@@ -54,17 +54,17 @@
 
 - 판매 상품 페이지 조회
 
-<p>
+  <p>
     <img src="images/productDetail.gif" width="40%">
-</p> 
+  </p> 
 
 - 마이당근 페이지 구현 (판매상품보기, 판매내역, 관심목록)
 
-<p>
+  <p>
     <img src="images/sellingList.gif" width="40%">
     <img src="images/salesList.gif" width="40%">
     <img src="images/likeList.gif" width="40%">
-</p>  
+  </p>  
 
 - FCM을 사용하여 Push Notification 구현
 
