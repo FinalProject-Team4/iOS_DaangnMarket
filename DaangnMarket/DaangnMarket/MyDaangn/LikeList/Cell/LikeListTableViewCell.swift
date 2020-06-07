@@ -132,6 +132,7 @@ class LikeListTableViewCell: UITableViewCell {
     if likeData.state == "sales" {
       self.completedMark.isHidden = true
     }
+    self.chatLikeView.configure(chat: 0, like: likeData.likes)
   }
   
   @objc func didTapButton(_ sender: UIButton) {

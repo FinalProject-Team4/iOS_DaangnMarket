@@ -166,6 +166,7 @@
 		DE5EC3D624574FEC002448AC /* LikeListInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5EC3D524574FEC002448AC /* LikeListInfo.swift */; };
 		DE5EC3D82457500B002448AC /* OtherItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5EC3D72457500B002448AC /* OtherItems.swift */; };
 		DE5EC3DB24578B7D002448AC /* ProductPostServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5EC3DA24578B7D002448AC /* ProductPostServiceManager.swift */; };
+		DE9273BF24630BBA00E86DED /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DE9273BE24630BB900E86DED /* GoogleService-Info.plist */; };
 		DEB8887A24508CA900EAE363 /* profileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB8887924508CA900EAE363 /* profileData.swift */; };
 		DEE5BBCA2450B0BB009410CA /* MyPageListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5BBC92450B0BB009410CA /* MyPageListButton.swift */; };
 		DEE5BBCC2450B0D8009410CA /* MyPageSettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE5BBCB2450B0D8009410CA /* MyPageSettingButton.swift */; };
@@ -355,6 +356,7 @@
 		DE5EC3D524574FEC002448AC /* LikeListInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeListInfo.swift; sourceTree = "<group>"; };
 		DE5EC3D72457500B002448AC /* OtherItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherItems.swift; sourceTree = "<group>"; };
 		DE5EC3DA24578B7D002448AC /* ProductPostServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductPostServiceManager.swift; sourceTree = "<group>"; };
+		DE9273BE24630BB900E86DED /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/finalProject/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DEB8887924508CA900EAE363 /* profileData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileData.swift; sourceTree = "<group>"; };
 		DEE5BBC92450B0BB009410CA /* MyPageListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageListButton.swift; sourceTree = "<group>"; };
 		DEE5BBCB2450B0D8009410CA /* MyPageSettingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageSettingButton.swift; sourceTree = "<group>"; };
@@ -458,7 +460,7 @@
 				A62D96B22424A442006F1722 /* Assets.xcassets */,
 				A62D96B42424A442006F1722 /* LaunchScreen.storyboard */,
 				A62D96B72424A442006F1722 /* Info.plist */,
-				9A5CF7DD24898F9400703EB8 /* GoogleService-Info.plist */,
+				DE9273BE24630BB900E86DED /* GoogleService-Info.plist */,
 				AC52A50B243D90D000DB4FB6 /* LaunchViewController.swift */,
 			);
 			path = DaangnMarket;
@@ -1284,7 +1286,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1150;
 				ORGANIZATIONNAME = Jisng;
 				TargetAttributes = {
 					A62D96A52424A440006F1722 = {
@@ -1316,7 +1318,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ACCD94CE2429E59500153545 /* .swiftlint.yml in Resources */,
-				9A5CF7DE24898F9400703EB8 /* GoogleService-Info.plist in Resources */,
+				DE9273BF24630BBA00E86DED /* GoogleService-Info.plist in Resources */,
 				A62D96B62424A442006F1722 /* LaunchScreen.storyboard in Resources */,
 				A62D96B32424A442006F1722 /* Assets.xcassets in Resources */,
 			);
@@ -1463,7 +1465,6 @@
 				DEE5BBCC2450B0D8009410CA /* MyPageSettingButton.swift in Sources */,
 				AD7BEF772444811300F72831 /* CustomSlider.swift in Sources */,
 				9A6536C72442738A00301D01 /* SellingItemsViewController.swift in Sources */,
-				ACCD94DD2429F87900153545 /* ChattingHistoryViewController.swift in Sources */,
 				ACCD94DD2429F87900153545 /* ChattingHistoryViewController.swift in Sources */,
 				A62D97E0242B401B006F1722 /* WriteTableTitleCell.swift in Sources */,
 				A6595AA0244EDCD300DDCAA5 /* TownAuthorizationViewController.swift in Sources */,

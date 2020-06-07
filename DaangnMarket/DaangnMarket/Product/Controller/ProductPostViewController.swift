@@ -11,7 +11,6 @@ import Alamofire
 
 class ProductPostViewController: UIViewController {
   // MARK: Properties
-  
   var productPostData: [Post] = [] {
     didSet {
       print("productPostData", productPostData)
@@ -40,7 +39,6 @@ class ProductPostViewController: UIViewController {
   private var likeData: [Int] = []
   
   // MARK: Views
-  
   lazy var bottomButtons = BottomButtonsView(postPrice: productPostData[0].price, nego: false, isLogin: (AuthorizationManager.shared.userInfo != nil))
   lazy var navigationBar = CustomNavigationBarView()
   private let tableView = UITableView().then {
@@ -61,14 +59,12 @@ class ProductPostViewController: UIViewController {
   }
   
   // MARK: Life Cycle
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     self.view.backgroundColor = .white
     self.postParameters = ["post_id": "\(productPostID)"]
     self.requestProductPost(postParameters)
   }
-  
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     navigationController?.navigationBar.isHidden = true
@@ -76,7 +72,6 @@ class ProductPostViewController: UIViewController {
       navigationController?.navigationBar.barStyle = .black
     }
   }
-  
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
     navigationController?.navigationBar.shadowImage = UIImage()
@@ -86,7 +81,6 @@ class ProductPostViewController: UIViewController {
   }
   
   // MARK: Initialize
-  
   init(postID: Int, postPhotos: [String]) {
     self.productPostID = postID
     self.imageSet = postPhotos
@@ -94,11 +88,9 @@ class ProductPostViewController: UIViewController {
     self.httpHeaders = ["Authorization": "\(nowHeader)"]
     super.init(nibName: nil, bundle: nil)
   }
-  
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
   private func setupUI() {
     setupNavigationBar()
     setupAttributes()
@@ -113,7 +105,6 @@ class ProductPostViewController: UIViewController {
     navigationController?.navigationBar.backIndicatorImage = backImage
     navigationController?.navigationBar.backIndicatorTransitionMaskImage = backImage
   }
-  
   private func setupAttributes() {
     view.backgroundColor = .white
     pageControl.numberOfPages = imageSet.count
@@ -127,7 +118,6 @@ class ProductPostViewController: UIViewController {
       navigationController?.navigationBar.barStyle = .default
     }
   }
-  
   private func setupConstraints() {
     let guide = view.safeAreaLayoutGuide
     
@@ -160,7 +150,6 @@ class ProductPostViewController: UIViewController {
     }
     view.addSubview(navigationBar)
   }
-  
   private func setupTableView() {
     tableView.dataSource = self
     tableView.delegate = self
@@ -170,7 +159,6 @@ class ProductPostViewController: UIViewController {
     tableView.register(OtherItemsTableViewCell.self, forCellReuseIdentifier: OtherItemsTableViewCell.identifier)
     tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
   }
-  
   private func setupScrollView() {
     tableView.contentInset = .init(top: viewWidth, left: 0, bottom: 0, right: 0)
     tableView.contentOffset = CGPoint(x: 0, y: -viewWidth)
@@ -180,7 +168,6 @@ class ProductPostViewController: UIViewController {
   }
   
   // MARK: Actions
-  
   private func whiteBackNavigationBar() {
     navigationBar.gradientLayer.backgroundColor = UIColor.white.cgColor
     navigationBar.gradientLayer.colors = [UIColor.white.cgColor]
@@ -190,7 +177,6 @@ class ProductPostViewController: UIViewController {
     navigationBar.lineView.isHidden = false
     navigationController?.navigationBar.barStyle = .default
   }
-  
   private func blackBackNavigationBar() {
     if !imageSet.isEmpty {
       navigationBar.gradientLayer.backgroundColor = UIColor.clear.cgColor
@@ -202,7 +188,6 @@ class ProductPostViewController: UIViewController {
       navigationController?.navigationBar.barStyle = .black
     }
   }
-  
   func requestLikeButton(_ parameters: Parameters, _ headers: HTTPHeaders) {
     AF.request(
       "http://13.125.217.34/post/like/",
@@ -224,7 +209,6 @@ class ProductPostViewController: UIViewController {
         }
     }
   }
-  
   func requestOtherItems(_ parameters: Parameters) {
     myService.requestOtherItems(parameters) { [weak self] result in
       guard let self = self else { return }
@@ -236,7 +220,6 @@ class ProductPostViewController: UIViewController {
       }
     }
   }
-  
   func requestLikeList(_ headers: HTTPHeaders) {
     print("LikeList.headers", headers)
     self.likeData = []
@@ -256,7 +239,6 @@ class ProductPostViewController: UIViewController {
       }
     }
   }
-  
   func requestProductPost(_ parameters: Parameters) {
     postService.requestProductPost(parameters) { [weak self] result in
       guard let self = self else { return }
@@ -274,7 +256,6 @@ class ProductPostViewController: UIViewController {
       }
     }
   }
-  
   private func loginSignupMsg() {
     let alert = DGAlertController(title: "회원가입 또는 로그인 후 이용할 수 있습니다.")
     let loginSignup = DGAlertAction(title: "로그인/가입", style: .orange) {
@@ -294,7 +275,6 @@ class ProductPostViewController: UIViewController {
   }
 }
 // MARK: - UITableViewDataSouce
-
 extension ProductPostViewController: UITableViewDataSource {
   func numberOfSections(in tableView: UITableView) -> Int {
     return 4
@@ -335,7 +315,6 @@ extension ProductPostViewController: UITableViewDataSource {
   }
 }
 // MARK: - UITableViewDelegate
-
 extension ProductPostViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     switch indexPath.section {
@@ -353,11 +332,9 @@ extension ProductPostViewController: UITableViewDelegate {
       return UITableView.automaticDimension
     }
   }
-  
   func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
     return 400
   }
-  
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
     let offset = scrollView.contentOffset
     if offset.y < -viewWidth {
@@ -372,7 +349,6 @@ extension ProductPostViewController: UITableViewDelegate {
       blackBackNavigationBar()
     }
   }
-  
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     if indexPath.section == 0 {
       if AuthorizationManager.shared.userInfo == nil {
@@ -385,7 +361,6 @@ extension ProductPostViewController: UITableViewDelegate {
   }
 }
 // MARK: - UIScrollViewDelegate
-
 extension ProductPostViewController: UIScrollViewDelegate {
   func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
     spinner.stopAnimating()
@@ -403,7 +378,6 @@ extension ProductPostViewController: CustomNavigationBarViewDelegate {
     navigationController?.popViewController(animated: true)
   }
 }
-
 // MARK: - OtherItemsTableViewCellDelegate
 
 extension ProductPostViewController: OtherItemsTableViewCellDelegate {
@@ -412,7 +386,6 @@ extension ProductPostViewController: OtherItemsTableViewCellDelegate {
     navigationController?.pushViewController(productPostVC, animated: true)
   }
 }
-
 extension ProductPostViewController: BottomButtonsDelegate {
   func likeButton() {
     if AuthorizationManager.shared.userInfo == nil {

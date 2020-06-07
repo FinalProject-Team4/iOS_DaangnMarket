@@ -54,7 +54,7 @@ class ContentsTableViewCell: UITableViewCell {
     self.titleLabel.then { self.addSubview($0) }
       .snp.makeConstraints {
         $0.top.equalTo(self).offset(spacing * 1.5)
-        $0.leading.equalTo(self).offset(spacing)
+        $0.leading.trailing.equalTo(self).inset(spacing)
     }
     self.informLabel.then { self.addSubview($0) }
       .snp.makeConstraints {
@@ -65,7 +65,7 @@ class ContentsTableViewCell: UITableViewCell {
       .snp.makeConstraints {
         $0.top.equalTo(informLabel.snp.bottom).offset(spacing)
         $0.leading.equalTo(titleLabel)
-        $0.trailing.equalTo(self)
+        $0.trailing.equalTo(self).offset(-spacing)
     }
     self.countLabel.then { self.addSubview($0) }
       .snp.makeConstraints {
