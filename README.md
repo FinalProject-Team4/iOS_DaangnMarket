@@ -3,22 +3,26 @@
 
 ## Description
 
-- Duration : 2020.03.20 ~ 2020.04.29
-- Skills
+- 기간 : 2020.03.20 ~ 2020.04.29
+- 사용 기술
   - Language : Swift
   - Framework : UIKit, CoreLocation
-  - Service : FCM, APNs, Firebase Authorization(Phone)
   - Library : Then, Alamofire, SnapKit, KingFisher, SwiftLint
-- Members : 4명 (LoC<sup id="sup1">[1](#footnote1)</sup> 40%)
-- Part
-  - Firebase Authorization 서비스를 활용한 문자 인증 서비스 구현
-  - FCM 및 APNs를 사용한 푸시 알림 구현
-  - 위치기반 동네 설정 및 게시글이 노출될 주변 동네 설정 기능 구현
-  - 채팅 UI 구현(기능은 Backend와 함께 계속 개발중)
-  - 재사용되는 custom view를 추상화하여 팀원 모두가 사용할 수 있도록 제공(`DGUpperAlert`, `DGToastAlert`, `DGNavigationBar` 등)
-  - 서버에 데이터를 요청하는 작업을 `API` class로 추상화 및 모듈화
-  - iOS팀 팀장 역할을 맡아 프로젝트 기획, 일정 관리, Backend와의 커뮤니케이션, 원활한 협업을 위한 팀 내 Git 강의 및 Git 관련 trouble shooting 등을 주도
-  - SwiftLint의 규칙들을 정독하고 팀원들과 상의하여 선별적으로 적용
+  - Service : FCM, APNs, Firebase Authorization(Phone)
+- 팀원 : 4명
+- 맡은 역할 (LoC<sup id="sup1">[1](#footnote1)</sup> 40%)
+  - Firebase Phone Authorization 서비스를 활용한 문자 인증 구현
+  - FCM을 활용한 푸시 알림 구현
+  - 동네 설정 기능 개발
+  - 상단 알림, toast 알림, custom navigation bar 등 반복적으로 사용되는 view를 팀원들과 함께 사용할 수 있도록 제공(`DGUpperAlert`, `DGToastAlert`, `DGNavigationBar` 등)
+  - 채팅 UI 구현(RabbitMQ를 사용한 채팅 기능 구현을 위해 Backend와 함께 이어서 개발중)
+  - REST API 요청 작업을 `API` class로 추상화 및 모듈화
+  - iOS팀 팀장으로서 프로젝트 기획, 일정 관리, 업무 분배, 원활한 협업을 위한 팀 내 Git 강의 및 tech lead, trouble shooting 등의 역할 수행하고 Backend와의 커뮤니케이션을 주도
+- 성과
+  - Then, Alamofire, SnapKit, KingFisher 등 다양한 라이브러리를 적용하여 생산성 향상
+  - [SwiftLint 및 자체적으로 정한 세부 규칙을 적용](https://www.notion.so/Rules-8f33858a434e4b8e9cdc6ff72a96338a)하여 코드 리뷰 및 다른 사람의 코드를 수정할 때 가독성을 높임
+  - iOS팀 팀장으로서 프로젝트 기획, 일정 관리, 업무 분배, tech lead 역할을 한 경험을 통해 스스로 부족한 점을 파악하고 개선할 수 있는 계기가 됨
+  - 팀 단위로 협업하는 경험은 원만한 협업과 커뮤니케이션이 이루어지기 위한 방법을 고민해 보는 기회가 됨
 
 ## Design
 
