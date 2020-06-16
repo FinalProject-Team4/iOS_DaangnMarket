@@ -111,6 +111,10 @@
   - App이 종료된 상태에서 push notification을 누르면 `application(_:didFinishLaunchingWithOptions)`에서 `launchOptions?[.remoteNotification]`으로 noti 정보를 가져옴
   - 하지만, `UserNotificationCenterDelegate`에서 `userNotificationcenter(_:didReceive:withCompleetionHandleer:)`를 구현하는 경우 `launchOptions`를 사용할 수 없고, push notification을 선택하는 동작은 모두 `didReceive` delegate method에서 이루어진다.
   - `NotificationTrigger` class를 사용하여 `didReceive` method가 호출되었을 때 앱의 상태(notRunning, foreground, background)에 따라 알림페이지로 이동시키는 trigger를 발생시켜서 해결
+-  Git을 사용하여 협업할 때 `*xcodeproj` 프로젝트 파일에서 conflict이 발생하는 문제
+  - 프로젝트의 모든 정보를 담고 있는 `*xcodeproj` 파일은 폴더의 위치만 바뀌어도 내부 코드가 바뀌기 때문에 git이 변경 사항으로 tracking하게 됨
+  - GitKraken 등 GUI 툴을 사용하면 project의 source를 바로 확인 가능하여 conflict를 쉽게 해결할 수 있었음
+  - GUI 툴을 사용하지 않는 다른 팀의 project file conflict를 해결할 때 raw source code를 찾아서 구조를 분석하여 문제를 해결함
 
 ---
 
