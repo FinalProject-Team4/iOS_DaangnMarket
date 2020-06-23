@@ -15,19 +15,21 @@ class PageChatLikeView: UIView {
     $0.image = UIImage(systemName: "bubble.left.and.bubble.right")
     $0.contentMode = .scaleAspectFit
     $0.clipsToBounds = true
-    $0.tintColor = UIColor(named: ColorReference.subText.rawValue)
+    $0.tintColor = UIColor(named: ColorReference.navigationShadow.rawValue)
   }
   private let numberOfChat = UILabel().then {
-    $0.textColor = UIColor(named: ColorReference.subText.rawValue)
+    $0.textColor = UIColor(named: ColorReference.navigationShadow.rawValue)
+    $0.font = UIFont.systemFont(ofSize: 15)
   }
   private let heartMark = UIImageView().then {
     $0.image = UIImage(systemName: "heart")
     $0.contentMode = .scaleAspectFit
     $0.clipsToBounds = true
-    $0.tintColor = UIColor(named: ColorReference.subText.rawValue)
+    $0.tintColor = UIColor(named: ColorReference.navigationShadow.rawValue)
   }
   private let numberOfLike = UILabel().then {
-    $0.textColor = UIColor(named: ColorReference.subText.rawValue)
+    $0.textColor = UIColor(named: ColorReference.navigationShadow.rawValue)
+    $0.font = UIFont.systemFont(ofSize: 15)
   }
   
   // MARK: Initialize
@@ -47,8 +49,8 @@ class PageChatLikeView: UIView {
   }
   
   func setupAttributes() {
-    numberOfChat.text = "1"
-    numberOfLike.text = "2"
+//    numberOfChat.text = "1"
+//    numberOfLike.text = "2"
   }
   
   func setupConstraints() {
@@ -64,7 +66,7 @@ class PageChatLikeView: UIView {
     self.numberOfChat.then { self.addSubview($0) }
         .snp.makeConstraints {
           $0.top.equalTo(storyBubbleImage)
-          $0.leading.equalTo(storyBubbleImage.snp.trailing).offset(spacing / 2)
+          $0.leading.equalTo(storyBubbleImage.snp.trailing).offset(spacing / 8)
       }
     self.heartMark.then { self.addSubview($0) }
       .snp.makeConstraints {
@@ -75,8 +77,23 @@ class PageChatLikeView: UIView {
     self.numberOfLike.then { self.addSubview($0) }
       .snp.makeConstraints {
         $0.top.equalTo(heartMark)
-        $0.leading.equalTo(heartMark.snp.trailing).offset(spacing / 2)
+        $0.leading.equalTo(heartMark.snp.trailing).offset(spacing / 8)
         $0.trailing.equalToSuperview()
+    }
+  }
+  
+  func configure(chat: Int, like: Int) {
+    if chat == 0 {
+      self.numberOfChat.text = ""
+      self.storyBubbleImage.isHidden = true
+    } else {
+      self.numberOfChat.text = String(chat)
+    }
+    if like == 0 {
+      self.numberOfLike.text = ""
+      self.heartMark.isHidden = true
+    } else {
+      self.numberOfLike.text = String(like)
     }
   }
 }
